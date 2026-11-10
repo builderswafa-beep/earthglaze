@@ -19,9 +19,7 @@ export default function GiftBoxUnboxing({
   const pulseRef = useRef(null);
 
   const heroHeaderRef = useRef(null);
-  const boxWrapperRef = useRef(null);
-  const lidRef = useRef(null);
-  const glowRef = useRef(null);
+  const boxStageRef = useRef(null);
   const actionButtonsRef = useRef(null);
 
   const [copied, setCopied] = useState(false);
@@ -149,13 +147,38 @@ export default function GiftBoxUnboxing({
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (prefersReducedMotion) {
-      if (checkmarkBadgeRef.current) gsap.set(checkmarkBadgeRef.current, { scale: 0.6, y: -20, opacity: 1 });
+      if (checkmarkBadgeRef.current) gsap.set(checkmarkBadgeRef.current, { scale: 0.55, y: -22, opacity: 1 });
       if (heroHeaderRef.current) gsap.set(heroHeaderRef.current, { y: 0, opacity: 1 });
-      if (boxWrapperRef.current) gsap.set(boxWrapperRef.current, { y: 0, opacity: 1, scale: 1 });
-      if (lidRef.current) gsap.set(lidRef.current, { rotateX: -110, y: -16, opacity: 0.9 });
+      if (boxStageRef.current) gsap.set(boxStageRef.current, { y: 0, opacity: 1, scale: 1 });
       if (actionButtonsRef.current) gsap.set(actionButtonsRef.current, { y: 0, opacity: 1 });
-      const products = containerRef.current?.querySelectorAll('.purchased-product-unit');
-      if (products) gsap.set(products, { y: -45, scale: 1, opacity: 1 });
+      
+      const productUnits = containerRef.current?.querySelectorAll('.floating-product-unit');
+      if (productUnits) {
+        productUnits.forEach((unit, i) => {
+          const count = displayProducts.length;
+          let targetY = -35;
+          let targetX = 0;
+          let rot = 0;
+          if (count === 3) {
+            targetX = i === 0 ? -10 : i === 1 ? 0 : 10;
+            targetY = i === 1 ? -45 : -35;
+            rot = i === 0 ? -3 : i === 1 ? 0 : 3;
+          } else if (count === 2) {
+            targetX = i === 0 ? -12 : 12;
+            targetY = -40;
+            rot = i === 0 ? -3 : 3;
+          } else if (count === 1) {
+            targetX = 0;
+            targetY = -45;
+            rot = 0;
+          }
+          gsap.set(unit, { y: targetY, x: targetX, rotation: rot, scale: 1.0, zIndex: 40 + i });
+          const shadow = unit.querySelector('.product-shadow');
+          if (shadow) gsap.set(shadow, { opacity: 0.75, scale: 1 });
+          const tag = unit.querySelector('.product-tag');
+          if (tag) gsap.set(tag, { opacity: 1, y: 0 });
+        });
+      }
       if (onComplete) onComplete();
       return;
     }
@@ -173,19 +196,18 @@ export default function GiftBoxUnboxing({
       const particles = particlesRef.current;
       const pulse = pulseRef.current;
       const heroHeader = heroHeaderRef.current;
-      const boxWrapper = boxWrapperRef.current;
-      const lid = lidRef.current;
-      const glow = glowRef.current;
+      const boxStage = boxStageRef.current;
       const buttons = actionButtonsRef.current;
-      const productUnits = containerRef.current.querySelectorAll('.purchased-product-unit');
+      const productUnits = containerRef.current?.querySelectorAll('.floating-product-unit');
 
       // -----------------------------------------------------------------------
       // 1. OPENING SUCCESS ANIMATION
       // - Clean green circular success indicator
       // - Animated white tick mark drawing itself via SVG stroke animation
-      // - Subtle green glow and a few small outward particles
-      // - Smooth scale-in and bounce effect (Flipkart / Amazon standard)
-      // - Holds briefly, then smoothly shrinks and transitions upwards
+      // - 8 radiating green tick rays
+      // - Gentle expanding pulse ring
+      // - Smooth scale-in and elastic pop
+      // - Holds briefly, then glides up into header position
       // -----------------------------------------------------------------------
       if (badge && circle && check) {
         const circleLength = circle.getTotalLength ? circle.getTotalLength() : 200;
@@ -195,175 +217,219 @@ export default function GiftBoxUnboxing({
         gsap.set(check, { strokeDasharray: checkLength, strokeDashoffset: checkLength });
         gsap.set(badge, { scale: 0.15, opacity: 0 });
 
-        if (particles) {
-          gsap.set(particles, { scale: 0.4, opacity: 0 });
-        }
-        if (pulse) {
-          gsap.set(pulse, { scale: 0.8, opacity: 0 });
-        }
+        if (particles) gsap.set(particles, { scale: 0.4, opacity: 0 });
+        if (pulse) gsap.set(pulse, { scale: 0.8, opacity: 0 });
 
-        // 1. Green circle scales in with satisfying elastic pop
+        masterTl
+          .to(badge, {
+            scale: 1,
+            opacity: 1,
+            duration: 0.45,
+            ease: 'back.out(2)',
+          })
+          .to(check, {
+            strokeDashoffset: 0,
+            duration: 0.35,
+            ease: 'power2.out',
+          }, '-=0.18')
+          .to(particles, {
+            scale: 1,
+            opacity: 1,
+            duration: 0.4,
+            ease: 'back.out(2)',
+          }, '<0.05')
+          .to(circle, {
+            strokeDashoffset: 0,
+            duration: 0.3,
+            ease: 'power2.out',
+          }, '-=0.25')
+          .fromTo(pulse,
+            { scale: 0.85, opacity: 0.75 },
+            { scale: 2.0, opacity: 0, duration: 0.65, ease: 'power2.out' },
+            '-=0.2'
+          );
+
+        // Hold completed success symbol briefly
+        masterTl.to({}, { duration: 0.35 });
+
+        // Smoothly shrink and glide upwards into header position
         masterTl.to(badge, {
-          scale: 1,
-          opacity: 1,
-          duration: 0.48,
-          ease: 'back.out(2)',
-        })
-        // 2. White checkmark draws itself
-        .to(check, {
-          strokeDashoffset: 0,
-          duration: 0.38,
-          ease: 'power2.out',
-        }, '-=0.2')
-        // 3. Subtle particles radiate outward
-        .to(particles, {
-          scale: 1,
-          opacity: 1,
-          duration: 0.42,
-          ease: 'back.out(2)',
-        }, '<0.05')
-        // 4. Circle stroke completes
-        .to(circle, {
-          strokeDashoffset: 0,
-          duration: 0.35,
-          ease: 'power2.out',
-        }, '-=0.3')
-        // 5. Gentle expanding pulse
-        .fromTo(pulse,
-          { scale: 0.85, opacity: 0.75 },
-          { scale: 2.2, opacity: 0, duration: 0.7, ease: 'power2.out' },
-          '-=0.25'
-        );
-
-        // Hold completed success symbol briefly (0.4s)
-        masterTl.to({}, { duration: 0.4 });
-
-        // Smoothly shrink and transition upwards into header position
-        masterTl.to(badge, {
-          scale: 0.58,
-          y: -24,
-          duration: 0.55,
+          scale: 0.55,
+          y: -22,
+          duration: 0.5,
           ease: 'power3.inOut',
         });
 
         if (particles) {
           masterTl.to(particles, {
-            scale: 0.4,
-            opacity: 0,
-            duration: 0.32,
-            ease: 'power2.in',
+            scale: 0.55,
+            y: -22,
+            opacity: 0.9,
+            duration: 0.5,
+            ease: 'power3.inOut',
           }, '<');
         }
 
-        // Fade in Heading, Subtitle & Copyable Order ID Pill
+        // Reveal Heading, Subtitle & Order ID Pill
         if (heroHeader) {
-          gsap.set(heroHeader, { y: 25, opacity: 0 });
+          gsap.set(heroHeader, { y: 20, opacity: 0 });
           masterTl.to(heroHeader, {
             y: 0,
             opacity: 1,
-            duration: 0.55,
+            duration: 0.5,
             ease: 'power3.out',
-          }, '-=0.35');
+          }, '-=0.3');
         }
       }
 
       // -----------------------------------------------------------------------
-      // 2. 3D EARTHGLAZE GIFT BOX ENTERS (Moves gently into position)
-      // Box arrives CLOSED with connected lid and soft contact shadows
+      // 2. LUXURY EARTHGLAZE OPEN GIFT BOX ENTRANCE
+      // - The newly provided EarthGlaze box appears smoothly in center
+      // - The purchased products start neatly INSIDE the open box cavity!
+      // - The front lip overlay (z-30) covers their lower portions naturally
       // -----------------------------------------------------------------------
-      if (boxWrapper) {
-        gsap.set(boxWrapper, { y: 55, scale: 0.88, opacity: 0 });
-        masterTl.to(boxWrapper, {
+      if (boxStage) {
+        gsap.set(boxStage, { y: 35, scale: 0.92, opacity: 0 });
+        masterTl.to(boxStage, {
           y: 0,
           scale: 1,
           opacity: 1,
-          duration: 0.75,
-          ease: 'back.out(1.25)',
-        }, '-=0.25');
+          duration: 0.65,
+          ease: 'back.out(1.2)',
+        }, '-=0.2');
       }
 
-      // -----------------------------------------------------------------------
-      // 3. GOLD RIBBON & LID OPEN NATURALLY AROUND PHYSICAL BACK HINGE
-      // Connected lid and base during the opening animation!
-      // -----------------------------------------------------------------------
-      if (lid) {
-        masterTl.to(lid, {
-          rotateX: -110,
-          y: -18,
-          duration: 0.95,
-          ease: 'power2.inOut',
-        }, '+=0.15');
-      }
-
-      // Soft natural interior light illuminates the cavity
-      if (glow) {
-        masterTl.fromTo(glow,
-          { scale: 0.5, opacity: 0 },
-          { scale: 1.3, opacity: 0.85, duration: 0.5, ease: 'power2.out' },
-          '-=0.7'
-        )
-        .to(glow, {
-          opacity: 0.25,
-          duration: 0.6,
-          ease: 'power1.inOut',
-        }, '+=0.1');
-      }
+      // Pause briefly so customer sees the products nested neatly inside the open box
+      masterTl.to({}, { duration: 0.35 });
 
       // -----------------------------------------------------------------------
-      // 4. PURCHASED PRODUCTS GENTLY RISE INTO SHOWCASE ARRANGEMENT
-      // Products start inside, rise naturally over front wall, settle in front!
+      // 3. PRODUCTS FLOAT OUT OF THE BOX ONE BY ONE!
+      // - Starts neatly inside the open box cavity
+      // - Smoothly floats vertically UP out of cavity, clearing the front rim
+      // - Elevates z-index to 40 in mid-air
+      // - Floats forward and settles into aligned showcase formation in front of cavity
+      // - Realistic contact drop shadow fades in beneath each product
+      // - Frosted formulation tag reveals
+      // - Next product floats out sequenced one by one!
       // -----------------------------------------------------------------------
-      if (productUnits.length > 0) {
-        gsap.set(productUnits, {
-          y: 40,
-          scale: 0.65,
-          opacity: 0,
+      if (productUnits && productUnits.length > 0) {
+        const count = displayProducts.length;
+
+        productUnits.forEach((unit, idx) => {
+          const shadow = unit.querySelector('.product-shadow');
+          const tag = unit.querySelector('.product-tag');
+
+          // Destination landing position: hovering gracefully in showcase alignment
+          let targetX = 0;
+          let targetY = -35;
+          let targetRot = 0;
+
+          if (count === 3) {
+            targetX = idx === 0 ? -10 : idx === 1 ? 0 : 10;
+            targetY = idx === 1 ? -45 : -35;
+            targetRot = idx === 0 ? -3 : idx === 1 ? 0 : 3;
+          } else if (count === 2) {
+            targetX = idx === 0 ? -12 : 12;
+            targetY = -40;
+            targetRot = idx === 0 ? -3 : 3;
+          } else if (count === 1) {
+            targetX = 0;
+            targetY = -45;
+            targetRot = 0;
+          }
+
+          // Initial inside-box state: start tucked inside cavity behind front wall
+          gsap.set(unit, {
+            y: 0,
+            x: 0,
+            scale: 1.0,
+            zIndex: 20 + idx, // behind front lip (z-30)
+          });
+          if (shadow) gsap.set(shadow, { opacity: 0, scale: 0.4 });
+          if (tag) gsap.set(tag, { opacity: 0, y: 10 });
+
+          // Product timeline: floats out one by one
+          const prodTl = gsap.timeline();
+
+          // Phase A: Float vertically UP out of cavity, clearing front gold rim
+          prodTl.to(unit, {
+            y: -75,
+            scale: 1.05,
+            duration: 0.50,
+            ease: 'power2.out',
+          })
+          // Phase B: Elevate z-index to 40+ so it is now in front of the box front wall
+          .call(() => {
+            unit.style.zIndex = `${40 + idx}`;
+          })
+          // Phase C: Float gracefully forward & settle into aligned showcase position
+          .to(unit, {
+            y: targetY,
+            x: targetX,
+            rotation: targetRot,
+            scale: 1.0,
+            duration: 0.55,
+            ease: 'power2.inOut',
+          })
+          // Phase D: Realistic contact shadow fades in underneath
+          .to(shadow, {
+            opacity: 0.75,
+            scale: 1.0,
+            duration: 0.35,
+            ease: 'power2.out',
+          }, '-=0.25')
+          // Phase E: Formulation tag reveals
+          .to(tag, {
+            opacity: 1,
+            y: 0,
+            duration: 0.35,
+            ease: 'power2.out',
+          }, '-=0.2');
+
+          // Sequence each product float-out one by one!
+          masterTl.add(prodTl, idx === 0 ? '+=0.05' : '-=0.2');
         });
-
-        // Step 1: Rise vertically out of the box cavity, clearing the front wall
-        masterTl.to(productUnits, {
-          y: (i) => (displayProducts.length === 1 ? -95 : i === 1 ? -105 : -95),
-          scale: 1.05,
-          opacity: 1,
-          duration: 0.8,
-          stagger: 0.08,
-          ease: 'back.out(1.4)',
-        }, '-=0.6');
-
-        // Step 2: Settle gently into presentation arrangement in golden tissue
-        masterTl.to(productUnits, {
-          y: (i) => (displayProducts.length === 1 ? -46 : i === 1 ? -52 : -46),
-          scale: 1.0,
-          duration: 0.7,
-          stagger: 0.06,
-          ease: 'power2.inOut',
-        }, '+=0.05');
       }
 
       // -----------------------------------------------------------------------
-      // 5. SUBTLE ORGANIC FLOATING MOTION
-      // Box remains open behind products with continuous subtle hover
+      // 4. CONTINUOUS ORGANIC BREATHING HOVER
+      // Products gently float in mid-air once settled
       // -----------------------------------------------------------------------
       masterTl.add(() => {
-        if (boxWrapper) {
-          gsap.to(boxWrapper, {
-            y: '-=6px',
-            duration: 2.8,
-            yoyo: true,
-            repeat: -1,
-            ease: 'sine.inOut',
+        if (productUnits && productUnits.length > 0) {
+          productUnits.forEach((unit, idx) => {
+            const shadow = unit.querySelector('.product-shadow');
+            gsap.to(unit, {
+              y: '-=6px',
+              duration: 2.8 + idx * 0.25,
+              yoyo: true,
+              repeat: -1,
+              ease: 'sine.inOut',
+              delay: idx * 0.15,
+            });
+            if (shadow) {
+              gsap.to(shadow, {
+                scale: 0.88,
+                opacity: 0.55,
+                duration: 2.8 + idx * 0.25,
+                yoyo: true,
+                repeat: -1,
+                ease: 'sine.inOut',
+                delay: idx * 0.15,
+              });
+            }
           });
         }
       });
 
       // -----------------------------------------------------------------------
-      // 6. ACTION BUTTONS APPEAR (Track Your Order & Continue Shopping)
+      // 5. ACTION BUTTONS APPEAR (Track Your Order & Continue Shopping)
       // -----------------------------------------------------------------------
       if (buttons) {
         masterTl.fromTo(buttons,
-          { y: 20, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.55, ease: 'power3.out' },
-          '-=0.2'
+          { y: 18, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.5, ease: 'power3.out' },
+          '-=0.05'
         );
       }
 
@@ -376,14 +442,13 @@ export default function GiftBoxUnboxing({
     <div
       ref={containerRef}
       className="relative w-full max-w-4xl mx-auto flex flex-col items-center justify-center select-none pt-2 sm:pt-4 pb-2"
-      style={{ perspective: '1200px' }}
     >
-
       {/* =====================================================================
           1. FIRST ANIMATION: CLEAN ATTRACTIVE GREEN SUCCESS CIRCLE & TICK
           - Clean green circular success indicator
           - Animated white checkmark drawing via SVG stroke
-          - Subtle green glow and small outward particle sparkles
+          - 8 radiating green rays matching Reference 1 & 2
+          - Subtle expanding pulse ring
           - Smooth scale-in & bounce effect (Flipkart / Amazon standard)
           - Holds briefly, then glides upward into header position
           ===================================================================== */}
@@ -493,230 +558,131 @@ export default function GiftBoxUnboxing({
       </div>
 
       {/* =====================================================================
-          3. PREMIUM 3D EARTHGLAZE GIFT BOX & REAL PRODUCT SHOWCASE
-          - Forest-green premium rigid gift-box material
-          - Gold foil EarthGlaze logo and filigree
-          - Separate 3D hinged lid connected at the back
-          - Golden crumpled tissue paper cushion inside cavity
-          - Products start inside, rise over front wall, settle in front
-          - Soft natural contact shadow underneath (ZERO gray polygons!)
+          3. NEW LUXURY EARTHGLAZE OPEN GIFT BOX STAGE
+          - Uses the newly provided official EarthGlaze gift box image exactly
+          - Preserves all colors, logo, leaves, icons and 3D proportions
+          - Products start neatly INSIDE the open box cavity
+          - Products smoothly float out one by one with realistic contact shadows
+          - Staggered, aligned showcase formation with zero overlapping
           ===================================================================== */}
       <div
-        ref={boxWrapperRef}
-        className="relative z-20 flex flex-col items-center justify-center w-full max-w-[620px] px-2 sm:px-4 mt-10 sm:mt-12 opacity-0"
-        style={{
-          transformStyle: 'preserve-3d',
-          transform: 'rotateX(8deg)',
-        }}
+        ref={boxStageRef}
+        className="relative z-20 w-full max-w-[440px] sm:max-w-[500px] aspect-[662/649] mx-auto mt-6 sm:mt-8 opacity-0"
       >
-        {/* Soft Natural Studio Contact Shadow beneath Box (ZERO gray polygons) */}
+        {/* Soft Ambient Contact Studio Shadow beneath Box */}
         <div
-          className="absolute -bottom-6 w-[85%] h-12 rounded-[100%] pointer-events-none"
+          className="absolute -bottom-5 left-1/2 -translate-x-1/2 w-[88%] h-10 rounded-[100%] pointer-events-none"
           style={{
-            background: 'radial-gradient(ellipse at center, rgba(16, 51, 33, 0.38) 0%, rgba(40, 30, 15, 0.18) 45%, transparent 75%)',
+            background: 'radial-gradient(ellipse at center, rgba(16, 51, 33, 0.42) 0%, rgba(30, 20, 10, 0.18) 50%, transparent 75%)',
             filter: 'blur(14px)',
-            transform: 'rotateX(75deg)',
           }}
         />
 
-        {/* Left Curling Gold Satin Ribbon (Matching Reference 2) */}
-        <div className="absolute -left-12 sm:-left-20 -bottom-2 w-28 sm:w-36 h-20 pointer-events-none z-10 opacity-90">
-          <svg viewBox="0 0 120 70" fill="none" className="w-full h-full drop-shadow-md">
-            <path
-              d="M115 35 C85 35 65 10 35 22 C15 30 5 55 22 62 C38 68 50 48 68 42"
-              stroke="url(#goldRibbonGradL)"
-              strokeWidth="9"
-              strokeLinecap="round"
-            />
-            <defs>
-              <linearGradient id="goldRibbonGradL" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#C9A45C" />
-                <stop offset="45%" stopColor="#FDE047" />
-                <stop offset="75%" stopColor="#D4AF37" />
-                <stop offset="100%" stopColor="#96681E" />
-              </linearGradient>
-            </defs>
-          </svg>
-        </div>
+        {/* Layer 1: Base Open Box (Lid upright + Champagne Interior Cavity + Box Base) */}
+        <img
+          src="/assets/earthglaze_luxury_box_crop.png"
+          alt="EarthGlaze Luxury Gift Box"
+          className="absolute inset-0 w-full h-full object-contain pointer-events-none select-none z-10 drop-shadow-md"
+        />
 
-        {/* Right Curling Gold Satin Ribbon (Matching Reference 2) */}
-        <div className="absolute -right-12 sm:-right-20 -bottom-2 w-28 sm:w-36 h-20 pointer-events-none z-10 opacity-90">
-          <svg viewBox="0 0 120 70" fill="none" className="w-full h-full drop-shadow-md">
-            <path
-              d="M5 35 C35 35 55 10 85 22 C105 30 115 55 98 62 C82 68 70 48 52 42"
-              stroke="url(#goldRibbonGradR)"
-              strokeWidth="9"
-              strokeLinecap="round"
-            />
-            <defs>
-              <linearGradient id="goldRibbonGradR" x1="100%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stopColor="#C9A45C" />
-                <stop offset="45%" stopColor="#FDE047" />
-                <stop offset="75%" stopColor="#D4AF37" />
-                <stop offset="100%" stopColor="#96681E" />
-              </linearGradient>
-            </defs>
-          </svg>
-        </div>
-
-        {/* -------------------------------------------------------------------
-            3D GIFT BOX BODY & CONNECTED LID
-            ------------------------------------------------------------------- */}
-        <div
-          className="relative w-full max-w-[480px] h-36 sm:h-44 rounded-2xl"
-          style={{
-            transformStyle: 'preserve-3d',
-            background: 'linear-gradient(145deg, #16482B 0%, #0D3520 50%, #072514 100%)',
-            boxShadow: '0 25px 45px -12px rgba(10, 35, 20, 0.4), inset 0 1px 0 rgba(212, 175, 55, 0.35)',
-          }}
-        >
-          {/* Subtle Metallic Gold Edge Trim */}
-          <div className="absolute inset-1 rounded-xl border border-[#D4AF37]/35 pointer-events-none" />
-
-          {/* Golden Interior Radiance (emerges when lid rotates open) */}
-          <div
-            ref={glowRef}
-            className="absolute -top-12 left-1/2 -translate-x-1/2 w-64 sm:w-80 h-36 rounded-full pointer-events-none opacity-0 z-10"
-            style={{
-              background: 'radial-gradient(ellipse at center, rgba(254, 240, 138, 0.9) 0%, rgba(212, 175, 55, 0.45) 45%, transparent 75%)',
-              filter: 'blur(16px)',
-            }}
-          />
-
-          {/* Golden Crumpled Tissue Paper Bed inside Box Cavity */}
-          <div
-            className="absolute inset-x-2 top-2 h-20 sm:h-24 rounded-xl pointer-events-none z-10 overflow-hidden"
-            style={{
-              background: 'linear-gradient(180deg, #F0D597 0%, #DEB050 55%, #C29334 100%)',
-              boxShadow: 'inset 0 4px 10px rgba(0, 0, 0, 0.25)',
-            }}
-          >
-            {/* Crinkle Paper Texture Lines */}
-            <div className="w-full h-full opacity-35 bg-[radial-gradient(#96681E_1px,transparent_1px)] [background-size:12px_12px]" />
-          </div>
-
-          {/* Center Vertical Gold Satin Ribbon Band */}
-          <div
-            className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-8 sm:w-9 pointer-events-none z-25"
-            style={{
-              background: 'linear-gradient(90deg, #A8812D 0%, #FDE047 50%, #A8812D 100%)',
-              boxShadow: '0 0 6px rgba(0, 0, 0, 0.25)',
-            }}
-          />
-
-          {/* Authentic EarthGlaze Gold Foil Logo & Filigree on Front Face */}
-          <div className="absolute inset-x-0 bottom-0 h-20 sm:h-24 flex flex-col items-center justify-center z-25 pointer-events-none text-center px-4">
-            {/* Botanical Leaf Silhouette */}
-            <svg className="w-5 h-5 text-[#FDE047] mb-0.5 drop-shadow-sm" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 2C8 6 4 10 4 15a8 8 0 0 0 16 0c0-5-4-9-8-13zm0 18a6 6 0 0 1-6-6c0-3.3 2.7-6.5 6-9.5 3.3 3 6 6.2 6 9.5a6 6 0 0 1-6 6z" />
-            </svg>
-            <span
-              className="font-sans font-bold text-xs sm:text-sm tracking-[0.26em] uppercase text-[#FBF5D4]"
-              style={{ textShadow: '0 2px 4px rgba(0,0,0,0.6)' }}
-            >
-              EARTHGLAZE
-            </span>
-            <span className="text-[8px] sm:text-[9px] tracking-[0.22em] text-[#EAB308] uppercase font-sans mt-0.5">
-              Natural Skincare
-            </span>
-          </div>
-
-          {/* -----------------------------------------------------------------
-              SEPARATE 3D HINGED LID (Properly connected at top-back edge!)
-              Rotates backwards around back hinge (-110deg)
-              ----------------------------------------------------------------- */}
-          <div
-            ref={lidRef}
-            className="absolute -top-3 left-[-3px] right-[-3px] h-12 sm:h-14 rounded-t-2xl z-30"
-            style={{
-              transformOrigin: '50% 0%',
-              transformStyle: 'preserve-3d',
-              background: 'linear-gradient(145deg, #1B5232 0%, #0D3520 60%, #072514 100%)',
-              boxShadow: '0 -4px 12px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(254, 240, 138, 0.6)',
-            }}
-          >
-            {/* Gold Rim Bevel along Bottom Lip */}
-            <div className="absolute inset-x-0 bottom-0 h-1.5 bg-gradient-to-r from-[#A8812D] via-[#FDE047] to-[#A8812D] rounded-b-xs" />
-
-            {/* Lid Vertical Gold Satin Ribbon */}
-            <div
-              className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-8 sm:w-9"
-              style={{
-                background: 'linear-gradient(90deg, #A8812D 0%, #FDE047 50%, #A8812D 100%)',
-              }}
-            />
-
-            {/* 3D Gold Ribbon Bow Ornament in Center */}
-            <div className="absolute -top-3 left-1/2 -translate-x-1/2 flex items-center justify-center drop-shadow-md">
-              <div className="w-7 h-4 bg-gradient-to-r from-[#B8860B] via-[#FDE047] to-[#B8860B] rounded-full border border-[#D4AF37] rotate-[-15deg] -mr-1" />
-              <div className="w-3.5 h-3.5 rounded-full bg-[#FDE047] border border-[#B8860B] shadow-sm z-10" />
-              <div className="w-7 h-4 bg-gradient-to-r from-[#B8860B] via-[#FDE047] to-[#B8860B] rounded-full border border-[#D4AF37] rotate-[15deg] -ml-1" />
-            </div>
-          </div>
-        </div>
-
-        {/* -------------------------------------------------------------------
-            REAL PRODUCT PRESENTATION (Only products actually purchased!)
-            Uses original EarthGlaze packaging PNGs with natural proportions
-            ------------------------------------------------------------------- */}
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20">
+        {/* Layer 2: Products Layer (Starts inside cavity, floats out one-by-one) */}
+        <div className="absolute inset-0 pointer-events-none">
           {displayProducts.map((prod, idx) => {
             const count = displayProducts.length;
-            let xOffset = 0;
-            let rot = 0;
-            let zIndex = 20;
 
-            if (count === 1) {
-              xOffset = 0;
-              rot = 0;
-              zIndex = 22;
+            // Inside-box starting coordinates (percentage of 662x649 box)
+            let startLeft = '38%';
+            let startTop = '34%';
+            let startWidth = '27%';
+            let startRot = 0;
+
+            if (count === 3) {
+              if (idx === 0) {
+                startLeft = '22%';
+                startTop = '40%';
+                startWidth = '24%';
+                startRot = -3;
+              } else if (idx === 1) {
+                startLeft = '43%';
+                startTop = '38%';
+                startWidth = '25%';
+                startRot = 0;
+              } else if (idx === 2) {
+                startLeft = '64%';
+                startTop = '40%';
+                startWidth = '21%';
+                startRot = 3;
+              }
             } else if (count === 2) {
-              xOffset = idx === 0 ? -90 : 90;
-              rot = idx === 0 ? -5 : 5;
-              zIndex = idx === 0 ? 21 : 22;
-            } else if (count === 3) {
-              xOffset = idx === 0 ? -125 : idx === 1 ? 0 : 125;
-              rot = idx === 0 ? -7 : idx === 1 ? 0 : 7;
-              zIndex = idx === 1 ? 24 : 21;
+              if (idx === 0) {
+                startLeft = '28%';
+                startTop = '39%';
+                startWidth = '25%';
+                startRot = -2;
+              } else if (idx === 1) {
+                startLeft = '52%';
+                startTop = '39%';
+                startWidth = '25%';
+                startRot = 2;
+              }
+            } else if (count === 1) {
+              startLeft = '39%';
+              startTop = '39%';
+              startWidth = '26%';
+              startRot = 0;
             }
 
             return (
               <div
                 key={prod.id || idx}
-                className="absolute flex flex-col items-center pointer-events-none"
+                className="floating-product-unit absolute flex flex-col items-center pointer-events-none"
                 style={{
-                  transform: `translateX(${xOffset}px) rotate(${rot}deg)`,
-                  zIndex,
+                  left: startLeft,
+                  top: startTop,
+                  width: startWidth,
+                  transform: `rotate(${startRot}deg)`,
+                  zIndex: 20 + idx, // initially inside cavity, behind front wall (z-30)
                 }}
               >
-                <div className="purchased-product-unit flex flex-col items-center">
-                  {/* Authentic Packaging Product Image */}
-                  <div className="relative w-28 sm:w-36 h-28 sm:h-36 flex items-center justify-center">
-                    <img
-                      src={prod.image}
-                      alt={prod.name}
-                      className="max-h-full max-w-full object-contain select-none"
-                      style={{
-                        filter: 'drop-shadow(0 14px 22px rgba(10, 30, 15, 0.45))',
-                      }}
-                    />
-                  </div>
+                {/* Packshot Image Container */}
+                <div className="relative w-full aspect-square flex items-center justify-center">
+                  <img
+                    src={prod.image}
+                    alt={prod.name}
+                    className="max-h-full max-w-full object-contain select-none drop-shadow-[0_8px_16px_rgba(10,30,15,0.35)]"
+                  />
+                </div>
 
-                  {/* Elegant Frosted Formulation Pill Tag */}
-                  <div className="mt-1 px-3 py-1 rounded-full bg-[#103321]/92 backdrop-blur-md border border-[#D4AF37]/60 shadow-md flex items-center gap-1.5 whitespace-nowrap">
-                    <span className="font-sans font-bold text-[10px] sm:text-xs text-[#FAF7F2] truncate max-w-[170px]">
-                      {prod.qty}× {prod.name}
-                    </span>
-                    <span className="text-[10px] sm:text-xs font-bold text-[#FDE047] shrink-0">
-                      • ₹{prod.price}
-                    </span>
-                  </div>
+                {/* Realistic Oval Contact Drop Shadow beneath settled product */}
+                <div
+                  className="product-shadow w-[85%] h-3 rounded-[100%] pointer-events-none mt-1 opacity-0"
+                  style={{
+                    background: 'radial-gradient(ellipse at center, rgba(16, 51, 33, 0.45) 0%, rgba(30, 20, 10, 0.2) 50%, transparent 75%)',
+                    filter: 'blur(4px)',
+                  }}
+                />
+
+                {/* Elegant Frosted Formulation Pill Tag */}
+                <div className="product-tag mt-1 px-2 sm:px-3 py-0.5 sm:py-1 rounded-full bg-[#103321]/95 backdrop-blur-md border border-[#D4AF37]/70 shadow-md flex items-center gap-1 sm:gap-1.5 whitespace-nowrap opacity-0">
+                  <span className="font-sans font-bold text-[9px] sm:text-xs text-[#FAF7F2] truncate max-w-[90px] sm:max-w-[150px]">
+                    {prod.qty}× {prod.name}
+                  </span>
+                  <span className="text-[9px] sm:text-xs font-bold text-[#FDE047] shrink-0">
+                    • ₹{prod.price}
+                  </span>
                 </div>
               </div>
             );
           })}
         </div>
 
+        {/* Layer 3: Foreground Box Front Lip & Right Side Wall */}
+        {/* Occludes the bottom of products while they are inside the box! */}
+        <img
+          src="/assets/earthglaze_luxury_box_front_crop.png"
+          alt="EarthGlaze Box Front Lip"
+          className="absolute inset-0 w-full h-full object-contain pointer-events-none select-none z-30"
+        />
       </div>
 
       {/* =====================================================================
@@ -725,7 +691,7 @@ export default function GiftBoxUnboxing({
           ===================================================================== */}
       <div
         ref={actionButtonsRef}
-        className="mt-8 flex flex-wrap items-center justify-center gap-3 sm:gap-4 w-full max-w-md z-30 px-4 opacity-0"
+        className="mt-6 sm:mt-8 flex flex-wrap items-center justify-center gap-3 sm:gap-4 w-full max-w-md z-30 px-4 opacity-0"
       >
         <Link
           href={`/track-order?order_number=${activeOrderNum}`}
