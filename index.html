@@ -1,0 +1,2200 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EarthGlaze • Skincare That Feels Personal</title>
+  
+  <!-- SEO & Meta Tags -->
+  <meta name="description" content="Nature-powered skincare crafted with pure ingredients for healthy, glowing skin • made just for you.">
+  <meta name="keywords" content="natural skincare, personal skincare, hydrating face cream, vitamin c serum, aloe vera gel, gentle cleanser, sunscreen spf 50">
+  <meta property="og:title" content="EarthGlaze • Skincare That Feels Personal">
+  <meta property="og:description" content="Nature-powered skincare crafted with pure ingredients for healthy, glowing skin • made just for you.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#235327">
+
+  <!-- Favicon / Logo Symbol -->
+  <link rel="icon" type="image/png" href="assets/earthglaze-logo.png">
+
+  <!-- Google Fonts: Playfair Display & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN for high-velocity responsive utility styling -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          maxWidth: {
+            '1600': '1600px',
+            'screen-1600': '1600px',
+          },
+          colors: {
+            brand: {
+              forest: '#235327',
+              'forest-dark': '#173e23',
+              'forest-hover': '#1b4520',
+              'forest-soft': '#dce8df',
+              amber: '#c28328',
+              'amber-dark': '#a9701d',
+              'amber-light': '#e09935',
+              'amber-soft': '#fcf4ea',
+              cream: '#faf4ee',
+            }
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Custom Design System Styles & Animations -->
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BeautyStore",
+    "name": "EarthGlaze Natural Skincare",
+    "description": "Nature-powered skincare crafted with pure ingredients for healthy, glowing skin • made just for you.",
+    "priceRange": "$$",
+    "currenciesAccepted": "USD"
+  }
+  </script>
+</head>
+
+<body class="bg-[#FAF4EE] text-stone-800 antialiased selection:bg-[#235327] selection:text-white relative overflow-x-hidden">
+
+  <!-- Ambient Luxury Leaf Shadows in Background -->
+  <div class="gobo-leaf-shadow-left" aria-hidden="true"></div>
+  <div class="gobo-leaf-shadow-right" aria-hidden="true"></div>
+
+  <!-- ========================================================================
+       EXACT HEADER (1600px width, matching reference image)
+       ======================================================================== -->
+  <header class="header-nav sticky top-0 z-40 w-full bg-[#FAF4EE]/90 backdrop-blur-md transition-all duration-300">
+    <div class="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12 py-3.5 flex items-center justify-between">
+
+      <!-- Brand Logo (EarthGlaze with leaf & face silhouette on right) -->
+      <a href="#" class="flex items-center gap-2 shrink-0 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-700 rounded-lg animate-entrance-header" aria-label="EarthGlaze Natural Skincare Home">
+        <img 
+          src="assets/earthglaze-logo-hd.png"
+          alt="EarthGlaze • Natural Skincare" 
+          class="h-12 sm:h-14 md:h-16 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.02]"
+        >
+      </a>
+
+      <!-- Desktop Navigation Links (Exact items from reference image) -->
+      <nav class="hidden md:flex items-center gap-2 lg:gap-4 xl:gap-6 animate-entrance-header" aria-label="Main Navigation">
+        
+        <!-- Active Home Pill (Soft mint/sage green background with dark text) -->
+        <a href="#home" class="nav-pill-home text-sm font-semibold tracking-wide" aria-current="page">
+          Home
+        </a>
+<!-- Shop Navigation Link (Matching reference image with subtle chevron) -->
+        <a href="#products" class="nav-link flex items-center gap-1 text-stone-800 font-medium hover:text-[#235327] transition">
+          <span>Shop</span>
+          <svg class="w-3.5 h-3.5 text-stone-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+          </svg>
+        </a>
+
+        <a href="#our-story" class="nav-link">Our Story</a>
+        <a href="#ingredients" class="nav-link">Ingredients</a>
+        <a href="#blog" class="nav-link">Blog</a>
+      </nav>
+
+      <!-- Action Utility Icons (Exact from reference image: Search, User, Wishlist, Bag with 0 badge) -->
+      <div class="flex items-center gap-1.5 sm:gap-3 animate-entrance-header">
+        
+        <!-- Search Icon Button -->
+        <button 
+          id="search-btn" 
+          type="button" 
+          class="nav-icon-btn" 
+          aria-label="Search skincare products (Press Ctrl+K)"
+          title="Search botanicals (Ctrl+K)"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+          </svg>
+        </button>
+
+        <!-- User Profile Button -->
+        <button 
+          id="account-btn" 
+          type="button" 
+          class="nav-icon-btn" 
+          aria-label="Customer Account Profile"
+          title="Account Profile"
+          onclick="alert('EarthGlaze VIP Member Portal: Ready for login integration.')"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+          </svg>
+        </button>
+
+        <!-- Wishlist Heart Button -->
+        <button 
+          id="wishlist-btn" 
+          type="button" 
+          class="nav-icon-btn relative" 
+          aria-label="Wishlist Favorites"
+          title="Wishlist"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+          </svg>
+          <span id="wishlist-badge" class="cart-badge bg-amber-600 hidden text-[10px]">0</span>
+        </button>
+
+        <!-- Shopping Bag / Cart Button with Circular Green 0 Badge -->
+        <button 
+          id="cart-btn" 
+          type="button" 
+          class="nav-icon-btn relative" 
+          aria-label="Shopping Bag"
+          title="Shopping Bag"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+          </svg>
+          <!-- Green Badge with '0' as in reference -->
+          <span id="cart-badge" class="cart-badge">1</span>
+        </button>
+
+        <!-- Mobile Menu Toggle Button (< 768px) -->
+        <button 
+          id="mobile-menu-btn" 
+          type="button" 
+          class="md:hidden nav-icon-btn ml-1" 
+          aria-label="Open Mobile Menu"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
+          </svg>
+        </button>
+
+      </div>
+
+    </div>
+  </header>
+
+<!-- ========================================================================
+       COMBINED HERO SECTION (Exact Reference Replication with Animations)
+       ======================================================================== -->
+  <main id="main-content">
+    <section id="hero-section" class="relative pt-6 pb-20 sm:pb-28 md:pb-36 overflow-hidden bg-[#FAF7F2]">
+      
+      <!-- Seamlessly Blended Natural Stage Backdrop with Pristine Sandstone Rock Pedestal -->
+      <div class="hero-stage-backdrop-wrap absolute inset-0 w-full h-full pointer-events-none select-none overflow-hidden z-0" aria-hidden="true">
+        <img src="assets/hero_natural_stage_backdrop.jpg" alt="" class="w-full h-full object-cover object-bottom pointer-events-none">
+        <!-- Natural Water-to-Cream Environmental Fade Overlay -->
+        <div class="absolute bottom-0 left-0 right-0 h-44 sm:h-56 md:h-64 bg-gradient-to-b from-transparent via-[#FAF7F2]/30 via-70% to-[#FAF7F2] pointer-events-none" aria-hidden="true"></div>
+      </div>
+
+      <!-- Central Ambient Warm Halos -->
+      <div class="hero-center-pedestal-glow" aria-hidden="true"></div>
+
+      <div class="max-w-[1600px] w-full mx-auto px-4 sm:px-8 text-center relative z-10">
+        
+        <!-- 1. Eyebrow: Centered with Flanking Horizontal Lines -->
+        <div class="animate-entrance-eyebrow flex items-center justify-center gap-3.5 mb-4 sm:mb-6">
+          <span class="eyebrow-divider" aria-hidden="true"></span>
+          <span class="text-xs sm:text-sm font-semibold tracking-[0.25em] text-[#3e5444] uppercase">
+            Natural Skincare
+          </span>
+          <span class="eyebrow-divider" aria-hidden="true"></span>
+        </div>
+
+        <!-- 2. Main Headline with DYNAMIC CHANGING TEXT ("Personal.") & Botanical Underline -->
+        <div class="animate-entrance-headline max-w-4xl mx-auto mb-4 sm:mb-6">
+          <h1 class="font-serif text-4xl sm:text-6xl md:text-7xl font-bold text-[#1E3B2B] tracking-tight leading-[1.12]">
+            Skincare That Feels
+            <span class="block mt-1 sm:mt-2">
+              <span class="dynamic-text-wrapper cursor-pointer" title="Hover to pause rotation">
+                <!-- Dynamic rotating word -->
+                <span id="dynamic-rotating-word" class="dynamic-word word-active">Personal.</span>
+                <!-- Exact Botanical Curved Leaf Underline SVG -->
+                <svg class="leaf-underline-svg" viewBox="0 0 240 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M 12 18 C 65 30 175 30 228 14 C 180 23 80 23 12 18 Z" fill="#5A8834"/>
+                </svg>
+              </span>
+            </span>
+          </h1>
+        </div>
+
+        <!-- 3. Sub-description Paragraph -->
+        <div class="animate-entrance-subtext max-w-xl mx-auto mb-8 sm:mb-10">
+          <p class="text-base sm:text-lg text-[#404F44] leading-relaxed font-normal">
+            Nature-powered skincare crafted with pure ingredients for healthy, glowing skin — made just for you.
+          </p>
+        </div>
+
+        <!-- 4. CTA Buttons Row with Micro-Interactions -->
+        <div class="animate-entrance-cta flex items-center justify-center gap-4 sm:gap-5 mb-6 sm:mb-8">
+          
+          <!-- Primary CTA Button -->
+          <button 
+            id="explore-range-btn" 
+            type="button" 
+            class="btn-primary-explore px-7 sm:px-8 py-3.5 sm:py-4 rounded-full font-semibold text-sm sm:text-base tracking-wide flex items-center gap-2 group cursor-pointer"
+          >
+            <span>Explore Our Range</span>
+            <span class="btn-arrow inline-block text-lg font-bold">&rarr;</span>
+          </button>
+
+          <!-- Secondary CTA Button -->
+          <button 
+            id="our-story-btn" 
+            type="button" 
+            class="btn-secondary-story px-7 sm:px-8 py-3.5 sm:py-4 rounded-full font-semibold text-sm sm:text-base tracking-wide flex items-center gap-2.5 cursor-pointer"
+          >
+            <!-- Play icon inside circle -->
+            <svg class="play-icon w-4 h-4 text-[#235327]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+            <span>Our Story</span>
+          </button>
+
+        </div>
+
+        <!-- 5. Interactive 3D Curved Product Carousel -->
+        <div class="hero-carousel-section animate-entrance-cards w-full max-w-6xl mx-auto relative mt-1 sm:mt-2 mb-2 select-none" id="hero-carousel-root">
+          
+          <!-- Subtle Ambient Curved Glow Beneath the Arc -->
+          <div class="hero-curve-ambient-glow pointer-events-none" aria-hidden="true"></div>
+
+          <!-- Soft Edge Vignette Fades (Left & Right) -->
+          <div class="hero-scroll-vignette hero-scroll-vignette-left pointer-events-none" aria-hidden="true"></div>
+          <div class="hero-scroll-vignette hero-scroll-vignette-right pointer-events-none" aria-hidden="true"></div>
+
+          <!-- Left / Right Carousel Navigation Arrow Controls -->
+          <button
+<!-- Left / Right Carousel Navigation Arrow Controls -->
+          <button 
+            id="hero-carousel-prev" 
+            type="button" 
+            class="hero-carousel-nav-btn hero-carousel-prev-btn absolute left-2 sm:left-4 lg:left-8 top-1/2 -translate-y-1/2 z-40 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/90 hover:bg-white text-[#173D2B] shadow-md hover:shadow-lg border border-stone-200/80 flex items-center justify-center transition active:scale-95 cursor-pointer" 
+            aria-label="Previous product"
+          >
+            <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M15 19l-7-7 7-7"/></svg>
+          </button>
+          
+          <button 
+            id="hero-carousel-next" 
+            type="button" 
+            class="hero-carousel-nav-btn hero-carousel-next-btn absolute right-2 sm:right-4 lg:right-8 top-1/2 -translate-y-1/2 z-40 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/90 hover:bg-white text-[#173D2B] shadow-md hover:shadow-lg border border-stone-200/80 flex items-center justify-center transition active:scale-95 cursor-pointer" 
+            aria-label="Next product"
+          >
+            <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 5l7 7-7 7"/></svg>
+          </button>
+
+<!-- 3D Curved Carousel Stage Container -->
+          <div class="hero-curved-carousel-stage relative w-full overflow-visible" id="hero-curved-stage">
+            
+            <!-- Unified Golden Oval Orbit Track Stage -->
+            <div class="hero-stage-oval-track pointer-events-none select-none" aria-hidden="true">
+              <svg viewBox="0 0 640 160" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+                <defs>
+                  <radialGradient id="stageOvalGlow" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#FCE198" stop-opacity="0.45"/>
+                    <stop offset="50%" stop-color="#EBA734" stop-opacity="0.15"/>
+                    <stop offset="100%" stop-color="#FAF4EE" stop-opacity="0"/>
+                  </radialGradient>
+                </defs>
+                <!-- Floor Ambient Ellipse -->
+                <ellipse cx="320" cy="80" rx="290" ry="54" fill="url(#stageOvalGlow)"/>
+                <!-- Outer Dotted Oval Orbit Track -->
+                <ellipse cx="320" cy="80" rx="240" ry="46" stroke="#E5BA68" stroke-width="1.6" stroke-dasharray="8 6" opacity="0.6"/>
+                <!-- Inner Soft Oval Ring -->
+                <ellipse cx="320" cy="80" rx="185" ry="34" stroke="#F4BC46" stroke-width="1.2" opacity="0.35"/>
+              </svg>
+            </div>
+
+            <!-- Product 0: EARTHGLAZE Goat Milk Soap (Initial Center Active Product) -->
+            <div 
+              class="hero-curved-card hero-scroll-card product-interactive-card soap-animated-card soap-is-open is-active-center absolute"
+              data-card-index="0"
+              data-product-id="goat-milk-soap"
+              data-product-name="EARTHGLAZE Goat Milk Soap"
+              data-product-price="₹349"
+              data-product-desc="Creamy Moisture Bar with Pure Goat Milk"
+              tabindex="0"
+              role="button"
+              aria-label="EARTHGLAZE Goat Milk Soap - Click to bring to centre and open"
+            >
+              <div class="product-pedestal-rings soap-pedestal-rings glow-goat" aria-hidden="true">
+                <img src="assets/pedestal-glow-rings.svg" alt="" class="w-full h-full object-contain pointer-events-none">
+              </div>
+              <div class="product-light-rays soap-light-rays glow-goat" aria-hidden="true">
+                <img src="assets/cream-light-rays.svg" alt="" class="w-full h-full object-contain pointer-events-none">
+              </div>
+              <div class="product-lift-arrows soap-lift-arrows" aria-hidden="true">
+                <img src="assets/cap-lift-arrows.svg" alt="" class="w-full h-full object-contain pointer-events-none">
+              </div>
+              <div class="product-assembly-stage soap-assembly-stage hero-mini-stage relative flex items-center justify-center">
+                <!-- Soft Golden Glow for Selected Card -->
+                <div class="champagne-gold-glow pointer-events-none" aria-hidden="true"></div>
+
+                <!-- A few delicate tiny sparkles -->
+                <div class="champagne-sparkles-wrap pointer-events-none select-none" aria-hidden="true">
+                  <span class="c-sparkle c-sparkle-1">✦</span>
+                  <span class="c-sparkle c-sparkle-2">✧</span>
+                  <span class="c-sparkle c-sparkle-3">✦</span>
+                  <span class="c-sparkle c-sparkle-4">✧</span>
+                </div>
+
+                <div class="product-closed-layer soap-closed-layer w-full h-full flex items-center justify-center select-none pointer-events-none">
+                  <img src="assets/goatmilksoap_close_box.png" alt="EARTHGLAZE Goat Milk Soap (Closed Packaging)" class="w-full h-auto object-contain pointer-events-none drop-shadow-md">
+                </div>
+                <div class="product-open-layer soap-open-layer absolute inset-0 w-full h-full flex items-center justify-center select-none pointer-events-none">
+                  <img src="assets/goatmilksoap_open_box.png" alt="EARTHGLAZE Goat Milk Soap - Opened View with Creamy Bar" class="w-full h-auto object-contain pointer-events-none drop-shadow-xl">
+                </div>
+                <div class="soap-inner-glow glow-goat" aria-hidden="true"></div>
+              </div>
+            </div>
+
+            <!-- Product 1: EARTHGLAZE Manjistha Soap -->
+            <div 
+              class="hero-curved-card hero-scroll-card product-interactive-card soap-animated-card absolute"
+              data-card-index="1"
+              data-product-id="manjistha-soap"
+              data-product-name="EARTHGLAZE Manjistha Soap"
+              data-product-price="₹349"
+              data-product-desc="Herbal Cleansing for Healthy Radiant Skin"
+              tabindex="0"
+              role="button"
+              aria-label="EARTHGLAZE Manjistha Soap - Click to bring to centre and open"
+            >
+              <div class="product-pedestal-rings soap-pedestal-rings glow-manjistha" aria-hidden="true">
+                <img src="assets/pedestal-glow-rings.svg" alt="" class="w-full h-full object-contain pointer-events-none">
+              </div>
+              <div class="product-light-rays soap-light-rays glow-manjistha" aria-hidden="true">
+                <img src="assets/cream-light-rays.svg" alt="" class="w-full h-full object-contain pointer-events-none">
+              </div>
+              <div class="product-lift-arrows soap-lift-arrows" aria-hidden="true">
+                <img src="assets/cap-lift-arrows.svg" alt="" class="w-full h-full object-contain pointer-events-none">
+              </div>
+              <div class="product-assembly-stage soap-assembly-stage hero-mini-stage relative flex items-center justify-center">
+                <!-- Soft Golden Glow for Selected Card -->
+                <div class="champagne-gold-glow pointer-events-none" aria-hidden="true"></div>
+
+                <!-- A few delicate tiny sparkles -->
+                <div class="champagne-sparkles-wrap pointer-events-none select-none" aria-hidden="true">
+                  <span class="c-sparkle c-sparkle-1">✦</span>
+                  <span class="c-sparkle c-sparkle-2">✧</span>
+                  <span class="c-sparkle c-sparkle-3">✦</span>
+                  <span class="c-sparkle c-sparkle-4">✧</span>
+                </div>
+
+                <div class="product-closed-layer soap-closed-layer w-full h-full flex items-center justify-center select-none pointer-events-none">
+                  <img src="assets/manjistha_closed_box.png" alt="EARTHGLAZE Manjistha Soap (Closed Packaging)" class="w-full h-auto object-contain pointer-events-none drop-shadow-md">
+                </div>
+                <div class="product-open-layer soap-open-layer absolute inset-0 w-full h-full flex items-center justify-center select-none pointer-events-none">
+                  <img src="assets/manjistha_open_box.png" alt="EARTHGLAZE Manjistha Soap - Opened View with Amber Bar" class="w-full h-auto object-contain pointer-events-none drop-shadow-xl">
+                </div>
+                <div class="soap-inner-glow glow-manjistha" aria-hidden="true"></div>
+              </div>
+            </div>
+
+            <!-- Product 2: EARTHGLAZE Neem Soap -->
+            <div 
+              class="hero-curved-card hero-scroll-card product-interactive-card soap-animated-card absolute"
+              data-card-index="2"
+              data-product-id="neem-soap"
+              data-product-name="EARTHGLAZE Neem Soap"
+              data-product-price="₹329"
+              data-product-desc="Purifying Botanical Neem Cleansing"
+              tabindex="0"
+              role="button"
+              aria-label="EARTHGLAZE Neem Soap - Click to bring to centre and open"
+            >
+              <div class="product-pedestal-rings soap-pedestal-rings glow-neem" aria-hidden="true">
+                <img src="assets/pedestal-glow-rings.svg" alt="" class="w-full h-full object-contain pointer-events-none">
+              </div>
+              <div class="product-light-rays soap-light-rays glow-neem" aria-hidden="true">
+                <img src="assets/cream-light-rays.svg" alt="" class="w-full h-full object-contain pointer-events-none">
+              </div>
+              <div class="product-lift-arrows soap-lift-arrows" aria-hidden="true">
+                <img src="assets/cap-lift-arrows.svg" alt="" class="w-full h-full object-contain pointer-events-none">
+              </div>
+              <div class="product-assembly-stage soap-assembly-stage hero-mini-stage relative flex items-center justify-center">
+                <!-- Soft Golden Glow for Selected Card -->
+                <div class="champagne-gold-glow pointer-events-none" aria-hidden="true"></div>
+
+                <!-- A few delicate tiny sparkles -->
+                <div class="champagne-sparkles-wrap pointer-events-none select-none" aria-hidden="true">
+                  <span class="c-sparkle c-sparkle-1">✦</span>
+                  <span class="c-sparkle c-sparkle-2">✧</span>
+                  <span class="c-sparkle c-sparkle-3">✦</span>
+                  <span class="c-sparkle c-sparkle-4">✧</span>
+                </div>
+
+                <div class="product-closed-layer soap-closed-layer w-full h-full flex items-center justify-center select-none pointer-events-none">
+                  <img src="assets/neem_soap_closed_box.png" alt="EARTHGLAZE Neem Soap (Closed Packaging)" class="w-full h-auto object-contain pointer-events-none drop-shadow-md">
+                </div>
+                <div class="product-open-layer soap-open-layer absolute inset-0 w-full h-full flex items-center justify-center select-none pointer-events-none">
+                  <img src="assets/neemopenbox.png" alt="EARTHGLAZE Neem Soap - Opened View with Botanical Bar" class="w-full h-auto object-contain pointer-events-none drop-shadow-xl">
+                </div>
+                <div class="soap-inner-glow glow-neem" aria-hidden="true"></div>
+              </div>
+            </div>
+
+            <!-- Product 3: EARTHGLAZE Beet Root Lip Balm -->
+            <div 
+              class="hero-curved-card hero-scroll-card product-interactive-card soap-animated-card balm-animated-card absolute"
+              data-card-index="3"
+              data-product-id="beetroot-lip-balm"
+              data-product-name="EARTHGLAZE Beet Root Lip Balm"
+              data-product-price="₹249"
+              data-product-desc="Deep Tinted Hydration & Nourishing Care"
+              tabindex="0"
+              role="button"
+              aria-label="EARTHGLAZE Beet Root Lip Balm - Click to bring to centre and open"
+            >
+              <div class="product-pedestal-rings soap-pedestal-rings glow-balm" aria-hidden="true">
+                <img src="assets/pedestal-glow-rings.svg" alt="" class="w-full h-full object-contain pointer-events-none">
+              </div>
+              <div class="product-light-rays soap-light-rays glow-balm" aria-hidden="true">
+                <img src="assets/cream-light-rays.svg" alt="" class="w-full h-full object-contain pointer-events-none">
+              </div>
+              <div class="product-lift-arrows soap-lift-arrows" aria-hidden="true">
+                <img src="assets/cap-lift-arrows.svg" alt="" class="w-full h-full object-contain pointer-events-none">
+              </div>
+              <div class="product-assembly-stage soap-assembly-stage hero-mini-stage relative flex items-center justify-center">
+                <!-- Soft Golden Glow for Selected Card -->
+                <div class="champagne-gold-glow pointer-events-none" aria-hidden="true"></div>
+
+                <!-- A few delicate tiny sparkles -->
+                <div class="champagne-sparkles-wrap pointer-events-none select-none" aria-hidden="true">
+                  <span class="c-sparkle c-sparkle-1">✦</span>
+                  <span class="c-sparkle c-sparkle-2">✧</span>
+                  <span class="c-sparkle c-sparkle-3">✦</span>
+                  <span class="c-sparkle c-sparkle-4">✧</span>
+                </div>
+
+                <div class="product-closed-layer soap-closed-layer w-full h-full flex items-center justify-center select-none pointer-events-none">
+                  <img src="assets/lip_balm_closed_box.png" alt="EARTHGLAZE Beet Root Lip Balm (Closed Packaging)" class="w-full h-auto object-contain pointer-events-none drop-shadow-md">
+                </div>
+                <div class="product-open-layer soap-open-layer absolute inset-0 w-full h-full flex items-center justify-center select-none pointer-events-none">
+                  <img src="assets/lipbalmopenbox.png" alt="EARTHGLAZE Beet Root Lip Balm - Opened View with Ruby Gloss Balm" class="w-full h-auto object-contain pointer-events-none drop-shadow-xl">
+                </div>
+                <div class="soap-inner-glow glow-balm" aria-hidden="true"></div>
+              </div>
+            </div>
+
+          </div>
+<!-- Carousel Dots Navigation (4 Products) -->
+          <div class="hero-carousel-dots flex items-center justify-center gap-2.5 mt-2 sm:mt-3" id="hero-carousel-dots">
+            <button type="button" class="carousel-dot-btn w-2.5 h-2.5 rounded-full bg-[#173D2B] transition-all duration-300 scale-125" data-index="0" aria-label="Go to Goat Milk Soap"></button>
+            <button type="button" class="carousel-dot-btn w-2.5 h-2.5 rounded-full bg-stone-300 hover:bg-stone-400 transition-all duration-300" data-index="1" aria-label="Go to Manjistha Soap"></button>
+            <button type="button" class="carousel-dot-btn w-2.5 h-2.5 rounded-full bg-stone-300 hover:bg-stone-400 transition-all duration-300" data-index="2" aria-label="Go to Neem Soap"></button>
+            <button type="button" class="carousel-dot-btn w-2.5 h-2.5 rounded-full bg-stone-300 hover:bg-stone-400 transition-all duration-300" data-index="3" aria-label="Go to Beet Root Lip Balm"></button>
+          </div>
+
+          <!-- Subtle Helper Indicator Below Track -->
+          <div class="flex items-center justify-center mt-3">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/80 backdrop-blur-sm border border-stone-200/50 shadow-sm text-stone-700 text-[11px] sm:text-xs font-medium tracking-wide">
+              <span class="inline-block w-1.5 h-1.5 rounded-full bg-[#E18232] animate-pulse shrink-0"></span>
+              <span class="hidden sm:inline">Click any product to bring to center &amp; reveal artisan packaging</span><span class="inline sm:hidden">Tap product to reveal packaging</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+<!-- Subtle Curved Cream and Pale-Green Decorative Waves (Removes Hard Horizontal Boundary) -->
+      <div class="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-none pointer-events-none select-none z-10" aria-hidden="true">
+        <svg 
+          class="relative block w-full h-14 sm:h-20 md:h-24 lg:h-28" 
+          viewBox="0 0 1440 120" 
+          preserveAspectRatio="none" 
+          fill="none" 
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <!-- Subtle Pale-Green Wave 1 -->
+          <path d="M 0,42 C 320,82 560,12 820,50 C 1080,88 1280,26 1440,56 L 1440,120 L 0,120 Z" fill="#D5E9DA" fill-opacity="0.55" />
+          <!-- Soft Pale-Green Wave 2 -->
+          <path d="M 0,62 C 260,26 540,76 860,36 C 1140,82 1320,42 1440,60 L 1440,120 L 0,120 Z" fill="#E2EFE5" fill-opacity="0.75" />
+          <!-- Smooth Warm Cream Base Wave -->
+          <path d="M 0,76 C 360,42 680,86 1020,52 C 1220,70 1360,62 1440,66 L 1440,120 L 0,120 Z" fill="#FAF7F2" />
+        </svg>
+      </div>
+    </section>
+
+    <section id="offer" class="pt-2 sm:pt-4 pb-8 sm:pb-12 bg-[#FAF7F2] overflow-hidden" aria-label="Combo Offer">
+      <div class="max-w-[1440px] w-full mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Master Combo Offer Banner Container (Balanced 45/55 Ratio, Prominent Typography, Large Showcase) -->
+        <div class="offer-banner-container relative w-full rounded-[28px] sm:rounded-[36px] overflow-hidden shadow-xl border border-[#E8DEC8] bg-gradient-to-r from-[#FAF4EB] via-[#FAF3EA] to-[#F5ECE0]">
+          
+          <!-- Desktop 45% Left / 55% Right Proportional Layout -->
+          <div class="flex flex-col lg:flex-row items-center justify-between relative z-10">
+            
+            <!-- Column 1: Left Brand, Headings, Pillars & Pricing (~45% on Desktop) -->
+            <div class="w-full lg:w-[46%] xl:w-[45%] p-6 sm:p-8 lg:p-10 xl:p-12 space-y-4 sm:space-y-5 text-left flex flex-col justify-center shrink-0">
+              
+              <!-- Brand Header with Vertical Bar -->
+              <div class="flex items-center gap-2.5 sm:gap-3">
+                <span class="w-[3.5px] h-8 sm:h-9 bg-[#1E3B2B] rounded-full shrink-0"></span>
+                <div class="leading-none">
+                  <div class="font-bold text-[#1E3B2B] text-xl sm:text-2xl tracking-tight flex items-baseline">
+                    EarthGlaze<span class="text-[11px] font-semibold ml-0.5">®</span>
+                  </div>
+                  <span class="block text-[9.5px] sm:text-[10.5px] font-bold tracking-[0.2em] text-[#1E3B2B]/85 uppercase mt-1">Natural &amp; Ayurvedic Skincare</span>
+                </div>
+              </div>
+
+              <!-- Main Heading & Subtitle (Exact Hero Typography Setup) -->
+              <div class="space-y-1 sm:space-y-1.5 pt-0.5">
+                <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-[42px] xl:text-[46px] font-bold text-[#1E3B2B] tracking-tight leading-[1.08]">
+                  Combo <span class="italic font-serif font-bold text-[#C28328]">Offer</span>
+                </h2>
+                <p class="text-sm sm:text-base font-bold text-[#1E3B2B] tracking-tight pt-0.5">
+                  Complete Natural Care Set
+                </p>
+              </div>
+
+              <!-- 3 Pillar Feature Badges with Outline Circles & Dividers -->
+              <div class="flex items-center gap-3 sm:gap-4 py-1">
+                <!-- Herbal Care -->
+                <div class="flex flex-col items-center text-center">
+                  <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-full border-[1.5px] border-[#1E3B2B] bg-white/50 flex items-center justify-center text-emerald-800 shadow-2xs">
+                    <svg class="w-4 h-4 sm:w-5 sm:h-5 text-[#1E3B2B]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 01-9-9c0-4.97 4.03-9 9-9 4.97 0 9 4.03 9 9 0 1.5-.37 2.92-1.02 4.18M12 21c4.97 0 9-4.03 9-9 0-1.5-.37-2.92-1.02-4.18M12 21V11m0 0l-3-3m3 3l3-3"></path>
+                    </svg>
+                  </div>
+                  <span class="text-[11px] sm:text-xs font-semibold text-[#1E3B2B] mt-1.5 leading-tight">Herbal<br>Care</span>
+                </div>
+
+                <span class="h-9 w-px bg-[#1E3B2B]/20 mx-1"></span>
+
+                <!-- Gentle & Safe -->
+                <div class="flex flex-col items-center text-center">
+                  <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-full border-[1.5px] border-[#1E3B2B] bg-white/50 flex items-center justify-center text-emerald-800 shadow-2xs">
+                    <svg class="w-4 h-4 sm:w-5 sm:h-5 text-[#1E3B2B]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+                    </svg>
+                  </div>
+                  <span class="text-[11px] sm:text-xs font-semibold text-[#1E3B2B] mt-1.5 leading-tight">Gentle<br>&amp; Safe</span>
+                </div>
+
+                <span class="h-9 w-px bg-[#1E3B2B]/20 mx-1"></span>
+
+                <!-- No Harsh Chemicals -->
+                <div class="flex flex-col items-center text-center">
+                  <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-full border-[1.5px] border-[#1E3B2B] bg-white/50 flex items-center justify-center text-emerald-800 shadow-2xs">
+                    <svg class="w-4 h-4 sm:w-5 sm:h-5 text-[#1E3B2B]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                    </svg>
+                  </div>
+                  <span class="text-[11px] sm:text-xs font-semibold text-[#1E3B2B] mt-1.5 leading-tight">No Harsh<br>Chemicals</span>
+                </div>
+              </div>
+
+              <!-- Price Pills Row with Floating Combo Badge -->
+              <div class="pt-1 space-y-2.5">
+                <div class="flex items-center gap-3">
+                  <!-- Strikethrough Original Price -->
+                  <div class="bg-[#FDF0E1] border border-[#F3DFC8] rounded-full px-4 sm:px-5 py-1.5 sm:py-2 flex items-center justify-center shadow-2xs">
+                    <span class="font-bold text-base sm:text-lg text-stone-900 line-through decoration-red-600 decoration-2">₹947</span>
+                  </div>
+
+                  <span class="w-1.5 h-1.5 rounded-full bg-[#1E3B2B] shrink-0"></span>
+
+                  <!-- Highlighted Combo Price with Floating Badge -->
+                  <div class="relative">
+                    <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 z-10 bg-[#C28328] text-white text-[10px] sm:text-[11px] font-bold tracking-wide px-3 py-0.5 rounded-full shadow-2xs whitespace-nowrap">
+                      Combo Price
+                    </div>
+                    <div class="bg-[#1E3B2B] text-white rounded-full px-6 sm:px-7 py-2 sm:py-2.5 flex items-center justify-center shadow-md">
+                      <span class="font-bold text-xl sm:text-2xl text-white tracking-tight">₹799</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Savings Tag -->
+                <div class="inline-flex items-center gap-2 bg-[#E5F2DD] border border-[#CDE5C1] text-[#1E3B2B] rounded-full px-3.5 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-[13px] font-bold shadow-2xs">
+                  <svg class="w-3.5 h-3.5 text-[#1E3B2B]" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path>
+                  </svg>
+                  <span>You Save ₹148 (15% OFF)</span>
+                </div>
+              </div>
+
+              <!-- CTA Buy Button (Balanced Luxury Size) -->
+              <div class="pt-1.5">
+                <button 
+                  id="grab-offer-btn" 
+                  type="button" 
+                  class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 py-3 sm:py-3.5 px-7 sm:px-8 rounded-full bg-[#1E3B2B] hover:bg-[#152B1F] active:scale-95 text-white font-semibold text-sm sm:text-base shadow-md hover:shadow-lg transition-all duration-300 group cursor-pointer"
+                  data-product-id="starter-combo"
+                  aria-label="Buy Combo Now for ₹799"
+                >
+                  <svg class="w-4 h-4 sm:w-5 sm:h-5 text-white/90 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                  </svg>
+                  <span>Buy Combo Now</span>
+                  <span class="group-hover:translate-x-1.5 transition-transform duration-300">&rarr;</span>
+                </button>
+              </div>
+
+            </div>
+
+            <!-- Column 2: Right Product Showcase Visual (~55% on Desktop, Visually Prominent & Closer) -->
+            <div class="w-full lg:w-[54%] xl:w-[55%] flex items-center justify-center lg:justify-end relative px-4 sm:px-6 lg:px-8 pt-2 pb-10 sm:pb-12 lg:py-6">
+              <img 
+                src="assets/combo-offer.png" 
+                alt="EarthGlaze Combo Offer - Manjistha Soap, Goat Milk Soap tied with red ribbon bow & Beet Root Lip Balm" 
+                class="w-full max-w-[580px] sm:max-w-[640px] lg:max-w-[700px] xl:max-w-[760px] h-auto object-contain transform hover:scale-[1.02] transition-transform duration-500 drop-shadow-lg select-none pointer-events-none"
+                loading="eager"
+              >
+            </div>
+
+          </div>
+
+          <!-- Bottom Botanical Wave Accent (Exact Dual-Tone Curve matching reference) -->
+          <div class="absolute bottom-0 left-0 right-0 w-full pointer-events-none select-none overflow-hidden z-0" style="height: 44px;" aria-hidden="true">
+            <svg class="w-full h-full" viewBox="0 0 1200 44" fill="none" preserveAspectRatio="none">
+              <path d="M0,44 L1200,44 L1200,26 C1050,11 850,2 620,15 C400,28 200,36 0,38 Z" fill="#1E3B2B"></path>
+              <path d="M0,38 C200,36 400,28 620,15 C850,2 1050,11 1200,26" stroke="#8CAE68" stroke-width="2.5" fill="none"></path>
+            </svg>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 2: ABOUT US — THE NATURAL CHOICE FOR HEALTHIER SKIN
+         ======================================================================== -->
+    <section id="about" class="py-16 sm:py-24 bg-[#FAF7F2] relative overflow-hidden" aria-label="About Us">
+      <div class="max-w-[1600px] w-full mx-auto px-4 sm:px-8">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+          
+          <!-- Left: Arched Product Collection Visual (5 Cols) -->
+          <div class="lg:col-span-5 flex justify-center">
+            <div class="about-arch-frame w-full max-w-[420px] lg:max-w-[460px]">
+              <img
+                src="assets/about-img.png" 
+                alt="EarthGlaze Artisan Collection in Botanical Arched Frame: Manjistha Soap, Goat Milk Soap, Beetroot Lip Balm with Natural Ingredients Seal" 
+                class="w-full h-auto object-contain transform hover:scale-102 transition duration-700 drop-shadow-xl"
+              >
+            </div>
+          </div>
+
+          <!-- Right: About Copy, 3 Pillars, Signature Range & Know More (7 Cols) -->
+          <div class="lg:col-span-7 space-y-6 text-left">
+            
+            <!-- Eyebrow: Exact Hero Setup with Flanking Dividers -->
+            <div class="flex items-center gap-3.5 mb-2.5">
+              <span class="eyebrow-divider" aria-hidden="true"></span>
+              <span class="text-xs sm:text-sm font-semibold tracking-[0.25em] text-[#3e5444] uppercase">
+                About Us
+              </span>
+              <span class="eyebrow-divider" aria-hidden="true"></span>
+            </div>
+
+            <!-- Main Heading: Exact Hero Headline Setup -->
+            <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-bold text-[#1E3B2B] tracking-tight leading-[1.12]">
+              The Natural Choice for <span class="italic font-serif font-bold text-[#C28328]">Healthier Skin</span>
+            </h2>
+
+            <!-- Paragraph: Exact Hero Subtext Setup -->
+            <p class="text-base sm:text-lg text-[#404F44] leading-relaxed font-normal max-w-2xl">
+              EarthGlaze is a nature-inspired skincare brand that blends pure, skin-loving ingredients with modern care to keep your skin healthy, radiant and naturally beautiful.
+            </p>
+
+            <!-- 3 Pillar Feature Pills in a Row -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
+              <div class="flex items-center gap-2.5 p-3 rounded-2xl bg-white/90 border border-stone-200/70 shadow-2xs">
+                <div class="w-8 h-8 rounded-full bg-[#eaf4e6] flex items-center justify-center text-sm shrink-0">🍃</div>
+                <span class="text-xs font-bold text-[#173D2B] leading-tight">Plant-Based<br>Formulas</span>
+              </div>
+              <div class="flex items-center gap-2.5 p-3 rounded-2xl bg-white/90 border border-stone-200/70 shadow-2xs">
+                <div class="w-8 h-8 rounded-full bg-[#eaf4e6] flex items-center justify-center text-sm shrink-0">🧪</div>
+                <span class="text-xs font-bold text-[#173D2B] leading-tight">No Harsh<br>Chemicals</span>
+              </div>
+              <div class="flex items-center gap-2.5 p-3 rounded-2xl bg-white/90 border border-stone-200/70 shadow-2xs">
+                <div class="w-8 h-8 rounded-full bg-[#eaf4e6] flex items-center justify-center text-sm shrink-0">💚</div>
+                <span class="text-xs font-bold text-[#173D2B] leading-tight">Skin-Friendly<br>& Gentle</span>
+              </div>
+            </div>
+
+            <!-- Subdivider: Our Signature Range -->
+            <div class="pt-2">
+              <div class="flex items-center gap-3 mb-3">
+                <span class="h-px flex-1 bg-stone-200"></span>
+                <span class="text-xs font-bold text-[#173D2B] uppercase tracking-wider flex items-center gap-1.5">
+                  <span>🍃</span> Our Signature Range <span>🍃</span>
+                </span>
+                <span class="h-px flex-1 bg-stone-200"></span>
+              </div>
+
+              <!-- 3 Signature Product Mini-Cards -->
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                
+                <!-- Mini Card 1: Manjistha Soap -->
+                <div class="p-3 bg-white/95 rounded-2xl border border-stone-200/70 shadow-xs flex items-center gap-3 group hover:border-[#173D2B]/30 transition">
+                  <div class="w-14 h-14 rounded-xl overflow-hidden bg-stone-50 shrink-0 border border-stone-100">
+                    <img src="assets/bestseller_manjistha_photo_hd.png" alt="Manjistha Soap" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <h4 class="text-xs font-bold text-[#173D2B] truncate">Manjistha Soap</h4>
+                    <p class="text-[10px] text-stone-500 truncate">Herbal Care for Clear Skin</p>
+                  </div>
+                  <a href="#products" class="w-7 h-7 rounded-full bg-[#173D2B] hover:bg-[#235327] text-white flex items-center justify-center text-xs shrink-0 transition" aria-label="View Manjistha Soap">&rarr;</a>
+                </div>
+
+                <!-- Mini Card 2: Goat Milk Soap -->
+                <div class="p-3 bg-white/95 rounded-2xl border border-stone-200/70 shadow-xs flex items-center gap-3 group hover:border-[#173D2B]/30 transition">
+                  <div class="w-14 h-14 rounded-xl overflow-hidden bg-stone-50 shrink-0 border border-stone-100">
+                    <img src="assets/bestseller_goat_photo_hd.png" alt="Goat Milk Soap" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <h4 class="text-xs font-bold text-[#173D2B] truncate">Goat Milk Soap</h4>
+                    <p class="text-[10px] text-stone-500 truncate">Gentle Cleanse & Nourishment</p>
+                  </div>
+                  <a href="#products" class="w-7 h-7 rounded-full bg-[#173D2B] hover:bg-[#235327] text-white flex items-center justify-center text-xs shrink-0 transition" aria-label="View Goat Milk Soap">&rarr;</a>
+                </div>
+
+                <!-- Mini Card 3: Beetroot Lip Balm -->
+                <div class="p-3 bg-white/95 rounded-2xl border border-stone-200/70 shadow-xs flex items-center gap-3 group hover:border-[#173D2B]/30 transition">
+                  <div class="w-14 h-14 rounded-xl overflow-hidden bg-stone-50 shrink-0 border border-stone-100">
+                    <img src="assets/bestseller_balm_photo_hd.png" alt="Beetroot Lip Balm" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <h4 class="text-xs font-bold text-[#173D2B] truncate">Beetroot Lip Balm</h4>
+                    <p class="text-[10px] text-stone-500 truncate">Nourishing Care for Soft Lips</p>
+                  </div>
+                  <a href="#soaps" class="w-7 h-7 rounded-full bg-[#173D2B] hover:bg-[#235327] text-white flex items-center justify-center text-xs shrink-0 transition" aria-label="View Beetroot Lip Balm">&rarr;</a>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Bottom Row: Know More Button & Story Teaser Card -->
+            <div class="pt-3 flex flex-col sm:flex-row sm:items-center gap-4">
+              <button 
+                id="about-know-more-btn" 
+                type="button" 
+                class="px-8 py-3.5 rounded-full bg-[#173D2B] hover:bg-[#235327] text-white font-semibold text-sm shadow-md hover:shadow-lg transition-all duration-300 flex items-center gap-2 group cursor-pointer active:scale-95 shrink-0"
+              >
+                <span>Know More</span>
+                <span class="group-hover:translate-x-1 transition-transform">&rarr;</span>
+              </button>
+
+              <div 
+                id="story-teaser-trigger" 
+                role="button" 
+                tabindex="0"
+                class="flex-1 p-3 px-4 rounded-2xl bg-white/90 border border-stone-200/80 shadow-2xs flex flex-col sm:flex-row sm:items-center gap-2.5 text-left cursor-pointer hover:border-emerald-600/40 transition group"
+              >
+                <div class="flex items-center gap-1.5 shrink-0 text-xs font-bold text-[#173D2B]">
+                  <span>🍃</span> The EarthGlaze Story
+                </div>
+                <span class="hidden sm:inline-block h-4 w-px bg-stone-300"></span>
+                <p class="text-[11px] sm:text-xs text-stone-600 leading-snug line-clamp-2">
+                  Born from a love for nature, EarthGlaze creates simple, effective skincare using pure, natural ingredients.
+                </p>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 3: OUR STORY — THE EARTHGLAZE STORY
+         (Initially Hidden — Revealed Smoothly on "Know More" or "Our Story" Click)
+         ======================================================================== -->
+    <section id="our-story" class="py-16 sm:py-24 bg-[#FAF7F2] border-t border-b border-stone-200/50 relative overflow-hidden hidden transition-all duration-700" aria-label="Our Story">
+      <!-- Decorative Botanical Foliage in Corner -->
+      <img src="assets/story_corner_leaves.png" alt="" class="absolute bottom-0 right-0 w-48 sm:w-64 lg:w-80 pointer-events-none select-none z-0 mix-blend-multiply opacity-85" aria-hidden="true">
+
+      <div class="max-w-[1600px] w-full mx-auto px-4 sm:px-8 relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+          
+          <!-- Left: Herbal Crafting Arched Visual (5 Cols) -->
+          <div class="lg:col-span-5 flex justify-center">
+            <div class="about-arch-frame w-full max-w-[420px] lg:max-w-[460px]">
+              <img 
+                src="assets/our_story_arch_herbal.png" 
+                alt="The EarthGlaze Story - Handcrafted Herbal Botanicals with Mortar and Pestle, Botanical Elixir and Aloe Vera on Stone Pedestal" 
+                class="w-full h-auto object-contain transform hover:scale-102 transition duration-700 drop-shadow-xl"
+              >
+            </div>
+          </div>
+
+          <!-- Right: Story Narrative, 3 Pillars, and Journey CTA (7 Cols) -->
+          <div class="lg:col-span-7 space-y-6 text-left">
+            
+            <!-- Eyebrow: Exact Hero Setup with Flanking Dividers -->
+            <div class="flex items-center gap-3.5 mb-2.5">
+              <span class="eyebrow-divider" aria-hidden="true"></span>
+              <span class="text-xs sm:text-sm font-semibold tracking-[0.25em] text-[#3e5444] uppercase">
+                Our Story
+              </span>
+              <span class="eyebrow-divider" aria-hidden="true"></span>
+            </div>
+
+            <!-- Main Heading: Exact Hero Headline Setup -->
+            <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-bold text-[#1E3B2B] tracking-tight leading-[1.12]">
+              The EarthGlaze <span class="italic font-serif font-bold text-[#C28328]">Story</span>
+            </h2>
+
+            <!-- Paragraph: Exact Hero Subtext Setup -->
+            <p class="text-base sm:text-lg text-[#404F44] leading-relaxed font-normal max-w-2xl">
+              Born from a love for nature, EarthGlaze creates simple, effective skincare using pure, plant-based ingredients for healthy and naturally glowing skin.
+            </p>
+
+            <!-- 3 Pillar Feature Badges -->
+            <div class="flex flex-wrap items-center gap-4 sm:gap-6 pt-2">
+              <div class="inline-flex items-center gap-2 text-stone-800">
+                <span class="w-8 h-8 rounded-full bg-[#eaf4e6] flex items-center justify-center text-sm shrink-0">🍃</span>
+                <span class="text-xs sm:text-sm font-bold text-[#173D2B]">Nature-Inspired</span>
+              </div>
+              <span class="hidden sm:inline-block h-6 w-px bg-stone-300/80"></span>
+              <div class="inline-flex items-center gap-2 text-stone-800">
+                <span class="w-8 h-8 rounded-full bg-[#eaf4e6] flex items-center justify-center text-sm shrink-0">🥣</span>
+                <span class="text-xs sm:text-sm font-bold text-[#173D2B]">Handcrafted Care</span>
+              </div>
+              <span class="hidden sm:inline-block h-6 w-px bg-stone-300/80"></span>
+              <div class="inline-flex items-center gap-2 text-stone-800">
+                <span class="w-8 h-8 rounded-full bg-[#eaf4e6] flex items-center justify-center text-sm shrink-0">💚</span>
+                <span class="text-xs sm:text-sm font-bold text-[#173D2B]">Skin-Healthy</span>
+              </div>
+            </div>
+
+            <!-- CTA Button -->
+            <div class="pt-4 flex items-center gap-4">
+              <button 
+                id="story-journey-btn" 
+                type="button" 
+                class="px-8 py-3.5 rounded-full bg-[#173D2B] hover:bg-[#235327] text-white font-semibold text-sm shadow-md hover:shadow-lg transition-all duration-300 flex items-center gap-2 group cursor-pointer active:scale-95"
+              >
+                <span>Read Our Full Story</span>
+                <span class="group-hover:translate-x-1 transition-transform">&rarr;</span>
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 5: BESTSELLERS — EARTHGLAZE FAVOURITES (100% Original HTML Cards)
+         ======================================================================== -->
+    <!-- ========================================================================
+         SECTION 4: BESTSELLERS — EARTHGLAZE FAVOURITES
+         (Exact Reference Visual with Interactive Add-to-Cart & Mobile Fallback)
+         ======================================================================== -->
+        <!-- ========================================================================
+         SECTION 4: BESTSELLERS — EARTHGLAZE FAVOURITES
+         (100% Original HTML/CSS Cards, Live Typography & Interactive Add to Cart)
+         ======================================================================== -->
+    <section 
+      id="products" 
+      class="py-14 sm:py-18 md:py-22 bg-[#FAF7F2] border-t border-b border-[#E8DEC8]/60 overflow-hidden" 
+      aria-label="EarthGlaze Bestseller Products"
+    >
+      <div class="max-w-[1600px] w-full mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Section Header -->
+        <div class="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+          <h2 class="text-3xl sm:text-4xl lg:text-[46px] font-bold text-[#1E3B2B] tracking-tight font-serif leading-tight">
+            EarthGlaze <span class="italic font-normal text-[#C28328]">Favourites</span>
+          </h2>
+          
+          <div class="flex items-center justify-center gap-3 mt-3 sm:mt-4 text-xs sm:text-sm text-[#404F44] font-medium">
+            <span class="w-8 sm:w-16 h-px bg-[#1E3B2B]/30" aria-hidden="true"></span>
+            <span>Our most loved, nature-powered skincare — trusted by our customers.</span>
+            <span class="w-8 sm:w-16 h-px bg-[#1E3B2B]/30" aria-hidden="true"></span>
+          </div>
+
+          <div class="flex justify-center mt-2.5">
+            <svg class="w-4 h-4 text-[#2E6B3E] fill-current" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A4.49 4.49 0 008 20C19 20 22 3 22 3c-1 2-8 2-12 5-2 1.5-3 3.5-3 3.5 3 0 7-4 7-9z"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- 4-Card Responsive Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7 items-stretch">
+          
+          <!-- Card 1: Manjistha Soap -->
+          <div class="bg-white rounded-[26px] p-4 sm:p-5 flex flex-col justify-between border border-[#EADFCB] shadow-[0_4px_24px_rgba(0,0,0,0.04)] hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 group">
+            <div>
+              <div class="flex items-center justify-between gap-2 mb-2">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border text-xs font-bold tracking-wide shadow-2xs bg-[#FEF6E4] border-[#F5E2B3] text-[#9A6208]">
+                  <span>👑</span>
+                  <span>Bestseller</span>
+                </span>
+                <span class="text-xs sm:text-sm font-semibold text-[#66776A]">100 g</span>
+              </div>
+
+              <div class="relative w-full aspect-[405/278] rounded-[20px] overflow-hidden my-3 bg-gradient-to-b from-[#FAF5EE] to-[#F3ECE0] flex items-center justify-center p-1">
+                <img 
+                  src="assets/favourites_manjistha_soap_hd.png" 
+                  alt="Manjistha Soap - 100 g" 
+                  class="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-105"
+                  loading="lazy"
+                  width="810"
+                  height="556"
+                />
+              </div>
+
+              <div class="space-y-1 pt-1">
+                <h3 class="font-serif font-bold text-xl sm:text-[22px] text-[#1E3B2B] group-hover:text-[#2E6B3E] transition-colors leading-snug">
+                  Manjistha Soap
+                </h3>
+                <p class="text-xs sm:text-[13px] text-[#55665A] leading-relaxed line-clamp-1 font-sans">
+                  Purifies skin &amp; gives a natural glow.
+                </p>
+              </div>
+
+              <div class="flex items-center gap-1 text-xs mt-2.5">
+                <div class="flex text-[#E5A823] tracking-tighter" aria-label="5 out of 5 stars">
+                  <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                </div>
+                <span class="text-[#66776A] font-medium text-xs ml-1">(428)</span>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between pt-3.5 mt-4 border-t border-[#F2ECE1]">
+              <div class="flex flex-col">
+                <span class="text-[10px] uppercase font-bold tracking-wider text-[#7D8C80] font-sans">Price</span>
+                <span class="text-xl sm:text-2xl font-bold text-[#1E3B2B] tracking-tight">₹149</span>
+              </div>
+              <button 
+                type="button" 
+                onclick="window.EarthGlazeStore?.addToCart({id: 'manjistha-soap', name: 'Manjistha Soap', price: 149, original_price: 199, image: 'assets/favourites_manjistha_soap_hd.png', weight: '100 g', category: 'Soaps'}); this.classList.add('bg-[#1E7D3A]'); const orig=this.innerHTML; this.innerHTML='<span>✓</span> Added'; setTimeout(()=>{ this.innerHTML=orig; this.classList.remove('bg-[#1E7D3A]'); }, 1800);"
+                class="catalog-add-btn inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 rounded-full bg-[#0D2D1C] hover:bg-[#1A4B2F] active:scale-95 text-white font-semibold text-xs sm:text-sm shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer"
+                aria-label="Add Manjistha Soap to cart"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                </svg>
+                <span>Add to Cart</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 2: Goat Milk Soap (Highlighted Border) -->
+          <div class="bg-white rounded-[26px] p-4 sm:p-5 flex flex-col justify-between border-2 border-[#E5C158] shadow-[0_4px_24px_rgba(229,193,88,0.14)] hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 group">
+            <div>
+              <div class="flex items-center justify-between gap-2 mb-2">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border text-xs font-bold tracking-wide shadow-2xs bg-[#FEF6E4] border-[#F5E2B3] text-[#9A6208]">
+                  <span>★</span>
+                  <span>Top Rated</span>
+                </span>
+                <span class="text-xs sm:text-sm font-semibold text-[#66776A]">100 g</span>
+              </div>
+
+              <div class="relative w-full aspect-[405/278] rounded-[20px] overflow-hidden my-3 bg-gradient-to-b from-[#FAF5EE] to-[#F3ECE0] flex items-center justify-center p-1">
+                <img 
+                  src="assets/favourites_goat_milk_soap_hd.png" 
+                  alt="Goat Milk Soap - 100 g" 
+                  class="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-105"
+                  loading="lazy"
+                  width="810"
+                  height="556"
+                />
+              </div>
+
+              <div class="space-y-1 pt-1">
+                <h3 class="font-serif font-bold text-xl sm:text-[22px] text-[#1E3B2B] group-hover:text-[#2E6B3E] transition-colors leading-snug">
+                  Goat Milk Soap
+                </h3>
+                <p class="text-xs sm:text-[13px] text-[#55665A] leading-relaxed line-clamp-1 font-sans">
+                  Nourishes &amp; deeply moisturizes skin.
+                </p>
+              </div>
+
+              <div class="flex items-center gap-1 text-xs mt-2.5">
+                <div class="flex text-[#E5A823] tracking-tighter" aria-label="5 out of 5 stars">
+                  <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                </div>
+                <span class="text-[#66776A] font-medium text-xs ml-1">(512)</span>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between pt-3.5 mt-4 border-t border-[#F2ECE1]">
+              <div class="flex flex-col">
+                <span class="text-[10px] uppercase font-bold tracking-wider text-[#7D8C80] font-sans">Price</span>
+                <span class="text-xl sm:text-2xl font-bold text-[#1E3B2B] tracking-tight">₹149</span>
+              </div>
+              <button 
+                type="button" 
+                onclick="window.EarthGlazeStore?.addToCart({id: 'goat-milk-soap', name: 'Goat Milk Soap', price: 149, original_price: 199, image: 'assets/favourites_goat_milk_soap_hd.png', weight: '100 g', category: 'Soaps'}); this.classList.add('bg-[#1E7D3A]'); const orig=this.innerHTML; this.innerHTML='<span>✓</span> Added'; setTimeout(()=>{ this.innerHTML=orig; this.classList.remove('bg-[#1E7D3A]'); }, 1800);"
+                class="catalog-add-btn inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 rounded-full bg-[#0D2D1C] hover:bg-[#1A4B2F] active:scale-95 text-white font-semibold text-xs sm:text-sm shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer"
+                aria-label="Add Goat Milk Soap to cart"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                </svg>
+                <span>Add to Cart</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 3: Beet Root Lip Balm -->
+          <div class="bg-white rounded-[26px] p-4 sm:p-5 flex flex-col justify-between border border-[#EADFCB] shadow-[0_4px_24px_rgba(0,0,0,0.04)] hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 group">
+            <div>
+              <div class="flex items-center justify-between gap-2 mb-2">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border text-xs font-bold tracking-wide shadow-2xs bg-[#FFF0F4] border-[#FDD0DC] text-[#B82B54]">
+                  <span>♡</span>
+                  <span>Highly Loved</span>
+                </span>
+                <span class="text-xs sm:text-sm font-semibold text-[#66776A]">10 g</span>
+              </div>
+
+              <div class="relative w-full aspect-[405/278] rounded-[20px] overflow-hidden my-3 bg-gradient-to-b from-[#FAF5EE] to-[#F3ECE0] flex items-center justify-center p-1">
+                <img 
+                  src="assets/favourites_beetroot_lip_balm_hd.png" 
+                  alt="Beet Root Lip Balm - 10 g" 
+                  class="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-105"
+                  loading="lazy"
+                  width="810"
+                  height="556"
+                />
+              </div>
+
+              <div class="space-y-1 pt-1">
+                <h3 class="font-serif font-bold text-xl sm:text-[22px] text-[#1E3B2B] group-hover:text-[#2E6B3E] transition-colors leading-snug">
+                  Beet Root Lip Balm
+                </h3>
+                <p class="text-xs sm:text-[13px] text-[#55665A] leading-relaxed line-clamp-1 font-sans">
+                  Keeps lips soft, smooth &amp; naturally tinted.
+                </p>
+              </div>
+
+              <div class="flex items-center gap-1 text-xs mt-2.5">
+                <div class="flex text-[#E5A823] tracking-tighter" aria-label="5 out of 5 stars">
+                  <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                </div>
+                <span class="text-[#66776A] font-medium text-xs ml-1">(396)</span>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between pt-3.5 mt-4 border-t border-[#F2ECE1]">
+              <div class="flex flex-col">
+                <span class="text-[10px] uppercase font-bold tracking-wider text-[#7D8C80] font-sans">Price</span>
+                <span class="text-xl sm:text-2xl font-bold text-[#1E3B2B] tracking-tight">₹199</span>
+              </div>
+              <button 
+                type="button" 
+                onclick="window.EarthGlazeStore?.addToCart({id: 'beetroot-lip-balm', name: 'Beet Root Lip Balm', price: 199, original_price: 249, image: 'assets/favourites_beetroot_lip_balm_hd.png', weight: '10 g', category: 'Lip Care'}); this.classList.add('bg-[#1E7D3A]'); const orig=this.innerHTML; this.innerHTML='<span>✓</span> Added'; setTimeout(()=>{ this.innerHTML=orig; this.classList.remove('bg-[#1E7D3A]'); }, 1800);"
+                class="catalog-add-btn inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 rounded-full bg-[#0D2D1C] hover:bg-[#1A4B2F] active:scale-95 text-white font-semibold text-xs sm:text-sm shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer"
+                aria-label="Add Beet Root Lip Balm to cart"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                </svg>
+                <span>Add to Cart</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 4: Aloe Vera Soap -->
+          <div class="bg-white rounded-[26px] p-4 sm:p-5 flex flex-col justify-between border border-[#EADFCB] shadow-[0_4px_24px_rgba(0,0,0,0.04)] hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 group">
+            <div>
+              <div class="flex items-center justify-between gap-2 mb-2">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border text-xs font-bold tracking-wide shadow-2xs bg-[#EDF5EE] border-[#CCE4D0] text-[#1E4D2B]">
+                  <span>👥</span>
+                  <span>Customer Pick</span>
+                </span>
+                <span class="text-xs sm:text-sm font-semibold text-[#66776A]">100 g</span>
+              </div>
+
+              <div class="relative w-full aspect-[405/278] rounded-[20px] overflow-hidden my-3 bg-gradient-to-b from-[#FAF5EE] to-[#F3ECE0] flex items-center justify-center p-1">
+                <img 
+                  src="assets/favourites_aloe_vera_soap_hd.png" 
+                  alt="Aloe Vera Soap - 100 g" 
+                  class="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-105"
+                  loading="lazy"
+                  width="810"
+                  height="556"
+                />
+              </div>
+
+              <div class="space-y-1 pt-1">
+                <h3 class="font-serif font-bold text-xl sm:text-[22px] text-[#1E3B2B] group-hover:text-[#2E6B3E] transition-colors leading-snug">
+                  Aloe Vera Soap
+                </h3>
+                <p class="text-xs sm:text-[13px] text-[#55665A] leading-relaxed line-clamp-1 font-sans">
+                  Soothes, hydrates &amp; refreshes skin.
+                </p>
+              </div>
+
+              <div class="flex items-center gap-1 text-xs mt-2.5">
+                <div class="flex text-[#E5A823] tracking-tighter" aria-label="5 out of 5 stars">
+                  <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                </div>
+                <span class="text-[#66776A] font-medium text-xs ml-1">(470)</span>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between pt-3.5 mt-4 border-t border-[#F2ECE1]">
+              <div class="flex flex-col">
+                <span class="text-[10px] uppercase font-bold tracking-wider text-[#7D8C80] font-sans">Price</span>
+                <span class="text-xl sm:text-2xl font-bold text-[#1E3B2B] tracking-tight">₹149</span>
+              </div>
+              <button 
+                type="button" 
+                onclick="window.EarthGlazeStore?.addToCart({id: 'aloe-soap', name: 'Aloe Vera Soap', price: 149, original_price: 199, image: 'assets/favourites_aloe_vera_soap_hd.png', weight: '100 g', category: 'Soaps'}); this.classList.add('bg-[#1E7D3A]'); const orig=this.innerHTML; this.innerHTML='<span>✓</span> Added'; setTimeout(()=>{ this.innerHTML=orig; this.classList.remove('bg-[#1E7D3A]'); }, 1800);"
+                class="catalog-add-btn inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 rounded-full bg-[#0D2D1C] hover:bg-[#1A4B2F] active:scale-95 text-white font-semibold text-xs sm:text-sm shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer"
+                aria-label="Add Aloe Vera Soap to cart"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                </svg>
+                <span>Add to Cart</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- View All Products CTA Button -->
+        <div class="text-center mt-10 sm:mt-14">
+          <a 
+            href="shop.html" 
+            class="inline-flex items-center gap-2 px-8 py-3.5 rounded-full border-2 border-[#1E3B2B] text-[#1E3B2B] font-semibold text-sm hover:bg-[#1E3B2B] hover:text-white transition-all duration-200 shadow-sm hover:shadow-md cursor-pointer active:scale-95"
+          >
+            <span>View All Products</span>
+            <span>&rarr;</span>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+<!-- ========================================================================
+         SECTION 5: NEWLY LAUNCHED — BEETROOT LIP BALM
+         (Flawlessly Blended High-Resolution Banner with Interactive CTA & Modal)
+         ======================================================================== -->
+    <section id="soaps" class="py-16 sm:py-20 lg:py-28 bg-[#FAF7F2] relative overflow-hidden" aria-label="Newly Launched Beetroot Lip Balm">
+      <!-- Soft Ambient Radial Warmth for Natural Editorial Depth -->
+      <div class="absolute top-1/2 right-1/4 -translate-y-1/2 w-[550px] sm:w-[750px] h-[550px] sm:h-[750px] rounded-full bg-[radial-gradient(circle,_rgba(244,233,212,0.65)_0%,_rgba(250,247,242,0)_70%)] pointer-events-none -z-0 blur-3xl" aria-hidden="true"></div>
+
+      <!-- Subtle Floating Botanical Leaf Branch in Background Corner -->
+      <img src="assets/banner_newly_leaves.png" alt="" class="absolute -top-6 -right-6 w-44 sm:w-60 lg:w-72 h-auto opacity-30 pointer-events-none select-none -z-0 transform rotate-12" aria-hidden="true">
+
+      <div class="max-w-[1440px] w-full mx-auto px-4 sm:px-8 lg:px-12 relative z-10">
+        
+        <!-- Seamless 2-Column Responsive Layout - Natural Background Integration -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+          
+          <!-- Column 1: Typography, Benefits, CTA (5 cols on Desktop) -->
+          <div class="lg:col-span-6 xl:col-span-5 text-left flex flex-col justify-center space-y-6">
+            
+            <!-- Eyebrow Pill: NEWLY LAUNCHED with Leaf Icon -->
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EAF2EC] border border-[#C6DEC9] shadow-2xs backdrop-blur-xs w-fit">
+              <span class="w-2 h-2 rounded-full bg-[#2E6B3E] animate-pulse"></span>
+              <svg class="w-3.5 h-3.5 text-[#1E3B2B] fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A4.49 4.49 0 008 20C19 20 22 3 22 3c-1 2-8 2-12 5-2 1.5-3 3.5-3 3.5 3 0 7-4 7-9z"/>
+              </svg>
+              <span class="text-xs font-bold tracking-[0.18em] text-[#1E3B2B] uppercase font-['Plus_Jakarta_Sans',sans-serif]">
+                Newly Launched
+              </span>
+            </div>
+
+            <!-- Main Heading: Beetroot (Green Serif) + Lip Balm (Amber Italic Serif with Gold Swoosh) -->
+            <div class="space-y-1">
+              <h2 class="text-4xl sm:text-5xl lg:text-[56px] xl:text-[60px] font-bold text-[#1E3B2B] tracking-tight leading-[1.06] font-serif">
+                Beetroot 
+                <span class="italic font-normal text-[#C28328] relative inline-block">
+                  Lip Balm
+                  <!-- Curved Golden Botanical Brush Swoosh -->
+                  <svg class="w-full h-3 -mt-0.5 sm:-mt-1 text-[#C28328]" viewBox="0 0 180 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M 4 8 C 50 1.5 120 1.5 176 8 C 120 4.5 50 4.5 4 8 Z" fill="#C28328" opacity="0.95"/>
+                  </svg>
+                </span>
+              </h2>
+            </div>
+
+            <!-- Description Copy -->
+            <p class="text-base sm:text-lg text-[#404F44] leading-relaxed font-normal max-w-lg font-['Plus_Jakarta_Sans',sans-serif]">
+              Nourishing lip care with the natural goodness of beetroot. Keeps your lips soft, smooth and naturally tinted.
+            </p>
+
+            <!-- 3 Benefit Badges / Pills Row -->
+            <div class="flex flex-wrap items-center gap-2.5 sm:gap-3 pt-1">
+              <!-- Natural Tint -->
+              <div class="inline-flex items-center gap-2 bg-white/95 border border-[#E2D8C3] rounded-full px-4 py-2 shadow-2xs text-xs sm:text-[13px] font-semibold text-[#1E3B2B] hover:border-[#1E3B2B]/40 hover:shadow-xs transition-all">
+                <svg class="w-3.5 h-3.5 text-[#E0245E] fill-current shrink-0" viewBox="0 0 20 20" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M10 2.5c-.8 1.1-4 5.7-4 8.5 0 2.2 1.8 4 4 4s4-1.8 4-4c0-2.8-3.2-7.4-4-8.5z" clip-rule="evenodd"/>
+                </svg>
+                <span>Natural Tint</span>
+              </div>
+
+              <!-- Deep Moisturization -->
+              <div class="inline-flex items-center gap-2 bg-white/95 border border-[#E2D8C3] rounded-full px-4 py-2 shadow-2xs text-xs sm:text-[13px] font-semibold text-[#1E3B2B] hover:border-[#1E3B2B]/40 hover:shadow-xs transition-all">
+                <svg class="w-3.5 h-3.5 text-[#0EA5E9] fill-current shrink-0" viewBox="0 0 20 20" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M10 2.5c-.8 1.1-4 5.7-4 8.5 0 2.2 1.8 4 4 4s4-1.8 4-4c0-2.8-3.2-7.4-4-8.5z" clip-rule="evenodd"/>
+                </svg>
+                <span>Deep Moisturization</span>
+              </div>
+
+              <!-- Chemical Free -->
+              <div class="inline-flex items-center gap-2 bg-white/95 border border-[#E2D8C3] rounded-full px-4 py-2 shadow-2xs text-xs sm:text-[13px] font-semibold text-[#1E3B2B] hover:border-[#1E3B2B]/40 hover:shadow-xs transition-all">
+                <svg class="w-3.5 h-3.5 text-[#C28328] shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
+                </svg>
+                <span>Chemical Free</span>
+              </div>
+            </div>
+
+            <!-- CTA Explore Button & Trust Micro Details -->
+            <div class="flex flex-col sm:flex-row sm:items-center gap-4 pt-3">
+              <a 
+                id="explore-soaps-btn" 
+                href="shop.html"
+                class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 py-4 px-8 sm:px-9 rounded-full bg-[#0D2D1C] hover:bg-[#1b4520] active:scale-95 text-white font-semibold text-sm sm:text-base shadow-md hover:shadow-xl transition-all duration-300 group cursor-pointer"
+                aria-label="Explore the New Beetroot Lip Balm Range"
+              >
+                <span>Explore the New Range</span>
+                <span class="group-hover:translate-x-1.5 transition-transform duration-300">&rarr;</span>
+              </a>
+
+              <div class="flex items-center gap-2.5 text-xs sm:text-sm text-[#5C6B5E]">
+                <span class="font-bold text-[#1E3B2B] text-base">₹250</span>
+                <span class="text-[#8A9A8C]">•</span>
+                <span class="text-[#C28328]">★ 4.8</span>
+                <span class="text-[#8A9A8C]">(108 reviews)</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Column 2: Right Product Showcase Visual (7 cols on Desktop, Seamlessly Sits in Background) -->
+          <div class="lg:col-span-6 xl:col-span-7 flex items-center justify-center lg:justify-end relative">
+            <a 
+              href="shop.html" 
+              class="block relative group cursor-pointer select-none"
+              aria-label="View Beetroot Lip Balm on Shop"
+            >
+              <img 
+                src="assets/newly_launched_product_isolated_transparent.png" 
+                alt="EarthGlaze Beetroot Lip Balm on natural sandstone pedestal with freshly sliced beetroot and leafy bulb" 
+                class="w-full max-w-[560px] sm:max-w-[640px] lg:max-w-[700px] xl:max-w-[760px] h-auto object-contain transform transition-transform duration-700 group-hover:scale-[1.03]"
+                loading="eager"
+                width="1086"
+                height="615"
+              >
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 7: CUSTOMER REVIEWS — LOVED BY OUR CUSTOMERS
+         (Exact Replication of User Reference Visual with Interactive Carousel)
+         ======================================================================== -->
+    <section id="reviews" class="py-16 sm:py-20 lg:py-24 bg-[#FAF5EE] relative overflow-hidden border-t border-stone-200/40" aria-label="Customer Reviews">
+      
+      <!-- Subtle Ambient Warm Silk Background Overlay -->
+      <div class="absolute inset-0 w-full h-full pointer-events-none opacity-40 bg-gradient-to-b from-[#FFFDF9] via-[#FAF5EE] to-[#F5ECE0]" aria-hidden="true"></div>
+
+      <div class="max-w-[1500px] w-full mx-auto px-4 sm:px-8 relative z-10">
+        
+        <!-- Section Header (Centered with Eyebrow and Botanical Curved Swoosh Underline) -->
+        <div class="text-center max-w-2xl mx-auto mb-10 sm:mb-14">
+          
+          <!-- EarthGlaze Brand Accent -->
+          <div class="flex items-center justify-center mb-3">
+            <img src="assets/earthglaze-logo-hd.png" alt="EarthGlaze" class="h-6 sm:h-7 w-auto object-contain opacity-90 transition-transform duration-300 hover:scale-105">
+          </div>
+
+          <!-- Eyebrow: Exact Hero Setup with Flanking Dividers -->
+          <div class="flex items-center justify-center gap-3.5 mb-2.5 sm:mb-3">
+            <span class="eyebrow-divider" aria-hidden="true"></span>
+            <span class="text-xs sm:text-sm font-semibold tracking-[0.25em] text-[#3e5444] uppercase font-['Plus_Jakarta_Sans',sans-serif]">
+              Customer Reviews
+            </span>
+            <span class="eyebrow-divider" aria-hidden="true"></span>
+          </div>
+
+          <!-- Main Title with Amber Serif Italic Accent & Brush Underline -->
+          <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-bold text-[#1E3B2B] tracking-tight leading-[1.12] font-['Plus_Jakarta_Sans',sans-serif]">
+            Loved by Our <span class="relative inline-block italic font-serif font-bold text-[#C28328]">
+              Customers
+              <!-- Exact Curved Golden Botanical Brush Swoosh -->
+              <svg class="w-full h-2.5 sm:h-3.5 -mt-0.5 sm:-mt-1 text-[#C28328]" viewBox="0 0 180 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M 4 8 C 50 1.5 120 1.5 176 8 C 120 4.5 50 4.5 4 8 Z" fill="#C28328" opacity="0.95"/>
+              </svg>
+            </span>
+          </h2>
+
+        </div>
+
+        <!-- Carousel Container with Navigation Arrows -->
+        <div class="relative max-w-[1360px] mx-auto px-2 sm:px-6">
+          
+          <!-- Previous Button -->
+          <button 
+            id="reviews-prev-btn" 
+            type="button" 
+            class="absolute -left-2 sm:-left-4 lg:-left-6 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/95 hover:bg-white text-[#1E3B2B] shadow-md hover:shadow-lg border border-stone-200/80 flex items-center justify-center transition active:scale-95 cursor-pointer"
+            aria-label="Previous Reviews"
+          >
+            <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M15 19l-7-7 7-7"/>
+            </svg>
+          </button>
+
+          <!-- Next Button -->
+          <button 
+            id="reviews-next-btn" 
+            type="button" 
+            class="absolute -right-2 sm:-right-4 lg:-right-6 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/95 hover:bg-white text-[#1E3B2B] shadow-md hover:shadow-lg border border-stone-200/80 flex items-center justify-center transition active:scale-95 cursor-pointer"
+            aria-label="Next Reviews"
+          >
+            <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </button>
+
+          <!-- 4-Card Grid / Scrollable Track matching the exact Ratio in Reference Visual -->
+          <div id="reviews-track" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 lg:gap-6 items-stretch">
+            
+            <!-- Review Card 1: Ayesha N. -->
+            <div class="review-card bg-white rounded-3xl p-5 sm:p-6 shadow-sm border border-stone-200/60 flex flex-col justify-between transition-all duration-300 hover:shadow-md hover:-translate-y-1 cursor-pointer" data-review-idx="0">
+              <div>
+                <div class="flex items-center gap-3.5 mb-3.5">
+                  <img src="assets/review_avatar_ayesha.png" alt="Ayesha N." class="w-13 h-13 sm:w-14 sm:h-14 rounded-full object-cover border border-stone-100 shadow-2xs shrink-0 ring-2 ring-[#FAF4EE]">
+                  <div>
+                    <h4 class="font-serif font-bold text-base sm:text-lg text-[#1E3B2B]">Ayesha N.</h4>
+                    <div class="flex items-center gap-0.5 mt-1">
+                    <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#F5A623] fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#F5A623] fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#F5A623] fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#F5A623] fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#F5A623] fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                  </div>
+                  </div>
+                </div>
+                <div class="text-left flex items-start gap-2.5 pt-1">
+                  <svg class="w-5 h-5 text-[#8DA685] shrink-0 fill-current mt-0.5" viewBox="0 0 24 24"><path d="M9.983 3v7.391c0 5.704-3.731 9.57-8.983 10.609l-.995-2.151c2.432-.917 3.995-3.638 3.995-5.849h-4v-10h9.983zm14.017 0v7.391c0 5.704-3.748 9.57-9 10.609l-.996-2.151c2.433-.917 3.996-3.638 3.996-5.849h-3.983v-10h9.983z"/></svg>
+                  <p class="text-xs sm:text-sm text-[#404F44] leading-relaxed font-normal font-['Plus_Jakarta_Sans',sans-serif]">
+                    My skin feels so clean and naturally soft after using the Goat Milk Soap!
+                  </p>
+                </div>
+              </div>
+              <div class="pt-4 flex items-center justify-between border-t border-stone-100/80 mt-4">
+                <span class="inline-flex items-center gap-1 text-[11px] font-medium text-[#2D6A4F] bg-[#EBF5EE] px-2 py-0.5 rounded-full"><svg class="w-3 h-3 fill-current text-[#2D6A4F]" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg> Verified Customer</span>
+              </div>
+            </div>
+
+            <!-- Review Card 2: Rizwan K. (Active / Highlighted in Reference Visual) -->
+            <div class="review-card active-review-card bg-white rounded-3xl p-5 sm:p-6 shadow-md border-2 border-amber-200/80 ring-2 ring-amber-100/50 flex flex-col justify-between transition-all duration-300 lg:-translate-y-2 hover:shadow-lg cursor-pointer" data-review-idx="1">
+              <div>
+                <div class="flex items-center gap-3.5 mb-3.5">
+                  <img src="assets/review_avatar_rizwan.png" alt="Rizwan K." class="w-14 h-14 sm:w-16 sm:h-16 rounded-full object-cover border-2 border-amber-300/70 shadow-xs shrink-0 ring-2 ring-amber-100">
+                  <div>
+                    <h4 class="font-serif font-bold text-base sm:text-lg text-[#1E3B2B]">Rizwan K.</h4>
+                    <div class="flex items-center gap-0.5 mt-1">
+                    <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#F5A623] fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#F5A623] fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#F5A623] fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#F5A623] fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#F5A623] fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                  </div>
+                  </div>
+                </div>
+                <div class="text-left flex items-start gap-2.5 pt-1">
+                  <svg class="w-5 h-5 text-[#8DA685] shrink-0 fill-current mt-0.5" viewBox="0 0 24 24"><path d="M9.983 3v7.391c0 5.704-3.731 9.57-8.983 10.609l-.995-2.151c2.432-.917 3.995-3.638 3.995-5.849h-4v-10h9.983zm14.017 0v7.391c0 5.704-3.748 9.57-9 10.609l-.996-2.151c2.433-.917 3.996-3.638 3.996-5.849h-3.983v-10h9.983z"/></svg>
+                  <p class="text-xs sm:text-sm text-[#404F44] leading-relaxed font-normal font-['Plus_Jakarta_Sans',sans-serif]">
+                    The Manjistha Soap really improved my skin tone. Totally love it!
+                  </p>
+                </div>
+              </div>
+              <div class="pt-4 flex items-center justify-between border-t border-amber-100/60 mt-4">
+                <span class="inline-flex items-center gap-1 text-[11px] font-medium text-[#2D6A4F] bg-[#EBF5EE] px-2 py-0.5 rounded-full"><svg class="w-3 h-3 fill-current text-[#2D6A4F]" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg> Verified Customer</span>
+              </div>
+            </div>
+
+            <!-- Review Card 3: Hiba S. -->
+            <div class="review-card bg-white rounded-3xl p-5 sm:p-6 shadow-sm border border-stone-200/60 flex flex-col justify-between transition-all duration-300 hover:shadow-md hover:-translate-y-1 cursor-pointer" data-review-idx="2">
+              <div>
+                <div class="flex items-center gap-3.5 mb-3.5">
+                  <img src="assets/review_avatar_hiba.png" alt="Hiba S." class="w-13 h-13 sm:w-14 sm:h-14 rounded-full object-cover border border-stone-100 shadow-2xs shrink-0 ring-2 ring-[#FAF4EE]">
+                  <div>
+                    <h4 class="font-serif font-bold text-base sm:text-lg text-[#1E3B2B]">Hiba S.</h4>
+                    <div class="flex items-center gap-0.5 mt-1">
+                    <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#F5A623] fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#F5A623] fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#F5A623] fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#F5A623] fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#F5A623] fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                  </div>
+                  </div>
+                </div>
+                <div class="text-left flex items-start gap-2.5 pt-1">
+                  <svg class="w-5 h-5 text-[#8DA685] shrink-0 fill-current mt-0.5" viewBox="0 0 24 24"><path d="M9.983 3v7.391c0 5.704-3.731 9.57-8.983 10.609l-.995-2.151c2.432-.917 3.995-3.638 3.995-5.849h-4v-10h9.983zm14.017 0v7.391c0 5.704-3.748 9.57-9 10.609l-.996-2.151c2.433-.917 3.996-3.638 3.996-5.849h-3.983v-10h9.983z"/></svg>
+                  <p class="text-xs sm:text-sm text-[#404F44] leading-relaxed font-normal font-['Plus_Jakarta_Sans',sans-serif]">
+                    The Beet Root Lip Balm keeps my lips soft, smooth and naturally pink.
+                  </p>
+                </div>
+              </div>
+              <div class="pt-4 flex items-center justify-between border-t border-stone-100/80 mt-4">
+                <span class="inline-flex items-center gap-1 text-[11px] font-medium text-[#2D6A4F] bg-[#EBF5EE] px-2 py-0.5 rounded-full"><svg class="w-3 h-3 fill-current text-[#2D6A4F]" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg> Verified Customer</span>
+              </div>
+            </div>
+
+            <!-- Review Card 4: Faizal M. -->
+            <div class="review-card bg-white rounded-3xl p-5 sm:p-6 shadow-sm border border-stone-200/60 flex flex-col justify-between transition-all duration-300 hover:shadow-md hover:-translate-y-1 cursor-pointer" data-review-idx="3">
+              <div>
+                <div class="flex items-center gap-3.5 mb-3.5">
+                  <img src="assets/review_avatar_faizal.png" alt="Faizal M." class="w-13 h-13 sm:w-14 sm:h-14 rounded-full object-cover border border-stone-100 shadow-2xs shrink-0 ring-2 ring-[#FAF4EE]">
+                  <div>
+                    <h4 class="font-serif font-bold text-base sm:text-lg text-[#1E3B2B]">Faizal M.</h4>
+                    <div class="flex items-center gap-0.5 mt-1">
+                    <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#F5A623] fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#F5A623] fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#F5A623] fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#F5A623] fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg><svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#F5A623] fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                  </div>
+                  </div>
+                </div>
+                <div class="text-left flex items-start gap-2.5 pt-1">
+                  <svg class="w-5 h-5 text-[#8DA685] shrink-0 fill-current mt-0.5" viewBox="0 0 24 24"><path d="M9.983 3v7.391c0 5.704-3.731 9.57-8.983 10.609l-.995-2.151c2.432-.917 3.995-3.638 3.995-5.849h-4v-10h9.983zm14.017 0v7.391c0 5.704-3.748 9.57-9 10.609l-.996-2.151c2.433-.917 3.996-3.638 3.996-5.849h-3.983v-10h9.983z"/></svg>
+                  <p class="text-xs sm:text-sm text-[#404F44] leading-relaxed font-normal font-['Plus_Jakarta_Sans',sans-serif]">
+                    Gentle, herbal and perfect for daily use. Highly recommended!
+                  </p>
+                </div>
+              </div>
+              <div class="pt-4 flex items-center justify-between border-t border-stone-100/80 mt-4">
+                <span class="inline-flex items-center gap-1 text-[11px] font-medium text-[#2D6A4F] bg-[#EBF5EE] px-2 py-0.5 rounded-full"><svg class="w-3 h-3 fill-current text-[#2D6A4F]" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg> Verified Customer</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Pagination Indicator Dots (Exact matching reference: active dot dark green, others muted) -->
+          <div class="flex items-center justify-center gap-2.5 mt-8 sm:mt-10">
+            <button type="button" class="review-dot w-2.5 h-2.5 rounded-full transition-all duration-300 bg-[#1E3B2B]" data-index="0" aria-label="Review 1"></button>
+            <button type="button" class="review-dot w-2.5 h-2.5 rounded-full transition-all duration-300 bg-[#C8D6C9] hover:bg-[#8DA685]" data-index="1" aria-label="Review 2"></button>
+            <button type="button" class="review-dot w-2.5 h-2.5 rounded-full transition-all duration-300 bg-[#C8D6C9] hover:bg-[#8DA685]" data-index="2" aria-label="Review 3"></button>
+            <button type="button" class="review-dot w-2.5 h-2.5 rounded-full transition-all duration-300 bg-[#C8D6C9] hover:bg-[#8DA685]" data-index="3" aria-label="Review 4"></button>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <section id="faq" class="py-12 sm:py-16 md:py-20 bg-[#FAF7F2] relative overflow-hidden border-t border-stone-200/40" aria-label="Frequently Asked Questions">
+        
+        {/* Subtle Ambient Decorative Botanical Accent */}
+        <div class="max-w-[1500px] w-full mx-auto px-4 sm:px-8 relative z-10">
+          
+          {/* Section Header */}
+          <div class="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
+            
+            {/* Eyebrow: Exact Hero Setup with Flanking Dividers */}
+            <div class="flex items-center justify-center gap-3.5 mb-2.5">
+              <span class="w-8 h-0.5 bg-[#235327]/60 rounded-full" aria-hidden="true"></span>
+              <span class="text-xs sm:text-sm font-semibold tracking-[0.25em] text-[#3e5444] uppercase">
+                Got Questions?
+              </span>
+              <span class="w-8 h-0.5 bg-[#235327]/60 rounded-full" aria-hidden="true"></span>
+            </div>
+
+            {/* Main Title with Amber Italic Serif Accent */}
+            <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-serif font-bold text-[#1E3B2B] tracking-tight leading-[1.12]">
+              Frequently Asked <span class="relative inline-block italic font-serif font-normal text-[#C28328]">
+                Questions
+                {/* Curved Botanical Swoosh */}
+                <svg class="w-full h-2.5 sm:h-3 -mt-1 text-[#C28328]" viewBox="0 0 180 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M 4 8 C 50 1.5 120 1.5 176 8 C 120 4.5 50 4.5 4 8 Z" fill="#C28328" opacity="0.9"/>
+                </svg>
+              </span>
+            </h2>
+
+            {/* Subtitle */}
+            <p class="text-sm sm:text-base text-[#404F44] leading-relaxed font-normal mt-3 max-w-xl mx-auto">
+              Everything you need to know about our handcrafted ayurvedic botanicals, ingredients, orders, and delivery.
+            </p>
+          </div>
+
+          {/* 2-Column Responsive Layout: Left (Questions 1–4) | Right (Questions 5–8) */}
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 max-w-[1360px] mx-auto items-start">
+            
+            {/* ================================================================
+                 LEFT COLUMN: Products & Ingredients (Questions 1–4)
+                 ================================================================ */}
+            <div class="space-y-4 text-left">
+              
+              {/* Category Header Badge */}
+              <div class="flex items-center gap-3 pb-2.5 mb-2 border-b border-[#1E3B2B]/15">
+                <span class="w-9 h-9 rounded-full bg-[#EAF4E6] flex items-center justify-center text-base shrink-0 shadow-sm">🍃</span>
+                <div>
+                  <h3 class="font-serif font-bold text-lg sm:text-xl text-[#1E3B2B] tracking-tight">Products &amp; Ingredients</h3>
+                  <span class="text-xs font-semibold text-[#5A8834]">Questions 1–4 • Handcrafted Botanicals</span>
+                </div>
+              </div>
+
+              {/* Q1 */}
+              <details class="faq-item group bg-white rounded-2xl border border-stone-200/80 p-4 sm:p-5 shadow-sm hover:border-[#1E3B2B]/40 hover:shadow transition-all duration-300 open:border-[#1E3B2B]/50 open:ring-1 open:ring-[#1E3B2B]/20" open>
+                <summary class="flex items-center justify-between font-serif font-bold text-sm sm:text-base text-[#1E3B2B] cursor-pointer list-none select-none gap-3">
+                  <span class="flex items-center gap-2">
+                    <span class="text-xs font-bold font-sans text-[#8DA685] shrink-0">01.</span>
+                    <span>What makes EarthGlaze soaps different from commercial soaps?</span>
+                  </span>
+                  <span class="w-7 h-7 rounded-full bg-stone-50 group-hover:bg-[#EAF4E6] flex items-center justify-center text-stone-500 group-hover:text-[#1E3B2B] transition-all duration-300 shrink-0 group-open:rotate-180">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.2" d="M19 9l-7 7-7-7"/></svg>
+                  </span>
+                </summary>
+                <div class="faq-answer text-xs sm:text-sm text-[#404F44] leading-relaxed font-normal pt-3 border-t border-stone-100 mt-3 font-sans">
+                  EarthGlaze soaps are handcrafted in small batches using traditional cold-process methods with 100% natural plant oils, pure herbal extracts, and therapeutic botanicals. Unlike commercial soap bars, we never use sulfates (SLS/SLES), parabens, phthalates, synthetic detergents, or chemical hardeners. All natural glycerin is retained for intense, long-lasting moisture.
+                </div>
+              </details>
+
+              {/* Q2 */}
+              <details class="faq-item group bg-white rounded-2xl border border-stone-200/80 p-4 sm:p-5 shadow-sm hover:border-[#1E3B2B]/40 hover:shadow transition-all duration-300 open:border-[#1E3B2B]/50 open:ring-1 open:ring-[#1E3B2B]/20">
+                <summary class="flex items-center justify-between font-serif font-bold text-sm sm:text-base text-[#1E3B2B] cursor-pointer list-none select-none gap-3">
+                  <span class="flex items-center gap-2">
+                    <span class="text-xs font-bold font-sans text-[#8DA685] shrink-0">02.</span>
+                    <span>Is EarthGlaze Goat Milk Soap suitable for sensitive skin and eczema?</span>
+                  </span>
+                  <span class="w-7 h-7 rounded-full bg-stone-50 group-hover:bg-[#EAF4E6] flex items-center justify-center text-stone-500 group-hover:text-[#1E3B2B] transition-all duration-300 shrink-0 group-open:rotate-180">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.2" d="M19 9l-7 7-7-7"/></svg>
+                  </span>
+                </summary>
+                <div class="faq-answer text-xs sm:text-sm text-[#404F44] leading-relaxed font-normal pt-3 border-t border-stone-100 mt-3 font-sans">
+                  Yes, absolutely! Farm-fresh goat milk is naturally packed with gentle lactic acid, essential fatty acids, and vitamins A, B6, B12, and E. It has a pH closely matching human skin, helping calm irritation, relieve dryness, and strengthen the epidermal barrier. It is hypoallergenic and highly recommended for sensitive, inflamed, or eczema-prone skin.
+                </div>
+              </details>
+
+              {/* Q3 */}
+              <details class="faq-item group bg-white rounded-2xl border border-stone-200/80 p-4 sm:p-5 shadow-sm hover:border-[#1E3B2B]/40 hover:shadow transition-all duration-300 open:border-[#1E3B2B]/50 open:ring-1 open:ring-[#1E3B2B]/20">
+                <summary class="flex items-center justify-between font-serif font-bold text-sm sm:text-base text-[#1E3B2B] cursor-pointer list-none select-none gap-3">
+                  <span class="flex items-center gap-2">
+                    <span class="text-xs font-bold font-sans text-[#8DA685] shrink-0">03.</span>
+                    <span>How does Manjistha Soap help improve skin tone and fade spots?</span>
+                  </span>
+                  <span class="w-7 h-7 rounded-full bg-stone-50 group-hover:bg-[#EAF4E6] flex items-center justify-center text-stone-500 group-hover:text-[#1E3B2B] transition-all duration-300 shrink-0 group-open:rotate-180">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.2" d="M19 9l-7 7-7-7"/></svg>
+                  </span>
+                </summary>
+                <div class="faq-answer text-xs sm:text-sm text-[#404F44] leading-relaxed font-normal pt-3 border-t border-stone-100 mt-3 font-sans">
+                  Manjistha (<em>Rubia cordifolia</em>) is a revered Ayurvedic blood-purifying and complexion-enhancing herb. Rich in natural bioactive alizarin and rubiadin, it actively detoxifies sluggish pores, calms redness, helps regulate melanin production, and accelerates the fading of post-acne pigmentation, dark spots, and sun tanning.
+                </div>
+              </details>
+
+              {/* Q4 */}
+              <details class="faq-item group bg-white rounded-2xl border border-stone-200/80 p-4 sm:p-5 shadow-sm hover:border-[#1E3B2B]/40 hover:shadow transition-all duration-300 open:border-[#1E3B2B]/50 open:ring-1 open:ring-[#1E3B2B]/20">
+                <summary class="flex items-center justify-between font-serif font-bold text-sm sm:text-base text-[#1E3B2B] cursor-pointer list-none select-none gap-3">
+                  <span class="flex items-center gap-2">
+                    <span class="text-xs font-bold font-sans text-[#8DA685] shrink-0">04.</span>
+                    <span>Can I use EarthGlaze soaps safely on both face and body?</span>
+                  </span>
+                  <span class="w-7 h-7 rounded-full bg-stone-50 group-hover:bg-[#EAF4E6] flex items-center justify-center text-stone-500 group-hover:text-[#1E3B2B] transition-all duration-300 shrink-0 group-open:rotate-180">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.2" d="M19 9l-7 7-7-7"/></svg>
+                  </span>
+                </summary>
+                <div class="faq-answer text-xs sm:text-sm text-[#404F44] leading-relaxed font-normal pt-3 border-t border-stone-100 mt-3 font-sans">
+                  Yes! Because our soaps are crafted with organic cold-pressed plant oils (virgin coconut, olive, and shea butter), they produce a gentle, creamy lather that thoroughly cleanses without stripping facial lipids. They are completely safe and nurturing for daily face washes as well as full-body baths.
+                </div>
+              </details>
+
+            </div>
+
+            {/* ================================================================
+                 RIGHT COLUMN: Orders, Payments & Delivery (Questions 5–8)
+                 ================================================================ */}
+            <div class="space-y-4 text-left">
+              
+              {/* Category Header Badge */}
+              <div class="flex items-center gap-3 pb-2.5 mb-2 border-b border-[#1E3B2B]/15">
+                <span class="w-9 h-9 rounded-full bg-[#FFF3E3] flex items-center justify-center text-base shrink-0 shadow-sm">📦</span>
+                <div>
+                  <h3 class="font-serif font-bold text-lg sm:text-xl text-[#1E3B2B] tracking-tight">Orders, Payments &amp; Delivery</h3>
+                  <span class="text-xs font-semibold text-[#C28328]">Questions 5–8 • Shipping &amp; Support</span>
+                </div>
+              </div>
+
+              {/* Q5 */}
+              <details class="faq-item group bg-white rounded-2xl border border-stone-200/80 p-4 sm:p-5 shadow-sm hover:border-[#1E3B2B]/40 hover:shadow transition-all duration-300 open:border-[#1E3B2B]/50 open:ring-1 open:ring-[#1E3B2B]/20" open>
+                <summary class="flex items-center justify-between font-serif font-bold text-sm sm:text-base text-[#1E3B2B] cursor-pointer list-none select-none gap-3">
+                  <span class="flex items-center gap-2">
+                    <span class="text-xs font-bold font-sans text-[#C28328] shrink-0">05.</span>
+                    <span>What payment methods are accepted on EarthGlaze?</span>
+                  </span>
+                  <span class="w-7 h-7 rounded-full bg-stone-50 group-hover:bg-[#FFF3E3] flex items-center justify-center text-stone-500 group-hover:text-[#1E3B2B] transition-all duration-300 shrink-0 group-open:rotate-180">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.2" d="M19 9l-7 7-7-7"/></svg>
+                  </span>
+                </summary>
+                <div class="faq-answer text-xs sm:text-sm text-[#404F44] leading-relaxed font-normal pt-3 border-t border-stone-100 mt-3 font-sans">
+                  We provide 100% secure, 256-bit SSL encrypted checkout. We accept all major Indian payment methods, including UPI (Google Pay, PhonePe, Paytm, BHIM), Debit &amp; Credit Cards (Visa, MasterCard, RuPay), Net Banking across 50+ banks, and Cash on Delivery (COD).
+                </div>
+              </details>
+
+              {/* Q6 */}
+              <details class="faq-item group bg-white rounded-2xl border border-stone-200/80 p-4 sm:p-5 shadow-sm hover:border-[#1E3B2B]/40 hover:shadow transition-all duration-300 open:border-[#1E3B2B]/50 open:ring-1 open:ring-[#1E3B2B]/20">
+                <summary class="flex items-center justify-between font-serif font-bold text-sm sm:text-base text-[#1E3B2B] cursor-pointer list-none select-none gap-3">
+                  <span class="flex items-center gap-2">
+                    <span class="text-xs font-bold font-sans text-[#C28328] shrink-0">06.</span>
+                    <span>How many days does standard delivery take to my location?</span>
+                  </span>
+                  <span class="w-7 h-7 rounded-full bg-stone-50 group-hover:bg-[#FFF3E3] flex items-center justify-center text-stone-500 group-hover:text-[#1E3B2B] transition-all duration-300 shrink-0 group-open:rotate-180">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.2" d="M19 9l-7 7-7-7"/></svg>
+                  </span>
+                </summary>
+                <div class="faq-answer text-xs sm:text-sm text-[#404F44] leading-relaxed font-normal pt-3 border-t border-stone-100 mt-3 font-sans">
+                  All orders are dispatched from our facility within 24 hours. For Tier-1 metro cities (Mumbai, Delhi-NCR, Bengaluru, Chennai, Hyderabad, Kolkata), delivery takes 2 to 4 business days. For other regions and rural pin codes, delivery typically takes 4 to 6 business days via air express courier partners.
+                </div>
+              </details>
+
+              {/* Q7 */}
+              <details class="faq-item group bg-white rounded-2xl border border-stone-200/80 p-4 sm:p-5 shadow-sm hover:border-[#1E3B2B]/40 hover:shadow transition-all duration-300 open:border-[#1E3B2B]/50 open:ring-1 open:ring-[#1E3B2B]/20">
+                <summary class="flex items-center justify-between font-serif font-bold text-sm sm:text-base text-[#1E3B2B] cursor-pointer list-none select-none gap-3">
+                  <span class="flex items-center gap-2">
+                    <span class="text-xs font-bold font-sans text-[#C28328] shrink-0">07.</span>
+                    <span>Is Cash on Delivery (COD) available across India?</span>
+                  </span>
+                  <span class="w-7 h-7 rounded-full bg-stone-50 group-hover:bg-[#FFF3E3] flex items-center justify-center text-stone-500 group-hover:text-[#1E3B2B] transition-all duration-300 shrink-0 group-open:rotate-180">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.2" d="M19 9l-7 7-7-7"/></svg>
+                  </span>
+                </summary>
+                <div class="faq-answer text-xs sm:text-sm text-[#404F44] leading-relaxed font-normal pt-3 border-t border-stone-100 mt-3 font-sans">
+                  Yes, Cash on Delivery is available across 19,000+ pin codes in India for all cart totals up to ₹2,500. A nominal COD handling fee of ₹40 is applied at checkout to cover courier cash-collection fees. Prepaid orders via UPI/Card enjoy completely waived handling fees!
+                </div>
+              </details>
+
+              {/* Q8 */}
+              <details class="faq-item group bg-white rounded-2xl border border-stone-200/80 p-4 sm:p-5 shadow-sm hover:border-[#1E3B2B]/40 hover:shadow transition-all duration-300 open:border-[#1E3B2B]/50 open:ring-1 open:ring-[#1E3B2B]/20">
+                <summary class="flex items-center justify-between font-serif font-bold text-sm sm:text-base text-[#1E3B2B] cursor-pointer list-none select-none gap-3">
+                  <span class="flex items-center gap-2">
+                    <span class="text-xs font-bold font-sans text-[#C28328] shrink-0">08.</span>
+                    <span>How can I track my order once it has been dispatched?</span>
+                  </span>
+                  <span class="w-7 h-7 rounded-full bg-stone-50 group-hover:bg-[#FFF3E3] flex items-center justify-center text-stone-500 group-hover:text-[#1E3B2B] transition-all duration-300 shrink-0 group-open:rotate-180">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.2" d="M19 9l-7 7-7-7"/></svg>
+                  </span>
+                </summary>
+                <div class="faq-answer text-xs sm:text-sm text-[#404F44] leading-relaxed font-normal pt-3 border-t border-stone-100 mt-3 font-sans">
+                  As soon as your package leaves our warehouse, you will automatically receive an SMS, WhatsApp update, and email with your Airway Bill (AWB) tracking number and direct courier tracking link (BlueDart, Delhivery, or Xpressbees). You can check live status anytime.
+                </div>
+              </details>
+
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+  </main>
+
+    <!-- ========================================================================
+       EXACT EARTHGLAZE FOOTER SECTION (Matches Reference Image)
+       ======================================================================== -->
+  <footer class="relative bg-[#FAF7F2] text-[#1E3B2B] pt-12 sm:pt-16 pb-4 overflow-hidden font-sans border-t border-stone-200/50">
+      
+      {/* Top Left Organic Sage Curved Ribbon */}
+      <div class="absolute top-0 left-0 w-full sm:w-3/5 h-36 sm:h-48 pointer-events-none opacity-50 z-0">
+        <svg viewBox="0 0 800 200" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full" preserveAspectRatio="none">
+          <path d="M0,0 C180,70 320,130 520,100 C680,75 740,30 800,0 L0,0 Z" fill="#E8F2EA" />
+          <path d="M0,10 C190,80 330,140 530,110 C690,85 750,40 800,10" stroke="white" strokeWidth="2.5" opacity="0.7" fill="none" />
+        </svg>
+      </div>
+
+      {/* Top Right Lush Botanical Leaves Framing */}
+      <div 
+        class="absolute top-0 right-0 w-64 sm:w-80 h-64 sm:h-80 pointer-events-none opacity-85 bg-no-repeat bg-contain bg-right-top z-0"
+        style="background-image: url('assets/banner_offer_top_leaves.png');"
+      />
+
+      {/* Bottom Left Lush Botanical Leaves Framing */}
+      <div 
+        class="absolute bottom-6 left-0 w-40 sm:w-56 h-40 sm:h-56 pointer-events-none opacity-75 bg-no-repeat bg-contain bg-left-bottom z-0"
+        style="background-image: url('assets/story_corner_leaves.png');"
+      />
+
+      <div class="max-w-[1480px] mx-auto px-6 sm:px-10 lg:px-14 relative z-10">
+        
+        {/* Main 4-Column Grid */}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10 pb-12 items-start">
+          
+          {/* ================================================================
+              COLUMN 1: BRAND INFO & SOCIAL ICONS (Col-span 3)
+              ================================================================ */}
+          <div class="lg:col-span-3 space-y-4">
+            {/* Logo */}
+            <div>
+              <a href="index.html" class="inline-block group focus-visible:outline-none">
+                <img 
+                  src="/assets/earthglaze-logo-hd.png" 
+                  alt="EarthGlaze • Natural Skincare" 
+                  class="h-14 sm:h-16 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.02]"
+                />
+              </a>
+            </div>
+
+            {/* Tagline */}
+            <p class="text-stone-700 text-sm leading-relaxed max-w-xs font-normal">
+              Nature-powered skincare for healthier, glowing skin.
+            </p>
+
+            {/* 4 Circular Social Icon Buttons */}
+            <div class="flex items-center gap-3 pt-2">
+              {/* Instagram */}
+              <a 
+                href="https://instagram.com" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                aria-label="Instagram"
+                class="w-9 h-9 rounded-full bg-white/90 border border-stone-200/90 shadow-2xs flex items-center justify-center text-stone-700 hover:text-[#235327] hover:border-[#235327] hover:bg-white transition-all"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                </svg>
+              </a>
+
+              {/* Facebook */}
+              <a 
+                href="https://facebook.com" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                aria-label="Facebook"
+                class="w-9 h-9 rounded-full bg-white/90 border border-stone-200/90 shadow-2xs flex items-center justify-center text-stone-700 hover:text-[#235327] hover:border-[#235327] hover:bg-white transition-all"
+              >
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                </svg>
+              </a>
+
+              {/* YouTube */}
+              <a 
+                href="https://youtube.com" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                aria-label="YouTube"
+                class="w-9 h-9 rounded-full bg-white/90 border border-stone-200/90 shadow-2xs flex items-center justify-center text-stone-700 hover:text-[#235327] hover:border-[#235327] hover:bg-white transition-all"
+              >
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
+              </a>
+
+              {/* Pinterest */}
+              <a 
+                href="https://pinterest.com" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                aria-label="Pinterest"
+                class="w-9 h-9 rounded-full bg-white/90 border border-stone-200/90 shadow-2xs flex items-center justify-center text-stone-700 hover:text-[#235327] hover:border-[#235327] hover:bg-white transition-all"
+              >
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 0a12 12 0 0 0-4.37 23.18c-.06-.99-.1-2.52.02-3.61l.73-3.1s-.18-.37-.18-.92c0-.87.5-1.51 1.13-1.51.53 0 .79.4.79.88 0 .54-.34 1.34-.52 2.08-.15.62.31 1.13.92 1.13 1.1 0 1.95-1.16 1.95-2.84 0-1.48-1.07-2.52-2.59-2.52-1.77 0-2.8 1.32-2.8 2.69 0 .53.21 1.1.46 1.41.05.06.06.12.04.18l-.17.72c-.03.11-.1.15-.22.1-1-.46-1.62-1.92-1.62-3.09 0-2.51 1.83-4.82 5.27-4.82 2.77 0 4.92 1.97 4.92 4.61 0 2.75-1.73 4.96-4.14 4.96-.81 0-1.57-.42-1.83-.92l-.5 1.9c-.18.7-.67 1.57-1 2.11A11.98 11.98 0 1 0 12 0z"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          {/* ================================================================
+              COLUMN 2: QUICK LINKS (Col-span 3) - Clean without outer box
+              ================================================================ */}
+          <div class="lg:col-span-3 space-y-3">
+            <div class="flex items-center gap-2 mb-1.5">
+              <span class="w-8 h-8 rounded-lg bg-[#EAF3EC] border border-[#235327]/15 flex items-center justify-center text-[#235327] text-sm shrink-0">
+                🔗
+              </span>
+              <h4 class="font-sans font-bold text-base text-stone-900 tracking-tight">Quick Links</h4>
+            </div>
+            {/* Green underline accent */}
+            <div class="w-10 h-0.5 bg-[#235327] mb-4 rounded-full"></div>
+
+            <ul class="space-y-2.5 text-sm">
+              <li>
+                <a href="index.html" class="inline-flex items-center gap-2 text-stone-700 hover:text-[#235327] transition-colors group">
+                  <span class="text-[#235327] font-bold text-xs group-hover:translate-x-0.5 transition-transform">&gt;</span>
+                  <span>Home</span>
+                </a>
+              </li>
+              <li>
+                <a href="shop.html" class="inline-flex items-center gap-2 text-stone-700 hover:text-[#235327] transition-colors group">
+                  <span class="text-[#235327] font-bold text-xs group-hover:translate-x-0.5 transition-transform">&gt;</span>
+                  <span>Shop</span>
+                </a>
+              </li>
+              <li>
+                <a href="about.html" class="inline-flex items-center gap-2 text-stone-700 hover:text-[#235327] transition-colors group">
+                  <span class="text-[#235327] font-bold text-xs group-hover:translate-x-0.5 transition-transform">&gt;</span>
+                  <span>About Us</span>
+                </a>
+              </li>
+              <li>
+                <a href="ingredients.html" class="inline-flex items-center gap-2 text-stone-700 hover:text-[#235327] transition-colors group">
+                  <span class="text-[#235327] font-bold text-xs group-hover:translate-x-0.5 transition-transform">&gt;</span>
+                  <span>Ingredients</span>
+                </a>
+              </li>
+              <li>
+                <a href="blog.html" class="inline-flex items-center gap-2 text-stone-700 hover:text-[#235327] transition-colors group">
+                  <span class="text-[#235327] font-bold text-xs group-hover:translate-x-0.5 transition-transform">&gt;</span>
+                  <span>Blog</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* ================================================================
+              COLUMN 3: CUSTOMER SUPPORT (Col-span 3) - Clean without outer box
+              ================================================================ */}
+          <div class="lg:col-span-3 space-y-3">
+            <div class="flex items-center gap-2 mb-1.5">
+              <span class="w-8 h-8 rounded-lg bg-[#EAF3EC] border border-[#235327]/15 flex items-center justify-center text-[#235327] text-sm shrink-0">
+                🎧
+              </span>
+              <h4 class="font-sans font-bold text-base text-stone-900 tracking-tight">Customer Support</h4>
+            </div>
+            {/* Green underline accent */}
+            <div class="w-10 h-0.5 bg-[#235327] mb-4 rounded-full"></div>
+
+            <ul class="space-y-2.5 text-sm">
+              <li>
+                <a href="index.html#faq" class="inline-flex items-center gap-2 text-stone-700 hover:text-[#235327] transition-colors group">
+                  <span class="text-[#235327] font-bold text-xs group-hover:translate-x-0.5 transition-transform">&gt;</span>
+                  <span>Help &amp; FAQs</span>
+                </a>
+              </li>
+              <li>
+                <a href="track-order.html" class="inline-flex items-center gap-2 text-stone-700 hover:text-[#235327] transition-colors group">
+                  <span class="text-[#235327] font-bold text-xs group-hover:translate-x-0.5 transition-transform">&gt;</span>
+                  <span>Shipping &amp; Delivery</span>
+                </a>
+              </li>
+              <li>
+                <a href="contact.html" class="inline-flex items-center gap-2 text-stone-700 hover:text-[#235327] transition-colors group">
+                  <span class="text-[#235327] font-bold text-xs group-hover:translate-x-0.5 transition-transform">&gt;</span>
+                  <span>Returns &amp; Refunds</span>
+                </a>
+              </li>
+              <li>
+                <a href="contact.html" class="inline-flex items-center gap-2 text-stone-700 hover:text-[#235327] transition-colors group">
+                  <span class="text-[#235327] font-bold text-xs group-hover:translate-x-0.5 transition-transform">&gt;</span>
+                  <span>Privacy Policy</span>
+                </a>
+              </li>
+              <li>
+                <a href="contact.html" class="inline-flex items-center gap-2 text-stone-700 hover:text-[#235327] transition-colors group">
+                  <span class="text-[#235327] font-bold text-xs group-hover:translate-x-0.5 transition-transform">&gt;</span>
+                  <span>Terms &amp; Conditions</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* ================================================================
+              COLUMN 4: STAY IN THE LOOP (Col-span 3) - Elegant Frosted Card
+              ================================================================ */}
+          <div class="lg:col-span-3 relative bg-white/70 backdrop-blur-md rounded-3xl p-6 sm:p-7 border border-emerald-100/90 shadow-[0_8px_30px_rgba(23,61,43,0.04)] overflow-hidden flex flex-col justify-between">
+            
+            {/* Card Corner Botanical Accent */}
+            <div 
+              class="absolute right-0 top-0 w-28 h-28 pointer-events-none opacity-40 bg-no-repeat bg-contain bg-right-top"
+              style="background-image: url('assets/banner_offer_top_leaves.png');"
+            />
+
+            <div class="relative z-10">
+              <div class="flex items-center gap-2.5 mb-2">
+                <span class="w-8 h-8 rounded-lg bg-[#EAF3EC] border border-[#235327]/15 flex items-center justify-center text-[#235327] text-sm shrink-0">
+                  ✉️
+                </span>
+                <h4 class="font-sans font-bold text-base text-stone-900 tracking-tight flex items-center gap-1.5">
+                  Stay in the Loop <span class="text-amber-500 text-sm">✨</span>
+                </h4>
+              </div>
+              <p class="text-stone-600 text-xs sm:text-sm leading-relaxed mb-5 font-normal">
+                Get skincare tips, new launches and exclusive offers.
+              </p>
+            </div>
+
+            {/* Newsletter Subscription Input Capsule */}
+            <form onsubmit="event.preventDefault(); alert('Thank you for subscribing to EarthGlaze updates!');" class="relative z-10 flex items-center bg-white rounded-full border border-stone-200/90 p-1 pl-3.5 shadow-sm focus-within:border-[#235327] focus-within:ring-2 focus-within:ring-[#235327]/10 transition-all">
+              <svg class="w-4 h-4 text-stone-400 shrink-0 mr-2" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <rect x="2" y="4" width="20" height="16" rx="2"/>
+                <path d="M22 6l-10 7L2 6"/>
+              </svg>
+              <input 
+                type="email" 
+                required 
+                placeholder="Enter your email" 
+                class="w-full bg-transparent text-xs text-stone-800 placeholder-stone-400 focus:outline-none pr-2"
+              />
+              <button 
+                type="submit" 
+                class="shrink-0 bg-[#0D2D1C] hover:bg-[#1b4520] active:scale-95 text-white text-xs font-semibold px-4 py-2.5 rounded-full transition-all duration-200 inline-flex items-center gap-1.5 shadow-sm"
+              >
+                <span>Subscribe</span>
+                <span>&rarr;</span>
+              </button>
+            </form>
+
+          </div>
+
+        </div>
+
+        {/* ====================================================================
+            FLOATING TRUST BADGES CAPSULE PILL BAR
+            ==================================================================== */}
+        <div class="mb-8 sm:mb-10">
+          <div class="bg-[#FAF5ED]/95 backdrop-blur-md rounded-full shadow-[0_4px_24px_rgba(23,61,43,0.03)] border border-stone-200/80 py-3.5 sm:py-4 px-6 sm:px-12 max-w-5xl mx-auto">
+            <div class="flex flex-wrap items-center justify-between gap-4 text-xs sm:text-sm font-semibold text-stone-800">
+              
+              {/* Badge 1: 100% Natural */}
+              <div class="flex items-center gap-2 mx-auto sm:mx-0">
+                <svg class="w-5 h-5 text-[#235327] shrink-0" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9 9 0 0 1-9-9c0-4.97 4.03-9 9-9 4.97 0 9 4.03 9 9a9 9 0 0 1-9 9zm0-18v18m0-9c-2.5 0-4.5-2-4.5-4.5S9.5 5 12 5"/>
+                </svg>
+                <span>100% Natural</span>
+              </div>
+
+              <span class="text-stone-300 hidden sm:inline">|</span>
+
+              {/* Badge 2: Ayurvedic Formulation */}
+              <div class="flex items-center gap-2 mx-auto sm:mx-0">
+                <svg class="w-5 h-5 text-[#235327] shrink-0" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 11H5m14 0a7 7 0 01-7 7m7-7a7 7 0 00-7-7m-7 7a7 7 0 007 7m-7-7a7 7 0 017-7m7 14v4m-4-2h8"/>
+                </svg>
+                <span>Ayurvedic Formulation</span>
+              </div>
+
+              <span class="text-stone-300 hidden sm:inline">|</span>
+
+              {/* Badge 3: No Harsh Chemicals */}
+              <div class="flex items-center gap-2 mx-auto sm:mx-0">
+                <svg class="w-5 h-5 text-[#235327] shrink-0" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
+                </svg>
+                <span>No Harsh Chemicals</span>
+              </div>
+
+              <span class="text-stone-300 hidden sm:inline">|</span>
+
+              {/* Badge 4: Cruelty Free */}
+              <div class="flex items-center gap-2 mx-auto sm:mx-0">
+                <svg class="w-5 h-5 text-[#235327] shrink-0" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                </svg>
+                <span>Cruelty Free</span>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        {/* ====================================================================
+            COPYRIGHT BAR WITH HORIZONTAL ACCENT DIVIDERS
+            ==================================================================== */}
+        <div class="flex items-center justify-center gap-3 sm:gap-6 text-xs text-stone-500 font-medium py-3 text-center">
+          <span class="w-8 sm:w-16 h-px bg-stone-300/80 rounded-full"></span>
+          <span>&copy; 2025 EarthGlaze. All Rights Reserved.</span>
+          <span class="w-8 sm:w-16 h-px bg-stone-300/80 rounded-full"></span>
+        </div>
+
+      </div>
+
+      {/* Very subtle soft bottom green organic blur */}
+      <div class="w-full overflow-hidden leading-none pointer-events-none mt-1 opacity-40">
+        <svg viewBox="0 0 1440 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-3 sm:h-5" preserveAspectRatio="none">
+          <path d="M0,20 C420,5 1020,5 1440,20 L1440,20 L0,20 Z" fill="#E8F2EA" />
+        </svg>
+      </div>
+
+    </footer>
+
+  <!-- ========================================================================
+       INTERACTIVE CART SLIDE-OVER DRAWER
+       ======================================================================== -->
+  <div id="cart-drawer-backdrop" class="drawer-backdrop fixed inset-0 bg-stone-900/40 backdrop-blur-sm z-50" aria-hidden="true"></div>
+  <aside id="cart-drawer" class="cart-drawer-panel fixed top-0 right-0 h-full w-full max-w-md bg-stone-50 z-50 flex flex-col shadow-2xl border-l border-stone-200" aria-label="Shopping Bag Drawer">
+    <div class="p-5 bg-white border-b border-stone-200 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <h3 class="font-serif font-bold text-lg text-stone-900">Your Botanical Ritual Bag</h3>
+      </div>
+      <button id="cart-close-btn" type="button" class="p-2 rounded-full hover:bg-stone-100 text-stone-500 transition" aria-label="Close Shopping Bag">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <div class="bg-emerald-50/70 p-4 border-b border-emerald-100/60">
+      <p id="free-shipping-text" class="text-xs text-emerald-900 mb-2">
+        Add <strong>₹200</strong> more to unlock <strong>Free Express Shipping</strong>
+      </p>
+      <div class="w-full h-2 rounded-full bg-emerald-200/50 overflow-hidden">
+        <div id="free-shipping-progress" class="h-full bg-[#235327] transition-all duration-300 rounded-full" style="width: 80%;"></div>
+      </div>
+    </div>
+
+    <div id="cart-items-container" class="flex-1 overflow-y-auto p-4 space-y-3"></div>
+
+    <div class="p-4 bg-white border-t border-stone-200">
+      <label for="promo-code-input" class="block text-xs font-semibold text-stone-700 mb-1">VIP Promo Code</label>
+      <div class="flex gap-2">
+        <input 
+          id="promo-code-input" 
+          type="text" 
+          placeholder="e.g. EARTHGLAZE15" 
+          class="flex-1 px-3 py-2 rounded-xl border border-stone-200 text-xs focus:outline-none focus:ring-2 focus:ring-emerald-700 uppercase"
+        >
+        <button id="promo-apply-btn" type="button" class="px-4 py-2 rounded-xl bg-stone-900 text-white text-xs font-semibold hover:bg-stone-800 transition">
+          Apply
+        </button>
+      </div>
+      <p id="promo-message" class="text-xs text-stone-500 mt-1">Hint: Try code <code class="font-mono text-emerald-800">EARTHGLAZE15</code> for 15% off</p>
+    </div>
+
+    <div class="p-5 bg-white border-t border-stone-200 space-y-3">
+      <div class="flex justify-between text-xs text-stone-600">
+        <span>Subtotal</span>
+        <span id="cart-subtotal" class="font-semibold text-stone-900">₹799</span>
+      </div>
+      <div class="flex justify-between text-xs text-stone-600">
+        <span>Estimated Total</span>
+        <span id="cart-total" class="text-base font-bold text-stone-900">₹799</span>
+      </div>
+      <button type="button" class="btn-primary-explore w-full py-4 rounded-full font-bold text-sm tracking-wide shadow-md flex items-center justify-center gap-2" onclick="alert('Proceeding to Secure Checkout with UPI, RuPay, Visa, MasterCard')">
+        <span>Secure Checkout</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+      </button>
+    </div>
+  </aside>
+
+
+  <!-- ========================================================================
+       NEWLY LAUNCHED PRODUCT MODAL
+       ======================================================================== -->
+  <div id="soaps-modal-backdrop" class="drawer-backdrop fixed inset-0 bg-stone-900/50 backdrop-blur-sm z-50 hidden" aria-hidden="true"></div>
+  <dialog id="soaps-modal" class="hidden fixed inset-0 z-50 p-4 flex items-center justify-center bg-transparent w-full max-w-2xl" aria-label="Newly Launched Beetroot Lip Balm">
+    <div class="bg-white w-full rounded-3xl shadow-2xl border border-stone-200 overflow-hidden p-6 sm:p-8 space-y-6">
+      <div class="flex items-center justify-between border-b border-stone-100 pb-4">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-[#235327]">🍃 Newly Launched</span>
+          <h3 class="font-serif font-bold text-2xl text-[#173D2B]">Beetroot Lip Balm</h3>
+        </div>
+        <button id="soaps-close-btn" type="button" class="p-2 rounded-full hover:bg-stone-100 text-stone-400 hover:text-stone-700 transition" aria-label="Close modal">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <p class="text-sm text-stone-600">
+        Nourishing lip care with the natural goodness of organic beetroot. Keeps your lips soft, smooth and naturally tinted:
+      </p>
+
+      <div class="p-5 bg-[#FAF7F2] rounded-2xl border border-stone-200/60 flex flex-col sm:flex-row items-center gap-6 text-left">
+        <div class="w-32 h-32 rounded-xl bg-white overflow-hidden flex items-center justify-center p-2 shrink-0 shadow-xs border border-stone-200/50">
+          <img src="assets/bestseller_balm_photo_hd.png" alt="Beet Root Lip Balm" class="w-full h-full object-cover rounded-lg">
+        </div>
+        <div class="space-y-2 flex-1">
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold text-emerald-800 bg-emerald-100 px-2.5 py-0.5 rounded-full">10 g</span>
+            <span class="text-xs text-stone-500 font-medium">100% Organic & Chemical Free</span>
+          </div>
+          <h4 class="text-base font-bold text-[#173D2B]">EarthGlaze Beetroot Lip Balm</h4>
+          <p class="text-xs text-stone-500 leading-relaxed">Infused with real beetroot extract, cold-pressed almond oil, and pure beeswax for lasting hydration and soft pink tint.</p>
+          <div class="pt-2 flex items-center justify-between">
+            <span class="text-xl font-serif font-bold text-[#173D2B]">₹199</span>
+            <button type="button" class="catalog-add-btn px-5 py-2.5 rounded-full bg-[#173D2B] hover:bg-[#235327] text-white text-xs font-semibold shadow-sm transition flex items-center gap-1.5 cursor-pointer" data-product-id="beetroot-lip-balm">
+              <span>🛒</span>
+              <span>Add to Cart</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- ========================================================================
+       LIVE SEARCH OVERLAY MODAL
+       ======================================================================== -->
+  <div id="search-modal-backdrop" class="drawer-backdrop fixed inset-0 bg-stone-900/50 backdrop-blur-sm z-50" aria-hidden="true"></div>
+  <dialog id="search-modal" class="hidden fixed inset-0 z-50 p-4 flex items-start justify-center pt-20 bg-transparent w-full max-w-2xl" aria-label="Search Catalog">
+    <div class="bg-white w-full rounded-3xl shadow-2xl border border-stone-200 overflow-hidden">
+      <div class="p-4 sm:p-5 border-b border-stone-100 flex items-center gap-3">
+        <svg class="w-5 h-5 text-emerald-800 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        <input 
+          id="site-search-input" 
+          type="search" 
+          placeholder="Search products (e.g. Cream, Vitamin C, Cleanser, Aloe, Sunscreen)..." 
+          class="w-full text-sm sm:text-base text-stone-900 placeholder:text-stone-400 focus:outline-none"
+        >
+        <button id="search-close-btn" type="button" class="p-1 rounded-full text-stone-400 hover:text-stone-700 transition" aria-label="Close search">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <div class="px-5 py-3 bg-stone-50 border-b border-stone-100 flex items-center gap-2 overflow-x-auto text-xs">
+        <span class="text-stone-400 font-semibold shrink-0">Popular:</span>
+        <button type="button" class="search-tag-chip px-3 py-1 rounded-full bg-white border border-stone-200 hover:border-emerald-700 text-stone-700 font-medium transition" data-tag="Cream">Face Cream</button>
+        <button type="button" class="search-tag-chip px-3 py-1 rounded-full bg-white border border-stone-200 hover:border-emerald-700 text-stone-700 font-medium transition" data-tag="Vitamin C">Vitamin C</button>
+        <button type="button" class="search-tag-chip px-3 py-1 rounded-full bg-white border border-stone-200 hover:border-emerald-700 text-stone-700 font-medium transition" data-tag="Cleanser">Cleanser</button>
+        <button type="button" class="search-tag-chip px-3 py-1 rounded-full bg-white border border-stone-200 hover:border-emerald-700 text-stone-700 font-medium transition" data-tag="Aloe">Aloe Gel</button>
+        <button type="button" class="search-tag-chip px-3 py-1 rounded-full bg-white border border-stone-200 hover:border-emerald-700 text-stone-700 font-medium transition" data-tag="Sunscreen">Sunscreen</button>
+      </div>
+
+      <div id="search-results-list" class="max-h-96 overflow-y-auto p-4 space-y-2"></div>
+    </div>
+  </dialog>
+
+  <!-- ========================================================================
+       MOBILE NAVIGATION SLIDE-IN DRAWER
+       ======================================================================== -->
+  <div id="mobile-drawer-backdrop" class="drawer-backdrop fixed inset-0 bg-stone-900/40 backdrop-blur-sm z-50" aria-hidden="true"></div>
+  <aside id="mobile-drawer" class="mobile-drawer-panel fixed top-0 left-0 h-full w-full max-w-xs bg-white z-50 flex flex-col shadow-2xl p-6" aria-label="Mobile Navigation">
+    <div class="flex items-center justify-between pb-6 border-b border-stone-100">
+      <img src="assets/earthglaze-logo-hd.png" alt="EarthGlaze" class="h-10 sm:h-12 w-auto object-contain">
+      <button id="mobile-close-btn" type="button" class="p-2 rounded-full hover:bg-stone-100 text-stone-500 transition" aria-label="Close Menu">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <nav class="flex-1 py-6 space-y-2" aria-label="Mobile menu links">
+      <a href="#home" class="block px-4 py-3 rounded-2xl bg-[#dce8df] text-[#173e23] font-semibold text-sm">Home</a>
+      <a href="#products" class="block px-4 py-3 rounded-2xl hover:bg-stone-50 text-stone-800 font-medium text-sm transition">Shop All</a>
+      <a href="#our-story" class="block px-4 py-3 rounded-2xl hover:bg-stone-50 text-stone-800 font-medium text-sm transition">Our Story</a>
+      <a href="#ingredients" class="block px-4 py-3 rounded-2xl hover:bg-stone-50 text-stone-800 font-medium text-sm transition">Ingredients</a>
+      <a href="#blog" class="block px-4 py-3 rounded-2xl hover:bg-stone-50 text-stone-800 font-medium text-sm transition">Blog</a>
+      <a href="#faq" class="block px-4 py-3 rounded-2xl hover:bg-stone-50 text-stone-800 font-medium text-sm transition">Help &amp; FAQs</a>
+      <a href="#contact" class="block px-4 py-3 rounded-2xl hover:bg-stone-50 text-stone-800 font-medium text-sm transition">Contact</a>
+    </nav>
+  </aside>
+
+  <!-- ========================================================================
+       TOAST NOTIFICATION (Micro-interaction feedback)
+       ======================================================================== -->
+  <div id="toast-notice" class="toast-notice" role="status" aria-live="polite">
+    <span class="toast-icon text-lg">🌿</span>
+    <span id="toast-message" class="text-xs font-semibold text-stone-800">Selected Hydrating Face Cream</span>
+  </div>
+
+  <!-- Application Logic & Storyboard Animation Sequence -->
+  <script src="js/app.js"></script>
+  <script src="js/storyboard-animation.js"></script>
+
+  <!-- EarthGlaze Live CMS Hydration Client -->
+  <script src="js/cms-client.js"></script>
+
+  <!-- Floating Admin Dashboard Quick Access Button -->
+  <a 
+    href="admin.html" 
+    target="_blank"
+    class="fixed bottom-24 right-5 z-40 inline-flex items-center gap-2 px-3.5 py-2 rounded-full bg-[#1E3B2B] text-[#FAF7F2] text-xs font-bold shadow-xl hover:bg-[#142A1E] hover:scale-105 active:scale-95 transition-all duration-300 border border-amber-400/50"
+    title="Open EarthGlaze Admin CMS"
+  >
+    <svg class="w-4 h-4 text-amber-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+    </svg>
+    <span>Admin CMS</span>
+  </a>
+</body>
+</html>

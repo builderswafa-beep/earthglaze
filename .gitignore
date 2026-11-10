@@ -1,0 +1,56 @@
+# Next.js
+.next/
+out/
+build/
+dist/
+
+# Node dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Laravel Backend
+backend-laravel/vendor/
+backend-laravel/node_modules/
+backend-laravel/.env
+backend-laravel/.env.backup
+backend-laravel/.env.production
+backend-laravel/storage/*.key
+backend-laravel/storage/pail/
+backend-laravel/public/storage
+backend-laravel/public/build
+backend-laravel/public/hot
+backend-laravel/.phpunit.cache/
+backend-laravel/.phpunit.result.cache
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Scratch & temporary development scripts
+scratch/
+
+# OS / Editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Root test captures and screen logs
+account_desktop.png
+account_mobile.png
+checkout_current*.png
+checkout_desktop.png
+checkout_mobile.png
+frame_*.png
+order_confirm_*.png
+order_unboxing_motion.gif
+track_order_desktop.png
+track_order_mobile.png
+typography_*.png
+*.log

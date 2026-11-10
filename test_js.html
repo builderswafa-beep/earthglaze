@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<body>
+<script src="http://127.0.0.1:8080/js/app.js"></script>
+<script>
+  console.log("TEST: EarthGlazeCarousel exists?", !!window.EarthGlazeCarousel);
+  if (window.EarthGlazeCarousel) {
+    console.log("TEST: activeIndex=", window.EarthGlazeCarousel.getActiveIndex());
+    window.EarthGlazeCarousel.updateSteppedCarousel(1);
+    console.log("TEST after update(1): activeIndex=", window.EarthGlazeCarousel.getActiveIndex());
+  }
+</script>
+</body>
+</html>

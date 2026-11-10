@@ -1,0 +1,15 @@
+<svg viewBox="0 0 460 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="ringGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FCE198" stop-opacity="0.8"/>
+      <stop offset="60%" stop-color="#EBA734" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#FAF4EE" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <!-- Outer Dotted Orbit Ring -->
+  <ellipse cx="230" cy="70" rx="210" ry="52" stroke="#F4BC46" stroke-width="1.8" opacity="0.65" stroke-dasharray="10 8"/>
+  <!-- Inner Solid Glowing Ring -->
+  <ellipse cx="230" cy="70" rx="165" ry="40" stroke="#F8C95C" stroke-width="2.8" opacity="0.85"/>
+  <!-- Central Halo Core -->
+  <ellipse cx="230" cy="70" rx="110" ry="26" fill="url(#ringGlow)" filter="blur(6px)"/>
+</svg>

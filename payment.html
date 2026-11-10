@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment – Choose Payment Method | EarthGlaze Natural Skincare</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Cinzel:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-[#FAF7F2] text-stone-800 font-sans antialiased selection:bg-[#1E3B2B] selection:text-white min-h-screen flex flex-col">
+
+  <!-- Header -->
+  <header class="bg-[#FAF7F2] border-b border-[#E8DEC8]/80 py-4">
+    <div class="max-w-[1200px] mx-auto px-4 sm:px-6 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2">
+        <div class="w-9 h-9 rounded-full bg-[#1E3B2B] flex items-center justify-center text-white text-base font-serif">🌱</div>
+        <span class="font-serif font-bold text-xl text-[#1E3B2B]">EarthGlaze</span>
+      </a>
+
+      <!-- 3-Step Checkout Stepper matching Portfolio Reference -->
+      <div class="flex items-center gap-2 sm:gap-4 text-xs font-semibold">
+        <div class="flex items-center gap-1.5 text-emerald-800">
+          <span class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center text-xs">✓</span>
+          <span class="hidden sm:inline">Shipping</span>
+        </div>
+        <span class="text-emerald-700">───</span>
+        <div class="flex items-center gap-1.5 text-[#1E3B2B]">
+          <span class="w-6 h-6 rounded-full bg-[#1E3B2B] text-white flex items-center justify-center text-xs">2</span>
+          <span class="hidden sm:inline font-bold">Payment</span>
+        </div>
+        <span class="text-stone-300">───</span>
+        <div class="flex items-center gap-1.5 text-stone-400">
+          <span class="w-6 h-6 rounded-full bg-stone-200 text-stone-600 flex items-center justify-center text-xs">3</span>
+          <span class="hidden sm:inline">Review</span>
+        </div>
+      </div>
+
+      <a href="checkout.html" class="text-xs text-stone-500 hover:text-[#1E3B2B] font-medium flex items-center gap-1">
+        <span>Edit Address</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Payment Content -->
+  <main class="max-w-[1000px] mx-auto px-4 sm:px-6 py-8 sm:py-12 flex-1 w-full">
+    
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+      
+      <!-- Left Column: Payment Methods -->
+      <div class="md:col-span-7 bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-[#E8DEC8] space-y-6">
+        <div>
+          <h1 class="text-2xl font-serif font-bold text-[#1E3B2B]">Choose Payment Method</h1>
+          <p class="text-xs text-stone-500 mt-1">All transactions are encrypted and processed through certified banking standards.</p>
+        </div>
+
+        <div class="space-y-4" id="payment-options-container">
+          
+          <!-- Option 1: Online Payment (UPI, Cards, Net Banking) -->
+          <label class="block p-5 rounded-2xl border-2 border-[#1E3B2B] bg-[#FAF7F2] cursor-pointer transition relative group hover:border-[#1E3B2B]" id="opt-online-label">
+            <div class="flex items-start gap-3">
+              <input type="radio" name="payment_method" value="Online Payment" checked class="mt-1 text-[#1E3B2B] focus:ring-[#1E3B2B]">
+              <div class="flex-1">
+                <div class="flex items-center justify-between">
+                  <span class="font-serif font-bold text-sm text-[#1E3B2B]">Online Payment</span>
+                  <span class="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded-full">Recommended</span>
+                </div>
+                <p class="text-xs text-stone-500 mt-0.5">Pay securely with UPI, Debit/Credit Cards, Net Banking & Wallets</p>
+                
+                <!-- Payment Logos Row matching Portfolio Reference -->
+                <div class="flex items-center gap-2 mt-3 pt-3 border-t border-stone-200/80">
+                  <span class="px-2 py-1 bg-white rounded border border-stone-200 text-[10px] font-bold text-emerald-800">UPI</span>
+                  <span class="px-2 py-1 bg-white rounded border border-stone-200 text-[10px] font-bold text-blue-700">VISA</span>
+                  <span class="px-2 py-1 bg-white rounded border border-stone-200 text-[10px] font-bold text-amber-600">Mastercard</span>
+                  <span class="px-2 py-1 bg-white rounded border border-stone-200 text-[10px] font-bold text-sky-800">RuPay</span>
+                </div>
+              </div>
+            </div>
+          </label>
+
+          <!-- Option 2: Cash on Delivery (COD) -->
+          <label class="block p-5 rounded-2xl border border-stone-300 hover:border-[#1E3B2B] bg-white cursor-pointer transition relative group" id="opt-cod-label">
+            <div class="flex items-start gap-3">
+              <input type="radio" name="payment_method" value="Cash on Delivery" class="mt-1 text-[#1E3B2B] focus:ring-[#1E3B2B]">
+              <div class="flex-1">
+                <div class="flex items-center justify-between">
+                  <span class="font-serif font-bold text-sm text-stone-900">Cash on Delivery (COD)</span>
+                </div>
+                <p class="text-xs text-stone-500 mt-0.5">Pay in cash or UPI QR code when you receive your order at your doorstep.</p>
+              </div>
+            </div>
+          </label>
+
+        </div>
+
+        <!-- Place Order Button -->
+        <div class="pt-4">
+          <button 
+            type="button" 
+            id="btn-place-order" 
+            class="w-full py-4 bg-[#1E3B2B] hover:bg-[#14291E] text-white font-bold text-sm rounded-2xl transition shadow-xl hover:shadow-2xl flex items-center justify-center gap-2 active:scale-95"
+          >
+            <span id="place-order-text">Place Order – ₹348</span>
+            <span>✓</span>
+          </button>
+        </div>
+
+        <!-- Security Guarantee matching Portfolio Reference -->
+        <div class="text-center pt-2">
+          <p class="text-xs text-stone-500 flex items-center justify-center gap-1.5">
+            <svg class="w-4 h-4 text-emerald-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            <span>Secured by 256-bit SSL Encryption</span>
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Right Column: Shipping Summary Preview -->
+      <div class="md:col-span-5 bg-white rounded-3xl p-6 shadow-sm border border-[#E8DEC8] space-y-4">
+        <h2 class="font-serif font-bold text-base text-[#1E3B2B] border-b border-stone-200 pb-3">Delivery Summary</h2>
+
+        <div class="text-xs text-stone-600 space-y-1" id="delivery-address-slot">
+          <p class="font-bold text-stone-900" id="ship-name">Ayesha N.</p>
+          <p id="ship-phone">+91 98765 43210</p>
+          <p id="ship-address">Deralakatte, Mangalore, Karnataka 575018</p>
+        </div>
+
+        <div class="pt-4 border-t border-stone-200 space-y-2 text-xs">
+          <div class="flex justify-between text-stone-600">
+            <span>Subtotal</span>
+            <span class="font-bold text-stone-900" id="pay-subtotal">₹0</span>
+          </div>
+          <div id="pay-discount-row" class="hidden justify-between text-emerald-700">
+            <span>Discount</span>
+            <span class="font-bold" id="pay-discount">-₹0</span>
+          </div>
+          <div class="flex justify-between text-stone-600">
+            <span>Shipping</span>
+            <span class="font-bold text-emerald-700">FREE</span>
+          </div>
+          <div class="pt-2 border-t border-stone-200 flex justify-between text-sm sm:text-base font-serif font-bold text-[#1E3B2B]">
+            <span>Total Payable</span>
+            <span id="pay-final-total">₹0</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <script src="js/store.js"></script>
+  <script>
+    (function() {
+      const cart = EarthGlazeStore.getCart();
+      const shippingInfo = JSON.parse(sessionStorage.getItem('earthglaze_shipping_info') || '{}');
+      const savedTotals = JSON.parse(sessionStorage.getItem('earthglaze_checkout_totals') || '{}');
+
+      if (!cart.length) {
+        window.location.href = 'shop.html';
+        return;
+      }
+
+      // Display address info
+      if (shippingInfo.name) {
+        document.getElementById('ship-name').textContent = shippingInfo.name;
+        document.getElementById('ship-phone').textContent = shippingInfo.phone;
+        document.getElementById('ship-address').textContent = `${shippingInfo.address}, ${shippingInfo.city}, ${shippingInfo.state} ${shippingInfo.pincode}`;
+      }
+
+      // Calculate totals
+      const subtotal = savedTotals.subtotal || EarthGlazeStore.getCartSubtotal();
+      const discount = savedTotals.discount || 0;
+      const finalTotal = savedTotals.finalTotal || (subtotal - discount);
+
+      document.getElementById('pay-subtotal').textContent = `₹${Math.round(subtotal)}`;
+      if (discount > 0) {
+        document.getElementById('pay-discount').textContent = `-₹${Math.round(discount)}`;
+        document.getElementById('pay-discount-row').classList.remove('hidden');
+        document.getElementById('pay-discount-row').classList.add('flex');
+      }
+      document.getElementById('pay-final-total').textContent = `₹${Math.round(finalTotal)}`;
+      document.getElementById('place-order-text').textContent = `Place Order – ₹${Math.round(finalTotal)}`;
+
+      // Radio selection styling
+      const radioOnline = document.querySelector('input[value="Online Payment"]');
+      const radioCod = document.querySelector('input[value="Cash on Delivery"]');
+      const labelOnline = document.getElementById('opt-online-label');
+      const labelCod = document.getElementById('opt-cod-label');
+
+      function updateRadioStyles() {
+        if (radioOnline.checked) {
+          labelOnline.className = 'block p-5 rounded-2xl border-2 border-[#1E3B2B] bg-[#FAF7F2] cursor-pointer transition relative';
+          labelCod.className = 'block p-5 rounded-2xl border border-stone-300 hover:border-[#1E3B2B] bg-white cursor-pointer transition relative';
+        } else {
+          labelCod.className = 'block p-5 rounded-2xl border-2 border-[#1E3B2B] bg-[#FAF7F2] cursor-pointer transition relative';
+          labelOnline.className = 'block p-5 rounded-2xl border border-stone-300 hover:border-[#1E3B2B] bg-white cursor-pointer transition relative';
+        }
+      }
+
+      radioOnline.addEventListener('change', updateRadioStyles);
+      radioCod.addEventListener('change', updateRadioStyles);
+
+      // Place Order Action
+      const btnPlaceOrder = document.getElementById('btn-place-order');
+      btnPlaceOrder.addEventListener('click', async () => {
+        btnPlaceOrder.disabled = true;
+        btnPlaceOrder.innerHTML = `<span>Processing Order...</span>`;
+
+        const selectedMethod = document.querySelector('input[name="payment_method"]:checked')?.value || 'Online Payment';
+        const user = EarthGlazeStore.getUser();
+
+        const orderPayload = {
+          name: shippingInfo.name || 'Valued Customer',
+          phone: shippingInfo.phone || '+91 98765 43210',
+          email: shippingInfo.email || (user ? user.email : 'customer@earthglaze.in'),
+          address: shippingInfo.address || 'Mangalore',
+          city: shippingInfo.city || 'Mangalore',
+          state: shippingInfo.state || 'Karnataka',
+          pincode: shippingInfo.pincode || '575018',
+          notes: shippingInfo.notes || '',
+          user_id: user ? user.id : null,
+          payment_method: selectedMethod,
+          coupon_code: savedTotals.couponCode || '',
+          items: cart.map(item => ({ id: item.id, quantity: item.quantity }))
+        };
+
+        try {
+          const res = await fetch('/api/orders/create', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(orderPayload)
+          });
+
+          const data = await res.json();
+          if (data.status === 'ok') {
+            // Clear cart
+            EarthGlazeStore.clearCart();
+            sessionStorage.removeItem('earthglaze_checkout_totals');
+            
+            // Redirect to confirmation page
+            window.location.href = `order-confirmation.html?id=${data.order_number}`;
+          } else {
+            alert(data.message || 'Unable to place order. Please check stock or address details.');
+            btnPlaceOrder.disabled = false;
+            btnPlaceOrder.innerHTML = `<span>Place Order – ₹${Math.round(finalTotal)}</span><span>✓</span>`;
+          }
+        } catch (err) {
+          alert('Network connection error. Please try again.');
+          btnPlaceOrder.disabled = false;
+          btnPlaceOrder.innerHTML = `<span>Place Order – ₹${Math.round(finalTotal)}</span><span>✓</span>`;
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EarthGlaze CMS • Admin Dashboard</title>
+  <link rel="icon" type="image/png" href="assets/earthglaze-logo.png">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              green: '#1E3B2B',
+              dark: '#142A1E',
+              gold: '#C28328',
+              goldLight: '#DF9B35',
+              cream: '#FAF7F2',
+              creamDark: '#FAF4EE',
+              text: '#404F44',
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            serif: ['"Playfair Display"', 'serif'],
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    /* Custom Admin Scrollbars & Transitions */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #FAF4EE; }
+    ::-webkit-scrollbar-thumb { background: #C8D6C9; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #8DA685; }
+
+    .tab-btn.active {
+      background-color: #1E3B2B;
+      color: #FAF7F2;
+      box-shadow: 0 4px 12px rgba(30, 59, 43, 0.2);
+    }
+    .tab-btn.active svg {
+      color: #DF9B35;
+    }
+
+    .form-input {
+      width: 100%;
+      border-radius: 0.75rem;
+      border: 1px solid #E2D9CC;
+      background-color: #FFFFFF;
+      padding: 0.65rem 0.9rem;
+      font-size: 0.875rem;
+      color: #1E3B2B;
+      transition: all 0.2s ease;
+    }
+    .form-input:focus {
+      outline: none;
+      border-color: #C28328;
+      box-shadow: 0 0 0 3px rgba(194, 131, 40, 0.15);
+    }
+
+    .image-preview-box {
+      background-color: #FAF4EE;
+      border: 2px dashed #D6CBBC;
+      border-radius: 0.75rem;
+      transition: all 0.2s ease;
+    }
+    .image-preview-box:hover {
+      border-color: #C28328;
+    }
+  </style>
+</head>
+<body class="bg-[#F6F2EC] text-[#1E3B2B] font-sans antialiased min-h-screen flex flex-col">
+
+  <!-- ========================================================================
+       TOP ADMIN NAVBAR
+       ======================================================================== -->
+  <header class="bg-[#1E3B2B] text-white sticky top-0 z-40 border-b border-[#2D563E] shadow-md">
+    <div class="max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between">
+      
+      <!-- Logo & Branding -->
+      <div class="flex items-center gap-3.5">
+        <a href="index.html" target="_blank" class="flex items-center gap-2 group">
+          <img src="assets/earthglaze-logo-hd.png" alt="EarthGlaze" class="h-10 w-auto object-contain brightness-0 invert opacity-95 group-hover:scale-105 transition">
+        </a>
+        <div class="h-6 w-px bg-white/20 hidden sm:block"></div>
+        <div class="hidden sm:block">
+          <h1 class="text-sm font-bold tracking-wide uppercase text-amber-300">Admin Dashboard CMS</h1>
+          <p class="text-[11px] text-emerald-200/80">Full Homepage Visual Content Editor</p>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        
+        <!-- Live Store Link -->
+        <a 
+          href="index.html" 
+          target="_blank" 
+          class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-semibold text-white transition active:scale-95"
+          title="Open live homepage in a new tab"
+        >
+          <svg class="w-4 h-4 text-emerald-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+          </svg>
+          <span class="hidden md:inline">View Store</span>
+        </a>
+
+        <!-- Preview Modal Toggle -->
+        <button 
+          id="btn-toggle-preview" 
+          type="button" 
+          class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-semibold text-white transition active:scale-95"
+          title="Open live preview overlay"
+        >
+          <svg class="w-4 h-4 text-amber-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+          </svg>
+          <span>Live Preview</span>
+        </button>
+
+        <!-- Export JSON Backup -->
+        <button 
+          id="btn-export-json" 
+          type="button" 
+          class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-semibold text-white transition active:scale-95"
+          title="Download full JSON backup of site content"
+        >
+          <svg class="w-4 h-4 text-emerald-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+          </svg>
+          <span class="hidden lg:inline">Backup</span>
+        </button>
+
+        <!-- Import JSON Backup -->
+        <label 
+          class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-semibold text-white transition active:scale-95 cursor-pointer"
+          title="Restore content from JSON backup file"
+        >
+          <svg class="w-4 h-4 text-emerald-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
+          </svg>
+          <span class="hidden lg:inline">Restore</span>
+          <input id="input-import-json" type="file" accept=".json" class="hidden">
+        </label>
+
+        <!-- Save & Publish Button (Primary) -->
+        <button 
+          id="btn-save-all" 
+          type="button" 
+          class="inline-flex items-center gap-2 px-5 py-2 rounded-xl bg-[#C28328] hover:bg-[#DF9B35] active:scale-95 text-white font-bold text-xs sm:text-sm shadow-md transition-all duration-200 cursor-pointer"
+        >
+          <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M5 13l4 4L19 7"/>
+          </svg>
+          <span>Save &amp; Publish</span>
+        </button>
+
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       MAIN DASHBOARD LAYOUT (Sidebar Tabs + Content Workspace)
+       ======================================================================== -->
+  <div class="flex-1 max-w-[1700px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col lg:flex-row gap-6">
+
+    <!-- SIDEBAR NAVIGATION TABS -->
+    <aside class="w-full lg:w-72 shrink-0 space-y-3 bg-white p-3.5 rounded-2xl shadow-sm border border-[#E8DEC8]">
+      
+      <!-- BUSINESS MANAGEMENT GROUP -->
+      <div>
+        <div class="px-3 py-1.5 text-[11px] font-extrabold tracking-wider uppercase text-emerald-800 flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5 text-amber-500" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          Business Management
+        </div>
+
+        <nav class="space-y-1 mt-1" id="business-nav">
+          <button type="button" class="tab-btn active w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-stone-700 hover:bg-[#FAF4EE] transition text-left" data-target="tab-dashboard">
+            <svg class="w-4 h-4 text-[#1E3B2B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+            <span>Dashboard</span>
+          </button>
+
+          <button type="button" class="tab-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-stone-700 hover:bg-[#FAF4EE] transition text-left" data-target="tab-orders-mgmt">
+            <svg class="w-4 h-4 text-[#1E3B2B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+            <span>Manage Orders</span>
+          </button>
+
+          <button type="button" class="tab-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-stone-700 hover:bg-[#FAF4EE] transition text-left" data-target="tab-products-mgmt">
+            <svg class="w-4 h-4 text-[#1E3B2B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+            <span>Products &amp; Pricing</span>
+          </button>
+
+          <button type="button" class="tab-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-stone-700 hover:bg-[#FAF4EE] transition text-left" data-target="tab-inventory-mgmt">
+            <svg class="w-4 h-4 text-[#1E3B2B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+            <span>Inventory / Stock</span>
+          </button>
+
+          <button type="button" class="tab-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-stone-700 hover:bg-[#FAF4EE] transition text-left" data-target="tab-coupons-mgmt">
+            <svg class="w-4 h-4 text-[#1E3B2B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>
+            <span>Offers &amp; Coupons</span>
+          </button>
+
+          <button type="button" class="tab-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-stone-700 hover:bg-[#FAF4EE] transition text-left" data-target="tab-customers-mgmt">
+            <svg class="w-4 h-4 text-[#1E3B2B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+            <span>Customers</span>
+          </button>
+        </nav>
+      </div>
+
+      <div class="h-px bg-stone-200"></div>
+
+      <!-- HOMEPAGE CMS GROUP -->
+      <div>
+        <div class="px-3 py-1.5 text-[11px] font-extrabold tracking-wider uppercase text-stone-400">
+          Content CMS (Homepage)
+        </div>
+
+        <nav class="space-y-1 mt-1" id="section-nav">
+          <button type="button" class="tab-btn w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-xs font-semibold text-stone-700 hover:bg-[#FAF4EE] transition text-left" data-target="tab-general">
+            <svg class="w-4 h-4 text-[#1E3B2B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            <span>General &amp; Top Bar</span>
+          </button>
+
+          <button type="button" class="tab-btn w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-xs font-semibold text-stone-700 hover:bg-[#FAF4EE] transition text-left" data-target="tab-header">
+            <svg class="w-4 h-4 text-[#1E3B2B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"/></svg>
+            <span>Header &amp; Navigation</span>
+          </button>
+
+          <button type="button" class="tab-btn w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-xs font-semibold text-stone-700 hover:bg-[#FAF4EE] transition text-left" data-target="tab-hero">
+            <svg class="w-4 h-4 text-[#1E3B2B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+            <span>Hero (3D Carousel)</span>
+          </button>
+
+          <button type="button" class="tab-btn w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-xs font-semibold text-stone-700 hover:bg-[#FAF4EE] transition text-left" data-target="tab-offer">
+            <svg class="w-4 h-4 text-[#1E3B2B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/></svg>
+            <span>Combo Offer</span>
+          </button>
+
+          <button type="button" class="tab-btn w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-xs font-semibold text-stone-700 hover:bg-[#FAF4EE] transition text-left" data-target="tab-about">
+            <svg class="w-4 h-4 text-[#1E3B2B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+            <span>About (4 Pillars)</span>
+          </button>
+
+          <button type="button" class="tab-btn w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-xs font-semibold text-stone-700 hover:bg-[#FAF4EE] transition text-left" data-target="tab-story">
+            <svg class="w-4 h-4 text-[#1E3B2B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+            <span>Our Story &amp; Stats</span>
+          </button>
+
+          <button type="button" class="tab-btn w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-xs font-semibold text-stone-700 hover:bg-[#FAF4EE] transition text-left" data-target="tab-products">
+            <svg class="w-4 h-4 text-[#1E3B2B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+            <span>Bestseller Products</span>
+          </button>
+
+          <button type="button" class="tab-btn w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-xs font-semibold text-stone-700 hover:bg-[#FAF4EE] transition text-left" data-target="tab-newly">
+            <svg class="w-4 h-4 text-[#1E3B2B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            <span>Newly Launched</span>
+          </button>
+
+          <button type="button" class="tab-btn w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-xs font-semibold text-stone-700 hover:bg-[#FAF4EE] transition text-left" data-target="tab-reviews">
+            <svg class="w-4 h-4 text-[#1E3B2B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+            <span>Customer Reviews</span>
+          </button>
+
+          <button type="button" class="tab-btn w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-xs font-semibold text-stone-700 hover:bg-[#FAF4EE] transition text-left" data-target="tab-faq">
+            <svg class="w-4 h-4 text-[#1E3B2B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <span>FAQ (16 Questions)</span>
+          </button>
+
+          <button type="button" class="tab-btn w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-xs font-semibold text-stone-700 hover:bg-[#FAF4EE] transition text-left" data-target="tab-footer">
+            <svg class="w-4 h-4 text-[#1E3B2B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+            <span>Footer &amp; Socials</span>
+          </button>
+        </nav>
+      </div>
+
+      <!-- Quick Reset Button -->
+      <div class="pt-3 border-t border-stone-100">
+        <button 
+          id="btn-reset-defaults" 
+          type="button" 
+          class="w-full py-2 px-3 rounded-xl border border-stone-200 text-stone-500 hover:text-red-600 hover:border-red-200 text-xs font-semibold transition text-center"
+        >
+          Reset CMS Defaults
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN EDITOR PANELS CONTAINER -->
+    <main class="flex-1 bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-[#E8DEC8] relative">
+
+      <!-- ====================================================================
+           TAB 0A: DASHBOARD (Overview & KPIs)
+           ==================================================================== -->
+      <div id="tab-dashboard" class="tab-content space-y-7">
+        
+        <!-- Header with Date Filter -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-stone-200">
+          <div>
+            <h2 class="text-2xl font-serif font-bold text-[#1E3B2B]">Dashboard</h2>
+            <p class="text-xs text-stone-500 mt-0.5">Welcome back, Admin! Here is your business overview.</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <select id="dash-date-filter" class="px-3.5 py-2 rounded-xl border border-stone-200 bg-[#FAF4EE] text-xs font-semibold text-[#1E3B2B] focus:outline-none focus:border-[#C28328]">
+              <option value="30">Last 30 Days</option>
+              <option value="7">Last 7 Days</option>
+              <option value="all">All Time</option>
+            </select>
+            <button onclick="window.EarthGlazeAdmin.refreshStats()" class="p-2 rounded-xl border border-stone-200 hover:bg-stone-50 text-stone-600 transition" title="Refresh KPIs">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- 4 Metric KPI Cards (Matches Reference Diagram) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+          
+          <!-- KPI 1: Total Orders -->
+          <div class="p-5 rounded-2xl bg-gradient-to-br from-emerald-50 to-emerald-100/40 border border-emerald-200/80 shadow-sm flex items-center justify-between">
+            <div>
+              <div class="text-xs font-semibold text-emerald-800 uppercase tracking-wider">Total Orders</div>
+              <div id="kpi-orders-val" class="text-3xl font-extrabold text-[#1E3B2B] mt-1.5">248</div>
+              <div class="text-[11px] text-emerald-700 font-medium mt-1 flex items-center gap-1">
+                <span>↑ 12%</span>
+                <span class="text-stone-500 font-normal">this month</span>
+              </div>
+            </div>
+            <div class="w-12 h-12 rounded-2xl bg-emerald-600 text-white flex items-center justify-center shadow-md shadow-emerald-700/20">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+            </div>
+          </div>
+
+          <!-- KPI 2: Total Revenue -->
+          <div class="p-5 rounded-2xl bg-gradient-to-br from-purple-50 to-purple-100/40 border border-purple-200/80 shadow-sm flex items-center justify-between">
+            <div>
+              <div class="text-xs font-semibold text-purple-900 uppercase tracking-wider">Total Revenue</div>
+              <div id="kpi-revenue-val" class="text-3xl font-extrabold text-[#1E3B2B] mt-1.5">₹36,920</div>
+              <div class="text-[11px] text-purple-700 font-medium mt-1 flex items-center gap-1">
+                <span>↑ 18.4%</span>
+                <span class="text-stone-500 font-normal">vs last month</span>
+              </div>
+            </div>
+            <div class="w-12 h-12 rounded-2xl bg-purple-700 text-white flex items-center justify-center shadow-md shadow-purple-900/20">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+          </div>
+
+          <!-- KPI 3: Products -->
+          <div class="p-5 rounded-2xl bg-gradient-to-br from-amber-50 to-amber-100/40 border border-amber-200/80 shadow-sm flex items-center justify-between">
+            <div>
+              <div class="text-xs font-semibold text-amber-900 uppercase tracking-wider">Products</div>
+              <div id="kpi-products-val" class="text-3xl font-extrabold text-[#1E3B2B] mt-1.5">4</div>
+              <div class="text-[11px] text-amber-800 font-medium mt-1">
+                <span>All 4 In Stock</span>
+              </div>
+            </div>
+            <div class="w-12 h-12 rounded-2xl bg-amber-600 text-white flex items-center justify-center shadow-md shadow-amber-700/20">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+            </div>
+          </div>
+
+          <!-- KPI 4: Customers -->
+          <div class="p-5 rounded-2xl bg-gradient-to-br from-sky-50 to-sky-100/40 border border-sky-200/80 shadow-sm flex items-center justify-between">
+            <div>
+              <div class="text-xs font-semibold text-sky-900 uppercase tracking-wider">Customers</div>
+              <div id="kpi-customers-val" class="text-3xl font-extrabold text-[#1E3B2B] mt-1.5">132</div>
+              <div class="text-[11px] text-sky-700 font-medium mt-1 flex items-center gap-1">
+                <span>↑ 8 new</span>
+                <span class="text-stone-500 font-normal">registered</span>
+              </div>
+            </div>
+            <div class="w-12 h-12 rounded-2xl bg-sky-600 text-white flex items-center justify-center shadow-md shadow-sky-700/20">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Recent Orders Table (Matches Reference Diagram) -->
+        <div class="p-6 rounded-2xl bg-white border border-[#E8DEC8] shadow-sm space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="text-base font-bold text-[#1E3B2B]">Recent Orders</h3>
+            <button onclick="document.querySelector('[data-target=\'tab-orders-mgmt\']').click()" class="text-xs font-bold text-[#1E3B2B] hover:text-[#C28328] transition flex items-center gap-1">
+              <span>View All Orders</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs text-stone-700">
+              <thead class="bg-[#FAF4EE] text-stone-500 uppercase tracking-wider text-[11px] font-bold border-b border-stone-200">
+                <tr>
+                  <th class="py-3 px-4">Order ID</th>
+                  <th class="py-3 px-4">Customer</th>
+                  <th class="py-3 px-4">Amount</th>
+                  <th class="py-3 px-4">Payment</th>
+                  <th class="py-3 px-4">Status</th>
+                  <th class="py-3 px-4 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="recent-orders-tbody" class="divide-y divide-stone-100">
+                <!-- Dynamically loaded rows or fallback -->
+                <tr class="hover:bg-stone-50/80 transition">
+                  <td class="py-3 px-4 font-bold text-[#1E3B2B]">#EG48273</td>
+                  <td class="py-3 px-4 font-medium text-stone-800">Ayesha N.</td>
+                  <td class="py-3 px-4 font-bold text-stone-900">₹348</td>
+                  <td class="py-3 px-4 text-stone-600">Online</td>
+                  <td class="py-3 px-4">
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-amber-100 text-amber-800">Processing</span>
+                  </td>
+                  <td class="py-3 px-4 text-right">
+                    <button onclick="window.EarthGlazeAdmin.openOrderModal('#EG48273')" class="p-1.5 rounded-lg hover:bg-stone-100 text-stone-500 hover:text-[#1E3B2B] transition" title="View details">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                    </button>
+                  </td>
+                </tr>
+                <tr class="hover:bg-stone-50/80 transition">
+                  <td class="py-3 px-4 font-bold text-[#1E3B2B]">#EG47190</td>
+                  <td class="py-3 px-4 font-medium text-stone-800">Rizwan K.</td>
+                  <td class="py-3 px-4 font-bold text-stone-900">₹199</td>
+                  <td class="py-3 px-4 text-stone-600">COD</td>
+                  <td class="py-3 px-4">
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-100 text-emerald-800">Delivered</span>
+                  </td>
+                  <td class="py-3 px-4 text-right">
+                    <button onclick="window.EarthGlazeAdmin.openOrderModal('#EG47190')" class="p-1.5 rounded-lg hover:bg-stone-100 text-stone-500 hover:text-[#1E3B2B] transition" title="View details">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                    </button>
+                  </td>
+                </tr>
+                <tr class="hover:bg-stone-50/80 transition">
+                  <td class="py-3 px-4 font-bold text-[#1E3B2B]">#EG46922</td>
+                  <td class="py-3 px-4 font-medium text-stone-800">Hiba S.</td>
+                  <td class="py-3 px-4 font-bold text-stone-900">₹149</td>
+                  <td class="py-3 px-4 text-stone-600">Online</td>
+                  <td class="py-3 px-4">
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-100 text-emerald-800">Delivered</span>
+                  </td>
+                  <td class="py-3 px-4 text-right">
+                    <button onclick="window.EarthGlazeAdmin.openOrderModal('#EG46922')" class="p-1.5 rounded-lg hover:bg-stone-100 text-stone-500 hover:text-[#1E3B2B] transition" title="View details">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ====================================================================
+           TAB 0B: MANAGE ORDERS (Full Orders Management & Status Control)
+           ==================================================================== -->
+      <div id="tab-orders-mgmt" class="tab-content space-y-6 hidden">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-stone-200">
+          <div>
+            <h2 class="text-xl font-bold text-[#1E3B2B]">Orders Management &amp; Fulfillment</h2>
+            <p class="text-xs text-stone-500">Live order status dispatching, customer tracking, and delivery updates.</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <input type="text" id="order-search-input" placeholder="Search order ID or customer..." class="px-3.5 py-1.5 rounded-xl border border-stone-200 text-xs text-stone-800 focus:outline-none focus:border-[#C28328] w-64">
+          </div>
+        </div>
+
+        <!-- Status Filter Tabs -->
+        <div class="flex flex-wrap gap-2 text-xs font-semibold" id="order-status-tabs">
+          <button class="px-3 py-1.5 rounded-lg bg-[#1E3B2B] text-white" data-status="all">All Orders</button>
+          <button class="px-3 py-1.5 rounded-lg bg-stone-100 text-stone-700 hover:bg-stone-200" data-status="processing">Processing</button>
+          <button class="px-3 py-1.5 rounded-lg bg-stone-100 text-stone-700 hover:bg-stone-200" data-status="packed">Packed</button>
+          <button class="px-3 py-1.5 rounded-lg bg-stone-100 text-stone-700 hover:bg-stone-200" data-status="out_for_delivery">Out for Delivery</button>
+          <button class="px-3 py-1.5 rounded-lg bg-stone-100 text-stone-700 hover:bg-stone-200" data-status="delivered">Delivered</button>
+        </div>
+
+        <div class="overflow-x-auto rounded-xl border border-[#E8DEC8]">
+          <table class="w-full text-left text-xs text-stone-700">
+            <thead class="bg-[#FAF4EE] text-stone-500 uppercase tracking-wider text-[11px] font-bold border-b border-stone-200">
+              <tr>
+                <th class="py-3 px-4">Order ID &amp; Date</th>
+                <th class="py-3 px-4">Customer Details</th>
+                <th class="py-3 px-4">Purchased Items</th>
+                <th class="py-3 px-4">Total</th>
+                <th class="py-3 px-4">Payment</th>
+                <th class="py-3 px-4">Update Status</th>
+              </tr>
+            </thead>
+            <tbody id="orders-full-tbody" class="divide-y divide-stone-100 bg-white">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ====================================================================
+           TAB 0C: PRODUCTS & PRICING
+           ==================================================================== -->
+      <div id="tab-products-mgmt" class="tab-content space-y-6 hidden">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-stone-200">
+          <div>
+            <h2 class="text-xl font-bold text-[#1E3B2B]">Products &amp; Pricing Management</h2>
+            <p class="text-xs text-stone-500">Manage real-time prices, sale discounts, stock, and descriptions for all 4 genuine EarthGlaze products.</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5" id="products-mgmt-grid">
+          <!-- Populated dynamically via JS -->
+        </div>
+      </div>
+
+      <!-- ====================================================================
+           TAB 0D: INVENTORY & STOCK
+           ==================================================================== -->
+      <div id="tab-inventory-mgmt" class="tab-content space-y-6 hidden">
+        <div class="flex items-center justify-between pb-4 border-b border-stone-200">
+          <div>
+            <h2 class="text-xl font-bold text-[#1E3B2B]">Inventory &amp; Stock Levels</h2>
+            <p class="text-xs text-stone-500">Live stock tracking, minimum thresholds, and stock replenish controls.</p>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto rounded-xl border border-[#E8DEC8]">
+          <table class="w-full text-left text-xs text-stone-700">
+            <thead class="bg-[#FAF4EE] text-stone-500 uppercase tracking-wider text-[11px] font-bold border-b border-stone-200">
+              <tr>
+                <th class="py-3 px-4">Product</th>
+                <th class="py-3 px-4">SKU</th>
+                <th class="py-3 px-4">Current Stock</th>
+                <th class="py-3 px-4">Status</th>
+                <th class="py-3 px-4">Quick Adjustment</th>
+              </tr>
+            </thead>
+            <tbody id="inventory-tbody" class="divide-y divide-stone-100 bg-white">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ====================================================================
+           TAB 0E: OFFERS & COUPONS
+           ==================================================================== -->
+      <div id="tab-coupons-mgmt" class="tab-content space-y-6 hidden">
+        <div class="flex items-center justify-between pb-4 border-b border-stone-200">
+          <div>
+            <h2 class="text-xl font-bold text-[#1E3B2B]">Offers &amp; Coupon Codes</h2>
+            <p class="text-xs text-stone-500">Create and manage promo discounts validated securely on checkout.</p>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto rounded-xl border border-[#E8DEC8]">
+          <table class="w-full text-left text-xs text-stone-700">
+            <thead class="bg-[#FAF4EE] text-stone-500 uppercase tracking-wider text-[11px] font-bold border-b border-stone-200">
+              <tr>
+                <th class="py-3 px-4">Coupon Code</th>
+                <th class="py-3 px-4">Discount</th>
+                <th class="py-3 px-4">Min. Order Value</th>
+                <th class="py-3 px-4">Times Used</th>
+                <th class="py-3 px-4">Status</th>
+              </tr>
+            </thead>
+            <tbody id="coupons-tbody" class="divide-y divide-stone-100 bg-white">
+              <!-- Populated via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ====================================================================
+           TAB 0F: CUSTOMERS
+           ==================================================================== -->
+      <div id="tab-customers-mgmt" class="tab-content space-y-6 hidden">
+        <div class="flex items-center justify-between pb-4 border-b border-stone-200">
+          <div>
+            <h2 class="text-xl font-bold text-[#1E3B2B]">Customer Management</h2>
+            <p class="text-xs text-stone-500">Verified customer accounts, order frequency, and contact records.</p>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto rounded-xl border border-[#E8DEC8]">
+          <table class="w-full text-left text-xs text-stone-700">
+            <thead class="bg-[#FAF4EE] text-stone-500 uppercase tracking-wider text-[11px] font-bold border-b border-stone-200">
+              <tr>
+                <th class="py-3 px-4">Customer Name</th>
+                <th class="py-3 px-4">Email Address</th>
+                <th class="py-3 px-4">Phone</th>
+                <th class="py-3 px-4">Orders Placed</th>
+                <th class="py-3 px-4">Total Spent</th>
+              </tr>
+            </thead>
+            <tbody id="customers-tbody" class="divide-y divide-stone-100 bg-white">
+              <!-- Populated via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ====================================================================
+           TAB 1: GENERAL & ANNOUNCEMENT BAR
+           ==================================================================== -->
+      <div id="tab-general" class="tab-content space-y-6 hidden">
+        <div class="border-b border-stone-200 pb-4">
+          <h2 class="text-xl font-bold text-[#1E3B2B]">General &amp; Top Announcement Bar</h2>
+          <p class="text-xs text-stone-500">Configure page title, meta description, and the top promotional ribbon.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div>
+            <label class="block text-xs font-bold text-[#1E3B2B] uppercase mb-1.5">Page Title (Browser Tab)</label>
+            <input type="text" id="general-siteTitle" class="form-input">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-[#1E3B2B] uppercase mb-1.5">Meta SEO Description</label>
+            <input type="text" id="general-metaDescription" class="form-input">
+          </div>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-[#FAF4EE] border border-[#E8DEC8] space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="text-sm font-bold text-[#1E3B2B] uppercase">Announcement Bar</h3>
+            <label class="flex items-center gap-2 cursor-pointer text-xs font-semibold text-[#1E3B2B]">
+              <input type="checkbox" id="general-announcementBar-enabled" class="w-4 h-4 rounded text-emerald-700">
+              <span>Show Announcement Bar</span>
+            </label>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="md:col-span-2">
+              <label class="block text-xs font-semibold text-stone-600 mb-1">Announcement Message Text</label>
+              <input type="text" id="general-announcementBar-text" class="form-input">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-stone-600 mb-1">Target Link (URL or #anchor)</label>
+              <input type="text" id="general-announcementBar-link" class="form-input">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ====================================================================
+           TAB 2: HEADER & NAVIGATION
+           ==================================================================== -->
+      <div id="tab-header" class="tab-content space-y-6 hidden">
+        <div class="border-b border-stone-200 pb-4">
+          <h2 class="text-xl font-bold text-[#1E3B2B]">Header &amp; Navigation Menu</h2>
+          <p class="text-xs text-stone-500">Customize the EarthGlaze logo, alt description, and menu items.</p>
+        </div>
+
+        <!-- Logo Upload Field -->
+        <div class="p-5 rounded-2xl bg-[#FAF4EE] border border-[#E8DEC8] space-y-4">
+          <h3 class="text-sm font-bold text-[#1E3B2B] uppercase">Brand Logo Image</h3>
+          <div class="flex flex-col sm:flex-row items-center gap-6">
+            <div class="w-36 h-20 image-preview-box flex items-center justify-center p-2 shrink-0">
+              <img id="preview-header-logo" src="assets/earthglaze-logo-hd.png" alt="Logo Preview" class="max-h-full max-w-full object-contain">
+            </div>
+            <div class="flex-1 w-full space-y-2">
+              <label class="block text-xs font-semibold text-stone-600">Logo File Path or Upload New</label>
+              <div class="flex gap-2">
+                <input type="text" id="header-logo-src" class="form-input flex-1">
+                <label class="px-4 py-2 bg-[#1E3B2B] hover:bg-[#142A1E] text-white text-xs font-bold rounded-xl transition cursor-pointer shrink-0 flex items-center gap-1.5">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                  <span>Upload</span>
+                  <input type="file" accept="image/*" class="hidden file-uploader" data-target-input="header-logo-src" data-target-preview="preview-header-logo">
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Navigation Links List -->
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <h3 class="text-sm font-bold text-[#1E3B2B] uppercase">Menu Links</h3>
+            <button type="button" id="btn-add-nav-link" class="text-xs font-bold text-[#C28328] hover:underline flex items-center gap-1">
+              + Add Menu Link
+            </button>
+          </div>
+          <div id="nav-links-list" class="space-y-2.5">
+            <!-- Dynamically populated via js -->
+          </div>
+        </div>
+      </div>
+
+      <!-- ====================================================================
+           TAB 3: HERO SECTION (3D CAROUSEL & COPY)
+           ==================================================================== -->
+      <div id="tab-hero" class="tab-content space-y-6 hidden">
+        <div class="border-b border-stone-200 pb-4">
+          <h2 class="text-xl font-bold text-[#1E3B2B]">Hero Section &amp; 3D Floating Carousel</h2>
+          <p class="text-xs text-stone-500">Edit hero typography, CTA buttons, and all 4 rotating product stages.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-[#1E3B2B] uppercase mb-1">Eyebrow Badge</label>
+            <input type="text" id="hero-eyebrow" class="form-input">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-[#1E3B2B] uppercase mb-1">Title First Part (Sans-Serif)</label>
+            <input type="text" id="hero-titleLine1" class="form-input">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-[#1E3B2B] uppercase mb-1">Title Accent Word (Italic Gold Serif)</label>
+            <input type="text" id="hero-titleAccent" class="form-input">
+          </div>
+          <div class="md:col-span-2">
+            <label class="block text-xs font-bold text-[#1E3B2B] uppercase mb-1">Hero Description Paragraph</label>
+            <textarea id="hero-description" rows="2" class="form-input"></textarea>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 rounded-2xl bg-[#FAF4EE] border border-[#E8DEC8]">
+          <div>
+            <label class="block text-xs font-bold text-[#1E3B2B] uppercase mb-1">Primary CTA Button Label</label>
+            <input type="text" id="hero-ctaPrimary-label" class="form-input">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-[#1E3B2B] uppercase mb-1">Primary CTA Link</label>
+            <input type="text" id="hero-ctaPrimary-href" class="form-input">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-[#1E3B2B] uppercase mb-1">Secondary CTA Button Label</label>
+            <input type="text" id="hero-ctaSecondary-label" class="form-input">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-[#1E3B2B] uppercase mb-1">Secondary CTA Link</label>
+            <input type="text" id="hero-ctaSecondary-href" class="form-input">
+          </div>
+        </div>
+
+        <!-- 4 Carousel Slides Editor -->
+        <div class="space-y-4 pt-2">
+          <h3 class="text-sm font-bold text-[#1E3B2B] uppercase">Carousel Products (4 States)</h3>
+          <div id="hero-slides-editor" class="space-y-4">
+            <!-- Dynamically populated via JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- ====================================================================
+           TAB 4: COMBO OFFER SECTION
+           ==================================================================== -->
+      <div id="tab-offer" class="tab-content space-y-6 hidden">
+        <div class="border-b border-stone-200 pb-4">
+          <h2 class="text-xl font-bold text-[#1E3B2B]">Combo Offer Hero Card</h2>
+          <p class="text-xs text-stone-500">Edit titles, 3 feature pillars, pricing, discount, and product visual.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-[#1E3B2B] uppercase mb-1">Brand Name</label>
+            <input type="text" id="comboOffer-brandName" class="form-input">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-[#1E3B2B] uppercase mb-1">Ayurvedic Tagline</label>
+            <input type="text" id="comboOffer-brandSub" class="form-input">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-[#1E3B2B] uppercase mb-1">Title First Part</label>
+            <input type="text" id="comboOffer-titleLine1" class="form-input">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-[#1E3B2B] uppercase mb-1">Title Accent (Gold Serif)</label>
+            <input type="text" id="comboOffer-titleAccent" class="form-input">
+          </div>
+          <div class="md:col-span-2">
+            <label class="block text-xs font-bold text-[#1E3B2B] uppercase mb-1">Subtitle</label>
+            <input type="text" id="comboOffer-subtitle" class="form-input">
+          </div>
+        </div>
+
+        <!-- Pricing & CTA -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 rounded-2xl bg-[#FAF4EE] border border-[#E8DEC8]">
+          <div>
+            <label class="block text-xs font-bold text-[#1E3B2B] uppercase mb-1">Original Price (Strikethrough)</label>
+            <input type="text" id="comboOffer-originalPrice" class="form-input">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-[#1E3B2B] uppercase mb-1">Combo Offer Price</label>
+            <input type="text" id="comboOffer-comboPrice" class="form-input">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-[#1E3B2B] uppercase mb-1">Savings Badge Text</label>
+            <input type="text" id="comboOffer-savingsText" class="form-input">
+          </div>
+          <div class="md:col-span-2">
+            <label class="block text-xs font-bold text-[#1E3B2B] uppercase mb-1">CTA Button Text</label>
+            <input type="text" id="comboOffer-ctaText" class="form-input">
+          </div>
+        </div>
+
+        <!-- Product Showcase Image -->
+        <div class="p-5 rounded-2xl bg-[#FAF4EE] border border-[#E8DEC8] space-y-4">
+          <h3 class="text-sm font-bold text-[#1E3B2B] uppercase">Combo Product Showcase Image</h3>
+          <div class="flex flex-col sm:flex-row items-center gap-6">
+            <div class="w-44 h-28 image-preview-box flex items-center justify-center p-2 shrink-0">
+              <img id="preview-comboOffer-showcase" src="assets/combo-offer.png" alt="Combo Showcase" class="max-h-full max-w-full object-contain">
+            </div>
+            <div class="flex-1 w-full space-y-2">
+              <label class="block text-xs font-semibold text-stone-600">Product Image URL / File</label>
+              <div class="flex gap-2">
+                <input type="text" id="comboOffer-showcaseImage" class="form-input flex-1">
+                <label class="px-4 py-2 bg-[#1E3B2B] hover:bg-[#142A1E] text-white text-xs font-bold rounded-xl transition cursor-pointer shrink-0 flex items-center gap-1.5">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                  <span>Upload</span>
+                  <input type="file" accept="image/*" class="hidden file-uploader" data-target-input="comboOffer-showcaseImage" data-target-preview="preview-comboOffer-showcase">
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ====================================================================
+           TAB 5: ABOUT SECTION
+           ==================================================================== -->
+      <div id="tab-about" class="tab-content space-y-6 hidden">
+        <div class="border-b border-stone-200 pb-4">
+          <h2 class="text-xl font-bold text-[#1E3B2B]">About Section &amp; 4 Botanical Pillars</h2>
+          <p class="text-xs text-stone-500">Edit titles, description, arch image, and the 4 Ayurvedic pillars.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-[#1E3B2B] uppercase mb-1">Eyebrow</label>
+            <input type="text" id="about-eyebrow" class="form-input">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-[#1E3B2B] uppercase mb-1">Title Prefix</label>
+            <input type="text" id="about-titlePrefix" class="form-input">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-[#1E3B2B] uppercase mb-1">Title Accent (Gold Serif)</label>
+            <input type="text" id="about-titleAccent" class="form-input">
+          </div>
+          <div class="md:col-span-2">
+            <label class="block text-xs font-bold text-[#1E3B2B] uppercase mb-1">Description Paragraph</label>
+            <textarea id="about-description" rows="2" class="form-input"></textarea>
+          </div>
+        </div>
+
+        <!-- Arch Image -->
+        <div class="p-5 rounded-2xl bg-[#FAF4EE] border border-[#E8DEC8] space-y-4">
+          <h3 class="text-sm font-bold text-[#1E3B2B] uppercase">About Arch Product Photo</h3>
+          <div class="flex flex-col sm:flex-row items-center gap-6">
+            <div class="w-36 h-28 image-preview-box flex items-center justify-center p-2 shrink-0">
+              <img id="preview-about-archImage" src="assets/about-img.png" alt="Arch Image" class="max-h-full max-w-full object-contain">
+            </div>
+            <div class="flex-1 w-full space-y-2">
+              <label class="block text-xs font-semibold text-stone-600">Image URL / Upload</label>
+              <div class="flex gap-2">
+                <input type="text" id="about-archImage" class="form-input flex-1">
+                <label class="px-4 py-2 bg-[#1E3B2B] hover:bg-[#142A1E] text-white text-xs font-bold rounded-xl transition cursor-pointer shrink-0 flex items-center gap-1.5">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                  <span>Upload</span>
+                  <input type="file" accept="image/*" class="hidden file-uploader" data-target-input="about-archImage" data-target-preview="preview-about-archImage">
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4 Pillars List -->
+        <div class="space-y-4 pt-2">
+          <h3 class="text-sm font-bold text-[#1E3B2B] uppercase">4 Botanical Pillars</h3>
+          <div id="about-pillars-editor" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Dynamically populated via JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- ====================================================================
+           TAB 6: OUR STORY & STATS
+           ==================================================================== -->
+      <div id="tab-story" class="tab-content space-y-6 hidden">
+        <div class="border-b border-stone-200 pb-4">
+          <h2 class="text-xl font-bold text-[#1E3B2B]">Our Story &amp; Statistics</h2>
+          <p class="text-xs text-stone-500">Edit story copy, image, and the 4 counter numbers.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-[#1E3B2B] uppercase mb-1">Eyebrow</label>
+            <input type="text" id="ourStory-eyebrow" class="form-input">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-[#1E3B2B] uppercase mb-1">Title Prefix</label>
+            <input type="text" id="ourStory-titlePrefix" class="form-input">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-[#1E3B2B] uppercase mb-1">Title Accent (Gold Serif)</label>
+            <input type="text" id="ourStory-titleAccent" class="form-input">
+          </div>
+          <div class="md:col-span-2">
+            <label class="block text-xs font-bold text-[#1E3B2B] uppercase mb-1">Paragraph 1</label>
+            <textarea id="ourStory-paragraph1" rows="2" class="form-input"></textarea>
+          </div>
+          <div class="md:col-span-2">
+            <label class="block text-xs font-bold text-[#1E3B2B] uppercase mb-1">Paragraph 2</label>
+            <textarea id="ourStory-paragraph2" rows="2" class="form-input"></textarea>
+          </div>
+        </div>
+
+        <!-- Arch Image -->
+        <div class="p-5 rounded-2xl bg-[#FAF4EE] border border-[#E8DEC8] space-y-4">
+          <h3 class="text-sm font-bold text-[#1E3B2B] uppercase">Our Story Arch Product Photo</h3>
+          <div class="flex flex-col sm:flex-row items-center gap-6">
+            <div class="w-36 h-28 image-preview-box flex items-center justify-center p-2 shrink-0">
+              <img id="preview-ourStory-archImage" src="assets/our_story_arch_herbal.png" alt="Story Image" class="max-h-full max-w-full object-contain">
+            </div>
+            <div class="flex-1 w-full space-y-2">
+              <label class="block text-xs font-semibold text-stone-600">Image URL / Upload</label>
+              <div class="flex gap-2">
+                <input type="text" id="ourStory-archImage" class="form-input flex-1">
+                <label class="px-4 py-2 bg-[#1E3B2B] hover:bg-[#142A1E] text-white text-xs font-bold rounded-xl transition cursor-pointer shrink-0 flex items-center gap-1.5">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                  <span>Upload</span>
+                  <input type="file" accept="image/*" class="hidden file-uploader" data-target-input="ourStory-archImage" data-target-preview="preview-ourStory-archImage">
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4 Stats -->
+        <div class="space-y-4 pt-2">
+          <h3 class="text-sm font-bold text-[#1E3B2B] uppercase">4 Achievement Counters</h3>
+          <div id="ourStory-stats-editor" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+            <!-- Dynamically populated via JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- ====================================================================
+           TAB 7: BESTSELLER PRODUCTS
+           ==================================================================== -->
+      <div id="tab-products" class="tab-content space-y-6 hidden">
+        <div class="border-b border-stone-200 pb-4 flex items-center justify-between">
+          <div>
+            <h2 class="text-xl font-bold text-[#1E3B2B]">Bestseller Products Section</h2>
+            <p class="text-xs text-stone-500">Edit titles, product details, prices, badges, and upload new photos.</p>
+          </div>
+          <button type="button" id="btn-add-product" class="px-3.5 py-1.5 bg-[#1E3B2B] hover:bg-[#142A1E] text-white text-xs font-bold rounded-xl transition">
+            + Add Product
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-[#1E3B2B] uppercase mb-1">Eyebrow</label>
+            <input type="text" id="products-eyebrow" class="form-input">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-[#1E3B2B] uppercase mb-1">Title Prefix</label>
+            <input type="text" id="products-titlePrefix" class="form-input">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-[#1E3B2B] uppercase mb-1">Title Accent (Gold Serif)</label>
+            <input type="text" id="products-titleAccent" class="form-input">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-[#1E3B2B] uppercase mb-1">Subtitle</label>
+            <input type="text" id="products-subtitle" class="form-input">
+          </div>
+        </div>
+
+        <!-- Master Showcase Banner Image -->
+        <div class="p-5 rounded-2xl bg-[#FAF4EE] border border-[#E8DEC8] space-y-4">
+          <h3 class="text-sm font-bold text-[#1E3B2B] uppercase">Master Showcase Banner Artwork</h3>
+          <div class="flex flex-col sm:flex-row items-center gap-6">
+            <div class="w-44 h-28 image-preview-box flex items-center justify-center p-2 shrink-0">
+              <img id="preview-products-bannerImage" src="assets/earth_glanze_favarite.png" alt="EarthGlaze Favourites Showcase" class="max-h-full max-w-full object-contain">
+            </div>
+            <div class="flex-1 w-full space-y-2">
+              <label class="block text-xs font-semibold text-stone-600">Showcase Banner URL / File</label>
+              <div class="flex gap-2">
+                <input type="text" id="products-bannerImage" class="form-input flex-1">
+                <label class="px-4 py-2 bg-[#1E3B2B] hover:bg-[#142A1E] text-white text-xs font-bold rounded-xl transition cursor-pointer shrink-0 flex items-center gap-1.5">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                  <span>Upload</span>
+                  <input type="file" accept="image/*" class="hidden file-uploader" data-target-input="products-bannerImage" data-target-preview="preview-products-bannerImage">
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product Cards List -->
+        <div id="products-cards-editor" class="space-y-5 pt-3">
+          <!-- Dynamically populated via JS -->
+        </div>
+      </div>
+
+      <!-- ====================================================================
+           TAB 8: NEWLY LAUNCHED (LIP BALM)
+           ==================================================================== -->
+      <div id="tab-newly" class="tab-content space-y-6 hidden">
+        <div class="border-b border-stone-200 pb-4">
+          <h2 class="text-xl font-bold text-[#1E3B2B]">Newly Launched Showcase</h2>
+          <p class="text-xs text-stone-500">Edit Beetroot Lip Balm banner copy, 3 benefit pills, and showcase visual.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-[#1E3B2B] uppercase mb-1">Eyebrow Badge Text</label>
+            <input type="text" id="newlyLaunched-eyebrowBadge" class="form-input">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-[#1E3B2B] uppercase mb-1">Title Line 1</label>
+            <input type="text" id="newlyLaunched-titleLine1" class="form-input">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-[#1E3B2B] uppercase mb-1">Title Accent (Gold Serif)</label>
+            <input type="text" id="newlyLaunched-titleAccent" class="form-input">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-[#1E3B2B] uppercase mb-1">CTA Button Label</label>
+            <input type="text" id="newlyLaunched-ctaText" class="form-input">
+          </div>
+          <div class="md:col-span-2">
+            <label class="block text-xs font-bold text-[#1E3B2B] uppercase mb-1">Description</label>
+            <textarea id="newlyLaunched-description" rows="2" class="form-input"></textarea>
+          </div>
+        </div>
+
+        <!-- Product Image Upload -->
+        <div class="p-5 rounded-2xl bg-[#FAF4EE] border border-[#E8DEC8] space-y-4">
+          <h3 class="text-sm font-bold text-[#1E3B2B] uppercase">Product Showcase Image</h3>
+          <div class="flex flex-col sm:flex-row items-center gap-6">
+            <div class="w-44 h-28 image-preview-box flex items-center justify-center p-2 shrink-0">
+              <img id="preview-newlyLaunched-product" src="assets/newly_launched_uploaded_banner@2x.png" alt="Newly Launched Showcase" class="max-h-full max-w-full object-contain">
+            </div>
+            <div class="flex-1 w-full space-y-2">
+              <label class="block text-xs font-semibold text-stone-600">Image URL / Upload</label>
+              <div class="flex gap-2">
+                <input type="text" id="newlyLaunched-productImage" class="form-input flex-1">
+                <label class="px-4 py-2 bg-[#1E3B2B] hover:bg-[#142A1E] text-white text-xs font-bold rounded-xl transition cursor-pointer shrink-0 flex items-center gap-1.5">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                  <span>Upload</span>
+                  <input type="file" accept="image/*" class="hidden file-uploader" data-target-input="newlyLaunched-productImage" data-target-preview="preview-newlyLaunched-product">
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3 Benefit Pills -->
+        <div class="space-y-4 pt-2">
+          <h3 class="text-sm font-bold text-[#1E3B2B] uppercase">3 Benefit Pills</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-3.5 rounded-xl bg-[#FAF4EE] border border-[#E8DEC8]">
+              <label class="block text-xs font-semibold text-stone-600 mb-1">Pill 1 (Red Drop)</label>
+              <input type="text" id="newlyLaunched-benefit-0" class="form-input">
+            </div>
+            <div class="p-3.5 rounded-xl bg-[#FAF4EE] border border-[#E8DEC8]">
+              <label class="block text-xs font-semibold text-stone-600 mb-1">Pill 2 (Blue Drop)</label>
+              <input type="text" id="newlyLaunched-benefit-1" class="form-input">
+            </div>
+            <div class="p-3.5 rounded-xl bg-[#FAF4EE] border border-[#E8DEC8]">
+              <label class="block text-xs font-semibold text-stone-600 mb-1">Pill 3 (Amber Flask)</label>
+              <input type="text" id="newlyLaunched-benefit-2" class="form-input">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ====================================================================
+           TAB 9: CUSTOMER REVIEWS
+           ==================================================================== -->
+      <div id="tab-reviews" class="tab-content space-y-6 hidden">
+        <div class="border-b border-stone-200 pb-4 flex items-center justify-between">
+          <div>
+            <h2 class="text-xl font-bold text-[#1E3B2B]">Customer Reviews Section</h2>
+            <p class="text-xs text-stone-500">Edit titles, customer feedback quotes, star ratings, and avatars.</p>
+          </div>
+          <button type="button" id="btn-add-review" class="px-3.5 py-1.5 bg-[#1E3B2B] hover:bg-[#142A1E] text-white text-xs font-bold rounded-xl transition">
+            + Add Review
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-[#1E3B2B] uppercase mb-1">Eyebrow</label>
+            <input type="text" id="reviews-eyebrow" class="form-input">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-[#1E3B2B] uppercase mb-1">Title Prefix</label>
+            <input type="text" id="reviews-titlePrefix" class="form-input">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-[#1E3B2B] uppercase mb-1">Title Accent (Gold Serif)</label>
+            <input type="text" id="reviews-titleAccent" class="form-input">
+          </div>
+        </div>
+
+        <!-- Reviews Cards List -->
+        <div id="reviews-cards-editor" class="space-y-4 pt-3">
+          <!-- Dynamically populated via JS -->
+        </div>
+      </div>
+
+      <!-- ====================================================================
+           TAB 10: FAQ (16 QUESTIONS)
+           ==================================================================== -->
+      <div id="tab-faq" class="tab-content space-y-6 hidden">
+        <div class="border-b border-stone-200 pb-4">
+          <h2 class="text-xl font-bold text-[#1E3B2B]">Frequently Asked Questions (16 Questions)</h2>
+          <p class="text-xs text-stone-500">Edit question headers and all accordion answers for Products &amp; Shipping columns.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-[#1E3B2B] uppercase mb-1">Eyebrow</label>
+            <input type="text" id="faq-eyebrow" class="form-input">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-[#1E3B2B] uppercase mb-1">Title Prefix</label>
+            <input type="text" id="faq-titlePrefix" class="form-input">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-[#1E3B2B] uppercase mb-1">Title Accent (Gold Serif)</label>
+            <input type="text" id="faq-titleAccent" class="form-input">
+          </div>
+          <div class="md:col-span-3">
+            <label class="block text-xs font-bold text-[#1E3B2B] uppercase mb-1">Subtitle</label>
+            <input type="text" id="faq-subtitle" class="form-input">
+          </div>
+        </div>
+
+        <!-- 2 Column FAQs -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 pt-3">
+          <!-- Col 1 -->
+          <div class="space-y-4">
+            <div class="p-3 bg-[#FAF4EE] rounded-xl border border-[#E8DEC8]">
+              <label class="block text-xs font-bold text-[#1E3B2B] uppercase mb-1">Column 1 Title</label>
+              <input type="text" id="faq-col1Title" class="form-input">
+            </div>
+            <div id="faq-col1-editor" class="space-y-3">
+              <!-- Dynamically populated via JS -->
+            </div>
+          </div>
+
+          <!-- Col 2 -->
+          <div class="space-y-4">
+            <div class="p-3 bg-[#FAF4EE] rounded-xl border border-[#E8DEC8]">
+              <label class="block text-xs font-bold text-[#1E3B2B] uppercase mb-1">Column 2 Title</label>
+              <input type="text" id="faq-col2Title" class="form-input">
+            </div>
+            <div id="faq-col2-editor" class="space-y-3">
+              <!-- Dynamically populated via JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ====================================================================
+           TAB 11: FOOTER & SOCIALS
+           ==================================================================== -->
+      <div id="tab-footer" class="tab-content space-y-6 hidden">
+        <div class="border-b border-stone-200 pb-4">
+          <h2 class="text-xl font-bold text-[#1E3B2B]">Footer, Social Links &amp; Contact Info</h2>
+          <p class="text-xs text-stone-500">Edit branding, contact details, social links, and copyright text.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-[#1E3B2B] uppercase mb-1">Brand Tagline</label>
+            <input type="text" id="footer-tagline" class="form-input">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-[#1E3B2B] uppercase mb-1">Copyright Notice</label>
+            <input type="text" id="footer-copyright" class="form-input">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-[#1E3B2B] uppercase mb-1">Customer Care Email</label>
+            <input type="text" id="footer-contact-email" class="form-input">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-[#1E3B2B] uppercase mb-1">Support Phone</label>
+            <input type="text" id="footer-contact-phone" class="form-input">
+          </div>
+          <div class="md:col-span-2">
+            <label class="block text-xs font-bold text-[#1E3B2B] uppercase mb-1">Support Hours</label>
+            <input type="text" id="footer-contact-hours" class="form-input">
+          </div>
+        </div>
+
+        <!-- Social Media Links -->
+        <div class="p-5 rounded-2xl bg-[#FAF4EE] border border-[#E8DEC8] space-y-4">
+          <h3 class="text-sm font-bold text-[#1E3B2B] uppercase">Social Media Profiles</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-stone-600 mb-1">Instagram URL</label>
+              <input type="text" id="footer-social-instagram" class="form-input">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-stone-600 mb-1">Facebook URL</label>
+              <input type="text" id="footer-social-facebook" class="form-input">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-stone-600 mb-1">YouTube URL</label>
+              <input type="text" id="footer-social-youtube" class="form-input">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-stone-600 mb-1">Pinterest URL</label>
+              <input type="text" id="footer-social-pinterest" class="form-input">
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- ========================================================================
+       LIVE PREVIEW MODAL OVERLAY (Split / Full View)
+       ======================================================================== -->
+  <div id="preview-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 sm:p-6 hidden">
+    <div class="bg-white rounded-3xl w-full max-w-[1500px] h-[92vh] flex flex-col shadow-2xl overflow-hidden border border-stone-300">
+      <div class="bg-[#1E3B2B] text-white px-6 py-3.5 flex items-center justify-between shrink-0">
+        <div class="flex items-center gap-3">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          <h3 class="font-bold text-sm tracking-wide">Live Homepage Preview</h3>
+        </div>
+        <div class="flex items-center gap-3">
+          <button id="btn-refresh-preview" type="button" class="text-xs bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition">
+            Reload Preview
+          </button>
+          <button id="btn-close-preview" type="button" class="p-1.5 rounded-lg hover:bg-white/10 text-stone-300 hover:text-white transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+          </button>
+        </div>
+      </div>
+      <iframe id="preview-iframe" src="index.html" class="flex-1 w-full h-full border-none"></iframe>
+    </div>
+  </div>
+
+  <!-- Order Details & Fulfillment Modal -->
+  <div id="order-details-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl w-full max-w-2xl overflow-hidden shadow-2xl border border-stone-300 max-h-[90vh] flex flex-col">
+      <div class="bg-[#1E3B2B] text-white px-6 py-4 flex items-center justify-between">
+        <div>
+          <h3 id="modal-order-number" class="text-base font-bold font-serif">Order Details</h3>
+          <p id="modal-order-date" class="text-xs text-emerald-200">Placed on Oct 12, 2026</p>
+        </div>
+        <button onclick="document.getElementById('order-details-modal').classList.add('hidden')" class="p-1 rounded-lg hover:bg-white/10 text-stone-300 hover:text-white transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="p-6 overflow-y-auto space-y-5" id="modal-order-body">
+        <!-- Rendered via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+    <div class="bg-[#1E3B2B] text-white px-5 py-3.5 rounded-2xl shadow-xl border border-amber-400/30 flex items-center gap-3">
+      <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+      <span id="toast-msg" class="text-sm font-semibold">Changes published successfully!</span>
+    </div>
+  </div>
+
+  <!-- CMS Logic Script -->
+  <script src="js/admin.js"></script>
+</body>
+</html>

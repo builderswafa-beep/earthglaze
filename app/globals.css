@@ -1,0 +1,2574 @@
+@import "tailwindcss";
+@source "../components";
+@source "../context";
+@source "../app";
+
+/* Local font-face definition for Outfit Variable */
+@font-face {
+  font-family: 'Outfit';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/Outfit-Variable.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@theme {
+  --font-sans: var(--font-outfit), 'Outfit', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: var(--font-outfit), 'Outfit', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-outfit: var(--font-outfit), 'Outfit', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* ==========================================================================
+   GLOBAL TYPOGRAPHY SYSTEM — OUTFIT
+   Strictly enforces Outfit across the entire website.
+   Eliminates all unwanted serif font overrides.
+   ========================================================================== */
+
+html, body, button, input, select, textarea {
+  font-family: var(--font-outfit), 'Outfit', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+}
+
+h1, h2, h3, h4, h5, h6, .font-serif, .font-serif-luxury {
+  font-family: var(--font-outfit), 'Outfit', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+}
+
+.font-sans {
+  font-family: var(--font-outfit), 'Outfit', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+
+/* ==========================================================================
+   EarthGlaze — Design System & Custom Styles
+   Crafted following Zammil Production Web Engineering Standards
+   ========================================================================== */
+
+:root {
+  /* Brand Color Tokens */
+  --color-forest: #235327;
+  --color-forest-dark: #173e23;
+  --color-forest-hover: #1b4520;
+  --color-forest-soft: #dce8df;
+  --color-forest-tint: rgba(35, 83, 39, 0.08);
+
+  --color-glaze-amber: #c28328;
+  --color-glaze-amber-dark: #a9701d;
+  --color-glaze-amber-light: #e09935;
+  --color-glaze-amber-soft: #fcf4ea;
+
+  --color-leaf-green: #5a8834;
+  --color-leaf-green-light: #7cb24b;
+
+  --color-cream-bg: #faf4ee;
+  --color-cream-card: #ffffff;
+  --color-surface-translucent: rgba(255, 255, 255, 0.92);
+
+  --color-text-main: #1e3b2b;
+  --color-text-body: #404f44;
+  --color-text-muted: #738378;
+
+  /* ==========================================================================
+     GLOBAL TYPOGRAPHY TOKENS — OUTFIT
+     ========================================================================== */
+  --font-primary: var(--font-outfit), 'Outfit', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: var(--font-primary);
+  --font-sans: var(--font-primary);
+  --font-serif-luxury: var(--font-primary);
+
+  /* Typography Scale Tokens (Desktop 1200px+ & Fluid Responsive clamp) */
+  --text-main-heading: clamp(2.5rem, 3.8vw, 3.25rem);      /* 40–52px: Main page headings */
+  --text-section-heading: clamp(1.75rem, 2.6vw, 2.25rem); /* 28–36px: Section headings */
+  --text-card-heading: clamp(1.25rem, 1.8vw, 1.5rem);     /* 20–24px: Card headings */
+  --text-body: clamp(0.9375rem, 1.1vw, 1.0625rem);        /* 15–17px: Body text */
+  --text-nav: clamp(0.875rem, 1vw, 1rem);                 /* 14–16px: Navigation */
+  --text-label: clamp(0.75rem, 0.9vw, 0.875rem);          /* 12–14px: Small labels */
+
+  /* Font Weights */
+  --weight-regular: 400;   /* Regular body text */
+  --weight-medium: 500;    /* Navigation and labels */
+  --weight-semibold: 600;  /* Product names and section headings */
+  --weight-bold: 700;      /* Main headings and important prices */
+  --weight-extrabold: 800; /* Only where strong emphasis is needed */
+
+  /* Elevation Shadows */
+  --shadow-pill: 0 4px 20px -2px rgba(23, 62, 35, 0.06), 0 2px 6px -1px rgba(0, 0, 0, 0.03);
+  --shadow-card: 0 16px 36px -8px rgba(35, 83, 39, 0.07), 0 4px 12px -2px rgba(0, 0, 0, 0.03);
+  --shadow-center-glow: 0 20px 60px -10px rgba(235, 175, 95, 0.45), 0 10px 25px -5px rgba(210, 140, 50, 0.25);
+  --shadow-subtle-card: 0 12px 28px -6px rgba(0, 0, 0, 0.06);
+
+  /* Radius Tokens */
+  --radius-full: 9999px;
+  --radius-xl: 1.75rem;
+  --radius-lg: 1.25rem;
+  --radius-md: 0.75rem;
+
+  /* Transition timings */
+  --transition-fast: 180ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-spring: 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --transition-smooth: 400ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Base resets & typography */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-text-body);
+  background-color: var(--color-cream-bg);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* 1600px Max-Width Standard Container */
+.container-1600 {
+  width: 100%;
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.font-serif-luxury {
+  font-family: var(--font-serif);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f4ede4;
+}
+::-webkit-scrollbar-thumb {
+  background: #c9d6cd;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-forest);
+}
+
+/* --------------------------------------------------------------------------
+   Header Navigation Styling (Matching Reference)
+   -------------------------------------------------------------------------- */
+.header-nav {
+  transition: all var(--transition-normal);
+}
+
+.header-scrolled {
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 8px 30px -4px rgba(23, 62, 35, 0.08);
+}
+
+/* Soft Minty Pill for Active Home (Exact match to reference) */
+.nav-pill-home {
+  background-color: var(--color-forest-soft);
+  color: var(--color-forest-dark);
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  padding: 0.375rem 1.125rem;
+  transition: all var(--transition-fast);
+}
+
+.nav-pill-home:hover {
+  background-color: #cee0d2;
+  transform: translateY(-1px);
+}
+
+/* Standard Nav Link */
+.nav-link {
+  color: #2b3b30;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  padding: 0.375rem 0.875rem;
+  border-radius: var(--radius-full);
+  transition: all var(--transition-fast);
+}
+
+.nav-link:hover {
+  color: var(--color-forest);
+  background-color: rgba(35, 83, 39, 0.04);
+}
+
+.nav-link:focus-visible {
+  outline: 2px solid var(--color-forest);
+  outline-offset: 2px;
+}
+
+/* Action Icon Buttons */
+.nav-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--radius-full);
+  color: #2b3b30;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  transition: all var(--transition-fast);
+}
+
+.nav-icon-btn:hover {
+  color: var(--color-forest);
+  background-color: rgba(35, 83, 39, 0.06);
+  transform: scale(1.08);
+}
+
+.nav-icon-btn:focus-visible {
+  outline: 2px solid var(--color-forest);
+  outline-offset: 2px;
+}
+
+/* Cart Badge */
+.cart-badge {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  background-color: var(--color-forest);
+  color: #ffffff;
+  font-size: 0.625rem;
+  font-weight: 700;
+  width: 1.05rem;
+  height: 1.05rem;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid #ffffff;
+  transition: transform var(--transition-fast);
+}
+
+.badge-bounce {
+  animation: badgePop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes badgePop {
+  0% { transform: scale(0.6); }
+  50% { transform: scale(1.35); }
+  100% { transform: scale(1); }
+}
+
+/* --------------------------------------------------------------------------
+   Dynamic Text Changing Effect ("Personal.")
+   -------------------------------------------------------------------------- */
+.dynamic-text-wrapper {
+  display: inline-block;
+  position: relative;
+  min-width: 240px;
+  text-align: center;
+  vertical-align: baseline;
+}
+
+.dynamic-word {
+  display: inline-block;
+  color: var(--color-glaze-amber);
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  transition: transform 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.1), opacity 0.35s ease, filter 0.35s ease;
+  will-change: transform, opacity, filter;
+}
+
+.dynamic-word.word-exit {
+  transform: translateY(22px) scale(0.96);
+  opacity: 0;
+  filter: blur(4px);
+}
+
+.dynamic-word.word-enter {
+  transform: translateY(-22px) scale(0.96);
+  opacity: 0;
+  filter: blur(4px);
+}
+
+.dynamic-word.word-active {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+  filter: blur(0);
+}
+
+/* Botanical Curved Underline Leaf SVG */
+.leaf-underline-svg {
+  width: 100%;
+  max-width: 270px;
+  margin: -6px auto 0;
+  display: block;
+  transform-origin: center center;
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Eyebrow Divider Lines */
+.eyebrow-divider {
+  display: inline-block;
+  width: 38px;
+  height: 1px;
+  background-color: #9cb2a3;
+  vertical-align: middle;
+  transition: width 0.6s ease;
+}
+
+/* --------------------------------------------------------------------------
+   Button Animations
+   -------------------------------------------------------------------------- */
+.btn-primary-explore {
+  background: var(--color-forest);
+  color: #ffffff;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(35, 83, 39, 0.25);
+  transition: all var(--transition-normal);
+}
+
+.btn-primary-explore::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.6s ease;
+}
+
+.btn-primary-explore:hover {
+  background: var(--color-forest-hover);
+  box-shadow: 0 8px 24px rgba(35, 83, 39, 0.35);
+  transform: translateY(-2px);
+}
+
+.btn-primary-explore:hover::before {
+  left: 100%;
+}
+
+.btn-primary-explore .btn-arrow {
+  transition: transform var(--transition-normal);
+}
+
+.btn-primary-explore:hover .btn-arrow {
+  transform: translateX(5px);
+}
+
+.btn-primary-explore:active {
+  transform: translateY(0) scale(0.97);
+}
+
+.btn-secondary-story {
+  background: #ffffff;
+  color: var(--color-forest-dark);
+  border: 1px solid #d4ded7;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  transition: all var(--transition-normal);
+}
+
+.btn-secondary-story:hover {
+  background: #fbfdfb;
+  border-color: #b2c9b9;
+  box-shadow: 0 6px 16px rgba(35, 83, 39, 0.1);
+  transform: translateY(-2px);
+}
+
+.btn-secondary-story:active {
+  transform: translateY(0) scale(0.97);
+}
+
+.btn-secondary-story .play-icon {
+  transition: transform var(--transition-normal);
+}
+
+.btn-secondary-story:hover .play-icon {
+  transform: scale(1.15);
+}
+
+/* --------------------------------------------------------------------------
+   3D Stepped Perspective Card Arc (Exact Alignment & Stepped Sizing)
+   Matching User Reference Image: Overlapping fanned deck with center main card.
+   Hovering any card brings it into the middle as the main card.
+   -------------------------------------------------------------------------- */
+.hero-arc-container {
+  perspective: 1600px;
+  perspective-origin: center 55%;
+  position: relative;
+  overflow: visible;
+  max-width: 100%;
+}
+
+/* Luxury Previous and Next Navigation Arrows */
+.hero-nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(23, 61, 43, 0.16);
+  box-shadow: 0 10px 25px -4px rgba(0, 0, 0, 0.14), 0 0 1px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 50;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  color: #173D2B;
+}
+
+.hero-nav-arrow:hover {
+  background: #ffffff;
+  transform: translateY(-50%) scale(1.12);
+  box-shadow: 0 14px 32px -4px rgba(23, 61, 43, 0.24);
+  border-color: #27633d;
+}
+
+.hero-nav-arrow:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.hero-nav-arrow:focus-visible {
+  outline: 2px solid #27633d;
+  outline-offset: 3px;
+}
+
+.hero-nav-prev {
+  left: 4px;
+}
+
+.hero-nav-next {
+  right: 4px;
+}
+
+@media (min-width: 640px) {
+  .hero-nav-prev { left: -14px; }
+  .hero-nav-next { right: -14px; }
+}
+
+@media (min-width: 1024px) {
+  .hero-nav-prev { left: -32px; width: 48px; height: 48px; }
+  .hero-nav-next { right: -32px; width: 48px; height: 48px; }
+}
+
+/* Hero Single Showcase: Focused Luxury Manjistha Soap Display */
+/* ==========================================================================
+   HERO SINGLE ROW CONTINUOUS SCROLLING RIBBON (REDUCED PRODUCT SIZE)
+   ========================================================================== */
+
+.hero-scroll-row-section {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  overflow: visible;
+}
+
+.hero-scroll-row-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 3.25rem 0 2.25rem;
+  user-select: none;
+  -webkit-user-select: none;
+  mask-image: linear-gradient(to right, transparent 0%, black 7%, black 93%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 7%, black 93%, transparent 100%);
+}
+
+/* ==========================================================================
+   HERO SECTION NATURAL WATER & SANDSTONE ROCK SETTING (SEAMLESSLY BLENDED 4K)
+   ========================================================================== */
+#hero-section {
+  position: relative;
+  background-color: #FAF7F2;
+  overflow: hidden;
+}
+
+/* Dedicated Pristine 4K Backdrop Layer with Sandstone Pedestal */
+.hero-stage-backdrop-wrap {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  user-select: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+/* Hidden legacy gradient overlays to ensure 100% natural seamless blend */
+.hero-curve-ambient-glow,
+.hero-scroll-vignette,
+.hero-scroll-vignette-left,
+.hero-scroll-vignette-right,
+.hero-backdrop-top-fade,
+.hero-backdrop-bottom-fade {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* ==========================================================================
+   HERO 3D CURVED PRODUCT CAROUSEL (PROFESSIONAL CIRCULAR ORBIT)
+   ========================================================================== */
+.hero-carousel-section {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  user-select: none;
+}
+
+.hero-curved-carousel-stage {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  min-height: 220px;
+  perspective: 1200px;
+  transform-style: preserve-3d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible !important;
+  touch-action: pan-y;
+}
+
+@media (min-width: 640px) {
+  .hero-curved-carousel-stage {
+    height: 235px;
+    min-height: 235px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-curved-carousel-stage {
+    height: 250px;
+    min-height: 250px;
+  }
+}
+
+/* Individual Curved Product Card */
+.hero-curved-card,
+.hero-scroll-card {
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  width: 180px;
+  margin: 0 !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  transform-origin: center center;
+  will-change: transform, opacity, filter;
+  filter: drop-shadow(0 14px 24px rgba(23, 61, 43, 0.18));
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1), filter 0.4s ease, opacity 0.35s ease;
+}
+
+@media (min-width: 640px) {
+  .hero-curved-card,
+  .hero-scroll-card {
+    width: 205px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-curved-card,
+  .hero-scroll-card {
+    width: 220px;
+  }
+}
+
+/* Unified Stage Oval Orbit Track */
+.hero-stage-oval-track {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 660px;
+  height: 160px;
+  z-index: 5;
+  pointer-events: none;
+}
+
+@media (max-width: 1023px) {
+  .hero-stage-oval-track {
+    width: 520px;
+    height: 130px;
+    transform: translate(-46%, -44%);
+  }
+}
+
+@media (max-width: 639px) {
+  .hero-stage-oval-track {
+    width: 340px;
+    height: 95px;
+    transform: translate(-48%, -46%);
+  }
+}
+
+/* Base static positioning for 4 products on the Oval Track (ALL 4 VISIBLE) */
+.hero-curved-card[data-card-index="0"] {
+  transform: translate(-50%, -50%) translate3d(0px, 0px, 0px) scale(1.22);
+  z-index: 40;
+  opacity: 1;
+}
+.hero-curved-card[data-card-index="1"] {
+  transform: translate(-50%, -50%) translate3d(195px, -18px, 0px) scale(0.84) rotate(-3.5deg);
+  z-index: 25;
+  opacity: 1;
+}
+.hero-curved-card[data-card-index="2"] {
+  transform: translate(-50%, -50%) translate3d(310px, -36px, 0px) scale(0.62) rotate(-2deg);
+  z-index: 10;
+  opacity: 0.88;
+}
+.hero-curved-card[data-card-index="3"] {
+  transform: translate(-50%, -50%) translate3d(-230px, -18px, 0px) scale(0.84) rotate(3.5deg);
+  z-index: 25;
+  opacity: 1;
+}
+
+@media (max-width: 1023px) {
+  .hero-curved-card[data-card-index="0"] {
+    transform: translate(-50%, -50%) translate3d(0px, 0px, 0px) scale(1.14);
+  }
+  .hero-curved-card[data-card-index="1"] {
+    transform: translate(-50%, -50%) translate3d(152px, -14px, 0px) scale(0.78) rotate(-3deg);
+  }
+  .hero-curved-card[data-card-index="2"] {
+    transform: translate(-50%, -50%) translate3d(242px, -28px, 0px) scale(0.56) rotate(-2deg);
+  }
+  .hero-curved-card[data-card-index="3"] {
+    transform: translate(-50%, -50%) translate3d(-179px, -14px, 0px) scale(0.78) rotate(3deg);
+  }
+}
+
+@media (max-width: 639px) {
+  .hero-curved-card[data-card-index="0"] {
+    transform: translate(-50%, -50%) translate3d(0px, 0px, 0px) scale(1.04);
+  }
+  .hero-curved-card[data-card-index="1"] {
+    transform: translate(-50%, -50%) translate3d(101px, -9px, 0px) scale(0.68) rotate(-2.5deg);
+  }
+  .hero-curved-card[data-card-index="2"] {
+    transform: translate(-50%, -50%) translate3d(161px, -19px, 0px) scale(0.48) rotate(-1.5deg);
+  }
+  .hero-curved-card[data-card-index="3"] {
+    transform: translate(-50%, -50%) translate3d(-120px, -9px, 0px) scale(0.68) rotate(2.5deg);
+  }
+}
+
+/* Mini Stage Dimensions inside Curved Card */
+.hero-curved-card .hero-mini-stage,
+.hero-scroll-card .hero-mini-stage {
+  position: relative;
+  width: 185px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+@media (min-width: 640px) {
+  .hero-curved-card .hero-mini-stage,
+  .hero-scroll-card .hero-mini-stage {
+    width: 205px;
+    height: 165px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-curved-card .hero-mini-stage,
+  .hero-scroll-card .hero-mini-stage {
+    width: 220px;
+    height: 175px;
+  }
+}
+
+/* Scaled Rings & Rays for Curved Card Stage (Hidden in favor of realistic rock pedestal) */
+.hero-curved-card .product-pedestal-rings,
+.hero-curved-card .product-light-rays,
+.hero-curved-card .product-lift-arrows {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Authentic Grounded 3D Floor Contact Shadow on Sandstone Rock */
+.product-3d-pedestal-shadow {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 22px;
+  background: radial-gradient(ellipse 65% 50% at 50% 50%, rgba(15, 22, 16, 0.70) 0%, rgba(20, 28, 20, 0.36) 45%, rgba(25, 35, 25, 0.12) 70%, transparent 85%);
+  border-radius: 50%;
+  filter: blur(5px);
+  z-index: 1;
+  pointer-events: none;
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.25, 1), width 0.4s ease, height 0.4s ease, opacity 0.4s ease;
+}
+
+.hero-curved-card.soap-is-open .product-3d-pedestal-shadow,
+.hero-curved-card.is-active-center .product-3d-pedestal-shadow {
+  bottom: 6px;
+  width: 95%;
+  height: 28px;
+  background: radial-gradient(ellipse 70% 50% at 50% 50%, rgba(12, 18, 12, 0.82) 0%, rgba(18, 26, 18, 0.46) 45%, rgba(22, 32, 22, 0.16) 70%, transparent 85%);
+  filter: blur(6px);
+}
+
+.hero-curved-card .soap-inner-glow {
+  width: 130px;
+  height: 70px;
+  top: 18%;
+  transition: opacity 0.5s ease;
+}
+
+@media (min-width: 640px) {
+  .hero-curved-card .soap-inner-glow {
+    width: 150px;
+    height: 80px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-curved-card .soap-inner-glow {
+    width: 170px;
+    height: 90px;
+  }
+}
+
+/* Open and Active State for the Center Card */
+.hero-curved-card.soap-is-open,
+.hero-curved-card.is-active-center {
+  filter: drop-shadow(0 22px 36px rgba(23, 61, 43, 0.32));
+}
+
+.hero-curved-card.soap-is-open .soap-open-layer {
+  opacity: 1 !important;
+  transform: translateY(-8px) scale(1.05) !important;
+  filter: drop-shadow(0 14px 28px rgba(23, 61, 43, 0.22)) drop-shadow(0 0 22px rgba(228, 197, 134, 0.45)) drop-shadow(0 0 36px rgba(212, 175, 55, 0.22)) !important;
+}
+
+.hero-curved-card.soap-is-open .soap-closed-layer {
+  opacity: 0 !important;
+  transform: translateY(3px) scale(0.96) !important;
+  filter: blur(0.5px) !important;
+}
+
+
+
+/* ==========================================================================
+   HERO 3D SOAP LEVITATION & ORGANIC FLOATING ANIMATION
+   Continuous organic breathing levitation for the active center product
+   ========================================================================== */
+@keyframes soapHeroFloat {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(0.35deg);
+  }
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+}
+
+.hero-curved-card.is-active-center .soap-assembly-stage,
+.hero-curved-card.is-active-center .hero-mini-stage {
+  animation: soapHeroFloat 3.8s ease-in-out infinite !important;
+  will-change: transform;
+}
+
+.hero-curved-card.is-active-center:hover .soap-assembly-stage,
+.hero-curved-card.is-active-center:hover .hero-mini-stage {
+  animation-play-state: paused !important;
+}
+
+.hero-curved-card.soap-is-open .product-pedestal-rings {
+  opacity: 0.95;
+  transform: scale(1.06);
+}
+
+.hero-curved-card.soap-is-open .product-light-rays {
+  opacity: 0.9;
+  transform: scale(1.06);
+}
+
+.hero-curved-card.soap-is-open .soap-inner-glow {
+  opacity: 1;
+}
+
+/* Soft Golden Glow Aura (Warm & elegant, not excessive) */
+.hero-curved-card .champagne-gold-glow {
+  position: absolute;
+  inset: -12px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, rgba(247, 232, 195, 0.48) 0%, rgba(228, 197, 134, 0.22) 42%, rgba(212, 167, 69, 0) 68%);
+  filter: blur(14px);
+  opacity: 0;
+  transform: scale(0.88);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-curved-card.soap-is-open .champagne-gold-glow,
+.hero-curved-card.is-active-center .champagne-gold-glow {
+  opacity: 1;
+  transform: scale(1.05);
+  animation: champagnePulse 3.2s ease-in-out infinite alternate;
+}
+
+@keyframes champagnePulse {
+  0% {
+    opacity: 0.65;
+    transform: scale(1.02);
+    filter: blur(12px);
+  }
+  100% {
+    opacity: 0.82;
+    transform: scale(1.08);
+    filter: blur(16px);
+  }
+}
+
+/* 3–4 Tiny Delicate Sparkles (Subtle & natural twinkle) */
+.champagne-sparkles-wrap {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: visible;
+  z-index: 15;
+}
+
+.c-sparkle {
+  position: absolute;
+  color: #F5E8C8;
+  opacity: 0;
+  transform: scale(0);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  filter: drop-shadow(0 0 3px rgba(228, 197, 134, 0.75));
+  will-change: transform, opacity;
+  user-select: none;
+  line-height: 1;
+}
+
+.c-sparkle-1 {
+  top: 9%;
+  left: 13%;
+  font-size: 12px;
+}
+
+.c-sparkle-2 {
+  top: 7%;
+  right: 13%;
+  font-size: 10px;
+}
+
+.c-sparkle-3 {
+  top: 54%;
+  left: 9%;
+  font-size: 9px;
+}
+
+.c-sparkle-4 {
+  top: 48%;
+  right: 9%;
+  font-size: 11px;
+}
+
+.hero-curved-card.soap-is-open .c-sparkle,
+.hero-curved-card.is-active-center .c-sparkle {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.hero-curved-card.soap-is-open .c-sparkle-1 {
+  animation: sparkleTwinkle 2.4s ease-in-out infinite 0.1s;
+}
+.hero-curved-card.soap-is-open .c-sparkle-2 {
+  animation: sparkleTwinkle 2.7s ease-in-out infinite 0.5s;
+}
+.hero-curved-card.soap-is-open .c-sparkle-3 {
+  animation: sparkleTwinkle 2.2s ease-in-out infinite 0.9s;
+}
+.hero-curved-card.soap-is-open .c-sparkle-4 {
+  animation: sparkleTwinkle 2.5s ease-in-out infinite 1.3s;
+}
+
+@keyframes sparkleTwinkle {
+  0%, 100% {
+    opacity: 0.25;
+    transform: scale(0.7) rotate(0deg);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.12) rotate(12deg);
+    filter: drop-shadow(0 0 5px rgba(247, 232, 195, 0.8)) drop-shadow(0 0 9px rgba(228, 197, 134, 0.55));
+  }
+}
+
+.hero-curved-card.soap-is-open .hero-hover-pill {
+  background-color: #235327;
+  color: #FFFFFF;
+}
+
+/* Side / Closed Cards styling */
+.hero-curved-card:not(.soap-is-open) .soap-open-layer {
+  opacity: 0;
+  transform: translateY(4px) scale(0.96);
+}
+
+.hero-curved-card:not(.soap-is-open) .soap-closed-layer {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.hero-curved-card:not(.soap-is-open) .product-pedestal-rings,
+.hero-curved-card:not(.soap-is-open) .product-light-rays,
+.hero-curved-card:not(.soap-is-open) .product-lift-arrows {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+.hero-curved-card:not(.soap-is-open) .soap-inner-glow {
+  opacity: 0 !important;
+}
+
+/* Card Metadata (Name, Price & Hover Pill) */
+.hero-card-meta {
+  width: 100%;
+  pointer-events: none;
+  transition: transform 0.35s ease;
+}
+.hero-hover-pill {
+  transition: all 0.3s ease;
+}
+
+/* Navigation button styling */
+.hero-carousel-nav-btn {
+  opacity: 0.85;
+  transition: all 0.25s ease;
+}
+.hero-carousel-nav-btn:hover {
+  opacity: 1;
+  transform: translateY(-50%) scale(1.08);
+}
+@media (max-width: 640px) {
+  .hero-carousel-nav-btn {
+    display: none;
+  }
+}
+
+/* Dots navigation */
+.carousel-dot-btn {
+  cursor: pointer;
+  border: none;
+  padding: 0;
+}
+.carousel-dot-btn.is-active {
+  background-color: #173D2B;
+  transform: scale(1.35);
+  box-shadow: 0 0 8px rgba(23, 61, 43, 0.35);
+}
+
+/* Fallback single showcase rules if referenced */
+.hero-single-showcase {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.hero-manjistha-showcase {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 220px;
+  max-width: 100%;
+  margin: 0 auto;
+  border: none;
+  background: transparent;
+  transform-style: preserve-3d;
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
+  will-change: transform, filter;
+  overflow: visible;
+  filter: drop-shadow(0 20px 32px rgba(225, 160, 75, 0.42));
+}
+
+.hero-manjistha-showcase.balm-animated-card {
+  filter: drop-shadow(0 20px 32px rgba(220, 60, 110, 0.35));
+}
+
+@media (min-width: 640px) {
+  .hero-manjistha-showcase {
+    width: 360px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-manjistha-showcase {
+    width: 430px;
+  }
+}
+
+.hero-manjistha-showcase:hover,
+.hero-manjistha-showcase.product-state-open,
+.hero-manjistha-showcase/* .soap-is-open transform handled dynamically by orbit engine */
+
+.product-arc-track {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 2.5rem 1rem 1.5rem;
+  max-width: 100%;
+  transition: transform 0.6s cubic-bezier(0.2, 0.9, 0.3, 1.1);
+  will-change: transform;
+}
+
+/* Base Stepped Card with Negative Overlap */
+.step-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 28px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: transform 0.55s cubic-bezier(0.2, 0.9, 0.3, 1.1),
+              filter 0.45s ease,
+              opacity 0.45s ease,
+              width 0.45s ease;
+  will-change: transform, opacity, filter;
+  user-select: none;
+  flex-shrink: 0;
+  /* Overlapping negative margin to match reference image deck */
+  margin: 0 -18px;
+  overflow: visible;
+}
+
+@media (min-width: 640px) {
+  .step-card {
+    margin: 0 -26px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .step-card {
+    margin: 0 -36px;
+  }
+}
+
+.step-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  pointer-events: none;
+  transition: filter 0.45s ease;
+}
+
+/* --------------------------------------------------------------------------
+   EXACT STEP-BY-STEP SIZING & ALIGNMENT
+   -------------------------------------------------------------------------- */
+
+/* STEP 0: Active Center Main Card (Widest, Highest Elevation, Amber Halo Glow) */
+.step-card.step-0 {
+  width: 220px;
+  transform: scale(1.16) translateY(-8px) rotate(0deg) !important;
+  z-index: 35 !important;
+  opacity: 1 !important;
+  filter: drop-shadow(0 20px 32px rgba(225, 160, 75, 0.48)) !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+@media (min-width: 640px) {
+  .step-card.step-0 {
+    width: 265px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .step-card.step-0 {
+    width: 310px;
+  }
+}
+
+/* STEP 1 LEFT: Immediate Left Neighbor */
+.step-card.step-1-left {
+  width: 165px;
+  transform: scale(0.95) translateY(2px) rotate(-3.5deg);
+  z-index: 25;
+  opacity: 0.96;
+  filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.08));
+  border: none;
+  box-shadow: none;
+}
+
+@media (min-width: 640px) {
+  .step-card.step-1-left {
+    width: 190px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .step-card.step-1-left {
+    width: 220px;
+  }
+}
+
+/* STEP 1 RIGHT: Immediate Right Neighbor */
+.step-card.step-1-right {
+  width: 165px;
+  transform: scale(0.95) translateY(2px) rotate(3.5deg);
+  z-index: 25;
+  opacity: 0.96;
+  filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.08));
+  border: none;
+  box-shadow: none;
+}
+
+@media (min-width: 640px) {
+  .step-card.step-1-right {
+    width: 190px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .step-card.step-1-right {
+    width: 220px;
+  }
+}
+
+/* STEP 2 LEFT: Outer Left */
+.step-card.step-2-left {
+  width: 145px;
+  transform: scale(0.85) translateY(6px) rotate(-6.5deg);
+  z-index: 15;
+  opacity: 0.88;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.06));
+  border: none;
+  box-shadow: none;
+}
+
+@media (min-width: 640px) {
+  .step-card.step-2-left {
+    width: 170px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .step-card.step-2-left {
+    width: 195px;
+  }
+}
+
+/* STEP 2 RIGHT: Outer Right */
+.step-card.step-2-right {
+  width: 145px;
+  transform: scale(0.85) translateY(6px) rotate(6.5deg);
+  z-index: 15;
+  opacity: 0.88;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.06));
+  border: none;
+  box-shadow: none;
+}
+
+@media (min-width: 640px) {
+  .step-card.step-2-right {
+    width: 170px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .step-card.step-2-right {
+    width: 195px;
+  }
+}
+
+/* STEP 3+ LEFT: Edge */
+.step-card.step-3-left {
+  width: 125px;
+  transform: scale(0.72) translateY(12px) rotate(-9.5deg);
+  z-index: 8;
+  opacity: 0.65;
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.05));
+  border: none;
+  box-shadow: none;
+}
+
+@media (min-width: 640px) {
+  .step-card.step-3-left {
+    width: 145px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .step-card.step-3-left {
+    width: 170px;
+  }
+}
+
+/* STEP 3+ RIGHT: Edge */
+.step-card.step-3-right {
+  width: 125px;
+  transform: scale(0.72) translateY(12px) rotate(9.5deg);
+  z-index: 8;
+  opacity: 0.65;
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.05));
+  border: none;
+  box-shadow: none;
+}
+
+@media (min-width: 640px) {
+  .step-card.step-3-right {
+    width: 145px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .step-card.step-3-right {
+    width: 170px;
+  }
+}
+
+/* STEP 4+ LEFT: Far Edge */
+.step-card.step-4-left {
+  width: 110px;
+  transform: scale(0.60) translateY(18px) rotate(-12deg);
+  z-index: 5;
+  opacity: 0.45;
+  border: none;
+  box-shadow: none;
+}
+
+@media (min-width: 1024px) {
+  .step-card.step-4-left {
+    width: 145px;
+  }
+}
+
+/* STEP 4+ RIGHT: Far Edge */
+.step-card.step-4-right {
+  width: 110px;
+  transform: scale(0.60) translateY(18px) rotate(12deg);
+  z-index: 5;
+  opacity: 0.45;
+  border: none;
+  box-shadow: none;
+}
+
+@media (min-width: 1024px) {
+  .step-card.step-4-right {
+    width: 145px;
+  }
+}
+
+/* Ghost Card Ends */
+.ghost-card {
+  width: 90px;
+  flex-shrink: 0;
+  pointer-events: none;
+  z-index: 3;
+  margin: 0 -20px;
+  opacity: 0.42;
+  filter: blur(1px);
+  transition: opacity 0.4s ease;
+}
+
+@media (min-width: 640px) {
+  .ghost-card {
+    width: 115px;
+    margin: 0 -28px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .ghost-card {
+    width: 135px;
+    margin: 0 -36px;
+  }
+}
+
+.ghost-card-left {
+  transform: scale(0.78) translateY(12px) rotate(-8.5deg);
+}
+
+.ghost-card-right {
+  transform: scale(0.78) translateY(12px) rotate(8.5deg);
+}
+
+.ghost-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Warm Pedestal Backglow behind the center card */
+.hero-center-pedestal-glow {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -45%);
+  width: 480px;
+  height: 360px;
+  background: radial-gradient(ellipse at center, rgba(245, 195, 120, 0.52) 0%, rgba(245, 175, 80, 0.25) 45%, transparent 70%);
+  border-radius: 9999px;
+  pointer-events: none;
+  filter: blur(32px);
+  z-index: 0;
+  transition: transform 0.55s ease;
+  animation: pedestalPulse 6s ease-in-out infinite alternate;
+}
+
+@keyframes pedestalPulse {
+  0% { transform: translate(-50%, -45%) scale(0.94); opacity: 0.85; }
+  100% { transform: translate(-50%, -45%) scale(1.08); opacity: 1; }
+}
+
+/* Scroll Parallax Classes */
+.scroll-parallax-stage {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Carousel Pagination Dots (Matching Reference) */
+.carousel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background-color: #cfdcd3;
+  transition: all var(--transition-normal);
+  cursor: pointer;
+}
+
+.carousel-dot.is-active {
+  width: 24px;
+  background-color: var(--color-forest);
+  border-radius: 9999px;
+}
+
+/* Ambient Gobo Leaf Shadows in Background */
+.gobo-leaf-shadow-left {
+  position: absolute;
+  top: -80px;
+  left: -120px;
+  width: 450px;
+  height: 450px;
+  background: radial-gradient(circle at 30% 30%, rgba(35, 83, 39, 0.06) 0%, transparent 70%);
+  filter: blur(50px);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.gobo-leaf-shadow-right {
+  position: absolute;
+  top: -60px;
+  right: -100px;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle at 70% 30%, rgba(220, 160, 80, 0.08) 0%, transparent 70%);
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* --------------------------------------------------------------------------
+   Entrance Keyframe Animations
+   -------------------------------------------------------------------------- */
+@keyframes entranceDrop {
+  0% { opacity: 0; transform: translateY(-24px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes entranceFadeUp {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes entranceScaleBounce {
+  0% { opacity: 0; transform: scale(0.88); }
+  60% { opacity: 1; transform: scale(1.04); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes cardCascade {
+  0% { opacity: 0; transform: translateY(70px) scale(0.8); }
+  100% { opacity: 1; }
+}
+
+.animate-entrance-header {
+  animation: entranceDrop 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-entrance-eyebrow {
+  animation: entranceFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+  opacity: 0;
+}
+
+.animate-entrance-headline {
+  animation: entranceFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards;
+  opacity: 0;
+}
+
+.animate-entrance-subtext {
+  animation: entranceFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.35s forwards;
+  opacity: 0;
+}
+
+.animate-entrance-cta {
+  animation: entranceScaleBounce 0.9s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.45s forwards;
+  opacity: 0;
+}
+
+.animate-entrance-cards {
+  animation: cardCascade 1s cubic-bezier(0.16, 1, 0.3, 1) 0.55s forwards;
+  opacity: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Drawers and Modals
+   -------------------------------------------------------------------------- */
+.drawer-backdrop {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s;
+}
+
+.drawer-backdrop.is-active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.cart-drawer-panel {
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cart-drawer-panel.is-active {
+  transform: translateX(0);
+}
+
+.mobile-drawer-panel {
+  transform: translateX(-100%);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mobile-drawer-panel.is-active {
+  transform: translateX(0);
+}
+
+/* Toast Notification */
+.toast-notice {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 100;
+  background: #ffffff;
+  border-left: 4px solid var(--color-forest);
+  box-shadow: 0 16px 36px -6px rgba(0, 0, 0, 0.14);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transform: translateY(100px);
+  opacity: 0;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.toast-notice.show {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Marquee Bar */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.marquee-content {
+  display: flex;
+  width: max-content;
+  animation: marquee 28s linear infinite;
+}
+
+.marquee-content:hover {
+  animation-play-state: paused;
+}
+
+/* --------------------------------------------------------------------------
+   Storyboard In-Hero Product Opening Animation (Matches Reference Image)
+   Automatic Sequence for All 5 Carousel Products:
+     1. Click any product -> glides to center
+     2. Product Zooms In (Scales up, pedestal glow rings expand, surrounding cards blur)
+     3. Cap Lifts & Opens Automatically (Upward luminous arrows shimmer, cap separates)
+     4. Opened View Final (Floating cap, radiant light rays, botanical leaves, holds ~2s)
+     5. Automatically Closes (Cap slides smoothly down, rays fade, cards unblur)
+   -------------------------------------------------------------------------- */
+
+/* Interactive Card Container */
+.product-interactive-card,
+.cream-animated-card,
+.soap-animated-card {
+  overflow: visible !important;
+  cursor: pointer;
+  transition: transform 0.65s cubic-bezier(0.2, 0.9, 0.3, 1.1),
+              filter 0.5s ease !important;
+}
+
+/* Assembly Stage - Responsive Dimensions */
+.product-assembly-stage,
+.cream-assembly-stage,
+.soap-assembly-stage {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+/* Specific Stage Dimensions */
+.stage-soap,
+.soap-assembly-stage {
+  width: 290px;
+  height: 250px;
+}
+@media (min-width: 640px) {
+  .stage-soap,
+  .soap-assembly-stage {
+    width: 370px;
+    height: 310px;
+  }
+}
+@media (min-width: 1024px) {
+  .stage-soap,
+  .soap-assembly-stage {
+    width: 450px;
+    height: 370px;
+  }
+}
+
+/* Manjistha Soap Closed View Layer (Default Resting State) */
+.soap-closed-layer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.5s ease;
+  will-change: opacity, transform;
+}
+
+/* Manjistha Soap Open View Layer (Revealed Smoothly on Hover) */
+.soap-open-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 20;
+  opacity: 0;
+  transform: translateY(8px) scale(0.96);
+  transform-origin: center bottom;
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.75s cubic-bezier(0.2, 0.9, 0.3, 1.15),
+              filter 0.55s ease;
+  will-change: opacity, transform, filter;
+  pointer-events: none;
+}
+
+/* Warm Translucent Amber Glow behind the soap bar when open */
+.soap-amber-glow {
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  width: 240px;
+  height: 130px;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at center, rgba(245, 155, 45, 0.55) 0%, rgba(212, 110, 20, 0.28) 50%, rgba(200, 100, 0, 0) 75%);
+  border-radius: 50%;
+  filter: blur(16px);
+  opacity: 0;
+  z-index: 8;
+  pointer-events: none;
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+/* Product-Specific Ambient Glows */
+.glow-goat img {
+  filter: drop-shadow(0 0 24px rgba(220, 240, 225, 0.85));
+}
+.glow-manjistha img {
+  filter: drop-shadow(0 0 26px rgba(245, 175, 60, 0.85));
+}
+.glow-neem img {
+  filter: drop-shadow(0 0 26px rgba(115, 195, 80, 0.85));
+}
+.glow-balm img {
+  filter: drop-shadow(0 0 26px rgba(235, 70, 120, 0.85));
+}
+
+/* Multi-Product Inner Cavity Glow */
+.soap-inner-glow {
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  width: 240px;
+  height: 130px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  filter: blur(16px);
+  opacity: 0;
+  z-index: 8;
+  pointer-events: none;
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.soap-inner-glow.glow-goat {
+  background: radial-gradient(ellipse at center, rgba(235, 248, 235, 0.65) 0%, rgba(185, 215, 190, 0.3) 50%, transparent 75%);
+}
+
+.soap-inner-glow.glow-manjistha {
+  background: radial-gradient(ellipse at center, rgba(245, 155, 45, 0.65) 0%, rgba(212, 110, 20, 0.3) 50%, transparent 75%);
+}
+
+.soap-inner-glow.glow-neem {
+  background: radial-gradient(ellipse at center, rgba(140, 210, 100, 0.65) 0%, rgba(70, 155, 65, 0.3) 50%, transparent 75%);
+}
+
+.soap-inner-glow.glow-balm {
+  background: radial-gradient(ellipse at center, rgba(245, 75, 125, 0.65) 0%, rgba(195, 45, 90, 0.3) 50%, transparent 75%);
+}
+
+/* --------------------------------------------------------------------------
+   MULTI-PRODUCT HOVER & ACTIVE 3D OPENING ANIMATION
+   Smoothly reveals the open packaging view with realistic perspective and depth
+   -------------------------------------------------------------------------- */
+.product-interactive-card .product-closed-layer,
+.soap-animated-card .soap-closed-layer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.5s ease;
+  will-change: opacity, transform;
+}
+
+.product-interactive-card .product-open-layer,
+.soap-animated-card .soap-open-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 20;
+  opacity: 0;
+  transform: translateY(8px) scale(0.96);
+  transform-origin: center bottom;
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.75s cubic-bezier(0.2, 0.9, 0.3, 1.15),
+              filter 0.55s ease;
+  will-change: opacity, transform, filter;
+  pointer-events: none;
+}
+
+/* When Hovered or Active (product-state-open / soap-is-open) */
+.product-interactive-card:hover .product-closed-layer,
+.product-interactive-card:hover .soap-closed-layer,
+.product-interactive-card.product-state-open .product-closed-layer,
+.product-interactive-card.product-state-open .soap-closed-layer,
+.product-interactive-card.soap-is-open .product-closed-layer,
+.product-interactive-card.soap-is-open .soap-closed-layer {
+  opacity: 0;
+  transform: translateY(4px) scale(0.97);
+  filter: blur(0.5px);
+}
+
+.product-interactive-card:hover .product-open-layer,
+.product-interactive-card:hover .soap-open-layer,
+.product-interactive-card.product-state-open .product-open-layer,
+.product-interactive-card.product-state-open .soap-open-layer,
+.product-interactive-card.soap-is-open .product-open-layer,
+.product-interactive-card.soap-is-open .soap-open-layer {
+  opacity: 1;
+  transform: translateY(-8px) scale(1.05);
+  filter: drop-shadow(0 20px 40px rgba(23, 61, 43, 0.22)) drop-shadow(0 0 28px rgba(212, 167, 69, 0.35));
+}
+
+.product-interactive-card:hover .soap-amber-glow,
+.product-interactive-card:hover .soap-inner-glow,
+.product-interactive-card.product-state-open .soap-amber-glow,
+.product-interactive-card.product-state-open .soap-inner-glow,
+.product-interactive-card.soap-is-open .soap-amber-glow,
+.product-interactive-card.soap-is-open .soap-inner-glow {
+  opacity: 1;
+  transform: translateX(-50%) scale(1.15);
+  animation: amberSoapPulse 2.8s ease-in-out infinite alternate;
+}
+
+.product-interactive-card:hover .product-pedestal-rings,
+.product-interactive-card.product-state-open .product-pedestal-rings,
+.product-interactive-card.soap-is-open .product-pedestal-rings {
+  opacity: 1;
+  transform: translateX(-50%) scale(1.18);
+}
+
+.product-interactive-card:hover .product-light-rays,
+.product-interactive-card.product-state-open .product-light-rays,
+.product-interactive-card.soap-is-open .product-light-rays {
+  opacity: 0.92;
+  transform: translateX(-50%) scale(1.06);
+  animation: raysGlowShimmer 3.2s ease-in-out infinite alternate;
+}
+
+.product-interactive-card:hover .product-botanical-leaves,
+.product-interactive-card.product-state-open .product-botanical-leaves,
+.product-interactive-card.soap-is-open .product-botanical-leaves {
+  opacity: 1;
+  transform: scale(1) translateX(0);
+}
+
+@keyframes amberSoapPulse {
+  0% {
+    opacity: 0.7;
+    filter: blur(14px);
+    transform: translateX(-50%) scale(1);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(18px);
+    transform: translateX(-50%) scale(1.18);
+  }
+}
+
+/* Specific Stage Dimensions */
+.stage-cream,
+.cream-assembly-stage {
+  width: 270px;
+  height: 240px;
+}
+@media (min-width: 640px) {
+  .stage-cream,
+  .cream-assembly-stage {
+    width: 310px;
+    height: 270px;
+  }
+}
+@media (min-width: 1024px) {
+  .stage-cream,
+  .cream-assembly-stage {
+    width: 350px;
+    height: 300px;
+  }
+}
+
+.stage-vitaminc {
+  width: 210px;
+  height: 250px;
+}
+@media (min-width: 640px) {
+  .stage-vitaminc {
+    width: 240px;
+    height: 280px;
+  }
+}
+@media (min-width: 1024px) {
+  .stage-vitaminc {
+    width: 270px;
+    height: 310px;
+  }
+}
+
+.stage-cleanser {
+  width: 220px;
+  height: 250px;
+}
+@media (min-width: 640px) {
+  .stage-cleanser {
+    width: 250px;
+    height: 280px;
+  }
+}
+@media (min-width: 1024px) {
+  .stage-cleanser {
+    width: 280px;
+    height: 310px;
+  }
+}
+
+.stage-aloe {
+  width: 250px;
+  height: 240px;
+}
+@media (min-width: 640px) {
+  .stage-aloe {
+    width: 290px;
+    height: 270px;
+  }
+}
+@media (min-width: 1024px) {
+  .stage-aloe {
+    width: 320px;
+    height: 300px;
+  }
+}
+
+.stage-sunscreen {
+  width: 220px;
+  height: 240px;
+}
+@media (min-width: 640px) {
+  .stage-sunscreen {
+    width: 250px;
+    height: 270px;
+  }
+}
+@media (min-width: 1024px) {
+  .stage-sunscreen {
+    width: 280px;
+    height: 300px;
+  }
+}
+
+/* Product Body */
+.product-body,
+.cream-jar-body {
+  position: relative;
+  width: 100%;
+  height: auto;
+  z-index: 10;
+  transform-origin: bottom center;
+}
+
+.product-body img,
+.cream-jar-body img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Product Cap Base */
+.product-cap,
+.cream-jar-cap {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) translateY(0) rotate(0deg);
+  transform-origin: center center;
+  z-index: 20;
+  transition: transform 0.65s cubic-bezier(0.2, 0.9, 0.3, 1.1);
+  will-change: transform;
+}
+
+.product-cap img,
+.cream-jar-cap img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Cap Specific Closed Offsets */
+.prod-cream-cap,
+.cream-jar-cap {
+  top: 36px;
+  width: 86%;
+}
+@media (min-width: 640px) {
+  .prod-cream-cap,
+  .cream-jar-cap { top: 40px; }
+}
+@media (min-width: 1024px) {
+  .prod-cream-cap,
+  .cream-jar-cap { top: 46px; }
+}
+
+.prod-vitaminc-cap {
+  top: 15px;
+  width: 80%;
+}
+@media (min-width: 640px) {
+  .prod-vitaminc-cap { top: 18px; }
+}
+@media (min-width: 1024px) {
+  .prod-vitaminc-cap { top: 22px; }
+}
+
+.prod-cleanser-cap {
+  top: 10px;
+  width: 82%;
+}
+@media (min-width: 640px) {
+  .prod-cleanser-cap { top: 12px; }
+}
+@media (min-width: 1024px) {
+  .prod-cleanser-cap { top: 16px; }
+}
+
+.prod-aloe-cap {
+  top: 25px;
+  width: 88%;
+}
+@media (min-width: 640px) {
+  .prod-aloe-cap { top: 30px; }
+}
+@media (min-width: 1024px) {
+  .prod-aloe-cap { top: 36px; }
+}
+
+.prod-sunscreen-cap {
+  top: 18px;
+  width: 84%;
+}
+@media (min-width: 640px) {
+  .prod-sunscreen-cap { top: 22px; }
+}
+@media (min-width: 1024px) {
+  .prod-sunscreen-cap { top: 26px; }
+}
+
+/* Botanical Green Leaves */
+.product-botanical-leaves,
+.cream-botanical-leaves {
+  position: absolute;
+  bottom: 12px;
+  left: -10px;
+  width: 85px;
+  z-index: 25;
+  opacity: 0;
+  transform: scale(0.5) translateX(25px);
+  transform-origin: bottom right;
+  transition: all 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+  pointer-events: none;
+}
+
+@media (min-width: 1024px) {
+  .product-botanical-leaves,
+  .cream-botanical-leaves {
+    width: 95px;
+    left: -12px;
+    bottom: 16px;
+  }
+}
+
+/* Radiant Golden Light Rays */
+.product-light-rays,
+.cream-light-rays {
+  position: absolute;
+  top: -25px;
+  left: 50%;
+  width: 420px;
+  transform: translateX(-50%) scale(0.8);
+  opacity: 0;
+  z-index: 4;
+  pointer-events: none;
+  transition: opacity 0.55s ease, transform 0.65s cubic-bezier(0.2, 0.9, 0.3, 1.1);
+}
+
+/* Upward Luminous Lift Arrows */
+.product-lift-arrows,
+.cream-lift-arrows {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  width: 320px;
+  transform: translateX(-50%);
+  opacity: 0;
+  z-index: 15;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+
+/* Concentric Pedestal Glow Rings */
+.product-pedestal-rings,
+.cream-pedestal-rings {
+  position: absolute;
+  bottom: -25px;
+  left: 50%;
+  width: 460px;
+  transform: translateX(-50%) scale(0.85);
+  opacity: 0.35;
+  z-index: 2;
+  pointer-events: none;
+  transition: opacity 0.6s ease, transform 0.65s cubic-bezier(0.2, 0.9, 0.3, 1.1);
+}
+
+/* --------------------------------------------------------------------------
+   ANIMATION STATES FOR ALL PRODUCTS (Zoom -> Lift -> Open -> Auto-Close)
+   -------------------------------------------------------------------------- */
+
+/* Phase 1: Zoom In */
+.product-state-zoom,
+.cream-state-2 {
+  transform: scale(1.36) translateY(-14px) rotate(0deg) !important;
+  z-index: 45 !important;
+}
+
+.product-state-zoom .product-pedestal-rings,
+.product-state-zoom .cream-pedestal-rings,
+.cream-state-2 .cream-pedestal-rings {
+  opacity: 1;
+  transform: translateX(-50%) scale(1.15);
+  filter: drop-shadow(0 0 25px rgba(245, 191, 70, 0.65));
+}
+
+/* Phase 2: Cap Lifts & Opens Automatically */
+.product-state-lift,
+.cream-state-3 {
+  transform: scale(1.36) translateY(-14px) rotate(0deg) !important;
+  z-index: 45 !important;
+}
+
+.product-state-lift .prod-cream-cap,
+.cream-state-3 .cream-jar-cap {
+  transform: translateX(-50%) translateY(-65px) rotate(-6deg);
+}
+
+.product-state-lift .prod-vitaminc-cap {
+  transform: translateX(-50%) translateY(-65px) rotate(-5deg);
+}
+
+.product-state-lift .prod-cleanser-cap {
+  transform: translateX(-50%) translateY(-65px) rotate(4deg);
+}
+
+.product-state-lift .prod-aloe-cap {
+  transform: translateX(-50%) translateY(-65px) rotate(6deg);
+}
+
+.product-state-lift .prod-sunscreen-cap {
+  transform: translateX(-50%) translateY(-60px) rotate(-6deg);
+}
+
+.product-state-lift .product-lift-arrows,
+.product-state-lift .cream-lift-arrows,
+.cream-state-3 .cream-lift-arrows {
+  opacity: 0.95;
+  animation: arrowsGlowPulse 1.2s ease-in-out infinite alternate;
+}
+
+.product-state-lift .product-pedestal-rings,
+.product-state-lift .cream-pedestal-rings,
+.cream-state-3 .cream-pedestal-rings {
+  opacity: 1;
+  transform: translateX(-50%) scale(1.18);
+}
+
+/* Phase 3: Opened View (Final Showcase) */
+.product-state-open,
+.cream-state-4 {
+  z-index: 45 !important;
+}
+
+.product-state-open .prod-cream-cap,
+.cream-state-4 .cream-jar-cap {
+  transform: translateX(-50%) translateY(-72px) rotate(-7deg);
+  animation: capLevitateFloat 3.2s ease-in-out infinite alternate;
+}
+
+.product-state-open .prod-vitaminc-cap {
+  transform: translateX(-50%) translateY(-70px) rotate(-6deg);
+  animation: capLevitateFloat 3.2s ease-in-out infinite alternate;
+}
+
+.product-state-open .prod-cleanser-cap {
+  transform: translateX(-50%) translateY(-70px) rotate(5deg);
+  animation: capLevitateFloat 3.2s ease-in-out infinite alternate;
+}
+
+.product-state-open .prod-aloe-cap {
+  transform: translateX(-50%) translateY(-72px) rotate(7deg);
+  animation: capLevitateFloat 3.2s ease-in-out infinite alternate;
+}
+
+.product-state-open .prod-sunscreen-cap {
+  transform: translateX(-50%) translateY(-68px) rotate(-7deg);
+  animation: capLevitateFloat 3.2s ease-in-out infinite alternate;
+}
+
+.product-state-open .product-botanical-leaves,
+.product-state-open .cream-botanical-leaves,
+.cream-state-4 .cream-botanical-leaves {
+  opacity: 1;
+  transform: scale(1) translateX(0);
+}
+
+.product-state-open .product-light-rays,
+.product-state-open .cream-light-rays,
+.cream-state-4 .cream-light-rays {
+  opacity: 1;
+  transform: translateX(-50%) scale(1.08);
+  animation: raysGlowShimmer 3.5s ease-in-out infinite alternate;
+}
+
+.product-state-open .product-pedestal-rings,
+.product-state-open .cream-pedestal-rings,
+.cream-state-4 .cream-pedestal-rings {
+  opacity: 1;
+  transform: translateX(-50%) scale(1.22);
+  filter: drop-shadow(0 0 28px rgba(245, 191, 70, 0.7));
+}
+
+/* Phase 4: Automatic Smooth Closing Transition */
+.product-state-closing,
+.cream-state-closing {
+  transform: scale(1.16) translateY(-8px) rotate(0deg) !important;
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.product-state-closing .product-cap,
+.product-state-closing .cream-jar-cap,
+.cream-state-closing .cream-jar-cap {
+  transform: translateX(-50%) translateY(0) rotate(0deg) !important;
+  animation: none !important;
+  transition: transform 0.52s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.product-state-closing .product-botanical-leaves,
+.product-state-closing .cream-botanical-leaves,
+.cream-state-closing .cream-botanical-leaves {
+  opacity: 0 !important;
+  transform: scale(0.5) translateX(25px) !important;
+  transition: all 0.4s ease !important;
+}
+
+.product-state-closing .product-light-rays,
+.product-state-closing .cream-light-rays,
+.cream-state-closing .cream-light-rays {
+  opacity: 0 !important;
+  transition: opacity 0.4s ease !important;
+}
+
+.product-state-closing .product-lift-arrows,
+.product-state-closing .cream-lift-arrows {
+  opacity: 0 !important;
+  transition: opacity 0.3s ease !important;
+}
+
+.product-state-closing .product-pedestal-rings,
+.product-state-closing .cream-pedestal-rings {
+  opacity: 0.35 !important;
+  transform: translateX(-50%) scale(0.85) !important;
+  filter: none !important;
+  transition: all 0.5s ease !important;
+}
+
+/* Surrounding Cards Receding into Depth (Panels 2, 3, 4) */
+.surrounding-card-receding {
+  filter: blur(2.5px) !important;
+  opacity: 0.68 !important;
+  pointer-events: none !important;
+  transition: all 0.55s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* Keyframe Animations */
+@keyframes capLevitateFloat {
+  0% {
+    transform: translateX(-50%) translateY(-72px) rotate(-7deg);
+  }
+  100% {
+    transform: translateX(-50%) translateY(-78px) rotate(-5deg);
+  }
+}
+
+@keyframes raysGlowShimmer {
+  0% {
+    opacity: 0.85;
+    transform: translateX(-50%) scale(1.04);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.12);
+  }
+}
+
+@keyframes arrowsGlowPulse {
+  0% {
+    transform: translateX(-50%) translateY(0);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateX(-50%) translateY(-8px);
+    opacity: 1;
+  }
+}
+
+@keyframes pillPulse {
+  0%, 100% {
+    box-shadow: 0 4px 16px rgba(35, 83, 39, 0.3);
+  }
+  50% {
+    box-shadow: 0 8px 24px rgba(194, 131, 40, 0.45);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   HOMEPAGE EXTENSIONS (Exact Replication of Design Reference PDF)
+   Sections:
+     1. Limited Time Offer (Starter Combo Flat 20% OFF)
+     2. About Us (The Natural Choice for Healthier Skin)
+     3. Our Story (The EarthGlaze Story)
+     4. Personalized Care (Build Your Skincare Routine)
+     5. Bestsellers (EarthGlaze Favourites)
+     6. Newly Launched (Nature's Flavour Soaps)
+     7. Footer Exact (Ayurvedic Trust Strip & Payment Badges)
+   -------------------------------------------------------------------------- */
+
+/* Section 1: Limited Time Offer (Pure HTML & CSS Container) */
+.offer-banner-container {
+  position: relative;
+  border-radius: 32px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(23, 61, 43, 0.12);
+  border: 1px solid rgba(220, 210, 195, 0.8);
+  background: radial-gradient(circle at 50% 30%, #FFFDF8 0%, #FAF5EB 50%, #F1E9DB 100%);
+}
+
+.offer-banner-wrap {
+  position: relative;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 22px 50px rgba(23, 61, 43, 0.12);
+  border: 1px solid rgba(220, 210, 195, 0.7);
+  background: #FAF7F2;
+}
+
+.countdown-digit-cell-overlay {
+  background: #FFFDF9;
+  border-radius: 12px;
+  margin: 0 2px;
+  padding: 3px 2px;
+  border: 1px solid rgba(225, 215, 200, 0.7);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.offer-btn-hotspot,
+.routine-btn-hotspot,
+.soaps-btn-hotspot {
+  cursor: pointer;
+  position: absolute;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), filter 0.25s ease;
+}
+
+.offer-btn-hotspot:hover,
+.routine-btn-hotspot:hover,
+.soaps-btn-hotspot:hover {
+  filter: brightness(1.1);
+  transform: scale(1.02);
+}
+
+.offer-btn-hotspot:active,
+.routine-btn-hotspot:active,
+.soaps-btn-hotspot:active {
+  transform: scale(0.97);
+}
+
+/* Section 2: About Us */
+.about-arch-frame {
+  position: relative;
+  max-width: 460px;
+  margin: 0 auto;
+  overflow: visible;
+}
+
+.about-arch-frame img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 15px 35px rgba(23, 61, 43, 0.1));
+}
+
+.feature-pillar-card {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(225, 215, 200, 0.6);
+  border-radius: 20px;
+  transition: all 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.1);
+}
+
+.feature-pillar-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(35, 83, 39, 0.1);
+  border-color: #5a8834;
+}
+
+.trust-badge-bar {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(225, 215, 200, 0.7);
+  border-radius: 24px;
+  box-shadow: 0 8px 24px rgba(35, 83, 39, 0.05);
+}
+
+/* Section 3: Our Story */
+.story-circle-backdrop {
+  display: none;
+}
+
+/* Section 4: Routine Builder (Pure HTML Container & Interactive Step Cards) */
+.routine-banner-container {
+  position: relative;
+  border-radius: 32px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(23, 61, 43, 0.1);
+  border: 1px solid rgba(220, 210, 195, 0.8);
+  background: linear-gradient(135deg, #FFFDF9 0%, #FAF6EF 50%, #EDE5D6 100%);
+}
+
+.routine-step-card {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(225, 215, 200, 0.7);
+  border-radius: 24px;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 16px rgba(23, 61, 43, 0.04);
+}
+
+.routine-step-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 36px rgba(23, 61, 43, 0.12);
+  border-color: #235327;
+  background: #ffffff;
+}
+
+.routine-banner-wrap {
+  position: relative;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 22px 50px rgba(23, 61, 43, 0.1);
+  border: 1px solid rgba(220, 210, 195, 0.7);
+  background: #FAF7F2;
+}
+
+.routine-step-hotspot {
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.routine-step-hotspot:hover {
+  transform: translateY(-3px) scale(1.02);
+}
+
+.routine-step-hotspot:active {
+  transform: scale(0.98);
+}
+
+/* Section 5: Bestsellers (Pure HTML Modular eCommerce Product Cards) */
+.bestseller-card-pure {
+  background: #ffffff;
+  border-radius: 26px;
+  border: 1px solid rgba(225, 215, 200, 0.7);
+  box-shadow: 0 8px 24px rgba(23, 61, 43, 0.05);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  position: relative;
+}
+
+.bestseller-card-pure:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 42px rgba(23, 61, 43, 0.12);
+  border-color: #d4a745;
+}
+
+.bestseller-card-pure .catalog-add-btn {
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bestseller-card-pure .catalog-add-btn:hover {
+  filter: brightness(1.12);
+  transform: scale(1.03);
+}
+
+.bestseller-card-wrap {
+  background: #FAF7F2;
+  border-radius: 26px;
+  border: 1px solid rgba(225, 215, 200, 0.7);
+  box-shadow: 0 10px 30px rgba(23, 61, 43, 0.05);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+  position: relative;
+}
+
+.bestseller-card-wrap:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 22px 45px rgba(23, 61, 43, 0.15);
+  border-color: #d4a745;
+}
+
+.bestseller-card-wrap .catalog-add-btn {
+  cursor: pointer;
+  position: absolute;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), filter 0.25s ease;
+}
+
+.bestseller-card-wrap .catalog-add-btn:hover {
+  filter: brightness(1.12);
+  transform: scale(1.04);
+}
+
+.bestseller-card-wrap .catalog-add-btn:active {
+  transform: scale(0.96);
+}
+
+/* Section 6: Soaps Banner (Pure HTML Container) */
+.soaps-banner-container {
+  position: relative;
+  border-radius: 32px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(23, 61, 43, 0.1);
+  border: 1px solid rgba(220, 210, 195, 0.8);
+  background: linear-gradient(135deg, #FFFDF9 0%, #FAF6EF 50%, #EDE3D0 100%);
+}
+
+.soaps-banner-wrap {
+  position: relative;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 22px 50px rgba(23, 61, 43, 0.1);
+  border: 1px solid rgba(220, 210, 195, 0.7);
+  background: #FAF7F2;
+}
+
+/* Section 7: Footer Exact */
+.footer-exact-wrap {
+  background: linear-gradient(180deg, #fbf7f0 0%, #f4eee2 100%);
+  border-top: 1px solid rgba(220, 210, 195, 0.7);
+  position: relative;
+  overflow: hidden;
+}
+
+.footer-social-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid rgba(35, 83, 39, 0.25);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #173d2b;
+  background: #ffffff;
+  transition: all 0.3s ease;
+}
+
+.footer-social-btn:hover {
+  background: #173d2b;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(23, 61, 43, 0.25);
+}
+
+.footer-bottom-wave {
+  background: radial-gradient(ellipse at 50% -50%, #205327 0%, #12301c 100%);
+  color: #ffffff;
+  border-top: 2px solid #c28328;
+}
+
+/* Accessibility: Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .marquee-content {
+    animation: none;
+  }
+}
+
+/* ==========================================================================
+   ULTRA-HD IMAGE RENDERING & PRODUCT CLARITY ENHANCEMENT
+   ========================================================================== */
+img, picture, .product-card img, #offer img, #soaps img, #products img, .hero-carousel-item img {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: high-quality;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+/* ==========================================================================
+   CUSTOMER REVIEW CARDS - LUXURY AMBIENT INTERACTION
+   ========================================================================== */
+.review-card {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.3s ease;
+  will-change: transform, box-shadow;
+}
+
+.review-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px -6px rgba(30, 59, 43, 0.12);
+}
+
+.active-review-card {
+  box-shadow: 0 16px 36px -8px rgba(30, 59, 43, 0.14), 0 0 0 3px rgba(232, 178, 86, 0.25) !important;
+}

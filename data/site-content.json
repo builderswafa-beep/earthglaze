@@ -1,0 +1,417 @@
+{
+  "general": {
+    "siteTitle": "EarthGlaze • Skincare That Feels Personal",
+    "metaDescription": "Pure botanical Ayurvedic skincare, handcrafted soaps, and herbal lip balms formulated with 100% natural cold-pressed botanicals.",
+    "announcementBar": {
+      "enabled": true,
+      "text": "Complimentary Botanical Lip Balm on all prepaid orders above ₹999 🌿 Use code BOTANICAL",
+      "link": "#offer"
+    }
+  },
+  "header": {
+    "logo": {
+      "src": "assets/earthglaze-logo-hd.png",
+      "alt": "EarthGlaze ® Natural Skincare"
+    },
+    "navLinks": [
+      {
+        "label": "Home",
+        "href": "#hero-section"
+      },
+      {
+        "label": "Combo Offer",
+        "href": "#offer"
+      },
+      {
+        "label": "About",
+        "href": "#about"
+      },
+      {
+        "label": "Our Story",
+        "href": "#our-story"
+      },
+      {
+        "label": "Bestsellers",
+        "href": "#products"
+      },
+      {
+        "label": "Newly Launched",
+        "href": "#soaps"
+      },
+      {
+        "label": "Reviews",
+        "href": "#reviews"
+      },
+      {
+        "label": "FAQ",
+        "href": "#faq"
+      }
+    ]
+  },
+  "hero": {
+    "eyebrow": "Pure Botanical Ayurveda",
+    "titleLine1": "Skincare That",
+    "titleAccent": "Feels Personal",
+    "description": "Handcrafted natural soaps and herbal lip balms formulated with authentic Ayurvedic botanicals, cold-pressed plant oils, and zero synthetic preservatives.",
+    "ctaPrimary": {
+      "label": "Shop Bestsellers",
+      "href": "#products"
+    },
+    "ctaSecondary": {
+      "label": "Explore Combos",
+      "href": "#offer"
+    },
+    "backdropImage": "assets/hero_natural_stage_backdrop.jpg",
+    "slides": [
+      {
+        "id": "goat-milk-soap",
+        "name": "Goat Milk Soap",
+        "tagline": "Natural Moisturizing Care",
+        "volume": "125 g",
+        "price": "₹249",
+        "originalPrice": "₹299",
+        "badge": "Deep Nourishment",
+        "ingredients": "Raw Goat Milk, Shea Butter, Sweet Almond Oil",
+        "closedImage": "assets/goatmilksoap_close_box.png",
+        "openImage": "assets/goatmilksoap_open_box.png"
+      },
+      {
+        "id": "manjistha-soap",
+        "name": "Manjistha Soap",
+        "tagline": "Purifying Care for Radiant Skin",
+        "volume": "125 g",
+        "price": "₹249",
+        "originalPrice": "₹299",
+        "badge": "Even Complexion",
+        "ingredients": "Wild Manjistha Root, Saffron, Sandalwood",
+        "closedImage": "assets/manjistha_closed_box.png",
+        "openImage": "assets/manjistha_open_box.png"
+      },
+      {
+        "id": "neem-soap",
+        "name": "Neem & Tulsi Soap",
+        "tagline": "Clarifying Herbal Protection",
+        "volume": "125 g",
+        "price": "₹249",
+        "originalPrice": "₹299",
+        "badge": "Acne Clarifying",
+        "ingredients": "Organic Neem Extract, Holy Basil, Tea Tree",
+        "closedImage": "assets/neem_soap_closed_box.png",
+        "openImage": "assets/neemopenbox.png"
+      },
+      {
+        "id": "beetroot-balm",
+        "name": "Beetroot Lip Balm",
+        "tagline": "Soft Pink Hydration",
+        "volume": "10 g",
+        "price": "₹199",
+        "originalPrice": "₹249",
+        "badge": "Natural Tint",
+        "ingredients": "Fresh Beetroot Extract, Beeswax, Coconut Butter",
+        "closedImage": "assets/lip_balm_closed_box.png",
+        "openImage": "assets/lipbalmopenbox.png"
+      }
+    ]
+  },
+  "comboOffer": {
+    "brandName": "EarthGlaze",
+    "brandSub": "NATURAL & AYURVEDIC SKINCARE",
+    "titleLine1": "Combo",
+    "titleAccent": "Offer",
+    "subtitle": "Complete Natural Care Set",
+    "pillars": [
+      {
+        "title": "Herbal Care",
+        "subtitle": "100% Botanicals"
+      },
+      {
+        "title": "Gentle & Safe",
+        "subtitle": "Ayurvedic Balance"
+      },
+      {
+        "title": "No Harsh Chemicals",
+        "subtitle": "Zero Toxins"
+      }
+    ],
+    "originalPrice": "₹947",
+    "comboPrice": "₹799",
+    "savingsText": "You Save ₹148 (15% OFF)",
+    "ctaText": "Buy Combo Now",
+    "ctaLink": "#",
+    "showcaseImage": "assets/combo-offer.png"
+  },
+  "about": {
+    "eyebrow": "Pure Botanical Science",
+    "titlePrefix": "Crafted by Nature,",
+    "titleAccent": "Perfected for You",
+    "description": "We believe in honest skincare rooted in centuries-old Ayurvedic wisdom. Every recipe is blended in small artisan batches using responsibly harvested herbs, cold-pressed botanicals, and farm-fresh ingredients.",
+    "archImage": "assets/about-img.png",
+    "pillars": [
+      {
+        "title": "100% Ayurvedic Ingredients",
+        "desc": "Pure therapeutic botanical extracts with zero parabens, sulfates, silicones, or artificial fragrances."
+      },
+      {
+        "title": "Handmade in Small Batches",
+        "desc": "Cold-processed slowly over 4 weeks to preserve precious herbal nutrients and active vitamins."
+      },
+      {
+        "title": "Dermatologically Tested",
+        "desc": "Gentle, non-irritating, and formulated specifically for sensitive and climate-stressed skin."
+      },
+      {
+        "title": "Cruelty-Free & Sustainable",
+        "desc": "Never tested on animals, ethically sourced from local farmers, and packed in eco-conscious containers."
+      }
+    ]
+  },
+  "ourStory": {
+    "eyebrow": "Our Botanical Heritage",
+    "titlePrefix": "From Ancient Gardens to",
+    "titleAccent": "Your Daily Ritual",
+    "paragraph1": "EarthGlaze began with a single promise: to strip away synthetic additives and reconnect daily skincare with the healing vitality of living plants.",
+    "paragraph2": "By blending cold-pressed goat milk with hand-harvested Himalayan manjistha and cold-extracted beetroot nectar, we formulate nutrient-dense remedies that restore skin to its natural luminous balance.",
+    "archImage": "assets/our_story_arch_herbal.png",
+    "stats": [
+      {
+        "number": "100%",
+        "label": "Natural & Toxin-Free"
+      },
+      {
+        "number": "50,000+",
+        "label": "Happy Glowing Customers"
+      },
+      {
+        "number": "4.9 ★",
+        "label": "Average Customer Rating"
+      },
+      {
+        "number": "0%",
+        "label": "Synthetic Preservatives"
+      }
+    ]
+  },
+  "products": {
+    "eyebrow": "Signature Formulations",
+    "titlePrefix": "Our Loved",
+    "titleAccent": "Bestsellers",
+    "subtitle": "Pure Ayurvedic bars and balms formulated to nurture your skin gently.",
+    "items": [
+      {
+        "id": "manjistha-soap",
+        "name": "Manjistha Glow Soap",
+        "category": "Radiance & Brightening",
+        "volume": "125 g",
+        "price": "₹249",
+        "originalPrice": "₹299",
+        "discount": "17% OFF",
+        "rating": "4.9",
+        "reviewsCount": "1,240",
+        "badge": "Bestseller",
+        "image": "assets/bestseller_manjistha_photo_hd.png",
+        "inStock": true
+      },
+      {
+        "id": "goat-milk-soap",
+        "name": "Goat Milk Nourish Soap",
+        "category": "Deep Moisture & Softening",
+        "volume": "125 g",
+        "price": "₹249",
+        "originalPrice": "₹299",
+        "discount": "17% OFF",
+        "rating": "5.0",
+        "reviewsCount": "2,180",
+        "badge": "Customer Favorite",
+        "image": "assets/bestseller_goat_photo_hd.png",
+        "inStock": true
+      },
+      {
+        "id": "beetroot-lip-balm",
+        "name": "Beetroot Tinted Lip Balm",
+        "category": "Hydration & Natural Rose Tint",
+        "volume": "10 g",
+        "price": "₹199",
+        "originalPrice": "₹249",
+        "discount": "20% OFF",
+        "rating": "4.9",
+        "reviewsCount": "980",
+        "badge": "Newly Launched",
+        "image": "assets/bestseller_balm_photo_hd.png",
+        "inStock": true
+      },
+      {
+        "id": "aloe-soap",
+        "name": "Aloe Vera & Jasmine Soap",
+        "category": "Cooling & Hydrating",
+        "volume": "125 g",
+        "price": "₹249",
+        "originalPrice": "₹299",
+        "discount": "17% OFF",
+        "rating": "4.8",
+        "reviewsCount": "740",
+        "badge": "Organic",
+        "image": "assets/bestseller_aloe_soap_photo_hd.png",
+        "inStock": true
+      }
+    ],
+    "bannerImage": "assets/earth_glanze_favarite.png"
+  },
+  "newlyLaunched": {
+    "eyebrowBadge": "Newly Launched",
+    "titleLine1": "Beetroot",
+    "titleAccent": "Lip Balm",
+    "description": "Nourishing lip care with the natural goodness of beetroot. Keeps your lips soft, smooth and naturally tinted.",
+    "benefits": [
+      {
+        "color": "#E0245E",
+        "label": "Natural Tint"
+      },
+      {
+        "color": "#0EA5E9",
+        "label": "Deep Moisturization"
+      },
+      {
+        "color": "#1E3B2B",
+        "label": "Chemical Free"
+      }
+    ],
+    "ctaText": "Explore the New Range",
+    "ctaLink": "#",
+    "productImage": "assets/newly_launched_uploaded_banner@2x.png"
+  },
+  "reviews": {
+    "brandLogo": "assets/earthglaze-logo-hd.png",
+    "eyebrow": "Customer Reviews",
+    "titlePrefix": "Loved by Our",
+    "titleAccent": "Customers",
+    "items": [
+      {
+        "name": "Ayesha N.",
+        "rating": 5,
+        "quote": "My skin feels so clean and naturally soft after using the Goat Milk Soap!",
+        "avatar": "assets/review_avatar_ayesha.png",
+        "verified": true,
+        "active": false
+      },
+      {
+        "name": "Rizwan K.",
+        "rating": 5,
+        "quote": "The Manjistha Soap really improved my skin tone. Totally love it!",
+        "avatar": "assets/review_avatar_rizwan.png",
+        "verified": true,
+        "active": true
+      },
+      {
+        "name": "Hiba S.",
+        "rating": 5,
+        "quote": "The Beet Root Lip Balm keeps my lips soft, smooth and naturally pink.",
+        "avatar": "assets/review_avatar_hiba.png",
+        "verified": true,
+        "active": false
+      },
+      {
+        "name": "Faizal M.",
+        "rating": 5,
+        "quote": "Gentle, herbal and perfect for daily use. Highly recommended!",
+        "avatar": "assets/review_avatar_faizal.png",
+        "verified": true,
+        "active": false
+      }
+    ]
+  },
+  "faq": {
+    "eyebrow": "Frequently Asked Questions",
+    "titlePrefix": "Everything You",
+    "titleAccent": "Need to Know",
+    "subtitle": "Find answers to our most common queries regarding botanical formulations, shipping, and skincare usage.",
+    "col1Title": "Products & Ingredients",
+    "col2Title": "Orders, Payments & Delivery",
+    "col1Questions": [
+      {
+        "q": "What makes EarthGlaze products 100% natural and Ayurvedic?",
+        "a": "Every EarthGlaze bar and balm is hand-crafted using authentic Ayurvedic plant botanicals, unrefined cold-pressed oils, pure herb infusions, and raw unpasteurized goat milk. We formulate strictly without synthetic preservatives, parabens, sulphates (SLS/SLES), silicones, artificial foaming agents, or synthetic chemical fragrances."
+      },
+      {
+        "q": "Are EarthGlaze soaps suitable for sensitive or acne-prone skin?",
+        "a": "Yes! Our formulations are specially pH-balanced and slow-cured for 4 weeks to ensure maximum skin tolerance. The Neem & Tulsi soap is specifically formulated to clarify acne-prone skin, while our Goat Milk and Aloe Vera soaps provide gentle, barrier-repairing hydration for eczema, psoriasis, or hyper-sensitive skin."
+      },
+      {
+        "q": "What are the key benefits of Goat Milk Soap?",
+        "a": "Raw goat milk is rich in naturally occurring lactic acid (a gentle alpha-hydroxy acid that dissolves dead skin cells) and packed with vitamins A, B6, B12, and E. It delivers deep cellular nourishment, repairs compromised moisture barriers, softens dry patches, and leaves the skin with a luminous natural glow."
+      },
+      {
+        "q": "How does Manjistha Soap help with pigmentation and uneven tone?",
+        "a": "Manjistha (Rubia cordifolia) is hailed in Ayurvedic texts as a premier blood-purifier and complexion-enhancer. Its active botanical compounds help break down melanin clustering, fade stubborn dark spots, smooth uneven pigmentation, and restore an authentic golden radiance."
+      },
+      {
+        "q": "Is the Beetroot Lip Balm naturally tinted, and will it darken lips?",
+        "a": "Our Beetroot Lip Balm gets 100% of its vibrant pink shade from pure, concentrated beetroot juice extract and cold-pressed botanical nectars. It does not contain chemical dyes, lead, or artificial lake pigments. It actively brightens smoker-damaged or dry lips over continuous daily application."
+      },
+      {
+        "q": "Do your soaps contain artificial preservatives, sulphates, or parabens?",
+        "a": "Never. We use cold-process saponification where natural plant glycerin is preserved in every bar. No artificial hardenings, chemical lather-boosters, or petrochemical preservatives are ever introduced into our formulations."
+      },
+      {
+        "q": "How should I store cold-processed soaps so they last longer?",
+        "a": "Because our soaps contain high levels of pure botanical glycerin with zero chemical hardening agents, keep them in a well-draining soap dish away from direct shower water streams between washes. Allowing the bar to dry completely can extend its life by over 50%!"
+      },
+      {
+        "q": "Can children and pregnant women use EarthGlaze products safely?",
+        "a": "Yes. Our gentle Goat Milk and Aloe Vera soaps are mild enough for infants, children, and nursing mothers. However, as with all natural botanical preparations, we recommend reviewing the natural ingredients list and performing a quick patch test on the inner forearm."
+      }
+    ],
+    "col2Questions": [
+      {
+        "q": "How long does delivery take across India?",
+        "a": "Orders are dispatched within 24–48 hours from our botanical kitchen. Metro city deliveries arrive in 2–4 business days, while all other locations across India take 4–6 business days via our premium express courier partners (Bluedart, Delhivery, and DTDC)."
+      },
+      {
+        "q": "What payment methods do you accept, and is Cash on Delivery available?",
+        "a": "We accept all major UPI apps (Google Pay, PhonePe, Paytm, BHIM), Credit/Debit Cards (Visa, Mastercard, RuPay), Net Banking, and Cash on Delivery (COD) across serviceable pin codes in India."
+      },
+      {
+        "q": "Are there any shipping charges on orders?",
+        "a": "We offer FREE express shipping across India on all orders above ₹499. For standard orders under ₹499, a nominal flat delivery fee of ₹49 is applied at checkout."
+      },
+      {
+        "q": "How can I track my order once it has been dispatched?",
+        "a": "As soon as your package leaves our warehouse, you will automatically receive an SMS, WhatsApp update, and email with your Airway Bill (AWB) tracking number and a direct live tracking link."
+      },
+      {
+        "q": "What is your return, replacement, and refund policy?",
+        "a": "If your package arrives damaged, leaked, or missing items, we offer an unconditional free replacement or full refund. Send us photos via customer care within 7 days of delivery, and we will process it immediately."
+      },
+      {
+        "q": "Can I modify or cancel my order after placing it?",
+        "a": "Yes, you can request an address modification or item change within 2 hours of order placement by sending a quick message with your Order ID to customer care before dispatch."
+      },
+      {
+        "q": "Do you offer corporate gifting or bulk discounts for events?",
+        "a": "Yes! We create bespoke botanical gift hampers, wedding favors, and corporate wellness gift boxes in custom packaging. Contact us for bulk tier discounts starting at 25 units."
+      },
+      {
+        "q": "How do I contact EarthGlaze customer happiness team?",
+        "a": "Our botanical customer happiness team is available Monday to Saturday, 9:00 AM to 7:00 PM IST via email and customer care. We are always happy to help with your orders, ingredient advice, and personal skincare questions."
+      }
+    ]
+  },
+  "footer": {
+    "logo": "assets/earthglaze-logo-hd.png",
+    "tagline": "Nature-powered skincare for healthier, glowing skin.",
+    "socialLinks": {
+      "instagram": "https://instagram.com",
+      "facebook": "https://facebook.com",
+      "youtube": "https://youtube.com",
+      "pinterest": "https://pinterest.com"
+    },
+    "contact": {
+      "email": "care@earthglaze.com",
+      "phone": "+91 98765 43210",
+      "hours": "Mon–Sat 9:00 AM – 7:00 PM IST",
+      "address": "EarthGlaze Botanicals, Kerala, India - 682001"
+    },
+    "newsletterHeading": "Stay in the Botanical Loop",
+    "newsletterDesc": "Subscribe to receive Ayurvedic beauty tips, early access to new launches, and exclusive subscriber gifts.",
+    "copyright": "© 2026 EarthGlaze Natural & Ayurvedic Skincare. All rights reserved."
+  }
+}

@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop Our Natural Skincare Range • EarthGlaze</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Cinzel:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-[#FAF7F2] text-[#1E3B2B] font-sans antialiased selection:bg-[#235327] selection:text-white min-h-screen flex flex-col">
+<header class="sticky top-0 z-40 bg-[#FAF7F2]/95 backdrop-blur-md border-b border-[#E8DEC8]/80">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2">
+        <div class="w-10 h-10 rounded-full bg-[#1E3B2B] flex items-center justify-center text-white text-lg font-serif shadow-md">🌱</div>
+        <div class="flex flex-col">
+          <span class="font-serif font-bold text-2xl text-[#1E3B2B] tracking-tight leading-none">EarthGlaze<span class="text-xs text-amber-600 align-super">®</span></span>
+          <span class="text-[9px] uppercase tracking-[0.25em] text-[#556958] font-semibold mt-1">Natural Skincare</span>
+        </div>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-stone-700">
+        <a href="index.html" class="hover:text-[#1E3B2B] transition">Home</a>
+        <a href="shop.html" class="px-3.5 py-1.5 rounded-full bg-[#103B23] text-white text-xs sm:text-sm font-semibold transition shadow-xs">Shop</a>
+        <a href="story.html" class="hover:text-[#1E3B2B] transition">Our Story</a>
+        <a href="ingredients.html" class="hover:text-[#1E3B2B] transition">Ingredients</a>
+        <a href="blog.html" class="text-[#1E3B2B] font-semibold border-b-2 border-[#1E3B2B] pb-1">Blog</a>
+        <a href="contact.html" class="hover:text-[#1E3B2B] transition">Contact</a>
+      </nav>
+
+      <div class="flex items-center gap-4">
+        <a href="account.html" class="p-2 text-stone-700 hover:text-[#1E3B2B] transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+        </a>
+        <a href="cart.html" class="relative p-2 text-stone-700 hover:text-[#1E3B2B] transition flex items-center justify-center">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+          <span class="cart-badge-count absolute -top-1 -right-1 bg-[#1E3B2B] text-amber-300 text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center border-2 border-[#FAF7F2]" style="display:none">0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+  <main class="w-full flex-1 relative bg-[#FAF7F2] text-[#1E3B2B] font-sans selection:bg-[#235327] selection:text-white overflow-hidden">
+    
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 bg-[#0D2D1C] text-white px-5 py-3 rounded-full shadow-2xl border border-emerald-500/30 flex items-center gap-3 transition-all duration-300 transform translate-y-20 opacity-0 pointer-events-none">
+      <span class="w-6 h-6 rounded-full bg-[#235327] flex items-center justify-center text-xs font-bold">✓</span>
+      <span id="toast-text" class="text-sm font-semibold">Added to Cart</span>
+      <a href="cart.html" class="ml-2 text-xs font-bold text-amber-300 underline underline-offset-2 hover:text-white">
+        View Cart
+      </a>
+    </div>
+
+    <!-- =========================================================================
+        SECTION 1: HERO BANNER (Shop Our Natural Skincare Range)
+        ========================================================================= -->
+    <section class="relative bg-gradient-to-b from-[#FBF8F3] via-[#FAF5EE] to-[#F5ECE0] pt-6 sm:pt-10 pb-12 sm:pb-20 overflow-hidden border-b border-stone-200/40">
+      
+      <!-- Right Corner Foliage Accent -->
+      <img 
+        src="assets/banner_offer_top_leaves.png" 
+        alt="" 
+        class="absolute top-0 right-0 w-48 sm:w-64 lg:w-80 pointer-events-none select-none opacity-90 z-0" 
+        aria-hidden="true" 
+      >
+
+      <div class="max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12 relative z-10">
+        
+        <!-- Breadcrumbs -->
+        <nav class="flex items-center gap-2 text-xs sm:text-sm text-stone-500 mb-6 font-sans">
+          <a href="index.html" class="hover:text-[#103B23] transition-colors">Home</a>
+          <span class="text-stone-400">&rsaquo;</span>
+          <span class="text-[#1E3B2B] font-medium">Shop</span>
+        </nav>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          
+          <!-- Left Narrative -->
+          <div class="lg:col-span-6 space-y-4">
+            
+            <h1 class="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[56px] font-bold text-[#1E3B2B] leading-[1.15] tracking-tight">
+              Shop Our <br>
+              <span class="text-[#1E3B2B]">Natural </span>
+              <span class="text-[#C28328] italic font-serif font-normal">Skincare Range</span>
+            </h1>
+
+            <p class="text-sm sm:text-base md:text-lg text-[#5C6B5E] max-w-lg leading-relaxed font-sans pt-1">
+              Pure, plant-based essentials crafted for healthy, radiant skin.
+            </p>
+
+          </div>
+
+          <!-- Right Side Visual: High-Definition Product Trio on Pedestal -->
+          <div class="lg:col-span-6 flex justify-center lg:justify-end relative">
+            <div class="relative w-full max-w-[560px] flex items-center justify-center">
+              <img 
+                src="assets/shop_natural_skincare_collection_showcase.png" alt="EarthGlanze Natural Skincare Collection - Manjistha Soap, Goat Milk Soap, Beetroot Lip Balm" class="w-full h-auto object-contain select-none pointer-events-none transform hover:scale-[1.02] transition-transform duration-500" width="1024" height="682">
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Bottom Smooth Wave -->
+      <div class="w-full overflow-hidden leading-none absolute bottom-0 left-0 right-0 pointer-events-none z-10">
+        <svg viewBox="0 0 1440 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-5 sm:h-8 block" preserveAspectRatio="none">
+          <path d="M0,0 C160,25 320,38 520,32 C740,26 980,10 1440,24 L1440,40 L0,40 Z" fill="#FAF7F2" />
+        </svg>
+      </div>
+
+    </section>
+
+    <!-- =========================================================================
+        SECTION 2: CATEGORY FILTER PILLS, TOGGLE BUTTON & SORTING BAR
+        ========================================================================= -->
+    <section class="py-6 sm:py-8 bg-[#FAF7F2]">
+      <div class="max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12">
+        
+        <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+          
+          <!-- Category Tabs (Capsule Pill Buttons) -->
+          <div class="flex flex-wrap items-center gap-2.5 sm:gap-3">
+            
+            <button
+              type="button"
+              id="tab-all"
+              class="cat-tab-btn inline-flex items-center gap-2 px-5 sm:px-6 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 shadow-2xs cursor-pointer bg-[#103B23] text-white shadow-sm"
+              data-cat="All Products"
+            >
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M4 4h4v4H4V4zm6 0h4v4h-4V4zm6 0h4v4h-4V4zM4 10h4v4H4v-4zm6 0h4v4h-4v-4zm6 0h4v4h-4v-4zM4 16h4v4H4v-4zm6 0h4v4h-4v-4zm6 0h4v4h-4v-4z"/>
+              </svg>
+              <span>All Products</span>
+            </button>
+
+            <button
+              type="button"
+              id="tab-soaps"
+              class="cat-tab-btn inline-flex items-center gap-2 px-5 sm:px-6 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 shadow-2xs cursor-pointer bg-[#F3EFE6] text-[#1E3B2B] hover:bg-white border border-[#E8DEC8]/80"
+              data-cat="Soaps"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <rect x="3" y="6" width="18" height="12" rx="3"/>
+                <path d="M7 10h10M7 14h6"/>
+              </svg>
+              <span>Soaps</span>
+            </button>
+
+            <button
+              type="button"
+              id="tab-lipcare"
+              class="cat-tab-btn inline-flex items-center gap-2 px-5 sm:px-6 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 shadow-2xs cursor-pointer bg-[#F3EFE6] text-[#1E3B2B] hover:bg-white border border-[#E8DEC8]/80"
+              data-cat="Lip Care"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 0 0 9-9c0-2-2-4-5-4s-3 2-4 2-1-2-4-2-5 2-5 4a9 9 0 0 0 9 9z"/>
+              </svg>
+              <span>Lip Care</span>
+            </button>
+
+          </div>
+
+          <!-- Right Controls: Filter Toggle Button + Sort By Dropdown -->
+          <div class="flex items-center gap-3 self-end md:self-center">
+            
+            <!-- FILTERS TOGGLE BUTTON (Requirement: Hidden by default, smooth toggle, expands full-width when collapsed) -->
+            <button
+              type="button"
+              id="filters-toggle-btn"
+              class="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 shadow-2xs border cursor-pointer bg-white text-[#1E3B2B] border-[#E8DEC8] hover:bg-[#FAF5ED]"
+              aria-expanded="false"
+              aria-label="Toggle filter sidebar"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+              </svg>
+              <span id="filters-btn-label">Filters</span>
+              <span id="filter-badge" class="hidden w-5 h-5 rounded-full bg-[#C28328] text-white text-[10px] font-bold flex items-center justify-center">0</span>
+            </button>
+
+            <!-- Sort By Dropdown -->
+            <div class="flex items-center gap-2">
+              <span class="text-xs sm:text-sm text-stone-500 font-medium whitespace-nowrap">Sort by:</span>
+              <div class="relative">
+                <select 
+                  id="sort-select"
+                  class="appearance-none bg-white border border-[#E8DEC8] rounded-full px-4 py-2 pr-9 text-xs sm:text-sm font-semibold text-[#1E3B2B] hover:border-[#103B23] focus:outline-none focus:ring-1 focus:ring-[#103B23] cursor-pointer shadow-2xs transition"
+                >
+                  <option value="featured">Featured</option>
+                  <option value="price-low">Price: Low to High</option>
+                  <option value="price-high">Price: High to Low</option>
+                  <option value="rating">Highest Rated</option>
+                </select>
+                <div class="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-stone-500">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================================
+        SECTION 3: MAIN PRODUCTS BODY (Collapsible Sidebar + Fluid Full-Width Grid)
+        ========================================================================= -->
+    <section class="pb-16 sm:pb-24 bg-[#FAF7F2]">
+      <div class="max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12">
+        
+        <div class="flex flex-col lg:flex-row gap-8 items-start relative transition-all duration-500 ease-in-out">
+          
+          <!-- LEFT SIDEBAR (Collapsible: Hidden by default, smooth expansion when toggled) -->
+          <aside 
+            id="filter-sidebar"
+            class="transition-all duration-500 ease-in-out shrink-0 overflow-hidden w-0 max-h-0 opacity-0 pointer-events-none transform -translate-x-6 lg:-translate-x-8"
+          >
+            <div class="w-full lg:w-[280px] bg-white rounded-[24px] p-6 border border-[#E8DEC8] shadow-2xs space-y-6">
+              
+              <!-- Header with Clear button -->
+              <div class="flex items-center justify-between pb-4 border-b border-[#E8DEC8]/80">
+                <h3 class="font-serif font-bold text-lg text-[#1E3B2B] tracking-tight">
+                  Filters
+                </h3>
+                <button 
+                  type="button" 
+                  id="clear-all-filters-btn"
+                  class="text-xs font-semibold text-[#C28328] hover:underline cursor-pointer"
+                >
+                  Clear All
+                </button>
+              </div>
+
+              <!-- Filter 1: Categories -->
+              <div class="space-y-3 pb-5 border-b border-[#E8DEC8]/80">
+                <h4 class="font-semibold text-sm text-[#1E3B2B]">
+                  Categories
+                </h4>
+                <div class="space-y-2.5">
+                  <label class="flex items-center justify-between text-xs sm:text-sm text-stone-600 hover:text-[#103B23] cursor-pointer">
+                    <div class="flex items-center gap-2.5">
+                      <input 
+                        type="checkbox" 
+                        value="Soaps"
+                        class="cat-filter-checkbox w-4 h-4 rounded border-[#D8CEBA] text-[#103B23] focus:ring-[#103B23] cursor-pointer accent-[#103B23]"
+                      >
+                      <span>Soaps</span>
+                    </div>
+                    <span class="text-xs text-stone-400 font-medium">(2)</span>
+                  </label>
+
+                  <label class="flex items-center justify-between text-xs sm:text-sm text-stone-600 hover:text-[#103B23] cursor-pointer">
+                    <div class="flex items-center gap-2.5">
+                      <input 
+                        type="checkbox" 
+                        value="Lip Care"
+                        class="cat-filter-checkbox w-4 h-4 rounded border-[#D8CEBA] text-[#103B23] focus:ring-[#103B23] cursor-pointer accent-[#103B23]"
+                      >
+                      <span>Lip Care</span>
+                    </div>
+                    <span class="text-xs text-stone-400 font-medium">(1)</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Filter 2: Price Range Slider -->
+              <div class="space-y-3 pb-5 border-b border-[#E8DEC8]/80">
+                <h4 class="font-semibold text-sm text-[#1E3B2B]">
+                  Price Range
+                </h4>
+                <div class="space-y-3">
+                  <input 
+                    type="range" 
+                    id="price-range-slider"
+                    min="120" 
+                    max="400" 
+                    step="10"
+                    value="400" 
+                    class="w-full accent-[#103B23] cursor-pointer"
+                  >
+                  <div class="flex items-center justify-between text-xs font-semibold text-[#1E3B2B]">
+                    <span>₹120</span>
+                    <span id="price-range-label" class="px-2.5 py-1 rounded-full bg-[#FAF5ED] border border-[#E8DEC8]">
+                      ₹120 &ndash; ₹400
+                    </span>
+                    <span>₹400</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Filter 3: Skin Benefit Checkboxes -->
+              <div class="space-y-3">
+                <h4 class="font-semibold text-sm text-[#1E3B2B]">
+                  Skin Benefit
+                </h4>
+                <div class="space-y-2.5">
+                  <label class="flex items-center gap-2.5 text-xs sm:text-sm text-stone-600 hover:text-[#103B23] cursor-pointer">
+                    <input type="checkbox" value="Brightening" class="benefit-filter-checkbox w-4 h-4 rounded border-[#D8CEBA] text-[#103B23] focus:ring-[#103B23] cursor-pointer accent-[#103B23]">
+                    <span>Brightening</span>
+                  </label>
+                  <label class="flex items-center gap-2.5 text-xs sm:text-sm text-stone-600 hover:text-[#103B23] cursor-pointer">
+                    <input type="checkbox" value="Nourishing" class="benefit-filter-checkbox w-4 h-4 rounded border-[#D8CEBA] text-[#103B23] focus:ring-[#103B23] cursor-pointer accent-[#103B23]">
+                    <span>Nourishing</span>
+                  </label>
+                  <label class="flex items-center gap-2.5 text-xs sm:text-sm text-stone-600 hover:text-[#103B23] cursor-pointer">
+                    <input type="checkbox" value="Pore Cleansing" class="benefit-filter-checkbox w-4 h-4 rounded border-[#D8CEBA] text-[#103B23] focus:ring-[#103B23] cursor-pointer accent-[#103B23]">
+                    <span>Pore Cleansing</span>
+                  </label>
+                  <label class="flex items-center gap-2.5 text-xs sm:text-sm text-stone-600 hover:text-[#103B23] cursor-pointer">
+                    <input type="checkbox" value="Moisturizing" class="benefit-filter-checkbox w-4 h-4 rounded border-[#D8CEBA] text-[#103B23] focus:ring-[#103B23] cursor-pointer accent-[#103B23]">
+                    <span>Moisturizing</span>
+                  </label>
+                </div>
+              </div>
+
+            </div>
+          </aside>
+
+          <!-- RIGHT / FULL-WIDTH: Product Grid Area -->
+          <div class="flex-1 w-full transition-all duration-500 ease-in-out">
+            
+            <!-- Heading: Our Products (3) -->
+            <div class="flex items-center justify-between mb-6">
+              <h2 class="font-serif font-bold text-2xl sm:text-3xl text-[#1E3B2B] tracking-tight">
+                Our Products <span id="product-count" class="text-[#5C6B5E] text-lg font-normal">(3)</span>
+              </h2>
+
+              <button 
+                type="button" 
+                id="inline-show-filters"
+                class="hidden inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FAF5ED] border border-[#C28328]/40 text-[#C28328] text-xs font-semibold hover:bg-white cursor-pointer"
+              >
+                <span id="active-filters-text">Filters applied</span>
+                <span class="text-[10px]">&rarr;</span>
+              </button>
+            </div>
+
+            <!-- Product Cards Grid Container -->
+            <div 
+              id="products-grid"
+              class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 transition-all duration-500"
+            >
+              <!-- Cards rendered dynamically via JS -->
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================================
+        SECTION 4: PROMOTIONAL BANNER ("Why EarthGlanze?" & "Nature's Care")
+        ========================================================================= -->
+    <section class="py-8 sm:py-12 bg-[#FAF7F2]">
+      <div class="max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+          
+          <!-- Left Card: Why EarthGlanze? -->
+          <div class="lg:col-span-4 bg-[#EAF3E8] rounded-[24px] p-6 sm:p-8 border border-[#D5E6D2] flex flex-col justify-between shadow-2xs relative overflow-hidden">
+            
+            <div class="space-y-4 relative z-10">
+              <div class="w-10 h-10 rounded-full bg-white/80 flex items-center justify-center text-[#103B23]">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 0 0 9-9c0-2-2-4-5-4s-3 2-4 2-1-2-4-2-5 2-5 4a9 9 0 0 0 9 9z"/>
+                </svg>
+              </div>
+
+              <h3 class="font-serif font-bold text-2xl text-[#1E3B2B] leading-tight">
+                Why <br>EarthGlanze?
+              </h3>
+
+              <ul class="space-y-3 pt-2 text-xs sm:text-sm text-[#1E3B2B] font-medium font-sans">
+                <li class="flex items-center gap-2.5">
+                  <span class="w-5 h-5 rounded-full bg-[#103B23] text-white flex items-center justify-center text-[10px] font-bold">✓</span>
+                  <span>Natural Ingredients</span>
+                </li>
+                <li class="flex items-center gap-2.5">
+                  <span class="w-5 h-5 rounded-full bg-[#103B23] text-white flex items-center justify-center text-[10px] font-bold">✓</span>
+                  <span>No Harsh Chemicals</span>
+                </li>
+                <li class="flex items-center gap-2.5">
+                  <span class="w-5 h-5 rounded-full bg-[#103B23] text-white flex items-center justify-center text-[10px] font-bold">✓</span>
+                  <span>Gentle on All Skin Types</span>
+                </li>
+                <li class="flex items-center gap-2.5">
+                  <span class="w-5 h-5 rounded-full bg-[#103B23] text-white flex items-center justify-center text-[10px] font-bold">✓</span>
+                  <span>Ethically Sourced</span>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+
+          <!-- Right Banner Card: Nature's Care for Your Skin -->
+          <div class="lg:col-span-8 bg-[#FAF5ED] rounded-[24px] p-6 sm:p-10 border border-[#E8DEC8] flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xs relative overflow-hidden">
+            
+            <div class="space-y-4 max-w-md relative z-10 text-left">
+              <h3 class="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-[#1E3B2B] leading-snug">
+                Nature's Care <br>
+                <span class="text-[#C28328] italic font-serif font-normal">for Your Skin</span>
+              </h3>
+
+              <p class="text-xs sm:text-sm md:text-base text-[#5C6B5E] leading-relaxed font-sans">
+                Explore our plant-powered soaps and lip care essentials.
+              </p>
+
+              <div class="pt-2">
+                <a 
+                  href="#top"
+                  onclick="window.scrollTo({ top: 0, behavior: 'smooth' }); return false;"
+                  class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#103B23] hover:bg-[#194E31] text-white text-xs sm:text-sm font-semibold transition-all duration-300 shadow-sm active:scale-95 group/btn cursor-pointer"
+                >
+                  <span>Shop the Collection</span>
+                  <span class="group-hover/btn:translate-x-1 transition-transform">&rarr;</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Promo Image: Trio on pedestal smoothly feathered into #FAF5ED -->
+            <div class="relative w-full md:w-1/2 flex justify-center md:justify-end z-0">
+              <img 
+                src="assets/shop_natural_skincare_collection_showcase.png" alt="EarthGlanze Natural Skincare Collection - Manjistha Soap, Goat Milk Soap, Beetroot Lip Balm" class="w-full max-w-[360px] sm:max-w-[420px] object-contain select-none pointer-events-none transform hover:scale-[1.02] transition-transform duration-500" loading="lazy" width="1024" height="682">
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================================
+        SECTION 5: BOTTOM TRUST PILL BADGES
+        ========================================================================= -->
+    <section class="pb-16 sm:pb-20 bg-[#FAF7F2]">
+      <div class="max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12">
+        
+        <div class="bg-white rounded-[24px] py-6 px-6 sm:px-10 border border-[#E8DEC8] shadow-2xs grid grid-cols-2 md:grid-cols-4 gap-6 items-center">
+          
+          <div class="flex flex-col sm:flex-row items-center text-center sm:text-left gap-3">
+            <div class="w-11 h-11 rounded-full bg-[#EBF3EA] flex items-center justify-center text-[#103B23] shrink-0">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 0 0 9-9c0-2-2-4-5-4s-3 2-4 2-1-2-4-2-5 2-5 4a9 9 0 0 0 9 9z"/>
+              </svg>
+            </div>
+            <div>
+              <span class="block font-bold text-sm sm:text-base text-[#1E3B2B]">100%</span>
+              <span class="text-xs text-[#5C6B5E]">Natural Ingredients</span>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row items-center text-center sm:text-left gap-3">
+            <div class="w-11 h-11 rounded-full bg-[#EBF3EA] flex items-center justify-center text-[#103B23] shrink-0">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
+              </svg>
+            </div>
+            <div>
+              <span class="block font-bold text-sm sm:text-base text-[#1E3B2B]">No Harsh</span>
+              <span class="text-xs text-[#5C6B5E]">Chemicals</span>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row items-center text-center sm:text-left gap-3">
+            <div class="w-11 h-11 rounded-full bg-[#EBF3EA] flex items-center justify-center text-[#103B23] shrink-0">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+              </svg>
+            </div>
+            <div>
+              <span class="block font-bold text-sm sm:text-base text-[#1E3B2B]">Gentle on</span>
+              <span class="text-xs text-[#5C6B5E]">All Skin Types</span>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row items-center text-center sm:text-left gap-3">
+            <div class="w-11 h-11 rounded-full bg-[#EBF3EA] flex items-center justify-center text-[#103B23] shrink-0">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+              </svg>
+            </div>
+            <div>
+              <span class="block font-bold text-sm sm:text-base text-[#1E3B2B]">Eco-Conscious</span>
+              <span class="text-xs text-[#5C6B5E]">Care</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    (function() {
+      const products = [
+        {
+          id: 'manjistha-soap',
+          name: 'Manjistha Soap',
+          category: 'Soaps',
+          price: 350,
+          rating: 4.8,
+          reviews: 123,
+          benefits: ['Brightening', 'Pore Cleansing'],
+          image: 'assets/shop_card_manjistha_hd.png'
+        },
+        {
+          id: 'goat-milk-soap',
+          name: 'Goat Milk Soap',
+          category: 'Soaps',
+          price: 350,
+          rating: 4.3,
+          reviews: 108,
+          benefits: ['Nourishing', 'Moisturizing'],
+          image: 'assets/shop_card_goatmilk_hd.png'
+        },
+        {
+          id: 'beetroot-lip-balm',
+          name: 'Beetroot Lip Balm',
+          category: 'Lip Care',
+          price: 250,
+          rating: 4.8,
+          reviews: 108,
+          benefits: ['Nourishing', 'Moisturizing', 'Brightening'],
+          image: 'assets/shop_card_lipbalm_hd.png'
+        }
+      ];
+
+      let activeCategory = 'All Products';
+      let selectedCategories = [];
+      let selectedBenefits = [];
+      let maxPrice = 400;
+      let sortBy = 'featured';
+      let wishlist = {};
+      let isSidebarOpen = false;
+
+      const grid = document.getElementById('products-grid');
+      const countEl = document.getElementById('product-count');
+      const filterSidebar = document.getElementById('filter-sidebar');
+      const toggleBtn = document.getElementById('filters-toggle-btn');
+      const filterBtnLabel = document.getElementById('filters-btn-label');
+      const filterBadge = document.getElementById('filter-badge');
+      const slider = document.getElementById('price-range-slider');
+      const priceLabel = document.getElementById('price-range-label');
+      const sortSelect = document.getElementById('sort-select');
+      const clearBtn = document.getElementById('clear-all-filters-btn');
+      const inlineFilterBtn = document.getElementById('inline-show-filters');
+      const toast = document.getElementById('toast');
+      const toastText = document.getElementById('toast-text');
+
+      function showToast(msg) {
+        if (!toast) return;
+        toastText.textContent = msg;
+        toast.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
+        setTimeout(() => {
+          toast.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
+        }, 2500);
+      }
+
+      function updateCartBadge() {
+        try {
+          const cart = JSON.parse(localStorage.getItem('earthglaze_cart') || '[]');
+          const total = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+          document.querySelectorAll('.cart-count-badge').forEach(badge => {
+            badge.textContent = total;
+            badge.style.display = total > 0 ? 'flex' : 'none';
+          });
+        } catch (e) {}
+      }
+
+      function addToCart(prod) {
+        try {
+          const cart = JSON.parse(localStorage.getItem('earthglaze_cart') || '[]');
+          const idx = cart.findIndex(i => i.id === prod.id);
+          if (idx !== -1) {
+            cart[idx].quantity = (cart[idx].quantity || 1) + 1;
+          } else {
+            cart.push({
+              id: prod.id,
+              name: prod.name,
+              price: prod.price,
+              image: prod.image,
+              quantity: 1
+            });
+          }
+          localStorage.setItem('earthglaze_cart', JSON.stringify(cart));
+          updateCartBadge();
+          showToast(`Added ${prod.name} to Cart`);
+        } catch (e) {}
+      }
+
+      function toggleFilterSidebar(forceState) {
+        isSidebarOpen = (typeof forceState === 'boolean') ? forceState : !isSidebarOpen;
+        if (isSidebarOpen) {
+          filterSidebar.classList.remove('w-0', 'max-h-0', 'opacity-0', 'pointer-events-none', '-translate-x-6', 'lg:-translate-x-8');
+          filterSidebar.classList.add('w-full', 'lg:w-[280px]', 'max-h-[1400px]', 'opacity-100', 'translate-x-0', 'mb-6', 'lg:mb-0');
+          toggleBtn.classList.add('bg-[#103B23]', 'text-white', 'border-[#103B23]', 'shadow-sm');
+          toggleBtn.classList.remove('bg-white', 'text-[#1E3B2B]', 'border-[#E8DEC8]', 'hover:bg-[#FAF5ED]');
+          filterBtnLabel.textContent = 'Hide Filters';
+        } else {
+          filterSidebar.classList.add('w-0', 'max-h-0', 'opacity-0', 'pointer-events-none', '-translate-x-6', 'lg:-translate-x-8');
+          filterSidebar.classList.remove('w-full', 'lg:w-[280px]', 'max-h-[1400px]', 'opacity-100', 'translate-x-0', 'mb-6', 'lg:mb-0');
+          toggleBtn.classList.remove('bg-[#103B23]', 'text-white', 'border-[#103B23]', 'shadow-sm');
+          toggleBtn.classList.add('bg-white', 'text-[#1E3B2B]', 'border-[#E8DEC8]', 'hover:bg-[#FAF5ED]');
+          filterBtnLabel.textContent = 'Filters';
+        }
+      }
+
+      if (toggleBtn) {
+        toggleBtn.addEventListener('click', () => toggleFilterSidebar());
+      }
+      if (inlineFilterBtn) {
+        inlineFilterBtn.addEventListener('click', () => toggleFilterSidebar(true));
+      }
+
+      function renderProducts() {
+        let filtered = products.filter(p => {
+          if (activeCategory === 'Soaps' && p.category !== 'Soaps') return false;
+          if (activeCategory === 'Lip Care' && p.category !== 'Lip Care') return false;
+
+          if (selectedCategories.length > 0 && !selectedCategories.includes(p.category)) {
+            return false;
+          }
+
+          if (p.price > maxPrice) return false;
+
+          if (selectedBenefits.length > 0) {
+            const has = selectedBenefits.some(b => p.benefits.includes(b));
+            if (!has) return false;
+          }
+          return true;
+        });
+
+        if (sortBy === 'price-low') filtered.sort((a, b) => a.price - b.price);
+        else if (sortBy === 'price-high') filtered.sort((a, b) => b.price - a.price);
+        else if (sortBy === 'rating') filtered.sort((a, b) => b.rating - a.rating);
+
+        countEl.textContent = `(${filtered.length})`;
+
+        // Filter badge count
+        let totalActiveFilters = selectedCategories.length + selectedBenefits.length + (maxPrice < 400 ? 1 : 0);
+        if (totalActiveFilters > 0) {
+          filterBadge.textContent = totalActiveFilters;
+          filterBadge.classList.remove('hidden');
+          inlineFilterBtn.classList.remove('hidden');
+          document.getElementById('active-filters-text').textContent = `${totalActiveFilters} active filter${totalActiveFilters > 1 ? 's' : ''}`;
+        } else {
+          filterBadge.classList.add('hidden');
+          inlineFilterBtn.classList.add('hidden');
+        }
+
+        if (filtered.length === 0) {
+          grid.innerHTML = `
+            <div class="col-span-full w-full bg-white rounded-[24px] p-12 text-center border border-[#E8DEC8] space-y-4">
+              <h3 class="font-serif font-bold text-xl text-[#1E3B2B]">No products found</h3>
+              <p class="text-sm text-stone-500 max-w-md mx-auto">Try adjusting your filters.</p>
+            </div>
+          `;
+          return;
+        }
+
+        grid.innerHTML = filtered.map(p => {
+          const isWish = !!wishlist[p.id];
+          return `
+            <div class="bg-white rounded-[24px] overflow-hidden border border-[#E8DEC8]/90 shadow-2xs hover:shadow-lg transition-all duration-300 flex flex-col group hover:-translate-y-1 relative">
+              <div class="relative w-full aspect-[4/3] bg-gradient-to-b from-[#FAF5EE] to-[#F3ECE0] overflow-hidden">
+                <img 
+                  src="${p.image}" 
+                  alt="${p.name}" 
+                  class="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-105"
+                  loading="lazy"
+                  width="741"
+                  height="556"
+                >
+                <button
+                  type="button"
+                  class="wishlist-btn absolute top-3.5 right-3.5 w-9 h-9 rounded-full bg-white/80 hover:bg-white backdrop-blur-xs flex items-center justify-center transition shadow-2xs cursor-pointer group/heart z-10"
+                  data-id="${p.id}"
+                  aria-label="Wishlist"
+                >
+                  <svg 
+                    class="w-4 h-4 transition-colors ${isWish ? 'fill-rose-500 text-rose-500 scale-110' : 'fill-none text-stone-700 group-hover/heart:text-rose-500'}" 
+                    stroke="currentColor" 
+                    stroke-width="2" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                  </svg>
+                </button>
+              </div>
+
+              <div class="p-5 sm:p-6 flex-1 flex flex-col justify-between space-y-4">
+                <div class="space-y-1.5">
+                  <h3 class="font-serif font-bold text-lg sm:text-xl text-[#1E3B2B] leading-snug group-hover:text-[#103B23] transition-colors">
+                    ${p.name}
+                  </h3>
+                  <div class="flex items-center gap-1.5 text-xs text-[#5C6B5E] font-medium">
+                    <span class="text-[#C28328]">★</span>
+                    <span class="font-semibold text-stone-800">${p.rating}</span>
+                    <span class="text-stone-400">(${p.reviews} reviews)</span>
+                  </div>
+                  <div class="pt-1">
+                    <span class="font-bold text-xl sm:text-2xl text-[#103B23]">₹${p.price}</span>
+                  </div>
+                </div>
+
+                <div class="pt-2 flex items-center gap-2.5">
+                  <button
+                    type="button"
+                    class="quick-cart-btn w-10 h-10 rounded-full bg-[#EBF3EA] hover:bg-[#DCEBDB] text-[#103B23] flex items-center justify-center transition-all duration-300 shadow-2xs active:scale-95 cursor-pointer shrink-0"
+                    data-id="${p.id}"
+                    aria-label="Add to Cart"
+                  >
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                    </svg>
+                  </button>
+
+                  <button
+                    type="button"
+                    class="main-cart-btn flex-1 py-2.5 px-4 rounded-full bg-[#103B23] hover:bg-[#194E31] active:scale-95 text-white text-xs sm:text-sm font-semibold transition-all duration-300 shadow-sm cursor-pointer text-center"
+                    data-id="${p.id}"
+                  >
+                    Add to Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        // Attach listeners
+        grid.querySelectorAll('.quick-cart-btn, .main-cart-btn').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const id = btn.getAttribute('data-id');
+            const p = products.find(prod => prod.id === id);
+            if (p) addToCart(p);
+          });
+        });
+
+        grid.querySelectorAll('.wishlist-btn').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const id = btn.getAttribute('data-id');
+            wishlist[id] = !wishlist[id];
+            renderProducts();
+            showToast(wishlist[id] ? 'Added to Wishlist' : 'Removed from Wishlist');
+          });
+        });
+      }
+
+      // Tab handlers
+      document.querySelectorAll('.cat-tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.cat-tab-btn').forEach(b => {
+            b.classList.remove('bg-[#103B23]', 'text-white', 'shadow-sm');
+            b.classList.add('bg-[#F3EFE6]', 'text-[#1E3B2B]', 'border', 'border-[#E8DEC8]/80');
+          });
+          btn.classList.add('bg-[#103B23]', 'text-white', 'shadow-sm');
+          btn.classList.remove('bg-[#F3EFE6]', 'border-[#E8DEC8]/80');
+
+          activeCategory = btn.getAttribute('data-cat');
+          renderProducts();
+        });
+      });
+
+      // Category Checkbox handlers
+      document.querySelectorAll('.cat-filter-checkbox').forEach(cb => {
+        cb.addEventListener('change', () => {
+          selectedCategories = Array.from(document.querySelectorAll('.cat-filter-checkbox:checked')).map(c => c.value);
+          renderProducts();
+        });
+      });
+
+      // Benefit Checkbox handlers
+      document.querySelectorAll('.benefit-filter-checkbox').forEach(cb => {
+        cb.addEventListener('change', () => {
+          selectedBenefits = Array.from(document.querySelectorAll('.benefit-filter-checkbox:checked')).map(c => c.value);
+          renderProducts();
+        });
+      });
+
+      // Price slider handler
+      if (slider) {
+        slider.addEventListener('input', (e) => {
+          maxPrice = Number(e.target.value);
+          priceLabel.textContent = `₹120 – ₹${maxPrice}`;
+          renderProducts();
+        });
+      }
+
+      // Sort handler
+      if (sortSelect) {
+        sortSelect.addEventListener('change', (e) => {
+          sortBy = e.target.value;
+          renderProducts();
+        });
+      }
+
+      // Clear all
+      if (clearBtn) {
+        clearBtn.addEventListener('click', () => {
+          selectedCategories = [];
+          selectedBenefits = [];
+          maxPrice = 400;
+          if (slider) slider.value = 400;
+          if (priceLabel) priceLabel.textContent = '₹120 – ₹400';
+          document.querySelectorAll('.cat-filter-checkbox, .benefit-filter-checkbox').forEach(c => c.checked = false);
+          renderProducts();
+        });
+      }
+
+      // Check query params for filters
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('filters') === 'open' || urlParams.get('filters') === 'true') {
+        toggleFilterSidebar(true);
+      }
+
+      // Initial render & cart badge sync
+      renderProducts();
+      updateCartBadge();
+    })();
+  </script>
+
+<footer id="contact" class="relative bg-[#FAF7F2] pt-14 pb-0 overflow-hidden text-stone-800" aria-label="Site Footer">
+    
+    <!-- Top-Right Decorative Botanical Leaves -->
+    <div class="absolute top-0 right-0 pointer-events-none z-0 opacity-80 w-52 sm:w-64 max-w-full">
+      <img src="assets/banner_offer_top_leaves.png" alt="" class="w-full h-auto object-contain transform -scale-x-100 rotate-12">
+    </div>
+
+    <!-- Main Content Container -->
+    <div class="relative z-10 max-w-[1520px] w-full mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Top Row: Brand Info + 3 Frosted Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-5 lg:gap-6 items-stretch pb-6">
+        
+        <!-- Col 1: Brand Identity & Pedestal Jar (col-span-3) -->
+        <div class="lg:col-span-3 flex flex-col justify-between pt-1">
+          <div>
+            <a href="index.html" class="inline-block focus:outline-none">
+              <img src="assets/earthglaze-logo-hd.png" alt="EarthGlaze Natural Skincare" class="h-12 sm:h-14 w-auto object-contain">
+            </a>
+            <p class="text-xs sm:text-[13px] text-[#3A4D40] font-normal leading-relaxed mt-3 mb-4 max-w-[260px]">
+              Nature-powered skincare for healthier, glowing skin.
+            </p>
+            
+            <!-- Social Icon Buttons in subtle circles -->
+            <div class="flex items-center gap-2">
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="w-7 h-7 rounded-full border border-stone-300/70 bg-white/70 hover:bg-white text-stone-700 hover:text-[#1E3B2B] flex items-center justify-center transition shadow-xs" aria-label="Instagram">
+                <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+              </a>
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="w-7 h-7 rounded-full border border-stone-300/70 bg-white/70 hover:bg-white text-stone-700 hover:text-[#1E3B2B] flex items-center justify-center transition shadow-xs" aria-label="Facebook">
+                <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+              </a>
+              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="w-7 h-7 rounded-full border border-stone-300/70 bg-white/70 hover:bg-white text-stone-700 hover:text-[#1E3B2B] flex items-center justify-center transition shadow-xs" aria-label="YouTube">
+                <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+              </a>
+              <a href="https://pinterest.com" target="_blank" rel="noopener noreferrer" class="w-7 h-7 rounded-full border border-stone-300/70 bg-white/70 hover:bg-white text-stone-700 hover:text-[#1E3B2B] flex items-center justify-center transition shadow-xs" aria-label="Pinterest">
+                <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.631-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146 1.124.347 2.317.535 3.554.535 6.627 0 12-5.373 12-12 0-6.62-5.373-11.987-12-11.987z"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Bottom Pedestal Jar with Leaves -->
+          <div class="mt-4 -mb-1 relative pointer-events-none">
+            <img src="assets/footer_jar_pedestal.png" alt="" class="w-44 sm:w-48 h-auto object-contain">
+          </div>
+        </div>
+
+        <!-- Col 2: Quick Links Card (col-span-3) -->
+        <div class="lg:col-span-3 bg-white/75 backdrop-blur-md rounded-2xl p-6 sm:p-7 border border-white/90 shadow-[0_4px_24px_rgba(0,0,0,0.03)] flex flex-col justify-start">
+          <div class="flex items-center gap-2 mb-1">
+            <svg class="w-5 h-5 text-[#3E7D35]" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+            </svg>
+            <h4 class="font-bold text-[15px] text-[#1E3B2B] tracking-tight">Quick Links</h4>
+          </div>
+          <div class="w-6 h-0.5 bg-[#7CB35D] rounded-full mt-1 mb-4"></div>
+
+          <ul class="space-y-2.5 text-xs sm:text-[13px] font-normal text-stone-700">
+            <li>
+              <a href="index.html" class="hover:text-[#1E3B2B] hover:translate-x-1 transition-transform inline-flex items-center gap-2">
+                <span class="text-[#3E7D35] font-bold text-xs">&gt;</span> Home
+              </a>
+            </li>
+            <li>
+              <a href="shop.html" class="hover:text-[#1E3B2B] hover:translate-x-1 transition-transform inline-flex items-center gap-2">
+                <span class="text-[#3E7D35] font-bold text-xs">&gt;</span> Shop
+              </a>
+            </li>
+            <li>
+              <a href="story.html" class="hover:text-[#1E3B2B] hover:translate-x-1 transition-transform inline-flex items-center gap-2">
+                <span class="text-[#3E7D35] font-bold text-xs">&gt;</span> Our Story
+              </a>
+            </li>
+            <li>
+              <a href="ingredients.html" class="hover:text-[#1E3B2B] hover:translate-x-1 transition-transform inline-flex items-center gap-2">
+                <span class="text-[#3E7D35] font-bold text-xs">&gt;</span> Ingredients
+              </a>
+            </li>
+            <li>
+              <a href="blog.html" class="hover:text-[#1E3B2B] hover:translate-x-1 transition-transform inline-flex items-center gap-2">
+                <span class="text-[#3E7D35] font-bold text-xs">&gt;</span> Blog
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Customer Support Card (col-span-3) -->
+        <div class="lg:col-span-3 bg-white/75 backdrop-blur-md rounded-2xl p-6 sm:p-7 border border-white/90 shadow-[0_4px_24px_rgba(0,0,0,0.03)] flex flex-col justify-start">
+          <div class="flex items-center gap-2 mb-1">
+            <svg class="w-5 h-5 text-[#3E7D35]" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+              <path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/>
+            </svg>
+            <h4 class="font-bold text-[15px] text-[#1E3B2B] tracking-tight">Customer Support</h4>
+          </div>
+          <div class="w-6 h-0.5 bg-[#7CB35D] rounded-full mt-1 mb-4"></div>
+
+          <ul class="space-y-2.5 text-xs sm:text-[13px] font-normal text-stone-700">
+            <li>
+              <a href="contact.html#faq" class="hover:text-[#1E3B2B] hover:translate-x-1 transition-transform inline-flex items-center gap-2">
+                <span class="text-[#3E7D35] font-bold text-xs">&gt;</span> Help &amp; FAQs
+              </a>
+            </li>
+            <li>
+              <a href="contact.html#shipping" class="hover:text-[#1E3B2B] hover:translate-x-1 transition-transform inline-flex items-center gap-2">
+                <span class="text-[#3E7D35] font-bold text-xs">&gt;</span> Shipping &amp; Delivery
+              </a>
+            </li>
+            <li>
+              <a href="contact.html#returns" class="hover:text-[#1E3B2B] hover:translate-x-1 transition-transform inline-flex items-center gap-2">
+                <span class="text-[#3E7D35] font-bold text-xs">&gt;</span> Returns &amp; Refunds
+              </a>
+            </li>
+            <li>
+              <a href="contact.html#privacy" class="hover:text-[#1E3B2B] hover:translate-x-1 transition-transform inline-flex items-center gap-2">
+                <span class="text-[#3E7D35] font-bold text-xs">&gt;</span> Privacy Policy
+              </a>
+            </li>
+            <li>
+              <a href="contact.html#terms" class="hover:text-[#1E3B2B] hover:translate-x-1 transition-transform inline-flex items-center gap-2">
+                <span class="text-[#3E7D35] font-bold text-xs">&gt;</span> Terms &amp; Conditions
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Stay in the Loop Card (col-span-3) -->
+        <div class="lg:col-span-3 bg-white/75 backdrop-blur-md rounded-2xl p-6 sm:p-7 border border-white/90 shadow-[0_4px_24px_rgba(0,0,0,0.03)] flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <svg class="w-5 h-5 text-[#3E7D35]" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                <rect width="20" height="16" x="2" y="4" rx="3"/>
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+              </svg>
+              <h4 class="font-bold text-[15px] text-[#1E3B2B] tracking-tight">Stay in the Loop</h4>
+              <span class="text-amber-500 text-sm">✨</span>
+            </div>
+
+            <p class="text-xs text-stone-600 font-normal mt-2.5 mb-5 leading-relaxed">
+              Get skincare tips, new launches and exclusive offers.
+            </p>
+          </div>
+
+          <!-- Pill Input Box -->
+          <form onsubmit="event.preventDefault(); alert('Thank you for subscribing to EarthGlaze updates!');" class="w-full">
+            <div class="flex items-center bg-white rounded-full p-1 pl-3.5 border border-stone-200 shadow-xs focus-within:border-[#2D5B3A] focus-within:ring-2 focus-within:ring-[#2D5B3A]/20 transition">
+              <svg class="w-4 h-4 text-stone-400 shrink-0 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <rect width="20" height="16" x="2" y="4" rx="2"/>
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+              </svg>
+              <input 
+                type="email" 
+                placeholder="Enter your email address" 
+                required 
+                class="w-full bg-transparent text-xs text-stone-800 placeholder:text-stone-400 focus:outline-none py-1.5"
+              >
+              <button 
+                type="submit" 
+                class="px-4 py-2 rounded-full bg-[#0F3521] hover:bg-[#1A4D32] text-white text-xs font-semibold tracking-wide transition flex items-center gap-1 shrink-0 shadow-sm active:scale-95 cursor-pointer"
+              >
+                <span>Subscribe</span>
+                <span>&rarr;</span>
+              </button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+
+      <!-- Horizontal 4 Trust Badges Pill Bar -->
+      <div class="my-5">
+        <div class="bg-white/85 backdrop-blur-md rounded-full shadow-[0_4px_25px_rgba(0,0,0,0.03)] border border-stone-200/70 px-6 sm:px-10 py-3.5 flex flex-wrap items-center justify-around gap-y-3 gap-x-4">
+          
+          <!-- Badge 1: 100% Natural -->
+          <div class="flex items-center gap-2.5">
+            <svg class="w-5 h-5 text-[#34783F]" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+              <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+              <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+            </svg>
+            <span class="text-xs sm:text-[13px] font-semibold text-stone-800">100% Natural</span>
+          </div>
+
+          <div class="hidden md:block w-px h-5 bg-stone-300"></div>
+
+          <!-- Badge 2: Ayurvedic Formulation -->
+          <div class="flex items-center gap-2.5">
+            <svg class="w-5 h-5 text-[#34783F]" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+              <path d="m14 4 4 4"/>
+              <path d="m17 10 2-2a2.83 2.83 0 0 0-4-4l-2 2"/>
+              <path d="M4.5 10.5C3.5 14 5 19 12 19s8.5-5 7.5-8.5H4.5Z"/>
+              <path d="M8 19v2"/>
+              <path d="M16 19v2"/>
+              <path d="M7 21h10"/>
+            </svg>
+            <span class="text-xs sm:text-[13px] font-semibold text-stone-800">Ayurvedic Formulation</span>
+          </div>
+
+          <div class="hidden md:block w-px h-5 bg-stone-300"></div>
+
+          <!-- Badge 3: No Harsh Chemicals -->
+          <div class="flex items-center gap-2.5">
+            <svg class="w-5 h-5 text-[#34783F]" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+              <path d="M10 2v7.31L4.14 18.5A2 2 0 0 0 5.86 21h12.28a2 2 0 0 0 1.72-2.5L14 9.31V2h-4Z"/>
+              <path d="M8.5 2h7"/>
+              <path d="M7 16h10"/>
+            </svg>
+            <span class="text-xs sm:text-[13px] font-semibold text-stone-800">No Harsh Chemicals</span>
+          </div>
+
+          <div class="hidden md:block w-px h-5 bg-stone-300"></div>
+
+          <!-- Badge 4: Cruelty Free -->
+          <div class="flex items-center gap-2.5">
+            <svg class="w-5 h-5 text-[#34783F]" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+              <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+            </svg>
+            <span class="text-xs sm:text-[13px] font-semibold text-stone-800">Cruelty Free</span>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Organic Wave Ribbon with Golden Accent Line -->
+    <div class="relative w-full overflow-hidden mt-3">
+      
+      <!-- Top Wave Curve with Gold Border -->
+      <svg viewBox="0 0 1440 60" preserveAspectRatio="none" class="w-full h-8 sm:h-10 block">
+        <!-- Light olive upper accent curve -->
+        <path d="M0,22 C300,38 520,44 800,26 C1080,8 1280,14 1440,18 L1440,30 C1280,26 1080,20 800,36 C520,52 300,46 0,30 Z" fill="#467332" opacity="0.8"/>
+        <!-- Main deep green curve -->
+        <path d="M0,28 C300,44 520,50 800,32 C1080,14 1280,20 1440,24 L1440,60 L0,60 Z" fill="#0D2D1C"/>
+        <!-- Gold highlight stroke -->
+        <path d="M0,21 C300,37 520,43 800,25 C1080,7 1280,13 1440,17" fill="none" stroke="#D4AF37" stroke-width="2"/>
+      </svg>
+
+      <!-- Bottom Deep Forest Green Bar -->
+      <div class="bg-[#0D2D1C] py-4 px-4 sm:px-6 lg:px-8 border-t border-[#133A25]">
+        <div class="max-w-[1520px] w-full mx-auto flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-white/90">
+          
+          <!-- Copyright -->
+          <p class="font-normal tracking-wide text-center md:text-left text-white/85">
+            &copy; EarthGlaze Skin Naturals. All Rights Reserved.
+          </p>
+
+          <!-- Secure Payments -->
+          <div class="flex items-center gap-3">
+            <span class="text-white/30 hidden md:inline">|</span>
+            <div class="flex items-center gap-1.5 text-xs font-semibold text-white/95">
+              <svg class="w-3.5 h-3.5 text-amber-400 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 2a4 4 0 00-4 4v2H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-1V6a4 4 0 00-4-4zm2 6V6a2 2 0 10-4 0v2h4z" clip-rule="evenodd"/>
+              </svg>
+              <span>Secure Payments:</span>
+            </div>
+
+            <!-- Payment Badges in Rounded White Containers -->
+            <div class="flex items-center gap-1.5">
+              <!-- VISA -->
+              <span class="h-6 px-2.5 rounded bg-white text-[#1A1F71] font-black italic text-[11px] flex items-center justify-center shadow-xs tracking-wider">
+                VISA
+              </span>
+              <!-- Mastercard -->
+              <span class="h-6 px-2.5 rounded bg-white flex items-center justify-center shadow-xs">
+                <span class="w-3 h-3 rounded-full bg-[#EB001B] inline-block opacity-95"></span>
+                <span class="w-3 h-3 rounded-full bg-[#F79E1B] inline-block -ml-1.5 opacity-95"></span>
+              </span>
+              <!-- UPI -->
+              <span class="h-6 px-2.5 rounded bg-white font-extrabold text-[#1B4B27] text-[10px] flex items-center gap-0.5 shadow-xs tracking-tight">
+                <span class="text-[#2E7D32]">▲</span>UPI
+              </span>
+              <!-- RuPay -->
+              <span class="h-6 px-2.5 rounded bg-white font-black text-[#094788] text-[10px] flex items-center shadow-xs tracking-tight">
+                RuPay<span class="text-orange-500 font-bold ml-0.5">&gt;</span>
+              </span>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </footer>
+</body>
+</html>

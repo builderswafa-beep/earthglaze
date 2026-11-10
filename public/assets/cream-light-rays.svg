@@ -1,0 +1,23 @@
+<svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="raysGlow" cx="50%" cy="65%" r="50%">
+      <stop offset="0%" stop-color="#FCE5A4" stop-opacity="0.95"/>
+      <stop offset="40%" stop-color="#EAA838" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#FAF4EE" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <!-- Central Soft Bloom -->
+  <circle cx="200" cy="180" r="120" fill="url(#raysGlow)" filter="blur(16px)"/>
+  <!-- Radiant Ray Beams -->
+  <g stroke="#F5BD4A" stroke-linecap="round" opacity="0.8" filter="blur(0.5px)">
+    <line x1="200" y1="160" x2="200" y2="55" stroke-width="3.5" stroke-dasharray="14 8"/>
+    <line x1="185" y1="165" x2="145" y2="70" stroke-width="3"/>
+    <line x1="215" y1="165" x2="255" y2="70" stroke-width="3"/>
+    <line x1="170" y1="170" x2="100" y2="95" stroke-width="2.5"/>
+    <line x1="230" y1="170" x2="300" y2="95" stroke-width="2.5"/>
+    <line x1="155" y1="180" x2="65" y2="135" stroke-width="2"/>
+    <line x1="245" y1="180" x2="335" y2="135" stroke-width="2"/>
+    <line x1="140" y1="190" x2="45" y2="175" stroke-width="1.8"/>
+    <line x1="260" y1="190" x2="355" y2="175" stroke-width="1.8"/>
+  </g>
+</svg>
