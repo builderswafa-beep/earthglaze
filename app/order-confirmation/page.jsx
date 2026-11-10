@@ -88,8 +88,8 @@ function OrderConfirmationContent() {
       gsap.to(summaryCardRef.current, {
         y: 0,
         opacity: 1,
-        duration: 0.75,
-        ease: 'power3.out'
+        duration: 0.65,
+        ease: 'power3.out',
       });
     }
   };
@@ -106,17 +106,18 @@ function OrderConfirmationContent() {
       return;
     }
 
-    const ctx = gsap.context(() => {
-      if (summaryCardRef.current) {
-        gsap.fromTo(
-          summaryCardRef.current,
-          { y: 35, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.75, delay: 5.2, ease: 'power3.out' }
-        );
+    const timer = setTimeout(() => {
+      if (summaryCardRef.current && summaryCardRef.current.style.opacity !== '1') {
+        gsap.to(summaryCardRef.current, {
+          y: 0,
+          opacity: 1,
+          duration: 0.65,
+          ease: 'power3.out',
+        });
       }
-    }, containerRef);
+    }, 5500);
 
-    return () => ctx.revert();
+    return () => clearTimeout(timer);
   }, [loading, order]);
 
   const activeOrderNum = order?.order_number || orderNumber;
@@ -140,31 +141,34 @@ function OrderConfirmationContent() {
   return (
     <div
       ref={containerRef}
-      className="relative w-full min-h-screen text-[#1C1917] font-sans selection:bg-[#15803D] selection:text-white overflow-hidden pb-16 sm:pb-24"
+      className="relative w-full min-h-screen text-[#1C1917] font-sans selection:bg-[#103321] selection:text-white overflow-hidden pb-16 sm:pb-24"
       style={{
-        background: 'radial-gradient(ellipse at 50% 15%, #FFFDF9 0%, #FAF6EE 45%, #F0E8DC 100%)',
+        backgroundColor: '#F8F4EC',
+        backgroundImage: 'radial-gradient(circle at 50% 18%, #FFFFFF 0%, #F8F4EC 65%, #F0EADB 100%)',
       }}
     >
       {/* =====================================================================
-          BOTANICAL CORNER BRANCHES WITH NATURAL SUNLIGHT SHADOWS
-          Exact match to Reference 2: Soft leaves and sunlight dappled shadows
+          NATURAL BOTANICAL CORNER SILHOUETTES (Pure Vector Transparency)
+          Zero rectangular image seams, clean warm cream integration
           ===================================================================== */}
-      {/* Top-Left Botanical Branch */}
-      <div className="absolute top-0 left-0 w-60 sm:w-80 h-52 sm:h-72 pointer-events-none select-none z-0 opacity-85">
-        <img
-          src="/assets/order_ref_leaves_top_left.png"
-          alt="Botanical Foliage Left"
-          className="w-full h-full object-contain object-top-left"
-        />
+      {/* Top-Left Botanical Leaf Silhouette */}
+      <div className="absolute top-0 left-0 w-48 sm:w-64 h-48 sm:h-64 pointer-events-none select-none z-0 opacity-25">
+        <svg viewBox="0 0 200 200" fill="none" className="w-full h-full text-[#173F2B]">
+          <path d="M0 0C50 15 95 55 110 115C85 105 55 95 25 80C40 65 65 40 85 25C40 32 10 55 0 0Z" fill="currentColor" />
+          <path d="M15 0C55 30 80 70 95 120" stroke="#C9A45C" strokeWidth="1.2" strokeDasharray="3 3" opacity="0.4" />
+          <path d="M45 30C65 18 90 25 98 42C82 50 58 46 45 30Z" fill="#103321" />
+          <path d="M70 65C90 56 110 68 114 84C98 88 78 80 70 65Z" fill="#173F2B" />
+        </svg>
       </div>
 
-      {/* Top-Right Botanical Branch */}
-      <div className="absolute top-0 right-0 w-64 sm:w-88 h-52 sm:h-72 pointer-events-none select-none z-0 opacity-85">
-        <img
-          src="/assets/order_ref_leaves_top_right.png"
-          alt="Botanical Foliage Right"
-          className="w-full h-full object-contain object-top-right"
-        />
+      {/* Top-Right Botanical Leaf Silhouette */}
+      <div className="absolute top-0 right-0 w-48 sm:w-64 h-48 sm:h-64 pointer-events-none select-none z-0 opacity-25">
+        <svg viewBox="0 0 200 200" fill="none" className="w-full h-full text-[#173F2B]">
+          <path d="M200 0C150 15 105 55 90 115C115 105 145 95 175 80C160 65 135 40 115 25C160 32 190 55 200 0Z" fill="currentColor" />
+          <path d="M185 0C145 30 120 70 105 120" stroke="#C9A45C" strokeWidth="1.2" strokeDasharray="3 3" opacity="0.4" />
+          <path d="M155 30C135 18 110 25 102 42C118 50 142 46 155 30Z" fill="#103321" />
+          <path d="M130 65C110 56 90 68 86 84C102 88 122 80 130 65Z" fill="#173F2B" />
+        </svg>
       </div>
 
       {/* =====================================================================
@@ -173,22 +177,33 @@ function OrderConfirmationContent() {
       <main className="relative z-10 max-w-[980px] mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-6 flex-1 w-full">
         
         {/* ===================================================================
-            HERO UNBOXING EXPERIENCE (Stages 1 – 7)
-            Includes: Green Checkmark + 8 Rays + Pulse -> Heading & Order ID
-            -> 3D Box Entrance -> Lid Hinge Open -> Products Rise -> Settle in Bed
-            -> Final Reveal Matching Reference 2 -> Action Buttons
+            REAL 3D HERO UNBOXING EXPERIENCE
+            1. First: Animated green success checkmark with 8 rays & pulse
+            2. Header reveals & checkmark translates upward
+            3. Genuine 3D Gift Box arrives closed
+            4. Box lid physically rotates backward on its hinge
+            5. Purchased products emerge from inside, clear front wall & arrange
+            6. Subtle breathing floating motion
+            7. Action CTAs
             =================================================================== */}
-        <GiftBoxUnboxing
-          key={activeOrderNum}
-          items={order?.items || []}
-          activeOrderNum={activeOrderNum}
-          order={order}
-          onComplete={handleUnboxingComplete}
-        />
+        {!loading && order ? (
+          <GiftBoxUnboxing
+            key={`${activeOrderNum}-${order?.items?.length || 0}`}
+            items={order?.items || []}
+            activeOrderNum={activeOrderNum}
+            order={order}
+            onComplete={handleUnboxingComplete}
+          />
+        ) : (
+          <div className="w-full h-80 flex flex-col items-center justify-center space-y-3">
+            <div className="w-10 h-10 rounded-full border-2 border-[#103321] border-t-transparent animate-spin" />
+            <p className="text-xs font-sans text-[#103321] font-semibold tracking-wide">Preparing your botanical ritual...</p>
+          </div>
+        )}
 
         {/* ===================================================================
-            STAGE 8: LUXURY ORDER DETAILS CARD (Matching Reference 2 Palette)
-            Rendered in Refined Ivory Card with Forest-Green Headings
+            LUXURY ORDER DETAILS CARD (Warm Cream Palette)
+            Rendered in Natural White (#FFFFFF) with Deep Green Headings
             =================================================================== */}
         <div
           ref={summaryCardRef}
@@ -199,7 +214,7 @@ function OrderConfirmationContent() {
             {/* Left Column: Elevated Order Summary Sub-Card (5 cols) */}
             <div className="md:col-span-5 bg-[#FAF7F2] rounded-2xl border border-[#EBE4D8] p-4 sm:p-5 shadow-xs space-y-3">
               <div className="flex items-center justify-between pb-2 border-b border-[#E7E2D9]">
-                <h2 className="font-sans font-bold text-base text-[#0C3821]">Order Summary</h2>
+                <h2 className="font-sans font-bold text-base text-[#103321]">Order Summary</h2>
                 <span className="text-[11px] font-semibold text-[#15803D] bg-[#E8F5E9] px-2 py-0.5 rounded-full border border-[#C8E6C9]">
                   {order?.items?.length || 1} item{(order?.items?.length || 1) !== 1 ? 's' : ''}
                 </span>
@@ -220,7 +235,7 @@ function OrderConfirmationContent() {
                       <p className="font-sans font-bold text-xs text-[#1C1917] truncate">
                         {item.quantity}× {item.product_name}
                       </p>
-                      <span className="text-[11px] font-bold text-[#0C3821]">
+                      <span className="text-[11px] font-bold text-[#103321]">
                         ₹{item.total_price || item.unit_price * item.quantity}
                       </span>
                     </div>
@@ -231,7 +246,7 @@ function OrderConfirmationContent() {
               {/* Quick Subtotal / Total Paid */}
               <div className="pt-2 border-t border-[#E7E2D9] flex justify-between items-baseline text-xs">
                 <span className="text-stone-600 font-medium">Total Paid</span>
-                <span className="font-sans font-bold text-base text-[#0C3821]">
+                <span className="font-sans font-bold text-base text-[#103321]">
                   ₹{order?.total_amount}
                 </span>
               </div>
@@ -251,7 +266,7 @@ function OrderConfirmationContent() {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="font-bold text-xs sm:text-[13px] text-[#0C3821]">
+                    <h3 className="font-bold text-xs sm:text-[13px] text-[#103321]">
                       Payment Method
                     </h3>
                     <p className="text-xs text-stone-600 font-medium mt-0.5">
@@ -268,7 +283,7 @@ function OrderConfirmationContent() {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="font-bold text-xs sm:text-[13px] text-[#0C3821]">
+                    <h3 className="font-bold text-xs sm:text-[13px] text-[#103321]">
                       Estimated Delivery
                     </h3>
                     <p className="text-xs text-stone-600 font-medium mt-0.5">
@@ -288,7 +303,7 @@ function OrderConfirmationContent() {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="font-bold text-xs sm:text-[13px] text-[#0C3821]">
+                    <h3 className="font-bold text-xs sm:text-[13px] text-[#103321]">
                       Delivery Address
                     </h3>
                     <p className="text-xs text-stone-600 font-medium mt-0.5 leading-relaxed">
@@ -311,7 +326,7 @@ function OrderConfirmationContent() {
 
 export default function OrderConfirmationPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-[#FAF7F2] flex items-center justify-center text-sm font-semibold text-[#0C3821]">Confirming your botanical order...</div>}>
+    <Suspense fallback={<div className="min-h-screen bg-[#F8F4EC] flex items-center justify-center text-sm font-semibold text-[#103321]">Confirming your botanical order...</div>}>
       <OrderConfirmationContent />
     </Suspense>
   );
