@@ -9,6 +9,7 @@ export default function ComboOffer() {
   const router = useRouter();
   const { addToCart } = useCart();
   const [loading, setLoading] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   const handleBuyCombo = async () => {
     setLoading(true);
@@ -24,152 +25,166 @@ export default function ComboOffer() {
     }
   };
 
+  const products = [
+    {
+      num: '01',
+      id: 1,
+      name: 'Manjistha Soap',
+      weight: '100 g',
+      benefit: 'Purifies & brightens skin',
+      tag: 'Detoxifying Bar',
+    },
+    {
+      num: '02',
+      id: 2,
+      name: 'Goat Milk Soap',
+      weight: '100 g',
+      benefit: 'Deep creamy nourishment',
+      tag: 'Moisturizing Bar',
+    },
+    {
+      num: '03',
+      id: 3,
+      name: 'Beet Root Lip Balm',
+      weight: '10 g',
+      benefit: 'Soft glossy rosy tint',
+      tag: 'Hydrating Tint',
+    },
+  ];
+
   return (
-    <>
-      <section id="offer" className="pt-2 sm:pt-4 pb-8 sm:pb-12 bg-[#FAF7F2] overflow-hidden" aria-label="Combo Offer">
-        <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12">
+    <section id="offer" className="py-6 sm:py-8 lg:py-10 bg-[#FAF7F2] overflow-hidden" aria-label="Botanical Combo Offer">
+      <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12">
+        
+        {/* Master Botanical Combo Banner Card */}
+        <div className="relative w-full rounded-[28px] sm:rounded-[36px] overflow-hidden border border-[#E7DEC8] bg-gradient-to-r from-[#FAF6EE] via-[#F8F2E7] to-[#F5ECE0] shadow-[0_10px_35px_-12px_rgba(140,110,60,0.12)]">
           
-          {/* Master Combo Offer Banner Container */}
-          <div className="offer-banner-container relative w-full rounded-[28px] sm:rounded-[36px] overflow-hidden shadow-xl border border-[#E8DEC8] bg-gradient-to-r from-[#FAF4EB] via-[#FAF3EA] to-[#F5ECE0]">
+          <div className="flex flex-col lg:flex-row items-center justify-between relative z-10">
             
-            {/* Desktop 45% Left / 55% Right Proportional Layout */}
-            <div className="flex flex-col lg:flex-row items-center justify-between relative z-10">
+            {/* Left Content Column */}
+            <div className="w-full lg:w-[50%] xl:w-[48%] p-6 sm:p-9 lg:p-11 xl:p-12 space-y-4 sm:space-y-5 text-left flex flex-col justify-center shrink-0">
               
-              {/* Column 1: Left Brand, Headings, Pillars & Pricing */}
-              <div className="w-full lg:w-[46%] xl:w-[45%] p-6 sm:p-8 lg:p-10 xl:p-12 space-y-4 sm:space-y-5 text-left flex flex-col justify-center shrink-0">
-                
-                {/* Brand Header with Vertical Bar */}
-                <div className="flex items-center gap-2.5 sm:gap-3">
-                  <span className="w-[3.5px] h-8 sm:h-9 bg-[#1E3B2B] rounded-full shrink-0"></span>
-                  <div className="leading-none">
-                    <div className="font-bold text-[#1E3B2B] text-xl sm:text-2xl tracking-tight flex items-baseline">
-                      EarthGlaze<span className="text-[11px] font-semibold ml-0.5">®</span>
-                    </div>
-                    <span className="block text-[9.5px] sm:text-[10.5px] font-bold tracking-[0.2em] text-[#1E3B2B]/85 uppercase mt-1">Natural &amp; Ayurvedic Skincare</span>
-                  </div>
+              {/* Top Tag: SIGNATURE GIFT TRIO */}
+              <div>
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FAF4E8] border border-[#EADBBD] text-[#8C6C38] text-[10px] sm:text-[11px] font-bold tracking-[0.18em] uppercase shadow-2xs">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#8C6C38]"></span>
+                  <span>SIGNATURE GIFT TRIO</span>
                 </div>
-
-                {/* Main Heading & Subtitle */}
-                <div className="space-y-1 sm:space-y-1.5 pt-0.5">
-                  <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[42px] xl:text-[46px] font-bold text-[#1E3B2B] tracking-tight leading-[1.12]">
-                    Combo <span className="text-[#C28328] italic font-serif font-normal">Offer</span>
-                  </h2>
-                  <p className="text-sm sm:text-base font-bold text-[#1E3B2B] tracking-tight pt-0.5">
-                    Complete Natural Care Set (All 3 Artisanal Products)
-                  </p>
-                </div>
-
-                {/* 3 Pillar Feature Badges */}
-                <div className="flex items-center gap-3 sm:gap-4 py-1">
-                  {/* Herbal Care */}
-                  <div className="flex flex-col items-center text-center">
-                    <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full border-[1.5px] border-[#1E3B2B] bg-white/50 flex items-center justify-center text-emerald-800 shadow-2xs">
-                      <svg className="w-4 h-4 sm:w-5 sm:h-5 text-[#1E3B2B]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9 9 0 01-9-9c0-4.97 4.03-9 9-9 4.97 0 9 4.03 9 9 0 1.5-.37 2.92-1.02 4.18M12 21c4.97 0 9-4.03 9-9 0-1.5-.37-2.92-1.02-4.18M12 21V11m0 0l-3-3m3 3l3-3"></path>
-                      </svg>
-                    </div>
-                    <span className="text-[11px] sm:text-xs font-semibold text-[#1E3B2B] mt-1.5 leading-tight">Herbal<br />Care</span>
-                  </div>
-
-                  <span className="h-9 w-px bg-[#1E3B2B]/20 mx-1"></span>
-
-                  {/* Gentle & Safe */}
-                  <div className="flex flex-col items-center text-center">
-                    <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full border-[1.5px] border-[#1E3B2B] bg-white/50 flex items-center justify-center text-emerald-800 shadow-2xs">
-                      <svg className="w-4 h-4 sm:w-5 sm:h-5 text-[#1E3B2B]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
-                      </svg>
-                    </div>
-                    <span className="text-[11px] sm:text-xs font-semibold text-[#1E3B2B] mt-1.5 leading-tight">Gentle<br />&amp; Safe</span>
-                  </div>
-
-                  <span className="h-9 w-px bg-[#1E3B2B]/20 mx-1"></span>
-
-                  {/* No Harsh Chemicals */}
-                  <div className="flex flex-col items-center text-center">
-                    <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full border-[1.5px] border-[#1E3B2B] bg-white/50 flex items-center justify-center text-emerald-800 shadow-2xs">
-                      <svg className="w-4 h-4 sm:w-5 sm:h-5 text-[#1E3B2B]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                      </svg>
-                    </div>
-                    <span className="text-[11px] sm:text-xs font-semibold text-[#1E3B2B] mt-1.5 leading-tight">No Harsh<br />Chemicals</span>
-                  </div>
-                </div>
-
-                {/* Price Pills Row with Floating Combo Badge */}
-                <div className="pt-1 space-y-2.5">
-                  <div className="flex items-center gap-3">
-                    {/* Strikethrough Original Price */}
-                    <div className="bg-[#FDF0E1] border border-[#F3DFC8] rounded-full px-4 sm:px-5 py-1.5 sm:py-2 flex items-center justify-center shadow-2xs">
-                      <span className="font-bold text-base sm:text-lg text-stone-900 line-through decoration-red-600 decoration-2">₹947</span>
-                    </div>
-
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#1E3B2B] shrink-0"></span>
-
-                    {/* Highlighted Combo Price with Floating Badge */}
-                    <div className="relative">
-                      <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 z-10 bg-[#C28328] text-white text-[10px] sm:text-[11px] font-bold tracking-wide px-3 py-0.5 rounded-full shadow-2xs whitespace-nowrap">
-                        Combo Price
-                      </div>
-                      <div className="bg-[#1E3B2B] text-white rounded-full px-6 sm:px-7 py-2 sm:py-2.5 flex items-center justify-center shadow-md">
-                        <span className="font-bold text-xl sm:text-2xl text-white tracking-tight">₹799</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Savings Tag */}
-                  <div className="inline-flex items-center gap-2 bg-[#E5F2DD] border border-[#CDE5C1] text-[#1E3B2B] rounded-full px-3.5 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-[13px] font-bold shadow-2xs">
-                    <svg className="w-3.5 h-3.5 text-[#1E3B2B]" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd"></path>
-                    </svg>
-                    <span>You Save ₹148 (15% OFF)</span>
-                  </div>
-                </div>
-
-                {/* CTA Buy Button */}
-                <div className="pt-1.5">
-                  <button 
-                    id="grab-offer-btn" 
-                    type="button" 
-                    onClick={handleBuyCombo}
-                    disabled={loading}
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 py-3 sm:py-3.5 px-7 sm:px-8 rounded-full bg-[#1E3B2B] hover:bg-[#152B1F] active:scale-95 text-white font-semibold text-sm sm:text-base shadow-md hover:shadow-lg transition-all duration-300 group cursor-pointer disabled:opacity-75"
-                    aria-label="Buy Combo Now for ₹799"
-                  >
-                    <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white/90 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                    </svg>
-                    <span>{loading ? 'Adding Combo to Bag...' : 'Buy Combo Now'}</span>
-                    <span className="group-hover:translate-x-1.5 transition-transform duration-300">&rarr;</span>
-                  </button>
-                </div>
-
               </div>
 
-              {/* Column 2: Right Product Showcase Visual */}
-              <div className="w-full lg:w-[54%] xl:w-[55%] flex items-center justify-center lg:justify-end relative px-4 sm:px-6 lg:px-8 pt-2 pb-10 sm:pb-12 lg:py-6">
-                <img 
-                  src="/assets/combo-offer.png" 
-                  alt="EarthGlaze Combo Offer - Manjistha Soap, Goat Milk Soap tied with red ribbon bow & Beet Root Lip Balm" 
-                  className="w-full max-w-[580px] sm:max-w-[640px] lg:max-w-[700px] xl:max-w-[760px] h-auto object-contain transform hover:scale-[1.02] transition-transform duration-500 drop-shadow-lg select-none pointer-events-none"
-                  loading="eager"
-                 />
+              {/* Main Headline: The Botanical Combo Offer */}
+              <div className="space-y-0.5">
+                <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[44px] xl:text-[48px] font-bold text-[#163D26] tracking-tight leading-[1.12]">
+                  The Botanical Combo
+                </h2>
+                <div className="font-serif italic text-3xl sm:text-4xl md:text-5xl lg:text-[44px] xl:text-[48px] font-normal text-[#C28328] leading-[1.12]">
+                  Offer
+                </div>
+              </div>
+
+              {/* Paragraph Description */}
+              <p className="text-stone-600 text-xs sm:text-sm lg:text-[14px] leading-relaxed max-w-lg">
+                Complete Natural Care Set — Pure botanical formulations crafted for daily glow, softness, and care.
+              </p>
+
+              {/* Inside The Ritual - 3 Inspection Cards */}
+              <div className="space-y-2 pt-1">
+                <div className="flex items-center justify-between text-[10px] sm:text-[10.5px] font-bold tracking-[0.16em] uppercase">
+                  <span className="text-stone-500">INSIDE THE RITUAL</span>
+                  <span className="text-stone-400 font-medium tracking-[0.14em]">TAP TO INSPECT</span>
+                </div>
+
+                {/* 3 Item Cards Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3">
+                  {products.map((item) => {
+                    const isSelected = selectedProduct === item.id;
+                    return (
+                      <div
+                        key={item.id}
+                        onClick={() => setSelectedProduct(isSelected ? null : item.id)}
+                        className={`group relative p-3 rounded-xl border transition-all duration-300 cursor-pointer select-none text-left ${
+                          isSelected 
+                            ? 'bg-white border-[#163D26] shadow-sm ring-1 ring-[#163D26]/20' 
+                            : 'bg-white/80 hover:bg-white border-[#E9DFCE] hover:border-[#163D26]/40 shadow-2xs'
+                        }`}
+                      >
+                        <div className="flex items-center justify-between text-[11px] font-semibold text-stone-400 mb-1">
+                          <span className="group-hover:text-[#163D26] transition-colors">{item.num}</span>
+                          <span className="text-stone-400 text-[10.5px]">{item.weight}</span>
+                        </div>
+                        <h4 className="font-bold text-stone-800 text-xs sm:text-[13px] leading-snug group-hover:text-[#163D26] transition-colors">
+                          {item.name}
+                        </h4>
+                        <p className="text-[10.5px] text-stone-500 leading-tight mt-0.5">
+                          {item.benefit}
+                        </p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Pricing & CTA Button Row */}
+              <div className="pt-2 sm:pt-3 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-[#E8DEC8]/60">
+                {/* Price Cluster */}
+                <div className="space-y-1">
+                  <div className="flex items-baseline gap-2 flex-wrap">
+                    <span className="font-serif font-bold text-3xl sm:text-4xl text-[#163D26] tracking-tight">
+                      ₹799
+                    </span>
+                    <span className="text-sm sm:text-base text-stone-400 line-through font-normal">
+                      ₹898
+                    </span>
+                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-[#E3EFE5] text-[#1E6B35] border border-[#CFE5D4] text-[11px] font-bold tracking-tight">
+                      Save ₹99 (11% OFF)
+                    </span>
+                  </div>
+                  <div className="text-[10.5px] sm:text-[11px] font-medium text-stone-500 tracking-tight flex items-center gap-1.5 flex-wrap">
+                    <span>Herbal Care</span>
+                    <span className="text-stone-300">•</span>
+                    <span>Gentle &amp; Safe</span>
+                    <span className="text-stone-300">•</span>
+                    <span>No Harsh Chemicals</span>
+                  </div>
+                </div>
+
+                {/* Buy Combo Now CTA Button */}
+                <button
+                  id="grab-offer-btn"
+                  type="button"
+                  onClick={handleBuyCombo}
+                  disabled={loading}
+                  className="inline-flex items-center justify-center gap-2 py-3.5 px-6 sm:px-7 rounded-full bg-[#163D26] hover:bg-[#112F1D] active:scale-95 text-white font-semibold text-xs sm:text-sm shadow-md hover:shadow-lg transition-all duration-300 group cursor-pointer disabled:opacity-75 whitespace-nowrap shrink-0"
+                  aria-label="Buy Combo Now for ₹799"
+                >
+                  {/* Shopping Bag Icon */}
+                  <svg className="w-4 h-4 text-white/90 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                  </svg>
+                  <span>{loading ? 'Adding Combo...' : 'Buy Combo Now'}</span>
+                  <span className="group-hover:translate-x-1 transition-transform duration-300">&rarr;</span>
+                </button>
               </div>
 
             </div>
 
-            {/* Bottom Botanical Wave Accent */}
-            <div className="absolute bottom-0 left-0 right-0 w-full pointer-events-none select-none overflow-hidden z-0" style={{'height': '44px'}} aria-hidden="true">
-              <svg className="w-full h-full" viewBox="0 0 1200 44" fill="none" preserveAspectRatio="none">
-                <path d="M0,44 L1200,44 L1200,26 C1050,11 850,2 620,15 C400,28 200,36 0,38 Z" fill="#1E3B2B"></path>
-                <path d="M0,38 C200,36 400,28 620,15 C850,2 1050,11 1200,26" stroke="#8CAE68" strokeWidth="2.5" fill="none"></path>
-              </svg>
+            {/* Right Product Showcase Visual Column */}
+            <div className="w-full lg:w-[50%] xl:w-[52%] flex items-center justify-center lg:justify-end relative select-none">
+              <div className="relative w-full h-full flex items-center justify-center lg:justify-end">
+                <img
+                  src="/assets/botanical_combo_hero_trio.png"
+                  alt="EarthGlaze Botanical Combo Offer - Manjistha Soap, Goat Milk Soap and Beet Root Lip Balm on luxury ribbon pedestal"
+                  className="w-full h-auto max-h-[360px] sm:max-h-[420px] lg:max-h-[480px] xl:max-h-[520px] object-contain object-right transform hover:scale-[1.015] transition-transform duration-500 drop-shadow-sm pointer-events-none"
+                  loading="eager"
+                />
+              </div>
             </div>
 
           </div>
 
         </div>
-      </section>
-    </>
+
+      </div>
+    </section>
   );
 }
