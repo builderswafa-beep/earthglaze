@@ -65,17 +65,6 @@ export default function Navbar() {
             </Link>
 
             <Link 
-              href="/ingredients" 
-              className={`px-3 py-2 rounded-full text-sm font-medium transition-all ${
-                pathname === '/ingredients' 
-                  ? 'bg-[#E3EBE4] text-[#1E3B2B] font-semibold' 
-                  : 'text-stone-800 hover:text-[#235327] hover:bg-stone-200/50'
-              }`}
-            >
-              Ingredients
-            </Link>
-
-            <Link 
               href="/blog" 
               className={`px-3 py-2 rounded-full text-sm font-medium transition-all ${
                 pathname === '/blog' 
@@ -199,13 +188,6 @@ export default function Navbar() {
               className="block font-medium text-stone-800 hover:text-[#235327] py-2"
             >
               About Us
-            </Link>
-            <Link 
-              href="/ingredients" 
-              onClick={() => setMobileMenuOpen(false)}
-              className="block font-medium text-stone-800 hover:text-[#235327] py-2"
-            >
-              Ingredients
             </Link>
             <Link 
               href="/blog" 
