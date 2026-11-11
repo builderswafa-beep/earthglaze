@@ -1,0 +1,63 @@
+@keyframes announcementCardFloat {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -1.5px, 0);
+  }
+}
+
+.cardFloat {
+  animation: announcementCardFloat 4.8s ease-in-out infinite;
+  will-change: transform;
+}
+
+.cardFloatDelay0 {
+  animation-delay: 0s;
+}
+
+.cardFloatDelay1 {
+  animation-delay: -1.6s;
+}
+
+.cardFloatDelay2 {
+  animation-delay: -3.2s;
+}
+
+.stripRoot:hover .cardFloat,
+.stripRoot:focus-within .cardFloat {
+  animation-play-state: paused;
+}
+
+.cardInteractive {
+  filter: drop-shadow(0 3px 8px rgba(0, 14, 7, 0.42));
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 320ms ease;
+}
+
+.cardInteractive:hover,
+.cardInteractive:focus-visible {
+  transform: translateY(-1.5px) scale(1.015);
+  filter: drop-shadow(0 5px 12px rgba(235, 193, 82, 0.28))
+    drop-shadow(0 3px 8px rgba(0, 10, 5, 0.42));
+}
+
+.cardActive {
+  transform: scale(1.012);
+  filter: drop-shadow(0 0 10px rgba(240, 200, 90, 0.32))
+    drop-shadow(0 4px 10px rgba(0, 14, 7, 0.48));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cardFloat {
+    animation: none !important;
+  }
+
+  .cardInteractive,
+  .mobileTrack,
+  .desktopTrack {
+    transition: none !important;
+  }
+}

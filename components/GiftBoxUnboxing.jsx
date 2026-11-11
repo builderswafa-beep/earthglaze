@@ -156,20 +156,20 @@ export default function GiftBoxUnboxing({
       if (productUnits) {
         productUnits.forEach((unit, i) => {
           const count = displayProducts.length;
-          let targetY = -35;
+          let targetY = -24;
           let targetX = 0;
           let rot = 0;
           if (count === 3) {
-            targetX = i === 0 ? -10 : i === 1 ? 0 : 10;
-            targetY = i === 1 ? -45 : -35;
+            targetX = i === 0 ? -6 : i === 1 ? 0 : 6;
+            targetY = i === 1 ? -34 : -18;
             rot = i === 0 ? -3 : i === 1 ? 0 : 3;
           } else if (count === 2) {
-            targetX = i === 0 ? -12 : 12;
-            targetY = -40;
+            targetX = i === 0 ? -8 : 8;
+            targetY = -26;
             rot = i === 0 ? -3 : 3;
           } else if (count === 1) {
             targetX = 0;
-            targetY = -45;
+            targetY = -30;
             rot = 0;
           }
           gsap.set(unit, { y: targetY, x: targetX, rotation: rot, scale: 1.0, zIndex: 40 + i });
@@ -321,20 +321,20 @@ export default function GiftBoxUnboxing({
 
           // Destination landing position: hovering gracefully in showcase alignment
           let targetX = 0;
-          let targetY = -35;
+          let targetY = -24;
           let targetRot = 0;
 
           if (count === 3) {
-            targetX = idx === 0 ? -10 : idx === 1 ? 0 : 10;
-            targetY = idx === 1 ? -45 : -35;
+            targetX = idx === 0 ? -6 : idx === 1 ? 0 : 6;
+            targetY = idx === 1 ? -34 : -18;
             targetRot = idx === 0 ? -3 : idx === 1 ? 0 : 3;
           } else if (count === 2) {
-            targetX = idx === 0 ? -12 : 12;
-            targetY = -40;
+            targetX = idx === 0 ? -8 : 8;
+            targetY = -26;
             targetRot = idx === 0 ? -3 : 3;
           } else if (count === 1) {
             targetX = 0;
-            targetY = -45;
+            targetY = -30;
             targetRot = 0;
           }
 
@@ -353,8 +353,8 @@ export default function GiftBoxUnboxing({
 
           // Phase A: Float vertically UP out of cavity, clearing front gold rim
           prodTl.to(unit, {
-            y: -75,
-            scale: 1.05,
+            y: -52,
+            scale: 1.04,
             duration: 0.50,
             ease: 'power2.out',
           })
@@ -567,7 +567,7 @@ export default function GiftBoxUnboxing({
           ===================================================================== */}
       <div
         ref={boxStageRef}
-        className="relative z-20 w-full max-w-[440px] sm:max-w-[500px] aspect-[662/649] mx-auto mt-6 sm:mt-8 opacity-0"
+        className="relative z-20 w-full max-w-[270px] sm:max-w-[320px] aspect-[662/649] mx-auto mt-4 sm:mt-5 opacity-0"
       >
         {/* Soft Ambient Contact Studio Shadow beneath Box */}
         <div
@@ -598,35 +598,35 @@ export default function GiftBoxUnboxing({
 
             if (count === 3) {
               if (idx === 0) {
-                startLeft = '22%';
-                startTop = '40%';
-                startWidth = '24%';
+                startLeft = '14%';
+                startTop = '41%';
+                startWidth = '23%';
                 startRot = -3;
               } else if (idx === 1) {
-                startLeft = '43%';
-                startTop = '38%';
-                startWidth = '25%';
+                startLeft = '38.5%';
+                startTop = '37%';
+                startWidth = '23%';
                 startRot = 0;
               } else if (idx === 2) {
-                startLeft = '64%';
-                startTop = '40%';
+                startLeft = '63%';
+                startTop = '41%';
                 startWidth = '21%';
                 startRot = 3;
               }
             } else if (count === 2) {
               if (idx === 0) {
-                startLeft = '28%';
+                startLeft = '20%';
                 startTop = '39%';
                 startWidth = '25%';
                 startRot = -2;
               } else if (idx === 1) {
-                startLeft = '52%';
+                startLeft = '55%';
                 startTop = '39%';
                 startWidth = '25%';
                 startRot = 2;
               }
             } else if (count === 1) {
-              startLeft = '39%';
+              startLeft = '37%';
               startTop = '39%';
               startWidth = '26%';
               startRot = 0;
@@ -663,11 +663,11 @@ export default function GiftBoxUnboxing({
                 />
 
                 {/* Elegant Frosted Formulation Pill Tag */}
-                <div className="product-tag mt-1 px-2 sm:px-3 py-0.5 sm:py-1 rounded-full bg-[#103321]/95 backdrop-blur-md border border-[#D4AF37]/70 shadow-md flex items-center gap-1 sm:gap-1.5 whitespace-nowrap opacity-0">
-                  <span className="font-sans font-bold text-[9px] sm:text-xs text-[#FAF7F2] truncate max-w-[90px] sm:max-w-[150px]">
+                <div className="product-tag mt-1 px-1.5 sm:px-2 py-0.5 rounded-full bg-[#103321]/95 backdrop-blur-md border border-[#D4AF37]/70 shadow-md flex items-center gap-1 whitespace-nowrap opacity-0">
+                  <span className="font-sans font-bold text-[8.5px] sm:text-[9.5px] text-[#FAF7F2] truncate max-w-[68px] sm:max-w-[92px]">
                     {prod.qty}× {prod.name}
                   </span>
-                  <span className="text-[9px] sm:text-xs font-bold text-[#FDE047] shrink-0">
+                  <span className="text-[8.5px] sm:text-[9.5px] font-bold text-[#FDE047] shrink-0">
                     • ₹{prod.price}
                   </span>
                 </div>

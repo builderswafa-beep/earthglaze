@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
+import AnnouncementCarousel from './AnnouncementCarousel';
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -14,6 +15,9 @@ export default function Navbar() {
 
   return (
     <>
+      {/* Top Announcement Carousel - Matching Reference Image */}
+      {pathname === '/' && <AnnouncementCarousel />}
+
       <header className="header-nav sticky top-0 z-40 w-full bg-[#FAF4EE]/90 backdrop-blur-md transition-all duration-300 border-b border-stone-200/50">
         <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12 py-3.5 flex items-center justify-between">
 
