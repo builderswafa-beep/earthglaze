@@ -1,38 +1,13 @@
 'use client';
 
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { useCart } from '../context/CartContext';
 
 export default function NewlyLaunched() {
-  const [activeTab, setActiveTab] = useState('open'); // 'open' | 'sealed'
-  const [isHovered, setIsHovered] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const [added, setAdded] = useState(false);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const cardRef = useRef(null);
-
   const { addToCart, openMiniCart } = useCart();
-
-  // Mouse move 3D gyroscope tilt
-  const handleMouseMove = useCallback((e) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5; // -0.5 to 0.5
-    const y = (e.clientY - rect.top) / rect.height - 0.5; // -0.5 to 0.5
-    setMousePos({ x, y });
-  }, []);
-
-  const handleMouseEnter = useCallback(() => {
-    setIsHovered(true);
-  }, []);
-
-  const handleMouseLeave = useCallback(() => {
-    setIsHovered(false);
-    setMousePos({ x: 0, y: 0 });
-  }, []);
-
-  // When cursor is hovered over product, show open balm view with 3D motion; otherwise follow tab
-  const isCurrentlyOpen = isHovered ? true : activeTab === 'open';
 
   // Add Beetroot Lip Balm to Cart
   const handleAddToBag = async () => {
@@ -41,7 +16,7 @@ export default function NewlyLaunched() {
       await addToCart(3, 1, {
         productInfo: {
           name: 'Beetroot Lip Balm',
-          image: '/assets/newly_launched_stage_open.png',
+          image: '/assets/lipbalmopenbox.png',
           price: 249,
         },
       });
@@ -53,15 +28,10 @@ export default function NewlyLaunched() {
     }
   };
 
-  // 3D Parallax Tilt Transforms
-  const tiltX = isHovered ? mousePos.y * -12 : 0;
-  const tiltY = isHovered ? mousePos.x * 16 : 0;
-  const liftZ = isHovered ? -8 : 0;
-
   return (
     <section 
       id="newly-launched" 
-      className="py-14 sm:py-20 lg:py-28 bg-[#FAF7F2] relative overflow-hidden" 
+      className="py-14 sm:py-20 lg:py-24 bg-[#FAF7F2] relative overflow-hidden" 
       aria-label="Newly Launched Beetroot Lip Balm"
     >
       {/* Soft Ambient Warmth Layer Seamlessly Integrated with Page Canvas */}
@@ -83,7 +53,7 @@ export default function NewlyLaunched() {
         {/* =========================================================================
             TOP HEADER BAR: Left Tag & Right Pill Switcher (Open Balm | Sealed Jar)
             ========================================================================= */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8 sm:mb-12 lg:mb-14 relative z-20">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8 sm:mb-12 relative z-20">
           
           {/* Left: NEWLY LAUNCHED Badge & Batch Detail */}
           <div className="flex items-center gap-3">
@@ -105,10 +75,10 @@ export default function NewlyLaunched() {
             <button
               type="button"
               role="tab"
-              aria-selected={activeTab === 'open'}
-              onClick={() => setActiveTab('open')}
+              aria-selected={isOpen}
+              onClick={() => setIsOpen(true)}
               className={`px-4 sm:px-5 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 cursor-pointer ${
-                activeTab === 'open' 
+                isOpen 
                   ? 'bg-[#0D3B23] text-white shadow-sm' 
                   : 'text-stone-600 hover:text-[#1E3B2B]'
               }`}
@@ -119,10 +89,10 @@ export default function NewlyLaunched() {
             <button
               type="button"
               role="tab"
-              aria-selected={activeTab === 'sealed'}
-              onClick={() => setActiveTab('sealed')}
+              aria-selected={!isOpen}
+              onClick={() => setIsOpen(false)}
               className={`px-4 sm:px-5 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 cursor-pointer ${
-                activeTab === 'sealed' 
+                !isOpen 
                   ? 'bg-[#0D3B23] text-white shadow-sm' 
                   : 'text-stone-600 hover:text-[#1E3B2B]'
               }`}
@@ -251,86 +221,82 @@ export default function NewlyLaunched() {
           </div>
 
           {/* ---------------------------------------------------------------------
-              COLUMN 2: ONLY Transparent Product PNGs with Cap Opening & Motion (7 Cols)
+              COLUMN 2: EXACT HERO SECTION OPEN & CLOSE VIEW ANIMATION (NO BG BOX)
               --------------------------------------------------------------------- */}
-          <div className="lg:col-span-6 xl:col-span-7 flex items-center justify-center relative select-none">
+          <div className="lg:col-span-6 xl:col-span-7 flex items-center justify-center relative select-none py-6">
             
-            {/* Interactive 3D Product Stage (NO Background Boxes, Only Transparent PNG) */}
+            {/* Interactive Hero-Grade Card Component */}
             <div 
-              ref={cardRef}
-              onMouseMove={handleMouseMove}
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-              className="relative w-full max-w-[580px] sm:max-w-[640px] lg:max-w-[700px] xl:max-w-[760px] mx-auto cursor-pointer"
-              style={{
-                perspective: '1200px',
-              }}
+              onClick={() => setIsOpen(!isOpen)}
+              className={`product-interactive-card soap-animated-card balm-animated-card relative cursor-pointer w-full max-w-[420px] sm:max-w-[480px] lg:max-w-[540px] transition-transform duration-500 hover:scale-[1.03] ${
+                isOpen ? "soap-is-open is-active-center product-state-open" : ""
+              }`}
+              role="button"
+              tabIndex="0"
+              aria-label="EarthGlaze Beet Root Lip Balm - Click or hover to open"
             >
-              
-              {/* Motion Floating Wrapper with 3D Gyroscope Perspective */}
-              <div 
-                className="relative w-full transition-transform duration-500 ease-out"
-                style={{
-                  transform: `rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateY(${liftZ}px) scale(${isHovered ? 1.03 : 1})`,
-                  transformStyle: 'preserve-3d',
-                }}
-              >
+              {/* Pedestal Glow Rings (Hero Component) */}
+              <div className="product-pedestal-rings soap-pedestal-rings glow-balm" aria-hidden="true">
+                <img src="/assets/pedestal-glow-rings.svg" alt="" className="w-full h-full object-contain pointer-events-none" />
+              </div>
+
+              {/* Radiant Light Rays Shimmer (Hero Component) */}
+              <div className="product-light-rays soap-light-rays glow-balm" aria-hidden="true">
+                <img src="/assets/cream-light-rays.svg" alt="" className="w-full h-full object-contain pointer-events-none" />
+              </div>
+
+              {/* Luminous Upward Cap Lift Arrows (Hero Component) */}
+              <div className="product-lift-arrows soap-lift-arrows" aria-hidden="true">
+                <img src="/assets/cap-lift-arrows.svg" alt="" className="w-full h-full object-contain pointer-events-none" />
+              </div>
+
+              {/* Assembly Stage */}
+              <div className="product-assembly-stage soap-assembly-stage relative flex items-center justify-center">
                 
-                {/* Soft Natural Ambient Light Halo */}
-                <div 
-                  className={`absolute inset-0 rounded-full transition-opacity duration-700 pointer-events-none blur-3xl ${
-                    isCurrentlyOpen 
-                      ? 'opacity-70 bg-[radial-gradient(circle_at_55%_50%,_rgba(240,175,130,0.35)_0%,_transparent_70%)]' 
-                      : 'opacity-40 bg-[radial-gradient(circle_at_55%_50%,_rgba(240,175,130,0.2)_0%,_transparent_70%)]'
-                  }`}
-                  aria-hidden="true"
-                />
+                {/* Champagne Gold Center Glow */}
+                <div className="champagne-gold-glow pointer-events-none" aria-hidden="true"></div>
 
-                {/* Pure Transparent Product Stage Container (Aspect Ratio 4/3) */}
-                <div className="relative w-full aspect-[4/3] flex items-center justify-center">
-                  
-                  {/* 1. Open Balm Transparent PNG (Active when Open Balm selected or cursor hovers) */}
-                  <img
-                    src="/assets/newly_launched_stage_open.png"
-                    alt="EarthGlaze Beetroot Lip Balm Open on Sandstone Pedestal with Beetroot Slice and Leaf"
-                    className={`absolute inset-0 w-full h-full object-contain pointer-events-none select-none transition-all duration-500 ease-in-out drop-shadow-[0_16px_36px_rgba(30,59,43,0.14)] ${
-                      isCurrentlyOpen 
-                        ? 'opacity-100 scale-100 z-10' 
-                        : 'opacity-0 scale-95 z-0 pointer-events-none'
-                    }`}
-                    loading="eager"
-                    width="800"
-                    height="600"
-                  />
-
-                  {/* 2. Sealed Jar Transparent PNG (Active when Sealed Jar selected) */}
-                  <img
-                    src="/assets/newly_launched_stage_sealed.png"
-                    alt="EarthGlaze Beetroot Lip Balm Sealed on Sandstone Pedestal with Beetroot Slice and Leaf"
-                    className={`absolute inset-0 w-full h-full object-contain pointer-events-none select-none transition-all duration-500 ease-in-out drop-shadow-[0_16px_36px_rgba(30,59,43,0.14)] ${
-                      !isCurrentlyOpen 
-                        ? 'opacity-100 scale-100 z-10' 
-                        : 'opacity-0 scale-95 z-0 pointer-events-none'
-                    }`}
-                    loading="eager"
-                    width="800"
-                    height="600"
-                  />
-
+                {/* Delicate Sparkles Wrap */}
+                <div className="champagne-sparkles-wrap pointer-events-none select-none" aria-hidden="true">
+                  <span className="c-sparkle c-sparkle-1">✦</span>
+                  <span className="c-sparkle c-sparkle-2">✧</span>
+                  <span className="c-sparkle c-sparkle-3">✦</span>
+                  <span className="c-sparkle c-sparkle-4">✧</span>
                 </div>
 
-                {/* Floating Guide Pill on Hover */}
-                <div 
-                  className={`absolute -bottom-3 left-1/2 -translate-x-1/2 z-20 transition-all duration-500 pointer-events-none ${
-                    isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
-                  }`}
-                >
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0D3B23]/90 backdrop-blur-sm text-white text-[11px] font-semibold shadow-md">
-                    <span>✨</span>
-                    <span>{isCurrentlyOpen ? 'Open Balm View • 3D Motion' : 'Sealed Jar View'}</span>
-                  </span>
+                {/* 1. Closed State Layer (100% Pure Transparent PNG, Zero Background Box) */}
+                <div className="product-closed-layer soap-closed-layer w-full h-full flex items-center justify-center select-none pointer-events-none">
+                  <img 
+                    src="/assets/lip_balm_closed_box.png" 
+                    alt="EARTHGLAZE Beet Root Lip Balm Sealed Jar" 
+                    className="w-full h-auto object-contain pointer-events-none drop-shadow-xl" 
+                    width="1536"
+                    height="1024"
+                  />
                 </div>
 
+                {/* 2. Opened State Layer (100% Pure Transparent PNG, Zero Background Box) */}
+                <div className="product-open-layer soap-open-layer absolute inset-0 w-full h-full flex items-center justify-center select-none pointer-events-none">
+                  <img 
+                    src="/assets/lipbalmopenbox.png" 
+                    alt="EARTHGLAZE Beet Root Lip Balm Opened with Ruby Gloss Balm" 
+                    className="w-full h-auto object-contain pointer-events-none drop-shadow-2xl" 
+                    width="1536"
+                    height="1024"
+                  />
+                </div>
+
+                {/* Inner Ruby-Balm Glow */}
+                <div className="soap-inner-glow glow-balm" aria-hidden="true"></div>
+
+              </div>
+
+              {/* Interactive Helper Pill */}
+              <div className="text-center mt-4 pointer-events-none">
+                <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white/80 border border-stone-200/80 text-[#1E3B2B] text-xs font-semibold shadow-2xs">
+                  <span>✨</span>
+                  <span>{isOpen ? 'Balm Open • Click or Hover to Seal' : 'Sealed Jar • Click or Hover to Open'}</span>
+                </span>
               </div>
 
             </div>
