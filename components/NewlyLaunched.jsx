@@ -220,12 +220,10 @@ export default function NewlyLaunched() {
 
           </div>
 
-          {/* ---------------------------------------------------------------------
-              COLUMN 2: EXACT HERO SECTION OPEN & CLOSE VIEW ANIMATION (NO BG BOX)
-              --------------------------------------------------------------------- */}
+          {/* Column 2: CLEAN PRODUCT OPEN & CLOSE VIEW (No Golden Rings/Layer) */}
           <div className="lg:col-span-6 xl:col-span-7 flex items-center justify-center relative select-none py-6">
             
-            {/* Interactive Hero-Grade Card Component */}
+            {/* Interactive Card Component */}
             <div 
               onClick={() => setIsOpen(!isOpen)}
               className={`product-interactive-card soap-animated-card balm-animated-card relative cursor-pointer w-full max-w-[420px] sm:max-w-[480px] lg:max-w-[540px] transition-transform duration-500 hover:scale-[1.03] ${
@@ -235,35 +233,9 @@ export default function NewlyLaunched() {
               tabIndex="0"
               aria-label="EarthGlaze Beet Root Lip Balm - Click or hover to open"
             >
-              {/* Pedestal Glow Rings (Hero Component) */}
-              <div className="product-pedestal-rings soap-pedestal-rings glow-balm" aria-hidden="true">
-                <img src="/assets/pedestal-glow-rings.svg" alt="" className="w-full h-full object-contain pointer-events-none" />
-              </div>
-
-              {/* Radiant Light Rays Shimmer (Hero Component) */}
-              <div className="product-light-rays soap-light-rays glow-balm" aria-hidden="true">
-                <img src="/assets/cream-light-rays.svg" alt="" className="w-full h-full object-contain pointer-events-none" />
-              </div>
-
-              {/* Luminous Upward Cap Lift Arrows (Hero Component) */}
-              <div className="product-lift-arrows soap-lift-arrows" aria-hidden="true">
-                <img src="/assets/cap-lift-arrows.svg" alt="" className="w-full h-full object-contain pointer-events-none" />
-              </div>
-
               {/* Assembly Stage */}
               <div className="product-assembly-stage soap-assembly-stage relative flex items-center justify-center">
                 
-                {/* Champagne Gold Center Glow */}
-                <div className="champagne-gold-glow pointer-events-none" aria-hidden="true"></div>
-
-                {/* Delicate Sparkles Wrap */}
-                <div className="champagne-sparkles-wrap pointer-events-none select-none" aria-hidden="true">
-                  <span className="c-sparkle c-sparkle-1">✦</span>
-                  <span className="c-sparkle c-sparkle-2">✧</span>
-                  <span className="c-sparkle c-sparkle-3">✦</span>
-                  <span className="c-sparkle c-sparkle-4">✧</span>
-                </div>
-
                 {/* 1. Closed State Layer (100% Pure Transparent PNG, Zero Background Box) */}
                 <div className="product-closed-layer soap-closed-layer w-full h-full flex items-center justify-center select-none pointer-events-none">
                   <img 
@@ -286,17 +258,6 @@ export default function NewlyLaunched() {
                   />
                 </div>
 
-                {/* Inner Ruby-Balm Glow */}
-                <div className="soap-inner-glow glow-balm" aria-hidden="true"></div>
-
-              </div>
-
-              {/* Interactive Helper Pill */}
-              <div className="text-center mt-4 pointer-events-none">
-                <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white/80 border border-stone-200/80 text-[#1E3B2B] text-xs font-semibold shadow-2xs">
-                  <span>✨</span>
-                  <span>{isOpen ? 'Balm Open • Click or Hover to Seal' : 'Sealed Jar • Click or Hover to Open'}</span>
-                </span>
               </div>
 
             </div>
