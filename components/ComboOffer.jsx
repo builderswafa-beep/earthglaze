@@ -27,7 +27,7 @@ export default function ComboOffer() {
   return (
     <>
       <section id="offer" className="pt-2 sm:pt-4 pb-8 sm:pb-12 bg-[#FAF7F2] overflow-hidden" aria-label="Combo Offer">
-        <div className="max-w-[1440px] w-full mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12">
           
           {/* Master Combo Offer Banner Container */}
           <div className="offer-banner-container relative w-full rounded-[28px] sm:rounded-[36px] overflow-hidden shadow-xl border border-[#E8DEC8] bg-gradient-to-r from-[#FAF4EB] via-[#FAF3EA] to-[#F5ECE0]">

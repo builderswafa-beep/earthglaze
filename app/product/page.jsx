@@ -166,7 +166,7 @@ function ProductDetailContent() {
       )}
 
       {/* Breadcrumb */}
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
         <nav className="flex items-center gap-2 text-xs text-stone-500 font-medium">
           <Link href="/" className="hover:text-emerald-900 transition">Home</Link>
           <span>›</span>
@@ -177,7 +177,7 @@ function ProductDetailContent() {
       </div>
 
       {/* Main Product Detail View */}
-      <main className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8 flex-1 w-full">
+      <main className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8 flex-1 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-start">
           
           {/* Left Column: Gallery */}

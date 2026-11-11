@@ -86,7 +86,7 @@ export default function ContactPage() {
           </defs>
         </svg>
 
-        <div className="max-w-[1440px] w-full mx-auto px-4 sm:px-8 lg:px-12 relative z-20 py-8 sm:py-12 lg:py-14">
+        <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12 relative z-20 py-8 sm:py-12 lg:py-14">
           <div className="max-w-xl space-y-4 sm:space-y-6 text-left">
             
             {/* Breadcrumbs */}
@@ -131,7 +131,7 @@ export default function ContactPage() {
           ======================================================================== */}
       <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-[#FAF7F2] relative overflow-hidden" aria-label="Contact Methods and Enquiry Form">
         
-        <div className="max-w-[1440px] w-full mx-auto px-4 sm:px-8 lg:px-12 relative z-10">
+        <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12 relative z-10">
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
             
@@ -411,7 +411,7 @@ export default function ContactPage() {
           SECTION 3: KASARAGOD, KERALA LOCATION MAP CARD
           ======================================================================== */}
       <section className="py-6 sm:py-8 bg-[#FAF7F2]" aria-label="Interactive Location Map">
-        <div className="max-w-[1440px] w-full mx-auto px-4 sm:px-8 lg:px-12">
+        <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12">
           
           <div className="relative w-full rounded-[24px] sm:rounded-[32px] overflow-hidden border border-[#E2D8C3] shadow-sm bg-[#E9F3E8] group">
             
@@ -448,7 +448,7 @@ export default function ContactPage() {
           SECTION 4: "STILL HAVE QUESTIONS?" BANNER
           ======================================================================== */}
       <section className="py-10 sm:py-14 md:py-16 bg-[#FAF7F2]" aria-label="Frequently Asked Questions Link">
-        <div className="max-w-[1440px] w-full mx-auto px-4 sm:px-8 lg:px-12">
+        <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12">
           
           <div className="bg-gradient-to-r from-[#F0F5EC] via-[#FAF6EE] to-[#F5ECE0] border border-[#DEE8DB] rounded-[24px] sm:rounded-[28px] p-6 sm:p-8 lg:p-10 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xs relative overflow-hidden group">
             {/* Left Decorative Botanical Leaves */}

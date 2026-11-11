@@ -11,7 +11,7 @@ export default function CustomerReviews() {
       {/* Subtle Ambient Warm Silk Background Overlay */}
       <div className="absolute inset-0 w-full h-full pointer-events-none opacity-40 bg-gradient-to-b from-[#FFFDF9] via-[#FAF5EE] to-[#F5ECE0]" aria-hidden="true"></div>
 
-      <div className="max-w-[1500px] w-full mx-auto px-4 sm:px-8 relative z-10">
+      <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12 relative z-10">
         
         {/* Section Header (Centered with Eyebrow and Botanical Curved Swoosh Underline) */}
         <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-14">
@@ -38,7 +38,7 @@ export default function CustomerReviews() {
         </div>
 
         {/* Carousel Container with Navigation Arrows */}
-        <div className="relative max-w-[1360px] mx-auto px-2 sm:px-6">
+        <div className="relative max-w-[1600px] mx-auto px-2 sm:px-6">
           
           {/* Previous Button */}
           <button 

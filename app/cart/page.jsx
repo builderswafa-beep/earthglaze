@@ -115,7 +115,7 @@ export default function CartPage() {
         aria-hidden="true"
       />
 
-      <div className="relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-10 pt-6 sm:pt-8">
+      <div className="relative z-10 max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-10 pt-6 sm:pt-8">
         
         {/* =========================================================================
             HEADER: BREADCRUMBS, TITLE & STEPPER PILL

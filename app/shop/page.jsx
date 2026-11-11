@@ -223,7 +223,7 @@ export default function ShopPage() {
           aria-hidden="true" 
         />
 
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12 relative z-10">
+        <div className="max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-12 relative z-10">
           
           {/* Breadcrumbs */}
           <nav className="flex items-center gap-2 text-xs sm:text-sm text-stone-500 mb-6 font-sans">
@@ -274,7 +274,7 @@ export default function ShopPage() {
           SECTION 2: CATEGORY FILTER PILLS, TOGGLE BUTTON & SORTING BAR
           ========================================================================= */}
       <section className="py-6 sm:py-8 bg-[#FAF7F2]">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12">
+        <div className="max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-12">
           
           <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
             
@@ -391,7 +391,7 @@ export default function ShopPage() {
           SECTION 3: MAIN PRODUCTS BODY (Collapsible Sidebar + Fluid Full-Width Grid)
           ========================================================================= */}
       <section className="pb-16 sm:pb-24 bg-[#FAF7F2]">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12">
+        <div className="max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-12">
           
           <div className="flex flex-col lg:flex-row gap-8 items-start relative transition-all duration-500 ease-in-out">
             
@@ -673,7 +673,7 @@ export default function ShopPage() {
           SECTION 4: PROMOTIONAL BANNER ("Why EarthGlanze?" & "Nature's Care")
           ========================================================================= */}
       <section className="py-8 sm:py-12 bg-[#FAF7F2]">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12">
+        <div className="max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-12">
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
             
@@ -756,7 +756,7 @@ export default function ShopPage() {
           SECTION 5: BOTTOM TRUST PILL BADGES
           ========================================================================= */}
       <section className="pb-16 sm:pb-20 bg-[#FAF7F2]">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12">
+        <div className="max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-12">
           
           <div className="bg-white rounded-[24px] py-6 px-6 sm:px-10 border border-[#E8DEC8] shadow-2xs grid grid-cols-2 md:grid-cols-4 gap-6 items-center">
             

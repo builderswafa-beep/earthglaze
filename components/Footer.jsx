@@ -45,7 +45,7 @@ export default function Footer() {
         style={{ backgroundImage: "url('/assets/story_corner_leaves.png')" }}
       />
 
-      <div className="max-w-[1480px] mx-auto px-6 sm:px-10 lg:px-14 relative z-10">
+      <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12 relative z-10">
         
         {/* Main 4-Column Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10 pb-12 items-start">

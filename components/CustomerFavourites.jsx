@@ -362,10 +362,10 @@ export default function CustomerFavourites() {
   return (
     <section
       id="customer-favourites"
-      className="relative w-full bg-[#FAF7F2] py-7 sm:py-9 px-4 sm:px-6 lg:px-8 overflow-x-clip"
+      className="relative w-full bg-[#FAF7F2] py-8 sm:py-12 px-4 sm:px-6 lg:px-8 overflow-x-clip"
       aria-label="Customer Favourites"
     >
-      <div className="max-w-[1060px] mx-auto">
+      <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12">
         {/* Compact Section Heading */}
         <div className="text-center max-w-2xl mx-auto mb-4 sm:mb-5">
           <span className="inline-flex items-center gap-1.5 text-[11px] uppercase font-bold tracking-[0.22em] text-[#2E6B3E] mb-1">

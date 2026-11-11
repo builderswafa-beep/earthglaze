@@ -205,7 +205,7 @@ export default function BlogPage() {
           </defs>
         </svg>
 
-        <div className="max-w-[1440px] w-full mx-auto px-4 sm:px-8 lg:px-12 relative z-20 py-8 sm:py-12 lg:py-14">
+        <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12 relative z-20 py-8 sm:py-12 lg:py-14">
           <div className="max-w-xl space-y-4 sm:space-y-6 text-left">
             
             {/* Breadcrumbs */}
@@ -270,7 +270,7 @@ export default function BlogPage() {
           FEATURED ARTICLE BANNER (Exact Match with Reference Image)
           ======================================================================== */}
       <section className="py-10 sm:py-14 bg-[#FAF7F2]" aria-label="Featured Skincare Article">
-        <div className="max-w-[1440px] w-full mx-auto px-4 sm:px-8 lg:px-12">
+        <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12">
           
           <div className="w-full bg-[#FAF6EE] rounded-[28px] sm:rounded-[36px] overflow-hidden border border-[#E8DEC8] shadow-sm relative group flex flex-col md:flex-row items-stretch">
             
@@ -350,7 +350,7 @@ export default function BlogPage() {
           EXPLORE BY CATEGORY TABS
           ======================================================================== */}
       <section id="articles" className="pt-8 sm:pt-12 pb-6 bg-[#FAF7F2]" aria-label="Filter Articles by Category">
-        <div className="max-w-[1440px] w-full mx-auto px-4 sm:px-8 lg:px-12 text-center">
+        <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12 text-center">
           
           {/* Section Header */}
           <div className="flex items-center justify-center gap-4 mb-8">
@@ -453,7 +453,7 @@ export default function BlogPage() {
           6 BLOG POSTS GRID
           ======================================================================== */}
       <section className="py-8 sm:py-12 bg-[#FAF7F2]" aria-label="Skincare Articles Grid">
-        <div className="max-w-[1440px] w-full mx-auto px-4 sm:px-8 lg:px-12">
+        <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12">
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             
@@ -592,7 +592,7 @@ export default function BlogPage() {
           "STAY IN THE LOOP!" NEWSLETTER BANNER (Exact Match with Reference Image)
           ======================================================================== */}
       <section className="py-8 sm:py-12 bg-[#FAF7F2]" aria-label="Skincare Newsletter">
-        <div className="max-w-[1440px] w-full mx-auto px-4 sm:px-8 lg:px-12">
+        <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12">
           
           <div className="bg-gradient-to-r from-[#173E23] via-[#1E4D2B] to-[#12331C] rounded-[24px] sm:rounded-[32px] p-6 sm:p-8 lg:p-10 flex flex-col lg:flex-row items-center justify-between gap-6 shadow-md relative overflow-hidden group">
             

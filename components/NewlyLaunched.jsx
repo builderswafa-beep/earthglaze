@@ -24,7 +24,7 @@ export default function NewlyLaunched() {
         aria-hidden="true" 
       />
 
-      <div className="max-w-[1440px] w-full mx-auto px-4 sm:px-8 lg:px-12 relative z-10">
+      <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12 relative z-10">
         
         {/* Seamless 2-Column Responsive Layout - Natural Background Integration */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">

@@ -9,7 +9,7 @@ export default function FAQSection() {
       <section id="faq" className="py-12 sm:py-16 md:py-20 bg-[#FAF7F2] relative overflow-hidden border-t border-stone-200/40" aria-label="Frequently Asked Questions">
         
         {/* Subtle Ambient Decorative Botanical Accent */}
-        <div className="max-w-[1500px] w-full mx-auto px-4 sm:px-8 relative z-10">
+        <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12 relative z-10">
           
           {/* Section Header */}
           <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
@@ -35,7 +35,7 @@ export default function FAQSection() {
           </div>
 
           {/* 2-Column Responsive Layout: Left (Questions 1–4) | Right (Questions 5–8) */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 max-w-[1360px] mx-auto items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 max-w-[1600px] mx-auto items-start">
             
             {/* ================================================================
                  LEFT COLUMN: Products & Ingredients (Questions 1–4)

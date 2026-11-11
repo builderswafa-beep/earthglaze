@@ -10,7 +10,7 @@ export default function IngredientsPage() {
 
   {/* Banner */}
   <section className="bg-gradient-to-b from-[#F3EDE2] to-[#FAF7F2] py-12 border-b border-[#E8DEC8] text-center">
-    <div className="max-w-[1440px] mx-auto px-4">
+    <div className="max-w-[1600px] mx-auto px-4">
       <span className="text-xs uppercase font-bold tracking-[0.25em] text-emerald-800">Raw & Unrefined Actives</span>
       <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-[#1E3B2B] tracking-tight mt-1 mb-3">Our Ingredients</h1>
       <p className="max-w-2xl mx-auto text-stone-600 text-sm sm:text-base font-serif italic">Nature's Best for Your Skin. Sustainably harvested botanicals that work in harmony with your dermal biome.</p>

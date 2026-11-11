@@ -54,7 +54,7 @@ export default function AboutPage() {
         </svg>
 
         {/* Foreground Content Container */}
-        <div className="max-w-[1480px] w-full mx-auto px-4 sm:px-8 lg:px-12 relative z-20 py-8 sm:py-12 lg:py-14">
+        <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12 relative z-20 py-8 sm:py-12 lg:py-14">
           <div className="max-w-xl space-y-4 sm:space-y-6 text-left">
             
             {/* Eyebrow with Dividers */}
