@@ -116,13 +116,13 @@ export default function HeroSection() {
   };
 
   return (
-<section id="hero-section" className="relative pt-6 pb-20 sm:pb-28 md:pb-36 overflow-hidden bg-[#FAF7F2]">
+    <section id="hero-section" className="relative pt-3 sm:pt-4 pb-8 sm:pb-12 md:pb-14 overflow-hidden bg-[#FAF7F2]">
       
       {/* Seamlessly Blended Natural Stage Backdrop with Pristine Sandstone Rock Pedestal */}
       <div className="hero-stage-backdrop-wrap absolute inset-0 w-full h-full pointer-events-none select-none overflow-hidden z-0" aria-hidden="true">
         <img src="/assets/hero_natural_stage_backdrop.jpg" alt="" className="w-full h-full object-cover object-bottom pointer-events-none" />
         {/* Natural Water-to-Cream Environmental Fade Overlay */}
-        <div className="absolute bottom-0 left-0 right-0 h-44 sm:h-56 md:h-64 bg-gradient-to-b from-transparent via-[#FAF7F2]/30 via-70% to-[#FAF7F2] pointer-events-none" aria-hidden="true"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-28 sm:h-36 md:h-44 bg-gradient-to-b from-transparent via-[#FAF7F2]/30 via-70% to-[#FAF7F2] pointer-events-none" aria-hidden="true"></div>
       </div>
 
       {/* Central Ambient Warm Halos */}
@@ -131,19 +131,19 @@ export default function HeroSection() {
       <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-8 text-center relative z-10">
         
         {/* 1. Eyebrow: Centered with Flanking Horizontal Lines */}
-        <div className="animate-entrance-eyebrow flex items-center justify-center gap-3.5 mb-4 sm:mb-6">
+        <div className="animate-entrance-eyebrow flex items-center justify-center gap-3.5 mb-2 sm:mb-3">
           <span className="eyebrow-divider" aria-hidden="true"></span>
-          <span className="text-xs sm:text-sm font-semibold tracking-[0.25em] text-[#3e5444] uppercase">
+          <span className="text-[11px] sm:text-xs font-semibold tracking-[0.22em] text-[#3e5444] uppercase">
             Natural Skincare
           </span>
           <span className="eyebrow-divider" aria-hidden="true"></span>
         </div>
 
         {/* 2. Main Headline with DYNAMIC CHANGING TEXT ("Personal.") & Botanical Underline */}
-        <div className="animate-entrance-headline max-w-4xl mx-auto mb-4 sm:mb-6">
-          <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl font-bold text-[#1E3B2B] tracking-tight leading-[1.12]">
+        <div className="animate-entrance-headline max-w-4xl mx-auto mb-2 sm:mb-3">
+          <h1 className="font-serif text-3xl sm:text-5xl md:text-6xl font-bold text-[#1E3B2B] tracking-tight leading-[1.12]">
             Skincare That Feels
-            <span className="block mt-1 sm:mt-2">
+            <span className="block mt-0.5 sm:mt-1">
               <span className="dynamic-text-wrapper cursor-pointer" title="Hover to pause rotation">
                 {/* Dynamic rotating word */}
                 <span id="dynamic-rotating-word" className="dynamic-word word-active">{ROTATING_WORDS[wordIndex]}</span>
@@ -157,33 +157,33 @@ export default function HeroSection() {
         </div>
 
         {/* 3. Sub-description Paragraph */}
-        <div className="animate-entrance-subtext max-w-xl mx-auto mb-8 sm:mb-10">
-          <p className="text-base sm:text-lg text-[#404F44] leading-relaxed font-normal">
+        <div className="animate-entrance-subtext max-w-xl mx-auto mb-4 sm:mb-5">
+          <p className="text-sm sm:text-base text-[#404F44] leading-relaxed font-normal">
             Nature-powered skincare crafted with pure ingredients for healthy, glowing skin — made just for you.
           </p>
         </div>
 
         {/* 4. CTA Buttons Row with Micro-Interactions */}
-        <div className="animate-entrance-cta flex items-center justify-center gap-4 sm:gap-5 mb-6 sm:mb-8">
+        <div className="animate-entrance-cta flex items-center justify-center gap-3.5 sm:gap-4 mb-3 sm:mb-4">
           
           {/* Primary CTA Button */}
           <button 
             id="explore-range-btn" 
             type="button" 
-            className="btn-primary-explore px-7 sm:px-8 py-3.5 sm:py-4 rounded-full font-semibold text-sm sm:text-base tracking-wide flex items-center gap-2 group cursor-pointer"
+            className="btn-primary-explore px-6 sm:px-7 py-2.5 sm:py-3 rounded-full font-semibold text-xs sm:text-sm tracking-wide flex items-center gap-2 group cursor-pointer"
           >
             <span>Explore Our Range</span>
-            <span className="btn-arrow inline-block text-lg font-bold">&rarr;</span>
+            <span className="btn-arrow inline-block text-base font-bold">&rarr;</span>
           </button>
 
           {/* Secondary CTA Button */}
           <button 
             id="our-story-btn" 
             type="button" 
-            className="btn-secondary-story px-7 sm:px-8 py-3.5 sm:py-4 rounded-full font-semibold text-sm sm:text-base tracking-wide flex items-center gap-2.5 cursor-pointer"
+            className="btn-secondary-story px-6 sm:px-7 py-2.5 sm:py-3 rounded-full font-semibold text-xs sm:text-sm tracking-wide flex items-center gap-2 cursor-pointer"
           >
             {/* Play icon inside circle */}
-            <svg className="play-icon w-4 h-4 text-[#235327]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg className="play-icon w-3.5 h-3.5 text-[#235327]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <polygon points="5 3 19 12 5 21 5 3"></polygon>
             </svg>
             <span>Our Story</span>
@@ -192,7 +192,7 @@ export default function HeroSection() {
         </div>
 
         {/* 5. Interactive 3D Curved Product Carousel */}
-        <div className="hero-carousel-section animate-entrance-cards w-full max-w-6xl mx-auto relative mt-1 sm:mt-2 mb-2 select-none" id="hero-carousel-root">
+        <div className="hero-carousel-section animate-entrance-cards w-full max-w-6xl mx-auto relative mt-0 mb-1 select-none" id="hero-carousel-root">
           
           {/* Subtle Ambient Curved Glow Beneath the Arc */}
           <div className="hero-curve-ambient-glow pointer-events-none" aria-hidden="true"></div>
@@ -424,19 +424,11 @@ export default function HeroSection() {
 
           </div>
 {/* Carousel Dots Navigation (4 Products) */}
-          <div className="hero-carousel-dots flex items-center justify-center gap-2.5 mt-2 sm:mt-3" id="hero-carousel-dots">
+          <div className="hero-carousel-dots flex items-center justify-center gap-2 mt-1.5 sm:mt-2" id="hero-carousel-dots">
             <button type="button" className="carousel-dot-btn w-2.5 h-2.5 rounded-full bg-[#173D2B] transition-all duration-300 scale-125" data-index="0" aria-label="Go to Goat Milk Soap"></button>
             <button type="button" className="carousel-dot-btn w-2.5 h-2.5 rounded-full bg-stone-300 hover:bg-stone-400 transition-all duration-300" data-index="1" aria-label="Go to Manjistha Soap"></button>
             <button type="button" className="carousel-dot-btn w-2.5 h-2.5 rounded-full bg-stone-300 hover:bg-stone-400 transition-all duration-300" data-index="2" aria-label="Go to Neem Soap"></button>
             <button type="button" className="carousel-dot-btn w-2.5 h-2.5 rounded-full bg-stone-300 hover:bg-stone-400 transition-all duration-300" data-index="3" aria-label="Go to Beet Root Lip Balm"></button>
-          </div>
-
-          {/* Subtle Helper Indicator Below Track */}
-          <div className="flex items-center justify-center mt-3">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/80 backdrop-blur-sm border border-stone-200/50 shadow-sm text-stone-700 text-[11px] sm:text-xs font-medium tracking-wide">
-              <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#E18232] animate-pulse shrink-0"></span>
-              <span className="hidden sm:inline">Click any product to bring to center &amp; reveal artisan packaging</span><span className="inline sm:hidden">Tap product to reveal packaging</span>
-            </div>
           </div>
 
         </div>

@@ -185,17 +185,17 @@ export default function NewlyLaunched() {
               {/* Primary CTA */}
               <Link
                 href="/shop"
-                className="inline-flex items-center justify-center gap-2 px-6 sm:px-7 py-3 rounded-full bg-[#0D3B23] hover:bg-[#165030] text-white font-semibold text-xs sm:text-sm shadow-md hover:shadow-lg transition-all duration-300 group cursor-pointer active:scale-95"
+                className="btn-luxury-primary inline-flex items-center justify-center gap-2 px-6 sm:px-7 py-3 rounded-full text-white font-semibold text-xs sm:text-sm group cursor-pointer"
               >
                 <span>Explore the New Range</span>
-                <span className="group-hover:translate-x-1.5 transition-transform duration-300 font-bold">&rarr;</span>
+                <span className="btn-arrow font-bold">&rarr;</span>
               </Link>
 
               {/* Secondary CTA: Add to Bag */}
               <button
                 type="button"
                 onClick={handleAddToBag}
-                className={`inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-3 rounded-full font-semibold text-xs sm:text-sm border transition-all duration-300 cursor-pointer active:scale-95 shadow-2xs ${
+                className={`inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-3 rounded-full font-semibold text-xs sm:text-sm border transition-all duration-300 cursor-pointer active:scale-95 shadow-2xs hover:shadow-md hover:-translate-y-0.5 ${
                   added
                     ? 'bg-[#1E7D3A] text-white border-[#1E7D3A]'
                     : 'bg-white hover:bg-[#0D3B23] text-[#0D3B23] hover:text-white border-[#0D3B23]'

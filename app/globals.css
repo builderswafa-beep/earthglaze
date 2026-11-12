@@ -345,75 +345,135 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   Button Animations
+   Button Animations - Luxury Botanical Micro-Interactions
    -------------------------------------------------------------------------- */
-.btn-primary-explore {
-  background: var(--color-forest);
-  color: #ffffff;
+.btn-primary-explore,
+#grab-offer-btn,
+.btn-luxury-primary {
   position: relative;
   overflow: hidden;
-  box-shadow: 0 4px 16px rgba(35, 83, 39, 0.25);
-  transition: all var(--transition-normal);
+  background: var(--color-forest);
+  color: #ffffff;
+  box-shadow: 0 4px 18px rgba(22, 61, 38, 0.22);
+  transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.2),
+              box-shadow 0.4s ease,
+              background-color 0.3s ease;
+  will-change: transform, box-shadow;
 }
 
-.btn-primary-explore::before {
+/* Diagonal Botanical Golden Dew Shimmer Sweep */
+.btn-primary-explore::before,
+#grab-offer-btn::before,
+.btn-luxury-primary::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.6s ease;
+  top: -50%;
+  left: -120%;
+  width: 80%;
+  height: 200%;
+  background: linear-gradient(
+    115deg,
+    transparent 10%,
+    rgba(255, 255, 255, 0.15) 30%,
+    rgba(247, 219, 155, 0.5) 50%,
+    rgba(255, 255, 255, 0.2) 70%,
+    transparent 90%
+  );
+  transform: rotate(20deg);
+  transition: left 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  z-index: 1;
 }
 
-.btn-primary-explore:hover {
-  background: var(--color-forest-hover);
-  box-shadow: 0 8px 24px rgba(35, 83, 39, 0.35);
-  transform: translateY(-2px);
+.btn-primary-explore:hover,
+#grab-offer-btn:hover,
+.btn-luxury-primary:hover {
+  background-color: var(--color-forest-hover);
+  transform: translateY(-2.5px) scale(1.02);
+  box-shadow: 0 12px 28px -4px rgba(22, 61, 38, 0.38), 0 0 16px rgba(194, 131, 40, 0.25);
 }
 
-.btn-primary-explore:hover::before {
-  left: 100%;
+.btn-primary-explore:hover::before,
+#grab-offer-btn:hover::before,
+.btn-luxury-primary:hover::before {
+  left: 140%;
 }
 
-.btn-primary-explore .btn-arrow {
-  transition: transform var(--transition-normal);
+.btn-primary-explore:active,
+#grab-offer-btn:active,
+.btn-luxury-primary:active {
+  transform: translateY(0.5px) scale(0.97);
+  box-shadow: 0 4px 12px rgba(22, 61, 38, 0.25);
+  transition-duration: 0.12s;
 }
 
-.btn-primary-explore:hover .btn-arrow {
-  transform: translateX(5px);
+/* Arrow physics */
+.btn-primary-explore .btn-arrow,
+#grab-offer-btn .btn-arrow,
+.btn-luxury-primary .btn-arrow {
+  display: inline-block;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.btn-primary-explore:active {
-  transform: translateY(0) scale(0.97);
+.btn-primary-explore:hover .btn-arrow,
+#grab-offer-btn:hover .btn-arrow,
+.btn-luxury-primary:hover .btn-arrow {
+  transform: translateX(6px) scale(1.15);
 }
 
+/* Shopping Bag Icon physics on hover */
+#grab-offer-btn svg:first-child,
+.btn-luxury-primary svg:first-child {
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+#grab-offer-btn:hover svg:first-child,
+.btn-luxury-primary:hover svg:first-child {
+  transform: scale(1.2) rotate(-9deg);
+}
+
+/* Secondary Story Button: Silky Frosted Ivory with Play Icon Pulse */
 .btn-secondary-story {
   background: #ffffff;
   color: var(--color-forest-dark);
   border: 1px solid #d4ded7;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
-  transition: all var(--transition-normal);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+  transition: all 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-secondary-story::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(235, 225, 205, 0.45) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
 }
 
 .btn-secondary-story:hover {
-  background: #fbfdfb;
-  border-color: #b2c9b9;
-  box-shadow: 0 6px 16px rgba(35, 83, 39, 0.1);
-  transform: translateY(-2px);
+  background: #FAF7F2;
+  border-color: #173E2B;
+  box-shadow: 0 8px 22px rgba(35, 83, 39, 0.14);
+  transform: translateY(-2.5px) scale(1.02);
 }
 
-.btn-secondary-story:active {
-  transform: translateY(0) scale(0.97);
+.btn-secondary-story:hover::before {
+  opacity: 1;
 }
 
 .btn-secondary-story .play-icon {
-  transition: transform var(--transition-normal);
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .btn-secondary-story:hover .play-icon {
-  transform: scale(1.15);
+  transform: scale(1.25) rotate(12deg);
+}
+
+.btn-secondary-story:active {
+  transform: translateY(0.5px) scale(0.97);
 }
 
 /* --------------------------------------------------------------------------
@@ -2571,4 +2631,64 @@ img, picture, .product-card img, #offer img, #soaps img, #products img, .hero-ca
 
 .active-review-card {
   box-shadow: 0 16px 36px -8px rgba(30, 59, 43, 0.14), 0 0 0 3px rgba(232, 178, 86, 0.25) !important;
+}
+
+/* ==========================================================================
+   STICKY FLOATING ACTIONS: ENTRANCE & ICON HOVER MICRO-ANIMATIONS
+   ========================================================================== */
+@keyframes floatingEntranceSpring {
+  0% {
+    opacity: 0;
+    transform: translateY(32px) scale(0.65);
+  }
+  65% {
+    opacity: 1;
+    transform: translateY(-5px) scale(1.06);
+  }
+  85% {
+    transform: translateY(2px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes whatsappIconWiggle {
+  0%, 100% {
+    transform: rotate(0deg) scale(1);
+  }
+  20% {
+    transform: rotate(-14deg) scale(1.16);
+  }
+  40% {
+    transform: rotate(12deg) scale(1.18);
+  }
+  60% {
+    transform: rotate(-10deg) scale(1.16);
+  }
+  80% {
+    transform: rotate(6deg) scale(1.12);
+  }
+}
+
+@keyframes backToTopBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.animate-floating-entrance {
+  animation: floatingEntranceSpring 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.whatsapp-btn:hover .whatsapp-icon {
+  animation: whatsappIconWiggle 0.65s ease-in-out infinite;
+}
+
+.back-to-top-btn:hover .arrow-icon {
+  animation: backToTopBounce 0.75s ease-in-out infinite;
 }

@@ -3,8 +3,16 @@
 import React, { useState, useEffect } from 'react';
 
 export default function StickyFloatingActions() {
+  const [mounted, setMounted] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
-  const [showTooltip, setShowTooltip] = useState(false);
+
+  // Trigger entrance spring animation after brief delay
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setMounted(true);
+    }, 450);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Monitor scroll position for Back to Top button
   useEffect(() => {
@@ -36,23 +44,25 @@ export default function StickyFloatingActions() {
 
   return (
     <div 
-      className="fixed bottom-5 right-5 sm:bottom-7 sm:right-7 z-40 flex flex-col items-end gap-2.5 sm:gap-3 pointer-events-none select-none"
+      className={`fixed bottom-5 right-5 sm:bottom-7 sm:right-7 z-40 flex flex-col items-end gap-2.5 sm:gap-3 pointer-events-none select-none transition-all duration-700 ${
+        mounted ? 'animate-floating-entrance' : 'opacity-0 translate-y-8 scale-75'
+      }`}
       aria-label="Floating quick actions"
     >
-      {/* 1. Back to Top Button */}
+      {/* 1. Back to Top Button with Smooth Arrow Bounce on Hover */}
       <button
         type="button"
         onClick={scrollToTop}
-        className={`pointer-events-auto group relative w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[#163D26] hover:bg-[#0F2B1B] text-white shadow-lg hover:shadow-xl border border-[#D5C7B0]/40 flex items-center justify-center transition-all duration-300 transform cursor-pointer active:scale-95 ${
+        className={`back-to-top-btn pointer-events-auto group relative w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[#163D26] hover:bg-[#0F2B1B] text-white shadow-lg hover:shadow-2xl border border-[#D5C7B0]/40 flex items-center justify-center transition-all duration-300 transform cursor-pointer active:scale-95 ${
           showBackToTop 
             ? 'opacity-100 translate-y-0 scale-100' 
             : 'opacity-0 translate-y-4 scale-75 pointer-events-none'
         }`}
         aria-label="Scroll back to top"
       >
-        {/* Upward Arrow Icon */}
+        {/* Upward Arrow Icon with Hover Bounce */}
         <svg 
-          className="w-5 h-5 transition-transform duration-300 group-hover:-translate-y-1" 
+          className="arrow-icon w-5 h-5 transition-transform duration-300" 
           fill="none" 
           stroke="currentColor" 
           strokeWidth="2.4" 
@@ -68,15 +78,13 @@ export default function StickyFloatingActions() {
         </span>
       </button>
 
-      {/* 2. WhatsApp Sticky Floating Button */}
+      {/* 2. WhatsApp Sticky Floating Button with Entrance & Wiggle Hover */}
       <div className="relative pointer-events-auto group flex items-center">
         {/* Desktop Tooltip Bubble */}
         <a
           href={whatsappUrl}
           target="_blank"
           rel="noopener noreferrer"
-          onMouseEnter={() => setShowTooltip(true)}
-          onMouseLeave={() => setShowTooltip(false)}
           className="hidden md:flex items-center gap-1.5 absolute right-full mr-3 px-3 py-1.5 rounded-full bg-white/95 backdrop-blur-md text-[#0D3B23] border border-[#CDE3D1] text-xs font-semibold shadow-md whitespace-nowrap opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-2 group-hover:translate-x-0"
         >
           <span className="w-2 h-2 rounded-full bg-[#25D366] animate-pulse"></span>
@@ -84,23 +92,23 @@ export default function StickyFloatingActions() {
           <span className="absolute top-1/2 -right-1 -translate-y-1/2 border-4 border-transparent border-l-white"></span>
         </a>
 
-        {/* WhatsApp Circular Button */}
+        {/* WhatsApp Circular Button with Wiggle Icon */}
         <a
           href={whatsappUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#25D366] hover:bg-[#20BD5A] text-white shadow-[0_4px_20px_rgba(37,211,102,0.45)] hover:shadow-[0_6px_25px_rgba(37,211,102,0.6)] flex items-center justify-center transition-all duration-300 transform hover:scale-105 active:scale-95 cursor-pointer"
+          className="whatsapp-btn relative w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#25D366] hover:bg-[#20BD5A] text-white shadow-[0_4px_20px_rgba(37,211,102,0.45)] hover:shadow-[0_8px_30px_rgba(37,211,102,0.65)] flex items-center justify-center transition-all duration-300 transform hover:scale-108 active:scale-95 cursor-pointer"
           aria-label="Chat with EarthGlaze support on WhatsApp"
         >
           {/* Subtle Pulse Animation Wave */}
           <span 
-            className="absolute inset-0 rounded-full bg-[#25D366] opacity-30 animate-ping pointer-events-none" 
-            style={{ animationDuration: '3s' }}
+            className="absolute inset-0 rounded-full bg-[#25D366] opacity-35 animate-ping pointer-events-none" 
+            style={{ animationDuration: '2.8s' }}
           />
 
-          {/* Official WhatsApp SVG Icon */}
+          {/* Official WhatsApp SVG Icon with Wiggle Hover Animation */}
           <svg 
-            className="w-7 h-7 sm:w-8 sm:h-8 fill-current relative z-10 transition-transform duration-300 group-hover:scale-110" 
+            className="whatsapp-icon w-7 h-7 sm:w-8 sm:h-8 fill-current relative z-10 transition-transform duration-300" 
             viewBox="0 0 24 24" 
             xmlns="http://www.w3.org/2000/svg"
           >
