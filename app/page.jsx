@@ -2,6 +2,7 @@
 
 import React from 'react';
 import HeroSection from '../components/HeroSection';
+import TrustBadgeStrip from '../components/TrustBadgeStrip';
 import ComboOffer from '../components/ComboOffer';
 import AboutUs from '../components/AboutUs';
 import CustomerFavourites from '../components/CustomerFavourites';
@@ -13,6 +14,7 @@ export default function HomePage() {
   return (
     <div className="w-full overflow-hidden bg-[#FAF7F2]">
       <HeroSection />
+      <TrustBadgeStrip />
       <ComboOffer />
       <AboutUs />
       <CustomerFavourites />

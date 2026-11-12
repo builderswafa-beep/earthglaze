@@ -116,7 +116,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section id="hero-section" className="relative pt-3 sm:pt-4 pb-8 sm:pb-12 md:pb-14 overflow-hidden bg-[#FAF7F2]">
+    <section id="hero-section" className="relative pt-3 sm:pt-4 pb-3 sm:pb-4 md:pb-5 overflow-hidden bg-[#FAF7F2]">
       
       {/* Seamlessly Blended Natural Stage Backdrop with Pristine Sandstone Rock Pedestal */}
       <div className="hero-stage-backdrop-wrap absolute inset-0 w-full h-full pointer-events-none select-none overflow-hidden z-0" aria-hidden="true">
@@ -438,7 +438,7 @@ export default function HeroSection() {
         {/* Subtle Curved Cream and Pale-Green Decorative Waves (Removes Hard Horizontal Boundary) */}
         <div className="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-none pointer-events-none select-none z-10" aria-hidden="true">
           <svg 
-            className="relative block w-full h-14 sm:h-20 md:h-24 lg:h-28" 
+            className="relative block w-full h-8 sm:h-10 md:h-12" 
             viewBox="0 0 1440 120" 
             preserveAspectRatio="none" 
             fill="none" 

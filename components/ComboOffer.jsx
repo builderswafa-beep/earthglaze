@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useCart } from '../context/CartContext';
@@ -12,6 +12,82 @@ export default function ComboOffer() {
   const [isOpen, setIsOpen] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null); // null = full trio
+
+  // Price countdown animation states (898 -> 799)
+  const [displayPrice, setDisplayPrice] = useState(898);
+  const [isPriceAnimating, setIsPriceAnimating] = useState(false);
+  const [priceSettled, setPriceSettled] = useState(false);
+  const [justSettled, setJustSettled] = useState(false);
+  const priceContainerRef = useRef(null);
+  const animationFrameRef = useRef(null);
+  const hasAnimatedRef = useRef(false);
+
+  const startPriceAnimation = useCallback(() => {
+    if (animationFrameRef.current) {
+      cancelAnimationFrame(animationFrameRef.current);
+    }
+
+    setIsPriceAnimating(true);
+    setPriceSettled(false);
+    setJustSettled(false);
+
+    const startValue = 898;
+    const endValue = 799;
+    const duration = 1600; // 1.6s smooth cinematic count down
+    const startTime = performance.now();
+
+    const animate = (currentTime) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+
+      // Smooth cubic ease-out deceleration curve
+      const easeOut = 1 - Math.pow(1 - progress, 3);
+      const currentVal = Math.round(startValue - (startValue - endValue) * easeOut);
+      setDisplayPrice(currentVal);
+
+      if (progress < 1) {
+        animationFrameRef.current = requestAnimationFrame(animate);
+      } else {
+        setDisplayPrice(endValue);
+        setIsPriceAnimating(false);
+        setPriceSettled(true);
+        setJustSettled(true);
+        setTimeout(() => setJustSettled(false), 900);
+      }
+    };
+
+    animationFrameRef.current = requestAnimationFrame(animate);
+  }, []);
+
+  useEffect(() => {
+    const el = priceContainerRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !hasAnimatedRef.current) {
+            hasAnimatedRef.current = true;
+            // Short 300ms pause when entering view so visitor registers the high original price before it drops
+            const timer = setTimeout(() => {
+              startPriceAnimation();
+            }, 300);
+            return () => clearTimeout(timer);
+          }
+        });
+      },
+      { threshold: 0.25 }
+    );
+
+    observer.observe(el);
+
+    return () => {
+      observer.disconnect();
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+    };
+  }, [startPriceAnimation]);
 
   const isRevealed = isOpen || isHovered;
 
@@ -142,16 +218,41 @@ export default function ComboOffer() {
 
               {/* Pricing & CTA Button Row */}
               <div className="pt-2 sm:pt-3 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-[#E8DEC8]/60">
-                {/* Price Cluster */}
-                <div className="space-y-1">
+                {/* Price Cluster with Smooth Price-Drop Countdown Animation */}
+                <div
+                  ref={priceContainerRef}
+                  onClick={startPriceAnimation}
+                  title="Click to replay price drop animation"
+                  className="space-y-1 cursor-pointer select-none group/price transition-opacity duration-200"
+                >
                   <div className="flex items-baseline gap-2 flex-wrap">
-                    <span className="font-serif font-bold text-3xl sm:text-4xl text-[#163D26] tracking-tight">
-                      ₹799
-                    </span>
+                    <div className="relative inline-flex items-baseline">
+                      <span
+                        className={`font-serif font-bold text-3xl sm:text-4xl tracking-tight tabular-nums transition-all duration-300 ${
+                          justSettled
+                            ? 'text-[#163D26] scale-110 drop-shadow-[0_2px_10px_rgba(22,61,38,0.25)]'
+                            : isPriceAnimating
+                            ? 'text-[#1E6B35] scale-105'
+                            : 'text-[#163D26] scale-100'
+                        }`}
+                        style={{ fontVariantNumeric: 'tabular-nums' }}
+                      >
+                        ₹{displayPrice}
+                      </span>
+                      {isPriceAnimating && (
+                        <span className="ml-1 text-xs font-bold text-[#1E6B35] animate-bounce">
+                          ↓
+                        </span>
+                      )}
+                    </div>
                     <span className="text-sm sm:text-base text-stone-400 line-through font-normal">
                       ₹898
                     </span>
-                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-[#E3EFE5] text-[#1E6B35] border border-[#CFE5D4] text-[11px] font-bold tracking-tight">
+                    <span
+                      className={`inline-flex items-center px-2.5 py-0.5 rounded-full bg-[#E3EFE5] text-[#1E6B35] border border-[#CFE5D4] text-[11px] font-bold tracking-tight transition-all duration-500 ${
+                        priceSettled ? 'opacity-100 scale-100 shadow-2xs' : 'opacity-80 scale-95'
+                      }`}
+                    >
                       Save ₹99 (11% OFF)
                     </span>
                   </div>
