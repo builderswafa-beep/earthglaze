@@ -71,31 +71,49 @@
           aria-hidden="true" 
         ></div>
 
-        <!-- Organic Emerald Green Bottom-Left Wave Sweep (Razor-Sharp Vector) -->
+        <!-- Organic Emerald Green Bottom-Left Wave Sweep (Properly Aligned & Harmoniously Layered) -->
         <svg 
-          class="absolute bottom-0 left-0 w-64 sm:w-80 md:w-96 lg:w-[480px] h-auto pointer-events-none select-none z-10" 
-          viewBox="0 0 500 140" 
+          class="absolute bottom-0 left-0 w-72 sm:w-96 md:w-[460px] lg:w-[560px] xl:w-[680px] h-auto pointer-events-none select-none z-10" 
+          viewBox="0 0 700 130" 
           fill="none" 
           xmlns="http://www.w3.org/2000/svg"
           aria-hidden="true"
         >
+          <defs>
+            <linearGradient id="contactWaveGrad" x1="0%" y1="20%" x2="100%" y2="80%">
+              <stop offset="0%" stop-color="#2E6B3E" />
+              <stop offset="55%" stop-color="#1E4D2B" />
+              <stop offset="100%" stop-color="#12331C" />
+            </linearGradient>
+            <linearGradient id="contactWaveBack" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#163C25" />
+              <stop offset="100%" stop-color="#0A2213" />
+            </linearGradient>
+          </defs>
+
+          <!-- Background Depth Layer (Aligned organic contour, smooth baseline taper) -->
           <path 
-            d="M-20 140 C 100 130 180 60 460 120 L 460 140 L -20 140 Z" 
+            d="M 0 130 C 80 115 150 48 270 48 C 390 48 490 102 640 130 L 0 130 Z" 
+            fill="url(#contactWaveBack)" 
+            opacity="0.45" 
+          />
+
+          <!-- Foreground Main Layer (Rich botanical emerald sweep, smoothly aligned with depth layer) -->
+          <path 
+            d="M 0 130 C 75 119 145 62 265 62 C 380 62 470 108 590 130 L 0 130 Z" 
             fill="url(#contactWaveGrad)" 
             opacity="0.95" 
           />
+
+          <!-- Fine Botanical Gold Highlight Filament along crest -->
           <path 
-            d="M-20 140 C 130 110 230 90 490 140 L -20 140 Z" 
-            fill="#163C25" 
-            opacity="0.45" 
+            d="M 10 128 C 80 117 150 61 265 61 C 375 61 465 106 580 128" 
+            stroke="#D4AF37" 
+            stroke-width="1.5" 
+            stroke-opacity="0.65" 
+            stroke-linecap="round"
+            fill="none" 
           />
-          <defs>
-            <linearGradient id="contactWaveGrad" x1="0%" y1="50%" x2="100%" y2="50%">
-              <stop offset="0%" stopColor="#2E6B3E" />
-              <stop offset="60%" stopColor="#1E4D2B" />
-              <stop offset="100%" stopColor="#12331C" />
-            </linearGradient>
-          </defs>
         </svg>
 
         <div class="max-w-[1440px] w-full mx-auto px-4 sm:px-8 lg:px-12 relative z-20 py-8 sm:py-12 lg:py-14">
@@ -362,30 +380,63 @@
   <section class="py-6 sm:py-8 bg-[#FAF7F2]" aria-label="Interactive Location Map">
     <div class="max-w-[1440px] w-full mx-auto px-4 sm:px-8 lg:px-12">
       
-      <div class="relative w-full rounded-[24px] sm:rounded-[32px] overflow-hidden border border-[#E2D8C3] shadow-sm bg-[#E9F3E8] group">
+      <div class="relative w-full rounded-[24px] sm:rounded-[32px] overflow-hidden border border-[#E2D8C3] shadow-md bg-[#E9F3E8] group">
         
-        <!-- High-Resolution Map Visual (Retina Scaled with Kasaragod Pin) -->
-        <img 
-          src="assets/contact_kasaragod_map_hd.png" 
-          alt="EarthGlanze Natural Skincare facility location on map in Kasaragod, Kerala" 
-          class="w-full h-auto block select-none"
+        <!-- Live Interactive Original Google Maps iframe Embed -->
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62325.26620573752!2d74.95475149301036!3d12.512638848773976!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba4825d1945f47f%3A0xc6cb1e8b2848c1f0!2sKasaragod%2C%20Kerala!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+          width="100%"
+          height="100%"
+          style="border:0;"
+          allowfullscreen=""
           loading="lazy"
-          width="1630"
-          height="390"
-        >
+          referrerpolicy="no-referrer-when-downgrade"
+          title="EarthGlaze Natural Skincare - Kasaragod, Kerala Live Location Map"
+          class="w-full h-[360px] sm:h-[400px] md:h-[450px] lg:h-[480px] border-0 block"
+        ></iframe>
 
-        <!-- Clickable Overlay to Open Live Google Maps -->
+        <!-- Floating Botanical Location Pin Overlay -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none z-10 flex flex-col items-center">
+          <div class="bg-white/95 backdrop-blur-md rounded-2xl sm:rounded-3xl p-3 sm:p-4 px-4 sm:px-6 shadow-[0_12px_32px_rgba(22,61,38,0.22)] border border-[#C6DEC9]/80 flex items-center gap-3 sm:gap-4 transition-transform duration-300">
+            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#EAF2EC] flex items-center justify-center shrink-0 text-[#2E6B3E] shadow-xs">
+              <svg class="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 4c-5-.5-10.5 2-13.5 5-3.5 3.5-4 8.5-2 11 2.5 2 7.5 1.5 11-2 3-3 5.5-8.5 5-13.5-.5-.5-.5-.5-.5z"/>
+                <path d="M5.5 18.5c4-4 8.5-7 14-8.5"/>
+                <path d="M12 13c1.5 1.5 3 2.5 4.5 3"/>
+              </svg>
+            </div>
+            <div class="text-left">
+              <h4 class="font-serif font-bold text-sm sm:text-base text-[#1E3B2B] leading-tight">
+                EarthGlaze
+              </h4>
+              <p class="text-[11px] sm:text-xs font-semibold text-[#2E6B3E] tracking-wide">
+                Natural Skincare
+              </p>
+              <p class="text-[10px] sm:text-xs text-[#5C6B5E] mt-0.5">
+                Kasaragod, Kerala – 671xxx
+              </p>
+            </div>
+          </div>
+
+          <!-- Glowing Green Map Pin Teardrop with Anchor Dot -->
+          <div class="relative -mt-1 flex flex-col items-center">
+            <svg class="w-8 h-8 sm:w-10 sm:h-10 text-[#1E4D2B] drop-shadow-md" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0C7.58 0 4 3.58 4 8c0 5.25 7 13 8 14 1-1 8-8.75 8-14 0-4.42-3.58-8-8-8zm0 11c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z" />
+            </svg>
+            <div class="w-3 h-1.5 rounded-full bg-black/25 blur-[1.5px] -mt-1"></div>
+          </div>
+        </div>
+
+        <!-- Floating Live Google Maps Shortcut Button -->
         <a 
           href="https://www.google.com/maps/search/?api=1&query=Kasaragod+Kerala+EarthGlaze" 
           target="_blank" 
           rel="noopener noreferrer"
-          class="absolute inset-0 z-20 flex items-end justify-start p-4 sm:p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/10 backdrop-blur-[1px]"
-          aria-label="Open EarthGlanze location in Google Maps"
+          class="absolute bottom-4 left-4 z-20 px-4 py-2.5 rounded-full bg-[#0D2D1C]/90 hover:bg-[#0D2D1C] text-white text-xs font-semibold shadow-lg backdrop-blur-sm flex items-center gap-2 transition-all hover:scale-105 active:scale-95 group/link cursor-pointer"
+          aria-label="Open EarthGlaze in Google Maps"
         >
-          <span class="px-4 py-2 rounded-full bg-[#0D2D1C] text-white text-xs font-semibold shadow-md flex items-center gap-1.5">
-            <span>View on Google Maps</span>
-            <span>↗</span>
-          </span>
+          <span>View on Google Maps</span>
+          <span class="group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform duration-200">↗</span>
         </a>
 
       </div>

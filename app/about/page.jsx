@@ -26,31 +26,49 @@ export default function AboutPage() {
           />
         </div>
 
-        {/* Organic Emerald Green Bottom-Left Wave Sweep (Razor-Sharp Vector) */}
+        {/* Organic Emerald Green Bottom-Left Wave Sweep (Properly Aligned & Harmoniously Layered) */}
         <svg 
-          className="absolute bottom-0 left-0 w-56 sm:w-72 md:w-80 lg:w-[460px] h-auto pointer-events-none select-none z-10" 
-          viewBox="0 0 500 140" 
+          className="absolute bottom-0 left-0 w-72 sm:w-96 md:w-[460px] lg:w-[560px] xl:w-[680px] h-auto pointer-events-none select-none z-10" 
+          viewBox="0 0 700 130" 
           fill="none" 
           xmlns="http://www.w3.org/2000/svg"
           aria-hidden="true"
         >
+          <defs>
+            <linearGradient id="aboutWaveGrad" x1="0%" y1="20%" x2="100%" y2="80%">
+              <stop offset="0%" stopColor="#2E6B3E" />
+              <stop offset="55%" stopColor="#1E4D2B" />
+              <stop offset="100%" stopColor="#12331C" />
+            </linearGradient>
+            <linearGradient id="aboutWaveBack" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#163C25" />
+              <stop offset="100%" stopColor="#0A2213" />
+            </linearGradient>
+          </defs>
+
+          {/* Background Depth Layer (Aligned organic contour, smooth baseline taper) */}
           <path 
-            d="M-20 140 C 100 130 180 60 460 120 L 460 140 L -20 140 Z" 
+            d="M 0 130 C 80 115 150 48 270 48 C 390 48 490 102 640 130 L 0 130 Z" 
+            fill="url(#aboutWaveBack)" 
+            opacity="0.45" 
+          />
+
+          {/* Foreground Main Layer (Rich botanical emerald sweep, smoothly aligned with depth layer) */}
+          <path 
+            d="M 0 130 C 75 119 145 62 265 62 C 380 62 470 108 590 130 L 0 130 Z" 
             fill="url(#aboutWaveGrad)" 
             opacity="0.95" 
           />
+
+          {/* Fine Botanical Gold Highlight Filament along crest */}
           <path 
-            d="M-20 140 C 130 110 230 90 490 140 L -20 140 Z" 
-            fill="#163C25" 
-            opacity="0.45" 
+            d="M 10 128 C 80 117 150 61 265 61 C 375 61 465 106 580 128" 
+            stroke="#D4AF37" 
+            strokeWidth="1.5" 
+            strokeOpacity="0.65" 
+            strokeLinecap="round"
+            fill="none" 
           />
-          <defs>
-            <linearGradient id="aboutWaveGrad" x1="0%" y1="50%" x2="100%" y2="50%">
-              <stop offset="0%" stopColor="#2E6B3E" />
-              <stop offset="60%" stopColor="#1E4D2B" />
-              <stop offset="100%" stopColor="#12331C" />
-            </linearGradient>
-          </defs>
         </svg>
 
         {/* Foreground Content Container */}

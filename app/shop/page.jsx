@@ -333,7 +333,7 @@ export default function ShopPage() {
             </div>
 
             {/* Right Controls: Filter Toggle Button + Sort By Dropdown */}
-            <div className="flex items-center gap-3 self-end md:self-center">
+            <div className="flex items-center justify-between sm:justify-end gap-3 w-full md:w-auto">
               
               {/* FILTERS TOGGLE BUTTON (Requirement: Hidden by default, smooth toggle, expands full-width when collapsed) */}
               <button

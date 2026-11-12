@@ -32,9 +32,9 @@ export default function IngredientsPage() {
           <p className="text-xs text-stone-500 leading-relaxed mt-2">Revered in Ayurveda as a supreme pitta-pacifier that diminishes dark spots and restores clarity.</p>
         </div>
         <div className="pt-5 border-t border-stone-100 mt-5">
-          <a href="product.html?id=manjistha-soap" className="inline-block w-full py-2.5 bg-[#FAF7F2] hover:bg-[#1E3B2B] text-stone-800 hover:text-white font-bold text-xs rounded-xl border border-stone-200 transition">
+          <Link href="/product?slug=manjistha-soap" className="inline-block w-full py-2.5 bg-[#FAF7F2] hover:bg-[#1E3B2B] text-stone-800 hover:text-white font-bold text-xs rounded-xl border border-stone-200 transition">
             Explore Product →
-          </a>
+          </Link>
         </div>
       </div>
 
@@ -49,9 +49,9 @@ export default function IngredientsPage() {
           <p className="text-xs text-stone-500 leading-relaxed mt-2">Naturally rich in lactic acid and essential fatty acids that rebuild delicate moisture barriers.</p>
         </div>
         <div className="pt-5 border-t border-stone-100 mt-5">
-          <a href="product.html?id=goat-milk-soap" className="inline-block w-full py-2.5 bg-[#FAF7F2] hover:bg-[#1E3B2B] text-stone-800 hover:text-white font-bold text-xs rounded-xl border border-stone-200 transition">
+          <Link href="/product?slug=goat-milk-soap" className="inline-block w-full py-2.5 bg-[#FAF7F2] hover:bg-[#1E3B2B] text-stone-800 hover:text-white font-bold text-xs rounded-xl border border-stone-200 transition">
             Explore Product →
-          </a>
+          </Link>
         </div>
       </div>
 
@@ -66,9 +66,9 @@ export default function IngredientsPage() {
           <p className="text-xs text-stone-500 leading-relaxed mt-2">A potent purifying botanical with natural antibacterial compounds to calm inflammation and breakouts.</p>
         </div>
         <div className="pt-5 border-t border-stone-100 mt-5">
-          <a href="product.html?id=neem-soap" className="inline-block w-full py-2.5 bg-[#FAF7F2] hover:bg-[#1E3B2B] text-stone-800 hover:text-white font-bold text-xs rounded-xl border border-stone-200 transition">
+          <Link href="/product?slug=neem-soap" className="inline-block w-full py-2.5 bg-[#FAF7F2] hover:bg-[#1E3B2B] text-stone-800 hover:text-white font-bold text-xs rounded-xl border border-stone-200 transition">
             Explore Product →
-          </a>
+          </Link>
         </div>
       </div>
 
@@ -83,9 +83,9 @@ export default function IngredientsPage() {
           <p className="text-xs text-stone-500 leading-relaxed mt-2">Loaded with vibrant antioxidant betalains that nourish thin lip skin while granting a natural ruby glow.</p>
         </div>
         <div className="pt-5 border-t border-stone-100 mt-5">
-          <a href="product.html?id=beetroot-lip-balm" className="inline-block w-full py-2.5 bg-[#FAF7F2] hover:bg-[#1E3B2B] text-stone-800 hover:text-white font-bold text-xs rounded-xl border border-stone-200 transition">
+          <Link href="/product?slug=beetroot-lip-balm" className="inline-block w-full py-2.5 bg-[#FAF7F2] hover:bg-[#1E3B2B] text-stone-800 hover:text-white font-bold text-xs rounded-xl border border-stone-200 transition">
             Explore Product →
-          </a>
+          </Link>
         </div>
       </div>
 

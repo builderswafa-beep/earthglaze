@@ -23,7 +23,7 @@ export default function Navbar() {
               id="header-brand-logo"
               src="/assets/earthglaze-logo-hd.png"
               alt="EarthGlaze • Natural Skincare" 
-              className="h-12 sm:h-14 md:h-16 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.02]"
+              className="h-10 sm:h-12 md:h-16 w-auto max-w-[140px] sm:max-w-none object-contain transition-transform duration-300 group-hover:scale-[1.02]"
             />
           </Link>
 
@@ -99,16 +99,16 @@ export default function Navbar() {
           </nav>
 
           {/* Action Utility Icons */}
-          <div className="flex items-center gap-1.5 sm:gap-3">
+          <div className="flex items-center gap-1 sm:gap-2.5 md:gap-3">
             
             {/* Search Button */}
             <Link 
               href="/shop" 
-              className="w-10 h-10 rounded-full flex items-center justify-center text-stone-700 hover:text-[#235327] hover:bg-white/80 transition shadow-sm border border-transparent hover:border-stone-200"
+              className="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-stone-700 hover:text-[#235327] hover:bg-white/80 transition shadow-xs sm:shadow-sm border border-transparent hover:border-stone-200"
               aria-label="Search skincare products"
               title="Search products"
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
               </svg>
             </Link>
@@ -116,11 +116,11 @@ export default function Navbar() {
             {/* User Profile Button */}
             <Link 
               href="/account" 
-              className="w-10 h-10 rounded-full flex items-center justify-center text-stone-700 hover:text-[#235327] hover:bg-white/80 transition shadow-sm border border-transparent hover:border-stone-200 relative group"
+              className="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-stone-700 hover:text-[#235327] hover:bg-white/80 transition shadow-xs sm:shadow-sm border border-transparent hover:border-stone-200 relative group"
               aria-label="Customer Account Profile"
               title={user ? `Logged in as ${user.name}` : "Account Profile"}
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
               </svg>
               {user && (
@@ -138,14 +138,14 @@ export default function Navbar() {
                   openMiniCart();
                 }
               }}
-              className="w-10 h-10 rounded-full flex items-center justify-center text-stone-700 hover:text-[#235327] hover:bg-white/80 transition shadow-sm border border-transparent hover:border-stone-200 relative cursor-pointer"
+              className="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-stone-700 hover:text-[#235327] hover:bg-white/80 transition shadow-xs sm:shadow-sm border border-transparent hover:border-stone-200 relative cursor-pointer"
               aria-label="Shopping Bag"
               title="View Shopping Bag"
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
               </svg>
-              <span className={`absolute -top-1 -right-1 bg-[#235327] text-white text-[11px] font-bold w-5 h-5 rounded-full flex items-center justify-center shadow transition-all duration-300 ${cartBounce ? 'scale-125 bg-[#C28328] ring-2 ring-white' : 'scale-100'}`}>
+              <span className={`absolute -top-1 -right-1 bg-[#235327] text-white text-[10px] sm:text-[11px] font-bold w-4.5 h-4.5 sm:w-5 sm:h-5 rounded-full flex items-center justify-center shadow transition-all duration-300 ${cartBounce ? 'scale-125 bg-[#C28328] ring-2 ring-white' : 'scale-100'}`}>
                 {cartCount}
               </span>
             </Link>
@@ -154,7 +154,7 @@ export default function Navbar() {
             <button 
               type="button" 
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden w-10 h-10 rounded-full flex items-center justify-center text-stone-700 hover:text-[#235327] hover:bg-white transition ml-1"
+              className="md:hidden w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-stone-700 hover:text-[#235327] hover:bg-white transition ml-0.5"
               aria-label="Toggle Menu"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

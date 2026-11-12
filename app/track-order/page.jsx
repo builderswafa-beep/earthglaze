@@ -182,19 +182,19 @@ function TrackOrderContent() {
           </p>
 
           {/* Search Input matching Reference */}
-          <form onSubmit={handleSearch} className="max-w-md mx-auto flex items-center gap-2 pt-2">
+          <form onSubmit={handleSearch} className="max-w-md mx-auto flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 pt-2">
             <input 
               type="text" 
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
               placeholder="EG35273" 
               required
-              className="flex-1 text-sm font-semibold px-5 py-3.5 bg-white/95 rounded-full border border-[#D5C9B8] focus:outline-none focus:border-[#0D2D1C] uppercase tracking-wider text-[#0D2D1C] shadow-2xs placeholder:text-stone-400"
+              className="flex-1 text-sm font-semibold px-5 py-3.5 bg-white/95 rounded-full border border-[#D5C9B8] focus:outline-none focus:border-[#0D2D1C] uppercase tracking-wider text-[#0D2D1C] shadow-2xs placeholder:text-stone-400 text-center sm:text-left"
             />
             <button 
               type="submit" 
               disabled={loading}
-              className="px-6 py-3.5 bg-[#0D2D1C] hover:bg-[#1A4B2F] text-white font-bold text-xs sm:text-sm rounded-full transition-all duration-300 shadow-md hover:shadow-lg flex items-center gap-2 active:scale-95 disabled:opacity-60 cursor-pointer"
+              className="px-6 py-3.5 bg-[#0D2D1C] hover:bg-[#1A4B2F] text-white font-bold text-xs sm:text-sm rounded-full transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2 active:scale-95 disabled:opacity-60 cursor-pointer"
             >
               <span>🔍</span>
               <span>{loading ? 'Tracking...' : 'Track Order'}</span>

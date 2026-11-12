@@ -284,8 +284,8 @@ export default function Footer() {
             FLOATING TRUST BADGES CAPSULE PILL BAR
             ==================================================================== */}
         <div className="mb-8 sm:mb-10">
-          <div className="bg-[#FAF5ED]/95 backdrop-blur-md rounded-full shadow-[0_4px_24px_rgba(23,61,43,0.03)] border border-stone-200/80 py-3.5 sm:py-4 px-6 sm:px-12 max-w-5xl mx-auto">
-            <div className="flex flex-wrap items-center justify-between gap-4 text-xs sm:text-sm font-semibold text-stone-800">
+          <div className="bg-[#FAF5ED]/95 backdrop-blur-md rounded-2xl sm:rounded-full shadow-[0_4px_24px_rgba(23,61,43,0.03)] border border-stone-200/80 py-3.5 sm:py-4 px-4 sm:px-12 max-w-5xl mx-auto">
+            <div className="flex flex-wrap items-center justify-between gap-3 sm:gap-4 text-xs sm:text-sm font-semibold text-stone-800">
               
               {/* Badge 1: 100% Natural */}
               <div className="flex items-center gap-2 mx-auto sm:mx-0">
@@ -334,7 +334,7 @@ export default function Footer() {
             ==================================================================== */}
         <div className="flex items-center justify-center gap-3 sm:gap-6 text-xs text-stone-500 font-medium py-3 text-center">
           <span className="w-8 sm:w-16 h-px bg-stone-300/80 rounded-full"></span>
-          <span>&copy; 2025 EarthGlaze. All Rights Reserved.</span>
+          <span>&copy; 2026 EarthGlaze. All Rights Reserved.</span>
           <span className="w-8 sm:w-16 h-px bg-stone-300/80 rounded-full"></span>
         </div>
 

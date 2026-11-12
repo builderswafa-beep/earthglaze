@@ -3,11 +3,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 
-const ROTATING_WORDS = ['Personal.', 'Pure.', 'Natural.', 'Radiant.', 'Artisanal.'];
+const ROTATING_WORDS = ['Artisanal.', 'Natural.', 'Pure.', 'Radiant.', 'Personal.'];
 const HERO_COUNT = 4;
 
 export default function HeroSection() {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(1);
   const [wordIndex, setWordIndex] = useState(0);
   const [windowWidth, setWindowWidth] = useState(1200);
   const autoPlayRef = useRef(null);
@@ -34,10 +34,10 @@ export default function HeroSection() {
     const w = windowWidth;
     if (w < 480) {
       return [
-        { x: 0, y: 0, scale: 1.02, rot: 0, z: 40, op: 1 },           // Center Front (Active)
-        { x: 100, y: -6, scale: 0.60, rot: -2, z: 25, op: 0.95 },   // Right Flank
-        { x: 0, y: -16, scale: 0.42, rot: 0, z: 10, op: 0.75 },     // Center Back
-        { x: -100, y: -6, scale: 0.60, rot: 2, z: 25, op: 0.95 }    // Left Flank
+        { x: 0, y: 0, scale: 0.98, rot: 0, z: 40, op: 1 },           // Center Front (Active)
+        { x: 88, y: -6, scale: 0.58, rot: -2, z: 25, op: 0.95 },   // Right Flank
+        { x: 0, y: -16, scale: 0.40, rot: 0, z: 10, op: 0.75 },     // Center Back
+        { x: -88, y: -6, scale: 0.58, rot: 2, z: 25, op: 0.95 }    // Left Flank
       ];
     } else if (w < 640) {
       return [
@@ -118,11 +118,33 @@ export default function HeroSection() {
   return (
     <section id="hero-section" className="relative pt-3 sm:pt-4 pb-3 sm:pb-4 md:pb-5 overflow-hidden bg-[#FAF7F2]">
       
-      {/* Seamlessly Blended Natural Stage Backdrop with Pristine Sandstone Rock Pedestal */}
+      {/* Seamlessly Blended Luxury Botanical Apothecary Stage Backdrop */}
       <div className="hero-stage-backdrop-wrap absolute inset-0 w-full h-full pointer-events-none select-none overflow-hidden z-0" aria-hidden="true">
-        <img src="/assets/hero_natural_stage_backdrop.jpg" alt="" className="w-full h-full object-cover object-bottom pointer-events-none" />
-        {/* Natural Water-to-Cream Environmental Fade Overlay */}
-        <div className="absolute bottom-0 left-0 right-0 h-28 sm:h-36 md:h-44 bg-gradient-to-b from-transparent via-[#FAF7F2]/30 via-70% to-[#FAF7F2] pointer-events-none" aria-hidden="true"></div>
+        <img 
+          src="/assets/hero_apothecary_stage_backdrop.jpg" 
+          alt="EarthGlaze Luxury Botanical Apothecary Stage" 
+          className="w-full h-full object-cover object-bottom pointer-events-none" 
+        />
+        {/* Soft, Micro Edge Polish into Page Canvas */}
+        <div className="absolute bottom-0 left-0 right-0 h-6 sm:h-8 bg-gradient-to-b from-transparent to-[#FAF7F2]/40 pointer-events-none" aria-hidden="true"></div>
+      </div>
+
+      {/* Flanking Left Prop: Crystal Clear Glass Herbal Elixir Bottle (Separate Transparent PNG) */}
+      <div className="absolute left-1 sm:left-6 md:left-8 lg:left-12 xl:left-16 bottom-1 sm:bottom-3 md:bottom-4 z-10 pointer-events-none select-none">
+        <img 
+          src="/assets/hero_bottle_prop_transparent.png" 
+          alt="Pure Botanical Herbal Elixir Oil Bottle" 
+          className="w-14 sm:w-28 md:w-36 lg:w-44 xl:w-48 h-auto object-contain drop-shadow-[0_10px_20px_rgba(202,138,4,0.22)]"
+        />
+      </div>
+
+      {/* Flanking Right Prop: Artisanal Speckled Stone Mortar & Pestle (Separate Transparent PNG) */}
+      <div className="absolute right-1 sm:right-6 md:right-8 lg:right-12 xl:right-16 bottom-1 sm:bottom-3 md:bottom-4 z-10 pointer-events-none select-none">
+        <img 
+          src="/assets/hero_mortar_prop_transparent.png" 
+          alt="Artisanal Handcrafted Stone Mortar and Pestle" 
+          className="w-16 sm:w-32 md:w-44 lg:w-56 xl:w-60 h-auto object-contain drop-shadow-[0_10px_20px_rgba(0,0,0,0.14)]"
+        />
       </div>
 
       {/* Central Ambient Warm Halos */}

@@ -275,10 +275,10 @@ function ProductDetailContent() {
 
             {/* Quantity & Add to Cart Controls */}
             <div className="pt-4 border-t border-stone-200 space-y-4">
-              <div className="flex flex-wrap items-center gap-4">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                 
                 {/* Quantity Counter */}
-                <div className="flex items-center bg-white border border-stone-300 rounded-2xl shadow-sm overflow-hidden">
+                <div className="flex items-center justify-between sm:justify-start bg-white border border-stone-300 rounded-2xl shadow-sm overflow-hidden shrink-0">
                   <button 
                     type="button" 
                     onClick={() => setQuantity(q => Math.max(1, q - 1))}
@@ -300,28 +300,31 @@ function ProductDetailContent() {
                   </button>
                 </div>
 
-                {/* Add to Cart Button */}
-                <button 
-                  type="button" 
-                  onClick={handleAddToCart}
-                  disabled={addingToCart || (product.stock_qty <= 0)}
-                  className="flex-1 min-w-[160px] h-12 bg-[#1E3B2B] hover:bg-[#14291E] text-white font-bold text-sm rounded-2xl transition shadow-md hover:shadow-lg flex items-center justify-center gap-2 active:scale-95 disabled:opacity-60 cursor-pointer"
-                >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
-                  </svg>
-                  <span>{addingToCart ? 'Adding...' : 'Add to Bag'}</span>
-                </button>
+                {/* Action Buttons Group */}
+                <div className="flex flex-1 items-center gap-2.5">
+                  {/* Add to Cart Button */}
+                  <button 
+                    type="button" 
+                    onClick={handleAddToCart}
+                    disabled={addingToCart || (product.stock_qty <= 0)}
+                    className="flex-1 h-12 bg-[#1E3B2B] hover:bg-[#14291E] text-white font-bold text-xs sm:text-sm rounded-2xl transition shadow-md hover:shadow-lg flex items-center justify-center gap-2 active:scale-95 disabled:opacity-60 cursor-pointer"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+                    </svg>
+                    <span>{addingToCart ? 'Adding...' : 'Add to Bag'}</span>
+                  </button>
 
-                {/* Buy Now Button */}
-                <button 
-                  type="button" 
-                  onClick={handleBuyNow}
-                  disabled={addingToCart || (product.stock_qty <= 0)}
-                  className="flex-1 min-w-[160px] h-12 bg-[#C28328] hover:bg-[#a66f21] text-white font-bold text-sm rounded-2xl transition shadow-md hover:shadow-lg flex items-center justify-center gap-2 active:scale-95 disabled:opacity-60 cursor-pointer"
-                >
-                  <span>Buy Now →</span>
-                </button>
+                  {/* Buy Now Button */}
+                  <button 
+                    type="button" 
+                    onClick={handleBuyNow}
+                    disabled={addingToCart || (product.stock_qty <= 0)}
+                    className="flex-1 h-12 bg-[#C28328] hover:bg-[#a66f21] text-white font-bold text-xs sm:text-sm rounded-2xl transition shadow-md hover:shadow-lg flex items-center justify-center gap-2 active:scale-95 disabled:opacity-60 cursor-pointer"
+                  >
+                    <span>Buy Now →</span>
+                  </button>
+                </div>
               </div>
 
               {/* Stock and Delivery Assurance */}
