@@ -401,21 +401,21 @@ export default function ComboOffer() {
 
                   </div>
                 ) : (
-                  /* MODE 2: SIGNATURE TRIO STAGE (Default view matching reference) */
-                  <div className="relative w-full h-full flex items-center justify-center">
+                  /* MODE 2: SIGNATURE TRIO STAGE (Original Soaps with Transparent Background) */
+                  <div className="relative w-full h-full flex items-center justify-center p-2 sm:p-4">
                     
                     {/* Sealed Trio Layer */}
                     <div 
                       className={`absolute inset-0 flex items-center justify-center transition-all duration-700 ease-out select-none pointer-events-none ${
                         isRevealed 
-                          ? 'opacity-0 scale-[0.98] translate-y-2' 
+                          ? 'opacity-0 scale-[0.96] translate-y-2' 
                           : 'opacity-100 scale-100 translate-y-0'
                       }`}
                     >
                       <img
-                        src="/assets/botanical_combo_hero_trio_closed.png"
-                        alt="EarthGlaze Botanical Combo - Sealed Packaging on luxury ribbon pedestal"
-                        className="w-full h-full object-contain object-right drop-shadow-md"
+                        src="/assets/botanical_combo_original_soaps_closed.png"
+                        alt="EarthGlaze Botanical Combo - Original Sealed Soaps & Lip Balm Packaging"
+                        className="w-full h-full max-h-[92%] object-contain object-center drop-shadow-[0_12px_24px_rgba(22,61,38,0.14)]"
                       />
                     </div>
 
@@ -423,14 +423,14 @@ export default function ComboOffer() {
                     <div 
                       className={`absolute inset-0 flex items-center justify-center transition-all duration-700 cubic-bezier(0.2, 0.9, 0.3, 1.15) select-none pointer-events-none ${
                         isRevealed 
-                          ? 'opacity-100 scale-[1.02] -translate-y-1 drop-shadow-xl' 
-                          : 'opacity-0 scale-[0.98] translate-y-2'
+                          ? 'opacity-100 scale-[1.02] -translate-y-1 drop-shadow-[0_18px_32px_rgba(22,61,38,0.2)]' 
+                          : 'opacity-0 scale-[0.96] translate-y-2'
                       }`}
                     >
                       <img
-                        src="/assets/botanical_combo_hero_trio.png"
-                        alt="EarthGlaze Botanical Combo - Opened Artisan Trio revealing soap bars and lip balm on ribbon pedestal"
-                        className="w-full h-full object-contain object-right drop-shadow-lg"
+                        src="/assets/botanical_combo_original_soaps_open.png"
+                        alt="EarthGlaze Botanical Combo - Original Opened Artisan Soaps & Ruby Lip Balm"
+                        className="w-full h-full max-h-[95%] object-contain object-center drop-shadow-[0_18px_32px_rgba(22,61,38,0.2)]"
                       />
                     </div>
 

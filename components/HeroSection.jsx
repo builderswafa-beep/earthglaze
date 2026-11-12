@@ -423,13 +423,6 @@ export default function HeroSection() {
             </div>
 
           </div>
-{/* Carousel Dots Navigation (4 Products) */}
-          <div className="hero-carousel-dots flex items-center justify-center gap-2 mt-1.5 sm:mt-2" id="hero-carousel-dots">
-            <button type="button" className="carousel-dot-btn w-2.5 h-2.5 rounded-full bg-[#173D2B] transition-all duration-300 scale-125" data-index="0" aria-label="Go to Goat Milk Soap"></button>
-            <button type="button" className="carousel-dot-btn w-2.5 h-2.5 rounded-full bg-stone-300 hover:bg-stone-400 transition-all duration-300" data-index="1" aria-label="Go to Manjistha Soap"></button>
-            <button type="button" className="carousel-dot-btn w-2.5 h-2.5 rounded-full bg-stone-300 hover:bg-stone-400 transition-all duration-300" data-index="2" aria-label="Go to Neem Soap"></button>
-            <button type="button" className="carousel-dot-btn w-2.5 h-2.5 rounded-full bg-stone-300 hover:bg-stone-400 transition-all duration-300" data-index="3" aria-label="Go to Beet Root Lip Balm"></button>
-          </div>
 
         </div>
 

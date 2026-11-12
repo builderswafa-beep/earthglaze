@@ -20,6 +20,7 @@ export default function Navbar() {
           {/* Brand Logo */}
           <Link href="/" className="flex items-center gap-2 shrink-0 group focus-visible:outline-none rounded-lg" aria-label="EarthGlaze Natural Skincare Home">
             <img 
+              id="header-brand-logo"
               src="/assets/earthglaze-logo-hd.png"
               alt="EarthGlaze • Natural Skincare" 
               className="h-12 sm:h-14 md:h-16 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.02]"
