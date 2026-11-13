@@ -557,12 +557,12 @@ export default function ShopPage() {
                     ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
                     : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'
                 }`}>
-                  {filteredProducts.map((product) => {
+                  {filteredProducts.map((product, idx) => {
                     const isWishlisted = !!wishlist[product.id];
                     return (
                       <div 
                         key={product.id}
-                        className="bg-white rounded-[24px] overflow-hidden border border-[#E8DEC8]/90 shadow-2xs hover:shadow-lg transition-all duration-300 flex flex-col group hover:-translate-y-1 relative"
+                        className={`bg-white rounded-[24px] overflow-hidden border border-[#E8DEC8]/90 shadow-2xs hover:shadow-lg transition-all duration-300 flex flex-col group hover:-translate-y-1 relative stagger-${(idx % 4) + 1}`}
                       >
                         
                         {/* Image Container with Wishlist Heart */}
@@ -586,7 +586,7 @@ export default function ShopPage() {
                             aria-label={isWishlisted ? "Remove from Wishlist" : "Add to Wishlist"}
                           >
                             <svg 
-                              className={`w-4 h-4 transition-colors ${
+                              className={`w-4 h-4 transition-colors icon-hover-heart ${
                                 isWishlisted 
                                   ? 'fill-rose-500 text-rose-500 scale-110' 
                                   : 'fill-none text-stone-700 group-hover/heart:text-rose-500'
@@ -638,7 +638,7 @@ export default function ShopPage() {
                               className="w-10 h-10 rounded-full bg-[#EBF3EA] hover:bg-[#DCEBDB] text-[#103B23] flex items-center justify-center transition-all duration-300 shadow-2xs active:scale-95 cursor-pointer shrink-0"
                               aria-label={`Add ${product.name} to Cart`}
                             >
-                              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                              <svg className="w-4 h-4 icon-hover-bounce" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
                               </svg>
                             </button>

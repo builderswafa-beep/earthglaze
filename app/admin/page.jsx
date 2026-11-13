@@ -79,10 +79,15 @@ export default function AdminDashboardPage() {
     e.preventDefault();
     setLoginError('');
     setLoggingIn(true);
-    const res = await login(adminEmail, adminPassword);
-    setLoggingIn(false);
-    if (!res.success) {
-      setLoginError(res.message);
+    try {
+      const res = await login(adminEmail, adminPassword);
+      if (!res.success) {
+        setLoginError(res.message || 'Invalid administrator credentials.');
+      }
+    } catch (err) {
+      setLoginError('Authentication failed. Please verify your credentials.');
+    } finally {
+      setLoggingIn(false);
     }
   };
 
@@ -448,21 +453,25 @@ export default function AdminDashboardPage() {
                       <tr key={p.id} className="hover:bg-stone-50/70">
                         <td className="py-3 px-4">
                           <div className="w-12 h-12 rounded-xl bg-[#FAF7F2] p-1 flex items-center justify-center border border-stone-200">
-                            <img src={p.image_photo || p.image_closed} alt={p.name} className="max-h-full max-w-full object-contain" />
+                            <img 
+                              src={p.image_photo || p.image_closed || p.image || '/assets/shop_card_manjistha_hd.png'} 
+                              alt={p.name} 
+                              className="max-h-full max-w-full object-contain" 
+                            />
                           </div>
                         </td>
                         <td className="py-3 px-4">
                           <strong className="text-stone-900 block font-serif text-sm">{p.name}</strong>
-                          <span className="text-[11px] text-stone-400">{p.weight}</span>
+                          <span className="text-[11px] text-stone-400">{p.weight || '100 g'}</span>
                         </td>
-                        <td className="py-3 px-4 font-mono text-stone-600 font-semibold">{p.sku}</td>
-                        <td className="py-3 px-4 text-stone-600">{p.category?.name || p.category_name}</td>
-                        <td className="py-3 px-4 font-bold text-stone-900">₹{p.sale_price}</td>
+                        <td className="py-3 px-4 font-mono text-stone-600 font-semibold">{p.sku || p.slug?.toUpperCase()}</td>
+                        <td className="py-3 px-4 text-stone-600">{p.category?.name || p.category_name || p.category || 'Soaps'}</td>
+                        <td className="py-3 px-4 font-bold text-stone-900">₹{p.sale_price || p.price}</td>
                         <td className="py-3 px-4">
                           <span className={`font-bold px-2.5 py-0.5 rounded-full text-[11px] ${
-                            p.stock_qty < 10 ? 'bg-red-100 text-red-800' : 'bg-emerald-100 text-emerald-800'
+                            (p.stock_qty || 0) < 10 ? 'bg-red-100 text-red-800' : 'bg-emerald-100 text-emerald-800'
                           }`}>
-                            {p.stock_qty} in stock
+                            {p.stock_qty || 0} in stock
                           </span>
                         </td>
                         <td className="py-3 px-4">
@@ -475,8 +484,8 @@ export default function AdminDashboardPage() {
                             type="button"
                             onClick={() => {
                               setEditingProduct(p);
-                              setEditPrice(String(p.sale_price));
-                              setEditStock(String(p.stock_qty));
+                              setEditPrice(String(p.sale_price || p.price));
+                              setEditStock(String(p.stock_qty || 0));
                             }}
                             className="px-3.5 py-1.5 bg-[#1E3B2B] text-white rounded-xl text-xs font-bold hover:bg-[#14291E] transition cursor-pointer"
                           >

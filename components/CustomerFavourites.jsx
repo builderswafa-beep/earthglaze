@@ -422,7 +422,7 @@ export default function CustomerFavourites() {
               : 'grid-cols-1 md:grid-cols-3'
           }`}
         >
-          {visibleProducts.map((product) => {
+          {visibleProducts.map((product, idx) => {
             const isAdded = addedId === product.id;
             const isSaved = Boolean(savedIds[product.id]);
             const isPeekOpen = Boolean(peekedIds[product.id]);
@@ -431,7 +431,7 @@ export default function CustomerFavourites() {
             return (
               <article
                 key={product.id}
-                className={`group relative bg-white rounded-2xl p-3 sm:p-3.5 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 flex flex-col justify-between border ${
+                className={`group relative bg-white rounded-2xl p-3 sm:p-3.5 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 flex flex-col justify-between border stagger-${idx + 1} ${
                   product.highlightBorder
                     ? 'border-[#D4AF37]/55 shadow-sm ring-1 ring-[#D4AF37]/25'
                     : 'border-[#EAE2D3]'
@@ -455,7 +455,7 @@ export default function CustomerFavourites() {
                       onClick={() => toggleSave(product.id)}
                       aria-pressed={isSaved}
                       aria-label={isSaved ? `Remove ${product.name} from wishlist` : `Save ${product.name} to wishlist`}
-                      className={`w-7 h-7 rounded-full border flex items-center justify-center text-sm transition-colors cursor-pointer ${
+                      className={`w-7 h-7 rounded-full border flex items-center justify-center text-sm transition-all duration-300 cursor-pointer icon-hover-heart ${
                         isSaved
                           ? `${styles.heartPop} bg-[#FFF0F4] border-[#F4C2D1] text-[#D6336C]`
                           : 'bg-[#FAF7F2] border-[#E7DEC9] text-[#5B6B5F] hover:text-[#D6336C] hover:border-[#F4C2D1]'
@@ -592,7 +592,7 @@ export default function CustomerFavourites() {
                       </>
                     ) : (
                       <>
-                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                        <svg className="w-3.5 h-3.5 icon-hover-bounce" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                           <path
                             strokeLinecap="round"
                             strokeLinejoin="round"

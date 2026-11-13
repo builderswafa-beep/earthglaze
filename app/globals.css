@@ -2699,3 +2699,146 @@ img, picture, .product-card img, #offer img, #soaps img, #products img, .hero-ca
 .back-to-top-btn:hover .arrow-icon {
   animation: backToTopBounce 0.75s ease-in-out infinite;
 }
+
+/* ==========================================================================
+   UNIVERSAL SECTION ENTRANCE ANIMATIONS (All Pages & All Sections)
+   ========================================================================== */
+.section-reveal-init {
+  opacity: 0;
+  transform: translateY(32px) scale(0.99);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.section-reveal-init.section-entered {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Fallback / Override for hero sections to ensure immediate crisp entrance */
+.no-auto-reveal {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* Staggered entrance for cards / items inside revealed sections */
+.section-entered .stagger-1 {
+  animation: itemRevealFadeUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both;
+}
+.section-entered .stagger-2 {
+  animation: itemRevealFadeUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.12s both;
+}
+.section-entered .stagger-3 {
+  animation: itemRevealFadeUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.19s both;
+}
+.section-entered .stagger-4 {
+  animation: itemRevealFadeUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.26s both;
+}
+
+@keyframes itemRevealFadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================================================
+   UNIVERSAL ICON HOVER ANIMATIONS SYSTEM
+   ========================================================================== */
+/* Smooth physics on all interactive buttons, links and SVG icons */
+button svg,
+a svg,
+.interactive-icon,
+.icon-hover-target {
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+              filter 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+              color 0.25s ease;
+}
+
+/* Default button/link icon micro-spring */
+button:hover svg:not(.no-hover-anim),
+a:hover svg:not(.no-hover-anim) {
+  transform: scale(1.15);
+}
+
+/* 1. Playful Bounce Hover */
+.icon-hover-bounce:hover,
+.group:hover .icon-hover-bounce {
+  transform: scale(1.22) rotate(-8deg);
+}
+
+/* 2. Botanical Leaf Tilt Hover */
+.icon-hover-tilt:hover,
+.group:hover .icon-hover-tilt {
+  transform: scale(1.2) rotate(12deg);
+}
+
+/* 3. Subtle Pulse & Emerald Glow */
+.icon-hover-pulse:hover,
+.group:hover .icon-hover-pulse {
+  transform: scale(1.16);
+  filter: drop-shadow(0 4px 10px rgba(35, 83, 39, 0.35));
+}
+
+/* 4. Flower / Chamomile / Sun Spin Hover */
+.icon-hover-spin:hover,
+.group:hover .icon-hover-spin {
+  transform: scale(1.2) rotate(90deg);
+}
+
+/* 5. Smooth Elevation Lift */
+.icon-hover-lift:hover,
+.group:hover .icon-hover-lift {
+  transform: translateY(-3px) scale(1.14);
+  filter: drop-shadow(0 6px 14px rgba(22, 61, 38, 0.25));
+}
+
+/* 6. Arrow Glide Forward */
+.icon-hover-arrow:hover,
+.group:hover .icon-hover-arrow {
+  transform: translateX(4px) scale(1.12);
+}
+
+/* 7. Golden Glow on hover for Luxury Badges */
+.icon-hover-gold:hover,
+.group:hover .icon-hover-gold {
+  transform: scale(1.2) rotate(-6deg);
+  filter: drop-shadow(0 4px 12px rgba(194, 131, 40, 0.5));
+}
+
+/* 8. Heart / Wishlist Beat Animation */
+@keyframes heartThumpAnim {
+  0% { transform: scale(1); }
+  25% { transform: scale(1.3); }
+  50% { transform: scale(1.12); }
+  75% { transform: scale(1.25); }
+  100% { transform: scale(1.18); }
+}
+
+.icon-hover-heart:hover,
+.group:hover .icon-hover-heart {
+  animation: heartThumpAnim 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  filter: drop-shadow(0 3px 8px rgba(220, 38, 38, 0.4));
+}
+
+/* 9. Shopping Bag Wobble Animation */
+@keyframes bagWobbleAnim {
+  0% { transform: scale(1) rotate(0deg); }
+  25% { transform: scale(1.22) rotate(-14deg); }
+  50% { transform: scale(1.15) rotate(12deg); }
+  75% { transform: scale(1.18) rotate(-6deg); }
+  100% { transform: scale(1.16) rotate(0deg); }
+}
+
+.icon-hover-bag:hover,
+.group:hover .icon-hover-bag {
+  animation: bagWobbleAnim 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  filter: drop-shadow(0 4px 12px rgba(35, 83, 39, 0.35));
+}
+

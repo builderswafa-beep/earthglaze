@@ -1,0 +1,101 @@
+import { NextResponse } from 'next/server';
+
+const ORDERS = [
+  {
+    id: 31,
+    order_number: 'EG35273',
+    customer_name: 'Ayesha N.',
+    customer_email: 'ayesha@example.com',
+    customer_phone: '+91 98765 43210',
+    shipping_address: '402, Lotus Apt, Deralakatte, Mangalore, Karnataka - 575018',
+    payment_method: 'cod',
+    payment_status: 'pending',
+    status: 'pending',
+    subtotal: 349,
+    discount: 0,
+    shipping_fee: 0,
+    total_amount: 349,
+    created_at: new Date(Date.now() - 3600000 * 4).toISOString(),
+    items: [
+      {
+        id: 101,
+        product_id: 2,
+        product_name: 'Goat Milk Soap',
+        quantity: 1,
+        unit_price: 349,
+        subtotal: 349,
+        image: '/assets/favourites_goat_milk_soap_hd.png',
+      },
+    ],
+  },
+  {
+    id: 30,
+    order_number: 'EG35272',
+    customer_name: 'Priya Sharma',
+    customer_email: 'priya.s@example.com',
+    customer_phone: '+91 98451 23456',
+    shipping_address: 'Flat 12B, Green Glen Layout, Bellandur, Bengaluru, Karnataka - 560103',
+    payment_method: 'online',
+    payment_status: 'paid',
+    status: 'shipped',
+    subtotal: 799,
+    discount: 50,
+    shipping_fee: 0,
+    total_amount: 749,
+    created_at: new Date(Date.now() - 3600000 * 24).toISOString(),
+    items: [
+      {
+        id: 102,
+        product_id: 4,
+        product_name: 'Natural Care Trio Combo',
+        quantity: 1,
+        unit_price: 799,
+        subtotal: 799,
+        image: '/assets/shop_natural_skincare_collection_showcase.png',
+      },
+    ],
+  },
+  {
+    id: 29,
+    order_number: 'EG35271',
+    customer_name: 'Kavita Menon',
+    customer_email: 'kavita.m@example.com',
+    customer_phone: '+91 94471 98765',
+    shipping_address: '14/820, Panampilly Nagar, Kochi, Kerala - 682036',
+    payment_method: 'cod',
+    payment_status: 'paid',
+    status: 'delivered',
+    subtotal: 598,
+    discount: 60,
+    shipping_fee: 0,
+    total_amount: 538,
+    created_at: new Date(Date.now() - 3600000 * 48).toISOString(),
+    items: [
+      {
+        id: 103,
+        product_id: 1,
+        product_name: 'Manjistha Soap',
+        quantity: 1,
+        unit_price: 349,
+        subtotal: 349,
+        image: '/assets/shop_card_manjistha_hd.png',
+      },
+      {
+        id: 104,
+        product_id: 3,
+        product_name: 'Beetroot Lip Balm',
+        quantity: 1,
+        unit_price: 249,
+        subtotal: 249,
+        image: '/assets/shop_card_lipbalm_hd.png',
+      },
+    ],
+  },
+];
+
+export async function GET() {
+  return NextResponse.json({
+    success: true,
+    orders: ORDERS,
+  });
+}

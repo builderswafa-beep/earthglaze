@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useCart } from '../context/CartContext';
@@ -9,13 +9,29 @@ import { useAuth } from '../context/AuthContext';
 export default function Navbar() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const { cartCount, cartBounce, openMiniCart } = useCart();
   const { user, isAdmin } = useAuth();
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <>
-      <header className="header-nav sticky top-0 z-40 w-full bg-[#FAF4EE]/90 backdrop-blur-md transition-all duration-300 border-b border-stone-200/50">
-        <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12 py-3.5 flex items-center justify-between">
+      <header 
+        className={`header-nav fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300 border-b ${
+          scrolled 
+            ? 'bg-[#FAF4EE]/95 backdrop-blur-md shadow-[0_4px_24px_-4px_rgba(23,61,43,0.08)] border-stone-200/80 py-2.5 sm:py-3' 
+            : 'bg-[#FAF4EE]/90 backdrop-blur-md shadow-none border-stone-200/40 py-3.5'
+        }`}
+      >
+        <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12 flex items-center justify-between transition-all duration-300">
 
           {/* Brand Logo */}
           <Link href="/" className="flex items-center gap-2 shrink-0 group focus-visible:outline-none rounded-lg" aria-label="EarthGlaze Natural Skincare Home">
@@ -23,7 +39,11 @@ export default function Navbar() {
               id="header-brand-logo"
               src="/assets/earthglaze-logo-hd.png"
               alt="EarthGlaze • Natural Skincare" 
-              className="h-10 sm:h-12 md:h-16 w-auto max-w-[140px] sm:max-w-none object-contain transition-transform duration-300 group-hover:scale-[1.02]"
+              className={`w-auto max-w-[140px] sm:max-w-none object-contain transition-all duration-300 group-hover:scale-[1.02] ${
+                scrolled 
+                  ? 'h-9 sm:h-11 md:h-14' 
+                  : 'h-10 sm:h-12 md:h-16'
+              }`}
             />
           </Link>
 
@@ -104,11 +124,11 @@ export default function Navbar() {
             {/* Search Button */}
             <Link 
               href="/shop" 
-              className="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-stone-700 hover:text-[#235327] hover:bg-white/80 transition shadow-xs sm:shadow-sm border border-transparent hover:border-stone-200"
+              className="group w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-stone-700 hover:text-[#235327] hover:bg-white/80 transition shadow-xs sm:shadow-sm border border-transparent hover:border-stone-200"
               aria-label="Search skincare products"
               title="Search products"
             >
-              <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 sm:w-5 sm:h-5 icon-hover-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
               </svg>
             </Link>
@@ -120,7 +140,7 @@ export default function Navbar() {
               aria-label="Customer Account Profile"
               title={user ? `Logged in as ${user.name}` : "Account Profile"}
             >
-              <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 sm:w-5 sm:h-5 icon-hover-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
               </svg>
               {user && (
@@ -138,11 +158,11 @@ export default function Navbar() {
                   openMiniCart();
                 }
               }}
-              className="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-stone-700 hover:text-[#235327] hover:bg-white/80 transition shadow-xs sm:shadow-sm border border-transparent hover:border-stone-200 relative cursor-pointer"
+              className="group w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-stone-700 hover:text-[#235327] hover:bg-white/80 transition shadow-xs sm:shadow-sm border border-transparent hover:border-stone-200 relative cursor-pointer"
               aria-label="Shopping Bag"
               title="View Shopping Bag"
             >
-              <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 sm:w-5 sm:h-5 icon-hover-bag" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
               </svg>
               <span className={`absolute -top-1 -right-1 bg-[#235327] text-white text-[10px] sm:text-[11px] font-bold w-4.5 h-4.5 sm:w-5 sm:h-5 rounded-full flex items-center justify-center shadow transition-all duration-300 ${cartBounce ? 'scale-125 bg-[#C28328] ring-2 ring-white' : 'scale-100'}`}>
@@ -168,7 +188,7 @@ export default function Navbar() {
 
         {/* Mobile Slide-out Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden bg-[#FAF4EE] border-t border-stone-200 px-6 py-4 space-y-3">
+          <div className="md:hidden bg-[#FAF4EE]/98 backdrop-blur-lg border-t border-stone-200 px-6 py-4 space-y-3 shadow-xl max-h-[calc(100vh-80px)] overflow-y-auto">
             <Link 
               href="/" 
               onClick={() => setMobileMenuOpen(false)}
@@ -230,6 +250,9 @@ export default function Navbar() {
           </div>
         )}
       </header>
+
+      {/* Fixed Header Layout Spacer so content flow and section spacing remain preserved */}
+      <div className="header-nav-spacer h-[68px] sm:h-[76px] md:h-[92px] w-full shrink-0 pointer-events-none select-none" aria-hidden="true" />
     </>
   );
 }

@@ -28,44 +28,45 @@ export default function AboutPage() {
 
         {/* Organic Emerald Green Bottom-Left Wave Sweep (Properly Aligned & Harmoniously Layered) */}
         <svg 
-          className="absolute bottom-0 left-0 w-72 sm:w-96 md:w-[460px] lg:w-[560px] xl:w-[680px] h-auto pointer-events-none select-none z-10" 
-          viewBox="0 0 700 130" 
+          className="absolute -bottom-[1px] left-0 w-72 sm:w-96 md:w-[520px] lg:w-[640px] pointer-events-none select-none z-10 block" 
+          viewBox="0 0 640 140" 
+          preserveAspectRatio="xMinYMax meet"
           fill="none" 
           xmlns="http://www.w3.org/2000/svg"
           aria-hidden="true"
         >
           <defs>
-            <linearGradient id="aboutWaveGrad" x1="0%" y1="20%" x2="100%" y2="80%">
+            <linearGradient id="aboutWaveGrad" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stopColor="#2E6B3E" />
-              <stop offset="55%" stopColor="#1E4D2B" />
-              <stop offset="100%" stopColor="#12331C" />
+              <stop offset="60%" stopColor="#1E4D2B" />
+              <stop offset="100%" stopColor="#0D2D1C" />
             </linearGradient>
             <linearGradient id="aboutWaveBack" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#163C25" />
-              <stop offset="100%" stopColor="#0A2213" />
+              <stop offset="0%" stopColor="#1B4D2E" />
+              <stop offset="100%" stopColor="#081F12" />
             </linearGradient>
           </defs>
 
-          {/* Background Depth Layer (Aligned organic contour, smooth baseline taper) */}
+          {/* Background Depth Layer - subtly peeking higher, smoothly tapering into the baseline */}
           <path 
-            d="M 0 130 C 80 115 150 48 270 48 C 390 48 490 102 640 130 L 0 130 Z" 
+            d="M 0 145 L 0 85 C 70 65, 150 25, 260 25 C 380 25, 480 75, 560 115 C 600 132, 625 139, 640 140 L 640 145 Z" 
             fill="url(#aboutWaveBack)" 
-            opacity="0.45" 
+            opacity="0.4" 
           />
 
-          {/* Foreground Main Layer (Rich botanical emerald sweep, smoothly aligned with depth layer) */}
+          {/* Foreground Main Layer - rich organic curve with graceful smooth landing onto baseline */}
           <path 
-            d="M 0 130 C 75 119 145 62 265 62 C 380 62 470 108 590 130 L 0 130 Z" 
+            d="M 0 145 L 0 98 C 65 80, 140 42, 250 42 C 365 42, 455 88, 530 122 C 568 135, 595 139, 610 140 L 610 145 Z" 
             fill="url(#aboutWaveGrad)" 
             opacity="0.95" 
           />
 
           {/* Fine Botanical Gold Highlight Filament along crest */}
           <path 
-            d="M 10 128 C 80 117 150 61 265 61 C 375 61 465 106 580 128" 
+            d="M 0 98 C 65 80, 140 42, 250 42 C 365 42, 455 88, 530 122 C 568 135, 595 139, 610 140" 
             stroke="#D4AF37" 
             strokeWidth="1.5" 
-            strokeOpacity="0.65" 
+            strokeOpacity="0.75" 
             strokeLinecap="round"
             fill="none" 
           />
@@ -192,9 +193,9 @@ export default function AboutPage() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5 items-center divide-y md:divide-y-0 md:divide-x divide-stone-200/80 text-center">
               
               {/* Pillar 1: Nature-Powered Formulas */}
-              <div className="flex flex-col items-center justify-center p-2 group cursor-pointer transition-all">
-                <div className="text-[#2E6B3E] mb-2.5 transition-transform duration-300 group-hover:scale-110">
-                  <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <div className="flex flex-col items-center justify-center p-2 group cursor-pointer transition-all stagger-1">
+                <div className="text-[#2E6B3E] mb-2.5">
+                  <svg className="w-8 h-8 icon-hover-spin" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                     <circle cx="12" cy="12" r="9" />
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v18M12 7c2.5 0 4.5 2 4.5 4.5S14.5 16 12 16" />
                   </svg>
@@ -205,9 +206,9 @@ export default function AboutPage() {
               </div>
 
               {/* Pillar 2: No Harsh Chemicals */}
-              <div className="flex flex-col items-center justify-center p-2 group cursor-pointer transition-all pt-4 md:pt-2">
-                <div className="text-[#2E6B3E] mb-2.5 transition-transform duration-300 group-hover:scale-110">
-                  <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <div className="flex flex-col items-center justify-center p-2 group cursor-pointer transition-all pt-4 md:pt-2 stagger-2">
+                <div className="text-[#2E6B3E] mb-2.5">
+                  <svg className="w-8 h-8 icon-hover-bounce" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
                   </svg>
                 </div>
@@ -217,9 +218,9 @@ export default function AboutPage() {
               </div>
 
               {/* Pillar 3: Gentle on All Skin Types */}
-              <div className="flex flex-col items-center justify-center p-2 group cursor-pointer transition-all pt-4 md:pt-2">
-                <div className="text-[#2E6B3E] mb-2.5 transition-transform duration-300 group-hover:scale-110">
-                  <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <div className="flex flex-col items-center justify-center p-2 group cursor-pointer transition-all pt-4 md:pt-2 stagger-3">
+                <div className="text-[#2E6B3E] mb-2.5">
+                  <svg className="w-8 h-8 icon-hover-heart" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
                   </svg>
                 </div>
@@ -229,9 +230,9 @@ export default function AboutPage() {
               </div>
 
               {/* Pillar 4: Ethically Sourced */}
-              <div className="flex flex-col items-center justify-center p-2 group cursor-pointer transition-all pt-4 md:pt-2">
-                <div className="text-[#2E6B3E] mb-2.5 transition-transform duration-300 group-hover:scale-110">
-                  <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <div className="flex flex-col items-center justify-center p-2 group cursor-pointer transition-all pt-4 md:pt-2 stagger-4">
+                <div className="text-[#2E6B3E] mb-2.5">
+                  <svg className="w-8 h-8 icon-hover-tilt" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 21v-8m0 0a5 5 0 01-5-5c0-2.5 2-4 5-4s5 1.5 5 4a5 5 0 01-5 5z"/>
                   </svg>
                 </div>

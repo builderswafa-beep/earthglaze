@@ -146,9 +146,9 @@ export default function TrustBadgeStrip() {
           <div className="relative z-20 py-3.5 sm:py-4 md:py-5 px-3 sm:px-8 md:px-16 flex flex-wrap md:flex-nowrap items-center justify-between gap-y-3.5 gap-x-2">
             {trustFeatures.map((item, idx) => (
               <React.Fragment key={item.id}>
-                {/* Badge Item */}
+                {/* Badge Item with Staggered Entrance & Interactive Hover */}
                 <div 
-                  className="group/badge flex-1 min-w-[125px] sm:min-w-[160px] md:min-w-0 flex items-center justify-center gap-2 sm:gap-3.5 px-1.5 sm:px-3 py-1.5 rounded-2xl sm:rounded-full hover:bg-white/70 transition-all duration-300 cursor-default"
+                  className={`group/badge flex-1 min-w-[125px] sm:min-w-[160px] md:min-w-0 flex items-center justify-center gap-2 sm:gap-3.5 px-1.5 sm:px-3 py-1.5 rounded-2xl sm:rounded-full hover:bg-white/80 transition-all duration-300 cursor-default stagger-${idx + 1}`}
                 >
                   {/* Round Green Border Icon Container */}
                   <div className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-full border-[1.8px] border-[#163D26] bg-white flex items-center justify-center shrink-0 shadow-2xs transition-all duration-300 group-hover/badge:border-[#C28328] group-hover/badge:scale-108 group-hover/badge:shadow-[0_4px_16px_rgba(22,61,38,0.22)]">

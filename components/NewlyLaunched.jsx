@@ -188,14 +188,14 @@ export default function NewlyLaunched() {
                 className="btn-luxury-primary inline-flex items-center justify-center gap-2 px-6 sm:px-7 py-3 rounded-full text-white font-semibold text-xs sm:text-sm group cursor-pointer"
               >
                 <span>Explore the New Range</span>
-                <span className="btn-arrow font-bold">&rarr;</span>
+                <span className="btn-arrow font-bold icon-hover-arrow">&rarr;</span>
               </Link>
 
               {/* Secondary CTA: Add to Bag */}
               <button
                 type="button"
                 onClick={handleAddToBag}
-                className={`inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-3 rounded-full font-semibold text-xs sm:text-sm border transition-all duration-300 cursor-pointer active:scale-95 shadow-2xs hover:shadow-md hover:-translate-y-0.5 ${
+                className={`group inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-3 rounded-full font-semibold text-xs sm:text-sm border transition-all duration-300 cursor-pointer active:scale-95 shadow-2xs hover:shadow-md hover:-translate-y-0.5 ${
                   added
                     ? 'bg-[#1E7D3A] text-white border-[#1E7D3A]'
                     : 'bg-white hover:bg-[#0D3B23] text-[#0D3B23] hover:text-white border-[#0D3B23]'
@@ -209,7 +209,7 @@ export default function NewlyLaunched() {
                   </>
                 ) : (
                   <>
-                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                    <svg className="w-3.5 h-3.5 icon-hover-bounce" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                     </svg>
                     <span>Add to Bag</span>

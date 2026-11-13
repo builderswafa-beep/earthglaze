@@ -288,41 +288,41 @@ export default function Footer() {
             <div className="flex flex-wrap items-center justify-between gap-3 sm:gap-4 text-xs sm:text-sm font-semibold text-stone-800">
               
               {/* Badge 1: 100% Natural */}
-              <div className="flex items-center gap-2 mx-auto sm:mx-0">
-                <svg className="w-5 h-5 text-[#235327] shrink-0" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
+              <div className="group flex items-center gap-2 mx-auto sm:mx-0 cursor-default">
+                <svg className="w-5 h-5 text-[#235327] shrink-0 icon-hover-tilt" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9 9 0 0 1-9-9c0-4.97 4.03-9 9-9 4.97 0 9 4.03 9 9a9 9 0 0 1-9 9zm0-18v18m0-9c-2.5 0-4.5-2-4.5-4.5S9.5 5 12 5"/>
                 </svg>
-                <span>100% Natural</span>
+                <span className="group-hover:text-[#235327] transition-colors">100% Natural</span>
               </div>
 
               <span className="text-stone-300 hidden sm:inline">|</span>
 
               {/* Badge 2: Ayurvedic Formulation */}
-              <div className="flex items-center gap-2 mx-auto sm:mx-0">
-                <svg className="w-5 h-5 text-[#235327] shrink-0" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
+              <div className="group flex items-center gap-2 mx-auto sm:mx-0 cursor-default">
+                <svg className="w-5 h-5 text-[#235327] shrink-0 icon-hover-bounce" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M19 11H5m14 0a7 7 0 01-7 7m7-7a7 7 0 00-7-7m-7 7a7 7 0 007 7m-7-7a7 7 0 017-7m7 14v4m-4-2h8"/>
                 </svg>
-                <span>Ayurvedic Formulation</span>
+                <span className="group-hover:text-[#235327] transition-colors">Ayurvedic Formulation</span>
               </div>
 
               <span className="text-stone-300 hidden sm:inline">|</span>
 
               {/* Badge 3: No Harsh Chemicals */}
-              <div className="flex items-center gap-2 mx-auto sm:mx-0">
-                <svg className="w-5 h-5 text-[#235327] shrink-0" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
+              <div className="group flex items-center gap-2 mx-auto sm:mx-0 cursor-default">
+                <svg className="w-5 h-5 text-[#235327] shrink-0 icon-hover-pulse" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
                 </svg>
-                <span>No Harsh Chemicals</span>
+                <span className="group-hover:text-[#235327] transition-colors">No Harsh Chemicals</span>
               </div>
 
               <span className="text-stone-300 hidden sm:inline">|</span>
 
               {/* Badge 4: Cruelty Free */}
-              <div className="flex items-center gap-2 mx-auto sm:mx-0">
-                <svg className="w-5 h-5 text-[#235327] shrink-0" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
+              <div className="group flex items-center gap-2 mx-auto sm:mx-0 cursor-default">
+                <svg className="w-5 h-5 text-[#235327] shrink-0 icon-hover-heart" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
                 </svg>
-                <span>Cruelty Free</span>
+                <span className="group-hover:text-[#235327] transition-colors">Cruelty Free</span>
               </div>
 
             </div>

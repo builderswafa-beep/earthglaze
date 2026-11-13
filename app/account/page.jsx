@@ -286,13 +286,13 @@ export default function AccountPage() {
               <button 
                 type="button" 
                 onClick={() => setActiveTab('overview')}
-                className={`w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-xs sm:text-sm font-semibold transition-all duration-200 cursor-pointer ${
+                className={`group w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-xs sm:text-sm font-semibold transition-all duration-200 cursor-pointer ${
                   activeTab === 'overview' 
                     ? 'bg-[#0D2D1C] text-white shadow-2xs' 
                     : 'text-stone-600 hover:bg-[#FAF7F2] hover:text-[#0D2D1C]'
                 }`}
               >
-                <span>📊</span>
+                <span className="inline-block transition-transform duration-300 group-hover:scale-125 group-hover:-rotate-6">📊</span>
                 <span>Overview</span>
               </button>
 
@@ -300,13 +300,13 @@ export default function AccountPage() {
               <button 
                 type="button" 
                 onClick={() => setActiveTab('orders')}
-                className={`w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-xs sm:text-sm font-semibold transition-all duration-200 cursor-pointer ${
+                className={`group w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-xs sm:text-sm font-semibold transition-all duration-200 cursor-pointer ${
                   activeTab === 'orders' 
                     ? 'bg-[#0D2D1C] text-white shadow-2xs' 
                     : 'text-stone-600 hover:bg-[#FAF7F2] hover:text-[#0D2D1C]'
                 }`}
               >
-                <span>📦</span>
+                <span className="inline-block transition-transform duration-300 group-hover:scale-125 group-hover:rotate-6">📦</span>
                 <span>My Orders</span>
               </button>
 
@@ -314,13 +314,13 @@ export default function AccountPage() {
               <button 
                 type="button" 
                 onClick={() => setActiveTab('addresses')}
-                className={`w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-xs sm:text-sm font-semibold transition-all duration-200 cursor-pointer ${
+                className={`group w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-xs sm:text-sm font-semibold transition-all duration-200 cursor-pointer ${
                   activeTab === 'addresses' 
                     ? 'bg-[#0D2D1C] text-white shadow-2xs' 
                     : 'text-stone-600 hover:bg-[#FAF7F2] hover:text-[#0D2D1C]'
                 }`}
               >
-                <span>📍</span>
+                <span className="inline-block transition-transform duration-300 group-hover:scale-125 group-hover:-rotate-12">📍</span>
                 <span>Saved Addresses</span>
               </button>
 
@@ -328,13 +328,13 @@ export default function AccountPage() {
               <button 
                 type="button" 
                 onClick={() => setActiveTab('profile')}
-                className={`w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-xs sm:text-sm font-semibold transition-all duration-200 cursor-pointer ${
+                className={`group w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-xs sm:text-sm font-semibold transition-all duration-200 cursor-pointer ${
                   activeTab === 'profile' 
                     ? 'bg-[#0D2D1C] text-white shadow-2xs' 
                     : 'text-stone-600 hover:bg-[#FAF7F2] hover:text-[#0D2D1C]'
                 }`}
               >
-                <span>👤</span>
+                <span className="inline-block transition-transform duration-300 group-hover:scale-125 group-hover:rotate-6">👤</span>
                 <span>Account Details</span>
               </button>
 
@@ -342,9 +342,9 @@ export default function AccountPage() {
               <button 
                 type="button" 
                 onClick={logout}
-                className="w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-xs sm:text-sm font-semibold text-stone-500 hover:text-red-700 hover:bg-red-50/60 transition cursor-pointer"
+                className="group w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-xs sm:text-sm font-semibold text-stone-500 hover:text-red-700 hover:bg-red-50/60 transition cursor-pointer"
               >
-                <span>🚪</span>
+                <span className="inline-block transition-transform duration-300 group-hover:scale-125 group-hover:translate-x-1">🚪</span>
                 <span>Logout</span>
               </button>
 

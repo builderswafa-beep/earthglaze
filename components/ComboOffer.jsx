@@ -274,11 +274,11 @@ export default function ComboOffer() {
                   className="btn-luxury-primary inline-flex items-center justify-center gap-2 py-3.5 px-6 sm:px-7 rounded-full text-white font-semibold text-xs sm:text-sm group cursor-pointer disabled:opacity-75 whitespace-nowrap shrink-0"
                   aria-label="Buy Combo Now for ₹799"
                 >
-                  <svg className="w-4 h-4 text-white/90" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4 text-white/90 icon-hover-bag" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                   </svg>
                   <span>{loading ? 'Adding Combo...' : 'Buy Combo Now'}</span>
-                  <span className="btn-arrow font-bold">&rarr;</span>
+                  <span className="btn-arrow font-bold icon-hover-arrow">&rarr;</span>
                 </button>
               </div>
 

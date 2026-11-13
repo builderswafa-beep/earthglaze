@@ -7,12 +7,14 @@ import MiniCart from './MiniCart';
 import CartNotificationToast from './CartNotificationToast';
 import StickyFloatingActions from './StickyFloatingActions';
 import LogoPreloader from './LogoPreloader';
+import ScrollAnimationController from './ScrollAnimationController';
 
 export default function Providers({ children }) {
   return (
     <AuthProvider>
       <CartProvider>
         <LogoPreloader />
+        <ScrollAnimationController />
         {children}
         <MiniCart />
         <CartNotificationToast />

@@ -256,18 +256,18 @@ function ProductDetailContent() {
 
             {/* Botanical Trust Pills */}
             <div className="grid grid-cols-3 gap-3 pt-2">
-              <div className="bg-white p-3 rounded-2xl border border-[#E8DEC8] text-center">
-                <span className="text-lg block mb-0.5">🌿</span>
+              <div className="bg-white p-3 rounded-2xl border border-[#E8DEC8] text-center hover:shadow-md hover:border-[#1E3B2B]/30 transition-all duration-300 group cursor-default">
+                <span className="text-lg block mb-0.5 transition-transform duration-300 group-hover:scale-125 group-hover:-rotate-12">🌿</span>
                 <span className="text-[11px] font-bold text-[#1E3B2B] block">Herbal Care</span>
                 <span className="text-[10px] text-stone-500">100% Ayurvedic</span>
               </div>
-              <div className="bg-white p-3 rounded-2xl border border-[#E8DEC8] text-center">
-                <span className="text-lg block mb-0.5">💧</span>
+              <div className="bg-white p-3 rounded-2xl border border-[#E8DEC8] text-center hover:shadow-md hover:border-[#1E3B2B]/30 transition-all duration-300 group cursor-default">
+                <span className="text-lg block mb-0.5 transition-transform duration-300 group-hover:scale-125 group-hover:rotate-12">💧</span>
                 <span className="text-[11px] font-bold text-[#1E3B2B] block">Gentle & Safe</span>
                 <span className="text-[10px] text-stone-500">Daily Cleansing</span>
               </div>
-              <div className="bg-white p-3 rounded-2xl border border-[#E8DEC8] text-center">
-                <span className="text-lg block mb-0.5">🧪</span>
+              <div className="bg-white p-3 rounded-2xl border border-[#E8DEC8] text-center hover:shadow-md hover:border-[#1E3B2B]/30 transition-all duration-300 group cursor-default">
+                <span className="text-lg block mb-0.5 transition-transform duration-300 group-hover:scale-125 group-hover:-rotate-12">🧪</span>
                 <span className="text-[11px] font-bold text-[#1E3B2B] block">No Harsh Chem</span>
                 <span className="text-[10px] text-stone-500">Sulfate Free</span>
               </div>
@@ -282,7 +282,7 @@ function ProductDetailContent() {
                   <button 
                     type="button" 
                     onClick={() => setQuantity(q => Math.max(1, q - 1))}
-                    className="w-11 h-12 flex items-center justify-center text-stone-600 hover:bg-stone-100 transition text-lg font-bold" 
+                    className="w-11 h-12 flex items-center justify-center text-stone-600 hover:bg-stone-100 hover:text-stone-900 transition text-lg font-bold" 
                     aria-label="Decrease quantity"
                   >
                     −
@@ -293,7 +293,7 @@ function ProductDetailContent() {
                   <button 
                     type="button" 
                     onClick={() => setQuantity(q => Math.min(product.stock_qty || 10, q + 1))}
-                    className="w-11 h-12 flex items-center justify-center text-stone-600 hover:bg-stone-100 transition text-lg font-bold" 
+                    className="w-11 h-12 flex items-center justify-center text-stone-600 hover:bg-stone-100 hover:text-stone-900 transition text-lg font-bold" 
                     aria-label="Increase quantity"
                   >
                     +
@@ -307,9 +307,9 @@ function ProductDetailContent() {
                     type="button" 
                     onClick={handleAddToCart}
                     disabled={addingToCart || (product.stock_qty <= 0)}
-                    className="flex-1 h-12 bg-[#1E3B2B] hover:bg-[#14291E] text-white font-bold text-xs sm:text-sm rounded-2xl transition shadow-md hover:shadow-lg flex items-center justify-center gap-2 active:scale-95 disabled:opacity-60 cursor-pointer"
+                    className="group flex-1 h-12 bg-[#1E3B2B] hover:bg-[#14291E] text-white font-bold text-xs sm:text-sm rounded-2xl transition shadow-md hover:shadow-lg flex items-center justify-center gap-2 active:scale-95 disabled:opacity-60 cursor-pointer"
                   >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 icon-hover-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
                     </svg>
                     <span>{addingToCart ? 'Adding...' : 'Add to Bag'}</span>
@@ -320,9 +320,10 @@ function ProductDetailContent() {
                     type="button" 
                     onClick={handleBuyNow}
                     disabled={addingToCart || (product.stock_qty <= 0)}
-                    className="flex-1 h-12 bg-[#C28328] hover:bg-[#a66f21] text-white font-bold text-xs sm:text-sm rounded-2xl transition shadow-md hover:shadow-lg flex items-center justify-center gap-2 active:scale-95 disabled:opacity-60 cursor-pointer"
+                    className="group flex-1 h-12 bg-[#C28328] hover:bg-[#a66f21] text-white font-bold text-xs sm:text-sm rounded-2xl transition shadow-md hover:shadow-lg flex items-center justify-center gap-2 active:scale-95 disabled:opacity-60 cursor-pointer"
                   >
-                    <span>Buy Now →</span>
+                    <span>Buy Now</span>
+                    <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
                   </button>
                 </div>
               </div>

@@ -22,7 +22,7 @@ export default function IngredientsPage() {
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
       
       {/* Card 1: Manjistha */}
-      <div className="bg-white rounded-3xl p-6 shadow-sm border border-[#E8DEC8] flex flex-col justify-between text-center group hover:shadow-xl transition-all">
+      <div className="bg-white rounded-3xl p-6 shadow-sm border border-[#E8DEC8] flex flex-col justify-between text-center group hover:shadow-xl transition-all duration-300 stagger-1">
         <div>
           <div className="w-full aspect-square bg-[#FAF7F2] rounded-2xl p-4 flex items-center justify-center mb-4 overflow-hidden border border-stone-100">
             <img src="/assets/bestseller_manjistha_photo_hd.png" alt="Manjistha" className="max-h-full max-w-full object-contain group-hover:scale-110 transition-transform duration-500 drop-shadow" />
@@ -32,14 +32,15 @@ export default function IngredientsPage() {
           <p className="text-xs text-stone-500 leading-relaxed mt-2">Revered in Ayurveda as a supreme pitta-pacifier that diminishes dark spots and restores clarity.</p>
         </div>
         <div className="pt-5 border-t border-stone-100 mt-5">
-          <Link href="/product?slug=manjistha-soap" className="inline-block w-full py-2.5 bg-[#FAF7F2] hover:bg-[#1E3B2B] text-stone-800 hover:text-white font-bold text-xs rounded-xl border border-stone-200 transition">
-            Explore Product →
+          <Link href="/product?slug=manjistha-soap" className="group/link inline-flex items-center justify-center gap-1.5 w-full py-2.5 bg-[#FAF7F2] hover:bg-[#1E3B2B] text-stone-800 hover:text-white font-bold text-xs rounded-xl border border-stone-200 transition-all duration-300">
+            <span>Explore Product</span>
+            <span className="inline-block transition-transform duration-300 group-hover/link:translate-x-1">→</span>
           </Link>
         </div>
       </div>
 
       {/* Card 2: Goat Milk */}
-      <div className="bg-white rounded-3xl p-6 shadow-sm border border-[#E8DEC8] flex flex-col justify-between text-center group hover:shadow-xl transition-all">
+      <div className="bg-white rounded-3xl p-6 shadow-sm border border-[#E8DEC8] flex flex-col justify-between text-center group hover:shadow-xl transition-all duration-300 stagger-2">
         <div>
           <div className="w-full aspect-square bg-[#FAF7F2] rounded-2xl p-4 flex items-center justify-center mb-4 overflow-hidden border border-stone-100">
             <img src="/assets/bestseller_goat_photo_hd.png" alt="Goat Milk" className="max-h-full max-w-full object-contain group-hover:scale-110 transition-transform duration-500 drop-shadow" />
@@ -49,14 +50,15 @@ export default function IngredientsPage() {
           <p className="text-xs text-stone-500 leading-relaxed mt-2">Naturally rich in lactic acid and essential fatty acids that rebuild delicate moisture barriers.</p>
         </div>
         <div className="pt-5 border-t border-stone-100 mt-5">
-          <Link href="/product?slug=goat-milk-soap" className="inline-block w-full py-2.5 bg-[#FAF7F2] hover:bg-[#1E3B2B] text-stone-800 hover:text-white font-bold text-xs rounded-xl border border-stone-200 transition">
-            Explore Product →
+          <Link href="/product?slug=goat-milk-soap" className="group/link inline-flex items-center justify-center gap-1.5 w-full py-2.5 bg-[#FAF7F2] hover:bg-[#1E3B2B] text-stone-800 hover:text-white font-bold text-xs rounded-xl border border-stone-200 transition-all duration-300">
+            <span>Explore Product</span>
+            <span className="inline-block transition-transform duration-300 group-hover/link:translate-x-1">→</span>
           </Link>
         </div>
       </div>
 
       {/* Card 3: Neem */}
-      <div className="bg-white rounded-3xl p-6 shadow-sm border border-[#E8DEC8] flex flex-col justify-between text-center group hover:shadow-xl transition-all">
+      <div className="bg-white rounded-3xl p-6 shadow-sm border border-[#E8DEC8] flex flex-col justify-between text-center group hover:shadow-xl transition-all duration-300 stagger-3">
         <div>
           <div className="w-full aspect-square bg-[#FAF7F2] rounded-2xl p-4 flex items-center justify-center mb-4 overflow-hidden border border-stone-100">
             <img src="/assets/bestseller_aloe_soap_photo_hd.png" alt="Neem" className="max-h-full max-w-full object-contain group-hover:scale-110 transition-transform duration-500 drop-shadow" />
@@ -66,14 +68,15 @@ export default function IngredientsPage() {
           <p className="text-xs text-stone-500 leading-relaxed mt-2">A potent purifying botanical with natural antibacterial compounds to calm inflammation and breakouts.</p>
         </div>
         <div className="pt-5 border-t border-stone-100 mt-5">
-          <Link href="/product?slug=neem-soap" className="inline-block w-full py-2.5 bg-[#FAF7F2] hover:bg-[#1E3B2B] text-stone-800 hover:text-white font-bold text-xs rounded-xl border border-stone-200 transition">
-            Explore Product →
+          <Link href="/product?slug=neem-soap" className="group/link inline-flex items-center justify-center gap-1.5 w-full py-2.5 bg-[#FAF7F2] hover:bg-[#1E3B2B] text-stone-800 hover:text-white font-bold text-xs rounded-xl border border-stone-200 transition-all duration-300">
+            <span>Explore Product</span>
+            <span className="inline-block transition-transform duration-300 group-hover/link:translate-x-1">→</span>
           </Link>
         </div>
       </div>
 
       {/* Card 4: Beetroot */}
-      <div className="bg-white rounded-3xl p-6 shadow-sm border border-[#E8DEC8] flex flex-col justify-between text-center group hover:shadow-xl transition-all">
+      <div className="bg-white rounded-3xl p-6 shadow-sm border border-[#E8DEC8] flex flex-col justify-between text-center group hover:shadow-xl transition-all duration-300 stagger-4">
         <div>
           <div className="w-full aspect-square bg-[#FAF7F2] rounded-2xl p-4 flex items-center justify-center mb-4 overflow-hidden border border-stone-100">
             <img src="/assets/bestseller_balm_photo_hd.png" alt="Beetroot" className="max-h-full max-w-full object-contain group-hover:scale-110 transition-transform duration-500 drop-shadow" />
@@ -83,8 +86,9 @@ export default function IngredientsPage() {
           <p className="text-xs text-stone-500 leading-relaxed mt-2">Loaded with vibrant antioxidant betalains that nourish thin lip skin while granting a natural ruby glow.</p>
         </div>
         <div className="pt-5 border-t border-stone-100 mt-5">
-          <Link href="/product?slug=beetroot-lip-balm" className="inline-block w-full py-2.5 bg-[#FAF7F2] hover:bg-[#1E3B2B] text-stone-800 hover:text-white font-bold text-xs rounded-xl border border-stone-200 transition">
-            Explore Product →
+          <Link href="/product?slug=beetroot-lip-balm" className="group/link inline-flex items-center justify-center gap-1.5 w-full py-2.5 bg-[#FAF7F2] hover:bg-[#1E3B2B] text-stone-800 hover:text-white font-bold text-xs rounded-xl border border-stone-200 transition-all duration-300">
+            <span>Explore Product</span>
+            <span className="inline-block transition-transform duration-300 group-hover/link:translate-x-1">→</span>
           </Link>
         </div>
       </div>
@@ -92,11 +96,6 @@ export default function IngredientsPage() {
     </div>
   </main>
 
-  {/* Footer */}
-    {/* ========================================================================
-       EXACT EARTHGLAZE FOOTER SECTION (Matches Reference Image)
-       ======================================================================== */}
-  
     </div>
   );
 }

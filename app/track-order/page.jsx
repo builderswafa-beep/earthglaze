@@ -194,9 +194,9 @@ function TrackOrderContent() {
             <button 
               type="submit" 
               disabled={loading}
-              className="px-6 py-3.5 bg-[#0D2D1C] hover:bg-[#1A4B2F] text-white font-bold text-xs sm:text-sm rounded-full transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2 active:scale-95 disabled:opacity-60 cursor-pointer"
+              className="group px-6 py-3.5 bg-[#0D2D1C] hover:bg-[#1A4B2F] text-white font-bold text-xs sm:text-sm rounded-full transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2 active:scale-95 disabled:opacity-60 cursor-pointer"
             >
-              <span>🔍</span>
+              <span className="inline-block transition-transform duration-300 group-hover:scale-125 group-hover:rotate-12">🔍</span>
               <span>{loading ? 'Tracking...' : 'Track Order'}</span>
             </button>
           </form>

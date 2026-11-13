@@ -61,44 +61,45 @@ export default function ContactPage() {
 
         {/* Organic Emerald Green Bottom-Left Wave Sweep (Properly Aligned & Harmoniously Layered) */}
         <svg 
-          className="absolute bottom-0 left-0 w-72 sm:w-96 md:w-[460px] lg:w-[560px] xl:w-[680px] h-auto pointer-events-none select-none z-10" 
-          viewBox="0 0 700 130" 
+          className="absolute -bottom-[1px] left-0 w-72 sm:w-96 md:w-[520px] lg:w-[640px] pointer-events-none select-none z-10 block" 
+          viewBox="0 0 640 140" 
+          preserveAspectRatio="xMinYMax meet"
           fill="none" 
           xmlns="http://www.w3.org/2000/svg"
           aria-hidden="true"
         >
           <defs>
-            <linearGradient id="contactWaveGrad" x1="0%" y1="20%" x2="100%" y2="80%">
+            <linearGradient id="contactWaveGrad" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stopColor="#2E6B3E" />
-              <stop offset="55%" stopColor="#1E4D2B" />
-              <stop offset="100%" stopColor="#12331C" />
+              <stop offset="60%" stopColor="#1E4D2B" />
+              <stop offset="100%" stopColor="#0D2D1C" />
             </linearGradient>
             <linearGradient id="contactWaveBack" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#163C25" />
-              <stop offset="100%" stopColor="#0A2213" />
+              <stop offset="0%" stopColor="#1B4D2E" />
+              <stop offset="100%" stopColor="#081F12" />
             </linearGradient>
           </defs>
 
-          {/* Background Depth Layer (Aligned organic contour, smooth baseline taper) */}
+          {/* Background Depth Layer - subtly peeking higher, smoothly tapering into the baseline */}
           <path 
-            d="M 0 130 C 80 115 150 48 270 48 C 390 48 490 102 640 130 L 0 130 Z" 
+            d="M 0 145 L 0 85 C 70 65, 150 25, 260 25 C 380 25, 480 75, 560 115 C 600 132, 625 139, 640 140 L 640 145 Z" 
             fill="url(#contactWaveBack)" 
-            opacity="0.45" 
+            opacity="0.4" 
           />
 
-          {/* Foreground Main Layer (Rich botanical emerald sweep, smoothly aligned with depth layer) */}
+          {/* Foreground Main Layer - rich organic curve with graceful smooth landing onto baseline */}
           <path 
-            d="M 0 130 C 75 119 145 62 265 62 C 380 62 470 108 590 130 L 0 130 Z" 
+            d="M 0 145 L 0 98 C 65 80, 140 42, 250 42 C 365 42, 455 88, 530 122 C 568 135, 595 139, 610 140 L 610 145 Z" 
             fill="url(#contactWaveGrad)" 
             opacity="0.95" 
           />
 
-          {/* Fine Botanical Gold Highlight Filament along crest */}
+          {/* Fine Botanical Gold Highlight Filament along the crest */}
           <path 
-            d="M 10 128 C 80 117 150 61 265 61 C 375 61 465 106 580 128" 
+            d="M 0 98 C 65 80, 140 42, 250 42 C 365 42, 455 88, 530 122 C 568 135, 595 139, 610 140" 
             stroke="#D4AF37" 
             strokeWidth="1.5" 
-            strokeOpacity="0.65" 
+            strokeOpacity="0.75" 
             strokeLinecap="round"
             fill="none" 
           />
@@ -159,9 +160,9 @@ export default function ContactPage() {
             <div className="lg:col-span-5 space-y-4 sm:space-y-5">
               
               {/* Card 1: Call Us */}
-              <div className="bg-[#FAF6EE] hover:bg-white border border-[#E8DEC8]/90 hover:border-[#1E3B2B]/40 rounded-[22px] sm:rounded-[24px] p-5 sm:p-6 shadow-2xs hover:shadow-md transition-all duration-300 flex items-start gap-4 group">
+              <div className="bg-[#FAF6EE] hover:bg-white border border-[#E8DEC8]/90 hover:border-[#1E3B2B]/40 rounded-[22px] sm:rounded-[24px] p-5 sm:p-6 shadow-2xs hover:shadow-md transition-all duration-300 flex items-start gap-4 group stagger-1 cursor-pointer">
                 <div className="w-12 h-12 rounded-full bg-[#EAF2EC] text-[#2E6B3E] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
+                  <svg className="w-5 h-5 icon-hover-bounce" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
                   </svg>
                 </div>
@@ -182,9 +183,9 @@ export default function ContactPage() {
               </div>
 
               {/* Card 2: Email Us */}
-              <div className="bg-[#FAF6EE] hover:bg-white border border-[#E8DEC8]/90 hover:border-[#1E3B2B]/40 rounded-[22px] sm:rounded-[24px] p-5 sm:p-6 shadow-2xs hover:shadow-md transition-all duration-300 flex items-start gap-4 group">
+              <div className="bg-[#FAF6EE] hover:bg-white border border-[#E8DEC8]/90 hover:border-[#1E3B2B]/40 rounded-[22px] sm:rounded-[24px] p-5 sm:p-6 shadow-2xs hover:shadow-md transition-all duration-300 flex items-start gap-4 group stagger-2 cursor-pointer">
                 <div className="w-12 h-12 rounded-full bg-[#EAF2EC] text-[#2E6B3E] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
+                  <svg className="w-5 h-5 icon-hover-pulse" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                   </svg>
                 </div>
@@ -205,9 +206,9 @@ export default function ContactPage() {
               </div>
 
               {/* Card 3: Our Location */}
-              <div className="bg-[#FAF6EE] hover:bg-white border border-[#E8DEC8]/90 hover:border-[#1E3B2B]/40 rounded-[22px] sm:rounded-[24px] p-5 sm:p-6 shadow-2xs hover:shadow-md transition-all duration-300 flex items-start gap-4 group">
+              <div className="bg-[#FAF6EE] hover:bg-white border border-[#E8DEC8]/90 hover:border-[#1E3B2B]/40 rounded-[22px] sm:rounded-[24px] p-5 sm:p-6 shadow-2xs hover:shadow-md transition-all duration-300 flex items-start gap-4 group stagger-3 cursor-pointer">
                 <div className="w-12 h-12 rounded-full bg-[#EAF2EC] text-[#2E6B3E] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
+                  <svg className="w-5 h-5 icon-hover-lift" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                   </svg>
@@ -224,9 +225,9 @@ export default function ContactPage() {
               </div>
 
               {/* Card 4: Business Hours */}
-              <div className="bg-[#FAF6EE] hover:bg-white border border-[#E8DEC8]/90 hover:border-[#1E3B2B]/40 rounded-[22px] sm:rounded-[24px] p-5 sm:p-6 shadow-2xs hover:shadow-md transition-all duration-300 flex items-start gap-4 group">
+              <div className="bg-[#FAF6EE] hover:bg-white border border-[#E8DEC8]/90 hover:border-[#1E3B2B]/40 rounded-[22px] sm:rounded-[24px] p-5 sm:p-6 shadow-2xs hover:shadow-md transition-all duration-300 flex items-start gap-4 group stagger-4 cursor-pointer">
                 <div className="w-12 h-12 rounded-full bg-[#EAF2EC] text-[#2E6B3E] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
+                  <svg className="w-5 h-5 icon-hover-spin" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                   </svg>
                 </div>
