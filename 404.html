@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — Page Not Found | EarthGlaze Natural Skincare</title>
+  <meta name="description" content="The page you are looking for does not exist. Explore pure, artisanal Ayurvedic skincare by EarthGlaze.">
+  <link rel="icon" href="/assets/earthglaze-logo-hd.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Playfair Display"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              dark: '#0D2D1C',
+              forest: '#1E3B2B',
+              green: '#235327',
+              amber: '#C28328',
+              ivory: '#FAF7F2',
+              cream: '#FAF5ED',
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-[#FAF7F2] text-[#1E3B2B] font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-[#235327] selection:text-white">
+
+  <!-- Top Simple Header Bar -->
+  <header class="w-full bg-[#FAF7F2]/90 backdrop-blur-md border-b border-[#E8DEC8]/60 py-4 px-6 sm:px-12">
+    <div class="max-w-[1600px] mx-auto flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2">
+        <img src="/assets/earthglaze-logo-hd.png" alt="EarthGlaze" class="h-10 w-auto object-contain">
+      </a>
+      <div class="flex items-center gap-4 text-xs sm:text-sm font-semibold">
+        <a href="/" class="hover:text-[#235327] transition-colors">Home</a>
+        <a href="/shop" class="hover:text-[#235327] transition-colors">Shop</a>
+        <a href="/about" class="hover:text-[#235327] transition-colors">About Us</a>
+        <a href="/contact" class="hover:text-[#235327] transition-colors">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main 404 Content -->
+  <main class="flex-grow flex items-center justify-center py-16 px-4 sm:px-8">
+    <div class="max-w-2xl w-full text-center">
+      
+      <!-- Pill Badge -->
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#EAF3EC] border border-[#235327]/20 text-[#235327] text-xs font-semibold tracking-wide uppercase mb-6 shadow-xs">
+        <span class="w-2 h-2 rounded-full bg-[#235327] animate-ping"></span>
+        <span>404 • Botanical Path Not Found</span>
+      </div>
+
+      <!-- Stylized 404 Mortar Visual -->
+      <div class="relative my-4 flex items-center justify-center select-none">
+        <span class="text-[120px] sm:text-[180px] font-serif font-black text-[#1E3B2B]/10 tracking-widest leading-none pointer-events-none">
+          404
+        </span>
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <img 
+            src="/assets/hero_mortar_prop_transparent.png" 
+            alt="EarthGlaze Mortar" 
+            class="w-32 sm:w-44 h-auto object-contain drop-shadow-[0_12px_24px_rgba(22,61,38,0.18)] -rotate-6"
+          >
+        </div>
+      </div>
+
+      <!-- Heading -->
+      <h1 class="text-3xl sm:text-5xl font-serif font-bold text-[#1E3B2B] tracking-tight mb-4">
+        Lost in the Botanical Sanctuary?
+      </h1>
+
+      <!-- Subtitle -->
+      <p class="text-stone-600 text-sm sm:text-base leading-relaxed max-w-lg mx-auto mb-8 font-normal">
+        The formulation you are searching for might have returned to nature. Let us guide you back to pure, handcrafted skincare.
+      </p>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
+        <a 
+          href="/" 
+          class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-[#235327] hover:bg-[#1a401e] text-white font-bold text-sm shadow-md hover:shadow-lg transition-all active:scale-95"
+        >
+          <span>Return to Home Sanctuary</span>
+          <span>→</span>
+        </a>
+        <a 
+          href="/shop" 
+          class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-white hover:bg-stone-50 text-[#1E3B2B] border border-stone-300 hover:border-[#235327] font-semibold text-sm transition-all active:scale-95"
+        >
+          <span>Explore Artisanal Shop</span>
+          <span>🛍️</span>
+        </a>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Clean Footer Bar -->
+  <footer class="w-full border-t border-[#E8DEC8]/60 py-6 text-center text-xs text-stone-500 bg-[#FAF7F2]">
+    <div class="max-w-[1600px] mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <p>© 2026 EarthGlaze Natural Skincare. All Rights Reserved.</p>
+      <div class="flex items-center gap-4">
+        <a href="/shop" class="hover:text-[#235327]">Shop</a>
+        <span>•</span>
+        <a href="/about" class="hover:text-[#235327]">About Us</a>
+        <span>•</span>
+        <a href="/contact" class="hover:text-[#235327]">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

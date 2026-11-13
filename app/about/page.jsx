@@ -2,8 +2,13 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { useSiteContent } from '../../hooks/useSiteContent';
 
 export default function AboutPage() {
+  const { getSection } = useSiteContent();
+  const heroData = getSection('about', 'hero');
+  const philosophyData = getSection('about', 'philosophy');
+  const valuesData = getSection('about', 'values');
   return (
     <div className="w-full bg-[#FAF7F2] font-sans text-[#1E3B2B] overflow-hidden selection:bg-[#235327] selection:text-white">
 
@@ -17,7 +22,7 @@ export default function AboutPage() {
         {/* Full-bleed seamless background banner image */}
         <div className="absolute inset-0 w-full h-full pointer-events-none select-none overflow-hidden z-0 hidden sm:block">
           <img 
-            src="/assets/about_hero_seamless_hd.png" 
+            src={heroData.bg_image || "/assets/about_hero_seamless_hd.png"} 
             alt="EarthGlaze Natural Skincare - Sandstone slab pedestal with luxury organic towels and botanical eucalyptus leaves" 
             className="w-full h-full object-cover object-right"
             loading="eager"
@@ -80,7 +85,7 @@ export default function AboutPage() {
             <div className="flex items-center gap-3">
               <span className="w-8 h-px bg-[#1E3B2B]/40" aria-hidden="true"></span>
               <span className="text-xs font-bold tracking-[0.22em] text-[#1E3B2B] uppercase font-sans">
-                About Us
+                {heroData.eyebrow || 'About Us'}
               </span>
               <span className="w-8 h-px bg-[#1E3B2B]/40" aria-hidden="true"></span>
             </div>
@@ -88,16 +93,13 @@ export default function AboutPage() {
             {/* Main Heading */}
             <div className="space-y-1">
               <h1 className="text-3xl sm:text-4xl lg:text-[46px] xl:text-[50px] font-bold text-[#1E3B2B] tracking-tight leading-[1.08] font-serif">
-                The EarthGlanze
-                <span className="block mt-1 sm:mt-1.5 font-serif font-bold text-[#1E3B2B]">
-                  <span className="italic font-normal text-[#C28328]">Story</span>
-                </span>
+                {heroData.title || 'The EarthGlaze Story'}
               </h1>
             </div>
 
             {/* Subtitle */}
             <p className="text-base sm:text-lg text-[#4A5568] leading-relaxed max-w-lg font-sans">
-              A natural skincare brand inspired by the power of nature, crafted for healthy and radiant skin.
+              {heroData.subtitle || 'A natural skincare brand inspired by the power of nature, crafted for healthy and radiant skin.'}
             </p>
 
             {/* CTA Button */}
@@ -130,7 +132,7 @@ export default function AboutPage() {
           SECTION 2: CORE STORY (Mortar & Pestle Grinding Fresh Botanicals)
           ========================================================================= */}
       <section id="our-story-details" className="py-6 sm:py-9 bg-[#FAF7F2] relative">
-        <div className="max-w-[1380px] mx-auto px-4 sm:px-8 lg:px-12">
+        <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-10 items-center">
             
             {/* Left: Arched Image Frame with Mortar & Pestle in 4:3 Aspect Ratio */}
@@ -139,7 +141,7 @@ export default function AboutPage() {
                 {/* Outer Arched Frame with Golden Accent Border */}
                 <div className="relative overflow-hidden rounded-[36px] sm:rounded-[48px] bg-[#EDE5D8] border-2 border-[#D4AF37]/60 shadow-[0_12px_36px_rgba(23,61,43,0.08)] transition-transform duration-500 group-hover:scale-[1.015] aspect-[4/3]">
                   <img 
-                    src="/assets/about_hands_mortar_perfect.png" 
+                    src={philosophyData.image || "/assets/about_hands_mortar_perfect.png"} 
                     alt="Handcrafting pure herbal skincare using traditional stone mortar and fresh botanicals" 
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     loading="lazy"
@@ -163,19 +165,19 @@ export default function AboutPage() {
               {/* Eyebrow */}
               <div className="inline-flex items-center gap-3">
                 <span className="text-xs sm:text-sm font-bold uppercase tracking-[0.2em] text-[#1E3B2B]">
-                  Our Story
+                  {philosophyData.eyebrow || 'Our Story'}
                 </span>
                 <span className="w-12 h-0.5 bg-[#1E3B2B]/40 rounded-full"></span>
               </div>
 
               {/* Headline */}
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold text-[#1E3B2B] leading-[1.18]">
-                The EarthGlanze <span className="italic font-normal text-[#C28328]">Story</span>
+                {philosophyData.title || 'The EarthGlaze Story'}
               </h2>
 
               {/* Description Body */}
               <p className="text-[#404F44] text-sm sm:text-base lg:text-lg leading-relaxed font-normal pt-1 font-sans">
-                EarthGlanze was born from a simple belief &mdash; that skincare should be natural, safe and effective. We combine the goodness of traditional ingredients with modern care to create everyday skincare that truly works.
+                {philosophyData.description || 'EarthGlaze was born from a simple belief — that skincare should be natural, safe and effective. We combine the goodness of traditional ingredients with modern care to create everyday skincare that truly works.'}
               </p>
 
             </div>
@@ -188,7 +190,7 @@ export default function AboutPage() {
           SECTION 3: 4-PILLARS / CORE VALUES FLOATING CAPSULE BAR
           ========================================================================= */}
       <section className="py-3 sm:py-4 bg-[#FAF7F2]">
-        <div className="max-w-[1380px] mx-auto px-4 sm:px-8 lg:px-12">
+        <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12">
           <div className="bg-[#FAF5ED] rounded-[20px] sm:rounded-[24px] p-3.5 sm:p-5 border border-[#E8DEC8] shadow-2xs">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5 items-center divide-y md:divide-y-0 md:divide-x divide-stone-200/80 text-center">
               
@@ -250,7 +252,7 @@ export default function AboutPage() {
           SECTION 4: OUR MISSION & VISION
           ========================================================================= */}
       <section className="py-5 sm:py-7 bg-[#FAF7F2]">
-        <div className="max-w-[1380px] mx-auto px-4 sm:px-8 lg:px-12">
+        <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12">
           
           {/* Section Header: Our Mission & Vision */}
           <div className="text-center mb-4 sm:mb-5">
@@ -334,7 +336,7 @@ export default function AboutPage() {
           SECTION 5: OUR PROMISE WIDE BANNER
           ========================================================================= */}
       <section className="py-3 sm:py-4 bg-[#FAF7F2]">
-        <div className="max-w-[1380px] mx-auto px-4 sm:px-8 lg:px-12">
+        <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12">
           <div className="group relative rounded-[24px] sm:rounded-[32px] bg-gradient-to-r from-[#124322] via-[#174D27] to-[#12381F] text-white p-6 sm:p-10 lg:p-12 shadow-lg overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6 border border-emerald-900/40">
             
             {/* Seamless Dewdrop Leaves on the Right */}
@@ -380,7 +382,7 @@ export default function AboutPage() {
           SECTION 6: DISCOVER OUR NATURAL CARE (CTA BANNER)
           ========================================================================= */}
       <section className="py-5 sm:py-8 bg-[#FAF7F2]">
-        <div className="max-w-[1380px] mx-auto px-4 sm:px-8 lg:px-12">
+        <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12">
           <div className="relative rounded-[20px] sm:rounded-[24px] bg-[#FAF5ED] p-5 sm:p-8 text-center border border-[#E8DEC8] shadow-sm overflow-hidden group">
             
             {/* Left Decorative Botanical Leaves */}

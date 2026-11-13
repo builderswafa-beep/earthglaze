@@ -26,7 +26,7 @@ export default function BlogPostDetail({ params }) {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2] text-[#1E3B2B] font-sans overflow-x-hidden selection:bg-[#235327] selection:text-white relative">
+    <div className="min-h-screen bg-[#FAF7F2] text-[#1E3B2B] font-sans overflow-x-clip selection:bg-[#235327] selection:text-white relative">
       
       {/* Decorative Corner Foliage Accents */}
       <img 
@@ -42,7 +42,7 @@ export default function BlogPostDetail({ params }) {
         aria-hidden="true" 
       />
 
-      <div className="max-w-[1380px] mx-auto px-4 sm:px-8 lg:px-12 py-8 sm:py-12 relative z-10">
+      <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12 py-8 sm:py-12 relative z-10">
         
         {/* =========================================================================
             BREADCRUMBS
@@ -237,9 +237,10 @@ export default function BlogPostDetail({ params }) {
           </article>
 
           {/* =========================================================================
-              RIGHT COLUMN: SIDEBAR (35% width / 4 cols)
+              RIGHT COLUMN: SIDEBAR (35% width / 4 cols) - STICKY WIDGETS
               ========================================================================= */}
-          <aside className="lg:col-span-4 space-y-8 lg:pl-2">
+          <aside className="lg:col-span-4 lg:pl-2 xl:pl-4 self-start">
+            <div className="sticky top-24 sm:top-28 lg:top-32 space-y-7 sm:space-y-8 max-h-[calc(100vh-8rem)] overflow-y-auto no-scrollbar overscroll-contain pr-1">
             
             {/* Widget 1: Search */}
             <form onSubmit={handleSearch} className="relative">
@@ -255,7 +256,7 @@ export default function BlogPostDetail({ params }) {
                 aria-label="Search"
                 className="absolute right-1.5 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-[#0D2D1C] hover:bg-[#1a4628] active:scale-95 text-white flex items-center justify-center transition cursor-pointer"
               >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 icon-hover-bounce" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24">
                   <circle cx="11" cy="11" r="8"/>
                   <line x1="21" y1="21" x2="16.65" y2="16.65"/>
                 </svg>
@@ -363,7 +364,7 @@ export default function BlogPostDetail({ params }) {
 
               <div className="relative z-10 space-y-3.5">
                 <div className="flex items-center gap-2">
-                  <svg className="w-5 h-5 text-emerald-200" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 text-emerald-200 icon-hover-pulse" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"/>
                     <line x1="16" y1="8" x2="2" y2="22"/>
                     <line x1="17.5" y1="15" x2="9" y2="15"/>
@@ -497,6 +498,7 @@ export default function BlogPostDetail({ params }) {
               </div>
             </div>
 
+            </div>
           </aside>
 
         </div>

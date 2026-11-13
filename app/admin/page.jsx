@@ -4,6 +4,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { useAuth } from '../../context/AuthContext';
 import api from '../../lib/api';
+import { DEFAULT_SITE_CONTENT } from '../../lib/siteContent';
 
 export default function AdminDashboardPage() {
   const { user, loading: authLoading, isAdmin, login } = useAuth();
@@ -15,7 +16,7 @@ export default function AdminDashboardPage() {
   const [loggingIn, setLoggingIn] = useState(false);
 
   // Active Tab
-  const [currentTab, setCurrentTab] = useState('analytics'); // 'analytics', 'products', 'orders', 'customers', 'coupons'
+  const [currentTab, setCurrentTab] = useState('analytics'); // 'analytics', 'products', 'orders', 'customers', 'coupons', 'cms'
 
   // Data states
   const [stats, setStats] = useState(null);
@@ -25,6 +26,12 @@ export default function AdminDashboardPage() {
   const [coupons, setCoupons] = useState([]);
   const [loadingData, setLoadingData] = useState(false);
   const [actionMessage, setActionMessage] = useState(null);
+
+  // CMS Content Management State
+  const [siteContent, setSiteContent] = useState(DEFAULT_SITE_CONTENT);
+  const [selectedCmsPage, setSelectedCmsPage] = useState('home');
+  const [selectedCmsSection, setSelectedCmsSection] = useState('hero');
+  const [savingCms, setSavingCms] = useState(false);
 
   // Modals & Forms
   const [editingProduct, setEditingProduct] = useState(null);
@@ -48,12 +55,13 @@ export default function AdminDashboardPage() {
   const loadAllAdminData = useCallback(async () => {
     setLoadingData(true);
     try {
-      const [statsRes, prodRes, ordRes, custRes, coupRes] = await Promise.all([
+      const [statsRes, prodRes, ordRes, custRes, coupRes, contentRes] = await Promise.all([
         api.admin.getDashboard(),
         api.admin.getProducts(),
         api.admin.getOrders(),
         api.admin.getCustomers(),
         api.admin.getCoupons(),
+        api.admin.getContent(),
       ]);
 
       if (statsRes.success) setStats(statsRes.stats);
@@ -61,6 +69,7 @@ export default function AdminDashboardPage() {
       if (ordRes.success && Array.isArray(ordRes.orders)) setOrders(ordRes.orders);
       if (custRes.success && Array.isArray(custRes.customers)) setCustomers(custRes.customers);
       if (coupRes.success && Array.isArray(coupRes.coupons)) setCoupons(coupRes.coupons);
+      if (contentRes.success && contentRes.content) setSiteContent(contentRes.content);
     } catch (err) {
       console.error('Failed to load admin dataset:', err);
     } finally {
@@ -157,6 +166,90 @@ export default function AdminDashboardPage() {
     } catch (err) {
       notify('Failed to delete coupon', 'error');
     }
+  };
+
+  // CMS: Update single section field (text, title, image, etc.)
+  const handleUpdateCmsField = (pageKey, sectionKey, field, value) => {
+    setSiteContent((prev) => {
+      const updated = { ...prev };
+      if (!updated[pageKey]) updated[pageKey] = {};
+      if (!updated[pageKey][sectionKey]) updated[pageKey][sectionKey] = {};
+      updated[pageKey][sectionKey] = {
+        ...updated[pageKey][sectionKey],
+        [field]: value,
+      };
+      return updated;
+    });
+  };
+
+  // CMS: Update single point within section
+  const handleUpdateCmsPoint = (pageKey, sectionKey, pointIndex, field, value) => {
+    setSiteContent((prev) => {
+      const updated = { ...prev };
+      const sec = updated[pageKey]?.[sectionKey] || {};
+      const points = Array.isArray(sec.points) ? [...sec.points] : [];
+      if (points[pointIndex]) {
+        points[pointIndex] = { ...points[pointIndex], [field]: value };
+      }
+      updated[pageKey][sectionKey] = { ...sec, points };
+      return updated;
+    });
+  };
+
+  // CMS: Add new point to section
+  const handleAddCmsPoint = (pageKey, sectionKey) => {
+    setSiteContent((prev) => {
+      const updated = { ...prev };
+      const sec = updated[pageKey]?.[sectionKey] || {};
+      const points = Array.isArray(sec.points) ? [...sec.points] : [];
+      points.push({
+        id: Date.now(),
+        title: 'New Feature or Highlight',
+        desc: 'Describe this botanical highlight or benefit here.',
+        icon: '🌿',
+        text: 'Handcrafted botanical formulation benefit',
+      });
+      updated[pageKey][sectionKey] = { ...sec, points };
+      return updated;
+    });
+    notify('Added new point. Remember to click Save Changes below.');
+  };
+
+  // CMS: Delete point from section
+  const handleDeleteCmsPoint = (pageKey, sectionKey, pointIndex) => {
+    setSiteContent((prev) => {
+      const updated = { ...prev };
+      const sec = updated[pageKey]?.[sectionKey] || {};
+      const points = Array.isArray(sec.points) ? [...sec.points] : [];
+      points.splice(pointIndex, 1);
+      updated[pageKey][sectionKey] = { ...sec, points };
+      return updated;
+    });
+  };
+
+  // CMS: Save all content to persistent store & server API
+  const handleSaveCms = async () => {
+    setSavingCms(true);
+    try {
+      const res = await api.admin.saveAllContent(siteContent);
+      if (res.success) {
+        notify('Page sections, images, and points saved to live store!');
+      } else {
+        notify(res.message || 'Saved locally.', 'success');
+      }
+    } catch (e) {
+      notify('Failed to save CMS changes', 'error');
+    } finally {
+      setSavingCms(false);
+    }
+  };
+
+  // CMS: Reset to default botanical content
+  const handleResetCms = () => {
+    if (!confirm('Are you sure you want to restore all original botanical texts, points, and images?')) return;
+    const res = api.admin.resetContent();
+    setSiteContent(res.content);
+    notify('Restored original botanical defaults!');
   };
 
   if (authLoading) {
@@ -293,6 +386,7 @@ export default function AdminDashboardPage() {
             { id: 'orders', label: '📦 Orders & Fulfillment' },
             { id: 'customers', label: '👥 Customers' },
             { id: 'coupons', label: '🏷️ Coupons & Discounts' },
+            { id: 'cms', label: '📄 Pages & Content CMS' },
           ].map((tab) => (
             <button
               key={tab.id}
@@ -837,6 +931,442 @@ export default function AdminDashboardPage() {
               </div>
 
             </div>
+          </div>
+        )}
+
+        {/* ===================================================================
+            TAB 6: PAGES & CONTENT CMS (Update points, text, images & sections)
+            =================================================================== */}
+        {currentTab === 'cms' && (
+          <div className="space-y-8 animate-fadeIn">
+            
+            {/* Header & Global Actions Bar */}
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-6 rounded-3xl border border-stone-200/80 shadow-xs">
+              <div>
+                <h2 className="text-2xl font-serif font-bold text-[#1E3B2B] flex items-center gap-2">
+                  <span>📄</span>
+                  <span>Pages &amp; Content Management (CMS)</span>
+                </h2>
+                <p className="text-xs text-stone-500 mt-1">
+                  Customize headings, points, images, and copy across every page and section of your live store.
+                </p>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+                <button
+                  type="button"
+                  onClick={handleResetCms}
+                  className="px-4 py-2.5 rounded-xl border border-stone-300 hover:bg-stone-50 text-stone-700 text-xs font-bold transition cursor-pointer"
+                >
+                  ↺ Restore Defaults
+                </button>
+
+                <a
+                  href={
+                    selectedCmsPage === 'home' ? '/' :
+                    selectedCmsPage === 'about' ? '/about' :
+                    selectedCmsPage === 'story' ? '/story' :
+                    selectedCmsPage === 'shop' ? '/shop' :
+                    selectedCmsPage === 'contact' ? '/contact' : '/#faq'
+                  }
+                  target="_blank"
+                  rel="noreferrer"
+                  className="px-4 py-2.5 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-800 text-xs font-bold transition flex items-center gap-1.5"
+                >
+                  <span>👁️ Preview Live</span>
+                  <span>↗</span>
+                </a>
+
+                <button
+                  type="button"
+                  onClick={handleSaveCms}
+                  disabled={savingCms}
+                  className="px-6 py-2.5 rounded-xl bg-[#1E3B2B] hover:bg-[#14291E] text-white text-xs font-bold tracking-wide transition shadow cursor-pointer active:scale-95 disabled:opacity-60 flex items-center gap-2"
+                >
+                  <span>💾</span>
+                  <span>{savingCms ? 'Saving Changes...' : 'Save Changes to Live Store'}</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Page Selector Tabs */}
+            <div className="flex items-center gap-2 overflow-x-auto pb-1">
+              {[
+                { id: 'home', label: '🏠 Home Page', path: '/' },
+                { id: 'about', label: '🌿 About Us Page', path: '/about' },
+                { id: 'story', label: '📖 Our Story Page', path: '/story' },
+                { id: 'shop', label: '🛍️ Shop Catalog', path: '/shop' },
+                { id: 'contact', label: '💬 Contact Page', path: '/contact' },
+                { id: 'faq', label: '❓ FAQ & Rituals', path: '/#faq' },
+              ].map((pg) => (
+                <button
+                  key={pg.id}
+                  type="button"
+                  onClick={() => {
+                    setSelectedCmsPage(pg.id);
+                    // default to first section of newly selected page
+                    const availableSections = Object.keys(siteContent[pg.id] || {});
+                    if (availableSections.length > 0) {
+                      setSelectedCmsSection(availableSections[0]);
+                    }
+                  }}
+                  className={`px-4 py-2.5 rounded-2xl text-xs font-bold transition whitespace-nowrap cursor-pointer flex items-center gap-2 ${
+                    selectedCmsPage === pg.id
+                      ? 'bg-[#1E3B2B] text-white shadow-sm'
+                      : 'bg-white border border-stone-200 text-stone-700 hover:border-stone-400'
+                  }`}
+                >
+                  <span>{pg.label}</span>
+                </button>
+              ))}
+            </div>
+
+            {/* Section Selector for Current Page */}
+            <div className="bg-white p-4 sm:p-5 rounded-3xl border border-stone-200/80 shadow-xs">
+              <span className="text-[11px] font-bold text-stone-400 uppercase tracking-wider block mb-2">
+                Available Sections on this Page
+              </span>
+              <div className="flex flex-wrap items-center gap-2">
+                {Object.keys(siteContent[selectedCmsPage] || {}).map((secKey) => (
+                  <button
+                    key={secKey}
+                    type="button"
+                    onClick={() => setSelectedCmsSection(secKey)}
+                    className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition capitalize cursor-pointer ${
+                      selectedCmsSection === secKey
+                        ? 'bg-[#E3EBE4] text-[#1E3B2B] font-bold border border-[#235327]/30'
+                        : 'bg-stone-50 text-stone-600 hover:bg-stone-100'
+                    }`}
+                  >
+                    <span>{secKey.replace(/_/g, ' ')}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Active Section Form Editor */}
+            {(() => {
+              const currentSectionData = siteContent[selectedCmsPage]?.[selectedCmsSection] || {};
+              const points = Array.isArray(currentSectionData.points) ? currentSectionData.points : [];
+
+              return (
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                  
+                  {/* Left Column (8 cols): Headings, Copy, Points & CTAs */}
+                  <div className="lg:col-span-8 bg-white rounded-3xl p-6 sm:p-8 border border-stone-200/80 shadow-xs space-y-6">
+                    
+                    <div className="border-b border-stone-100 pb-4 flex items-center justify-between">
+                      <div>
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full">
+                          Editing {selectedCmsPage} • {selectedCmsSection.replace(/_/g, ' ')}
+                        </span>
+                        <h3 className="font-serif font-bold text-xl text-[#1E3B2B] mt-1 capitalize">
+                          {selectedCmsSection.replace(/_/g, ' ')} Content &amp; Points
+                        </h3>
+                      </div>
+                    </div>
+
+                    {/* Section Eyebrow / Tagline */}
+                    {'eyebrow' in currentSectionData && (
+                      <div>
+                        <label className="block text-xs font-bold text-stone-700 uppercase mb-1">
+                          Section Eyebrow / Tagline
+                        </label>
+                        <input
+                          type="text"
+                          value={currentSectionData.eyebrow || ''}
+                          onChange={(e) => handleUpdateCmsField(selectedCmsPage, selectedCmsSection, 'eyebrow', e.target.value)}
+                          className="w-full text-xs sm:text-sm px-4 py-2.5 bg-stone-50 rounded-xl border border-stone-300 focus:outline-none focus:border-[#1E3B2B]"
+                          placeholder="e.g. About Us / Botanical Rituals"
+                        />
+                      </div>
+                    )}
+
+                    {/* Main Title */}
+                    {'title' in currentSectionData && (
+                      <div>
+                        <label className="block text-xs font-bold text-stone-700 uppercase mb-1">
+                          Main Heading / Title
+                        </label>
+                        <input
+                          type="text"
+                          value={currentSectionData.title || ''}
+                          onChange={(e) => handleUpdateCmsField(selectedCmsPage, selectedCmsSection, 'title', e.target.value)}
+                          className="w-full text-xs sm:text-sm px-4 py-2.5 bg-stone-50 rounded-xl border border-stone-300 font-serif font-bold text-[#1E3B2B] focus:outline-none focus:border-[#1E3B2B]"
+                        />
+                      </div>
+                    )}
+
+                    {/* Subtitle */}
+                    {'subtitle' in currentSectionData && (
+                      <div>
+                        <label className="block text-xs font-bold text-stone-700 uppercase mb-1">
+                          Subtitle
+                        </label>
+                        <textarea
+                          rows={2}
+                          value={currentSectionData.subtitle || ''}
+                          onChange={(e) => handleUpdateCmsField(selectedCmsPage, selectedCmsSection, 'subtitle', e.target.value)}
+                          className="w-full text-xs sm:text-sm px-4 py-2.5 bg-stone-50 rounded-xl border border-stone-300 focus:outline-none focus:border-[#1E3B2B]"
+                        />
+                      </div>
+                    )}
+
+                    {/* Long Description / Paragraph */}
+                    {'description' in currentSectionData && (
+                      <div>
+                        <label className="block text-xs font-bold text-stone-700 uppercase mb-1">
+                          Body Text / Description Paragraph
+                        </label>
+                        <textarea
+                          rows={3}
+                          value={currentSectionData.description || ''}
+                          onChange={(e) => handleUpdateCmsField(selectedCmsPage, selectedCmsSection, 'description', e.target.value)}
+                          className="w-full text-xs sm:text-sm px-4 py-2.5 bg-stone-50 rounded-xl border border-stone-300 focus:outline-none focus:border-[#1E3B2B] leading-relaxed"
+                        />
+                      </div>
+                    )}
+
+                    {/* Formulation Promise / Special Note */}
+                    {'promise' in currentSectionData && (
+                      <div>
+                        <label className="block text-xs font-bold text-stone-700 uppercase mb-1">
+                          Botanical Formulation Promise Note
+                        </label>
+                        <textarea
+                          rows={2}
+                          value={currentSectionData.promise || ''}
+                          onChange={(e) => handleUpdateCmsField(selectedCmsPage, selectedCmsSection, 'promise', e.target.value)}
+                          className="w-full text-xs sm:text-sm px-4 py-2.5 bg-stone-50 rounded-xl border border-stone-300 focus:outline-none focus:border-[#1E3B2B]"
+                        />
+                      </div>
+                    )}
+
+                    {/* Primary & Secondary CTA Buttons */}
+                    {('cta_primary_label' in currentSectionData || 'cta_secondary_label' in currentSectionData) && (
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 bg-stone-50 rounded-2xl border border-stone-200">
+                        <div>
+                          <label className="block text-xs font-bold text-stone-700 uppercase mb-1">
+                            Primary CTA Button Text
+                          </label>
+                          <input
+                            type="text"
+                            value={currentSectionData.cta_primary_label || ''}
+                            onChange={(e) => handleUpdateCmsField(selectedCmsPage, selectedCmsSection, 'cta_primary_label', e.target.value)}
+                            className="w-full text-xs px-3 py-2 bg-white rounded-xl border border-stone-300 font-semibold"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-xs font-bold text-stone-700 uppercase mb-1">
+                            Primary CTA Target Link
+                          </label>
+                          <input
+                            type="text"
+                            value={currentSectionData.cta_primary_link || ''}
+                            onChange={(e) => handleUpdateCmsField(selectedCmsPage, selectedCmsSection, 'cta_primary_link', e.target.value)}
+                            className="w-full text-xs px-3 py-2 bg-white rounded-xl border border-stone-300"
+                          />
+                        </div>
+                      </div>
+                    )}
+
+                    {/* DYNAMIC POINTS / HIGHLIGHTS SECTION */}
+                    <div className="pt-4 border-t border-stone-100 space-y-4">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <h4 className="font-serif font-bold text-base text-[#1E3B2B]">
+                            Section Highlights &amp; Bullet Points
+                          </h4>
+                          <p className="text-xs text-stone-500">
+                            Add, edit, or remove specific bullet points, benefits, and feature tags.
+                          </p>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => handleAddCmsPoint(selectedCmsPage, selectedCmsSection)}
+                          className="px-3.5 py-1.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 text-xs font-bold border border-emerald-300 transition flex items-center gap-1 cursor-pointer"
+                        >
+                          <span>+ Add Point</span>
+                        </button>
+                      </div>
+
+                      {points.length === 0 ? (
+                        <div className="p-6 text-center text-xs text-stone-400 bg-stone-50 rounded-2xl border border-dashed border-stone-200">
+                          No bullet points for this section yet. Click "+ Add Point" above to create one.
+                        </div>
+                      ) : (
+                        <div className="space-y-3">
+                          {points.map((pt, pIdx) => (
+                            <div 
+                              key={pt.id || pIdx} 
+                              className="p-4 rounded-2xl bg-[#FAF7F2] border border-[#E8DEC8] space-y-3 transition hover:shadow-xs"
+                            >
+                              <div className="flex items-center justify-between gap-3">
+                                <div className="flex items-center gap-2 flex-1">
+                                  <input
+                                    type="text"
+                                    value={pt.icon || '🌿'}
+                                    onChange={(e) => handleUpdateCmsPoint(selectedCmsPage, selectedCmsSection, pIdx, 'icon', e.target.value)}
+                                    className="w-10 h-10 text-center text-lg bg-white rounded-xl border border-stone-300 shrink-0"
+                                    title="Icon / Emoji"
+                                  />
+                                  <input
+                                    type="text"
+                                    value={pt.title || pt.text || ''}
+                                    onChange={(e) => {
+                                      handleUpdateCmsPoint(selectedCmsPage, selectedCmsSection, pIdx, 'title', e.target.value);
+                                      handleUpdateCmsPoint(selectedCmsPage, selectedCmsSection, pIdx, 'text', e.target.value);
+                                    }}
+                                    placeholder="Point Headline / Benefit"
+                                    className="w-full text-xs sm:text-sm font-bold px-3 py-2 bg-white rounded-xl border border-stone-300"
+                                  />
+                                </div>
+                                <button
+                                  type="button"
+                                  onClick={() => handleDeleteCmsPoint(selectedCmsPage, selectedCmsSection, pIdx)}
+                                  className="text-stone-400 hover:text-red-600 p-1.5 rounded-lg hover:bg-red-50 transition cursor-pointer"
+                                  title="Delete this point"
+                                >
+                                  🗑️
+                                </button>
+                              </div>
+
+                              {(pt.desc || pt.subtitle !== undefined) && (
+                                <textarea
+                                  rows={2}
+                                  value={pt.desc || pt.subtitle || ''}
+                                  onChange={(e) => {
+                                    handleUpdateCmsPoint(selectedCmsPage, selectedCmsSection, pIdx, 'desc', e.target.value);
+                                    handleUpdateCmsPoint(selectedCmsPage, selectedCmsSection, pIdx, 'subtitle', e.target.value);
+                                  }}
+                                  placeholder="Detailed explanation or supporting description..."
+                                  className="w-full text-xs px-3 py-2 bg-white rounded-xl border border-stone-300"
+                                />
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+
+                  </div>
+
+                  {/* Right Column (4 cols): Media Assets & Live Image Previews */}
+                  <div className="lg:col-span-4 space-y-6">
+                    
+                    <div className="bg-white rounded-3xl p-6 border border-stone-200/80 shadow-xs space-y-4">
+                      <h4 className="font-serif font-bold text-base text-[#1E3B2B] border-b border-stone-100 pb-2">
+                        🖼️ Section Imagery &amp; Visuals
+                      </h4>
+
+                      {/* Primary Image Input */}
+                      {('image' in currentSectionData || 'bg_image' in currentSectionData || 'banner_image' in currentSectionData) && (
+                        <div>
+                          <label className="block text-xs font-bold text-stone-700 uppercase mb-1">
+                            Primary Section Image URL
+                          </label>
+                          <input
+                            type="text"
+                            value={currentSectionData.image || currentSectionData.bg_image || currentSectionData.banner_image || ''}
+                            onChange={(e) => {
+                              const key = 'image' in currentSectionData ? 'image' : 'bg_image' in currentSectionData ? 'bg_image' : 'banner_image';
+                              handleUpdateCmsField(selectedCmsPage, selectedCmsSection, key, e.target.value);
+                            }}
+                            className="w-full text-xs px-3 py-2.5 bg-stone-50 rounded-xl border border-stone-300 font-mono text-[11px]"
+                            placeholder="/assets/about-img.png"
+                          />
+
+                          {/* Live Image Thumbnail Preview */}
+                          <div className="mt-3 p-3 bg-stone-50 rounded-2xl border border-stone-200 flex flex-col items-center justify-center min-h-[160px]">
+                            <img
+                              src={currentSectionData.image || currentSectionData.bg_image || currentSectionData.banner_image || '/assets/earthglaze-logo-hd.png'}
+                              alt="Live Image Preview"
+                              className="max-h-36 w-auto object-contain rounded-lg drop-shadow-sm"
+                              onError={(e) => {
+                                e.target.src = '/assets/earthglaze-logo-hd.png';
+                              }}
+                            />
+                            <span className="text-[10px] text-stone-400 mt-2 font-mono">
+                              Live Asset Preview
+                            </span>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Secondary Image Input (e.g. Mortar or Open Box) */}
+                      {'mortar_image' in currentSectionData && (
+                        <div className="pt-3 border-t border-stone-100">
+                          <label className="block text-xs font-bold text-stone-700 uppercase mb-1">
+                            Secondary Prop Image (Mortar)
+                          </label>
+                          <input
+                            type="text"
+                            value={currentSectionData.mortar_image || ''}
+                            onChange={(e) => handleUpdateCmsField(selectedCmsPage, selectedCmsSection, 'mortar_image', e.target.value)}
+                            className="w-full text-xs px-3 py-2 bg-stone-50 rounded-xl border border-stone-300 font-mono text-[11px]"
+                          />
+                        </div>
+                      )}
+
+                      {/* Quick HD Asset Suggestions */}
+                      <div className="pt-3 border-t border-stone-100">
+                        <span className="text-[11px] font-bold text-stone-500 uppercase tracking-wider block mb-2">
+                          Quick HD Asset Suggestions
+                        </span>
+                        <div className="flex flex-wrap gap-1.5">
+                          {[
+                            { name: 'Podium', url: '/assets/about-img.png' },
+                            { name: 'Mortar Prop', url: '/assets/hero_mortar_prop_transparent.png' },
+                            { name: 'Elixir Prop', url: '/assets/hero_bottle_prop_transparent.png' },
+                            { name: 'Seamless Arch', url: '/assets/about_hero_seamless_hd.png' },
+                            { name: 'Leaves Banner', url: '/assets/banner_newly_leaves.png' },
+                            { name: 'Combo Closed', url: '/assets/botanical_combo_original_soaps_closed.png' },
+                            { name: 'Combo Open', url: '/assets/botanical_combo_original_soaps_open.png' },
+                            { name: 'Manjistha Soap', url: '/assets/favourites_manjistha_soap_hd.png' },
+                            { name: 'Goat Milk Soap', url: '/assets/favourites_goat_milk_soap_hd.png' },
+                          ].map((ast) => (
+                            <button
+                              key={ast.name}
+                              type="button"
+                              onClick={() => {
+                                const key = 'image' in currentSectionData ? 'image' : 'bg_image' in currentSectionData ? 'bg_image' : 'banner_image';
+                                handleUpdateCmsField(selectedCmsPage, selectedCmsSection, key, ast.url);
+                                notify(`Applied ${ast.name} image`);
+                              }}
+                              className="px-2.5 py-1 text-[10px] font-semibold bg-stone-100 hover:bg-[#E3EBE4] hover:text-[#1E3B2B] rounded-lg transition text-stone-600 cursor-pointer"
+                            >
+                              + {ast.name}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+
+                    </div>
+
+                    {/* Save Changes Floating Action Helper */}
+                    <div className="bg-[#1E3B2B] text-white p-6 rounded-3xl shadow-lg space-y-3">
+                      <h4 className="font-serif font-bold text-base text-amber-300">
+                        Ready to Apply Updates?
+                      </h4>
+                      <p className="text-xs text-stone-300 leading-relaxed">
+                        Changes are saved immediately and synchronized with your live storefront.
+                      </p>
+                      <button
+                        type="button"
+                        onClick={handleSaveCms}
+                        disabled={savingCms}
+                        className="w-full py-3 bg-[#C28328] hover:bg-[#a66d1f] text-white font-bold text-xs rounded-xl transition shadow active:scale-95 cursor-pointer"
+                      >
+                        {savingCms ? 'Saving...' : '💾 Save Changes Now'}
+                      </button>
+                    </div>
+
+                  </div>
+
+                </div>
+              );
+            })()}
+
           </div>
         )}
 

@@ -143,32 +143,32 @@ export default function Footer() {
 
             <ul className="space-y-2.5 text-sm">
               <li>
-                <Link href="/" className="inline-flex items-center gap-2 text-stone-700 hover:text-[#235327] transition-colors group">
-                  <span className="text-[#235327] font-bold text-xs group-hover:translate-x-0.5 transition-transform">&gt;</span>
+                <Link href="/" className="inline-flex items-center gap-2.5 text-stone-700 hover:text-[#235327] transition-colors group">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#235327] shrink-0 group-hover:scale-125 group-hover:bg-[#C28328] transition-all" aria-hidden="true" />
                   <span>Home</span>
                 </Link>
               </li>
               <li>
-                <Link href="/shop" className="inline-flex items-center gap-2 text-stone-700 hover:text-[#235327] transition-colors group">
-                  <span className="text-[#235327] font-bold text-xs group-hover:translate-x-0.5 transition-transform">&gt;</span>
+                <Link href="/shop" className="inline-flex items-center gap-2.5 text-stone-700 hover:text-[#235327] transition-colors group">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#235327] shrink-0 group-hover:scale-125 group-hover:bg-[#C28328] transition-all" aria-hidden="true" />
                   <span>Shop</span>
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="inline-flex items-center gap-2 text-stone-700 hover:text-[#235327] transition-colors group">
-                  <span className="text-[#235327] font-bold text-xs group-hover:translate-x-0.5 transition-transform">&gt;</span>
+                <Link href="/about" className="inline-flex items-center gap-2.5 text-stone-700 hover:text-[#235327] transition-colors group">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#235327] shrink-0 group-hover:scale-125 group-hover:bg-[#C28328] transition-all" aria-hidden="true" />
                   <span>About Us</span>
                 </Link>
               </li>
               <li>
-                <Link href="/ingredients" className="inline-flex items-center gap-2 text-stone-700 hover:text-[#235327] transition-colors group">
-                  <span className="text-[#235327] font-bold text-xs group-hover:translate-x-0.5 transition-transform">&gt;</span>
-                  <span>Ingredients</span>
+                <Link href="/contact" className="inline-flex items-center gap-2.5 text-stone-700 hover:text-[#235327] transition-colors group">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#235327] shrink-0 group-hover:scale-125 group-hover:bg-[#C28328] transition-all" aria-hidden="true" />
+                  <span>Contact</span>
                 </Link>
               </li>
               <li>
-                <Link href="/blog" className="inline-flex items-center gap-2 text-stone-700 hover:text-[#235327] transition-colors group">
-                  <span className="text-[#235327] font-bold text-xs group-hover:translate-x-0.5 transition-transform">&gt;</span>
+                <Link href="/blog" className="inline-flex items-center gap-2.5 text-stone-700 hover:text-[#235327] transition-colors group">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#235327] shrink-0 group-hover:scale-125 group-hover:bg-[#C28328] transition-all" aria-hidden="true" />
                   <span>Blog</span>
                 </Link>
               </li>
@@ -190,32 +190,32 @@ export default function Footer() {
 
             <ul className="space-y-2.5 text-sm">
               <li>
-                <Link href="/#faq" className="inline-flex items-center gap-2 text-stone-700 hover:text-[#235327] transition-colors group">
-                  <span className="text-[#235327] font-bold text-xs group-hover:translate-x-0.5 transition-transform">&gt;</span>
+                <Link href="/#faq" className="inline-flex items-center gap-2.5 text-stone-700 hover:text-[#235327] transition-colors group">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#235327] shrink-0 group-hover:scale-125 group-hover:bg-[#C28328] transition-all" aria-hidden="true" />
                   <span>Help &amp; FAQs</span>
                 </Link>
               </li>
               <li>
-                <Link href="/track-order" className="inline-flex items-center gap-2 text-stone-700 hover:text-[#235327] transition-colors group">
-                  <span className="text-[#235327] font-bold text-xs group-hover:translate-x-0.5 transition-transform">&gt;</span>
+                <Link href="/track-order" className="inline-flex items-center gap-2.5 text-stone-700 hover:text-[#235327] transition-colors group">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#235327] shrink-0 group-hover:scale-125 group-hover:bg-[#C28328] transition-all" aria-hidden="true" />
                   <span>Shipping &amp; Delivery</span>
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="inline-flex items-center gap-2 text-stone-700 hover:text-[#235327] transition-colors group">
-                  <span className="text-[#235327] font-bold text-xs group-hover:translate-x-0.5 transition-transform">&gt;</span>
+                <Link href="/contact" className="inline-flex items-center gap-2.5 text-stone-700 hover:text-[#235327] transition-colors group">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#235327] shrink-0 group-hover:scale-125 group-hover:bg-[#C28328] transition-all" aria-hidden="true" />
                   <span>Returns &amp; Refunds</span>
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="inline-flex items-center gap-2 text-stone-700 hover:text-[#235327] transition-colors group">
-                  <span className="text-[#235327] font-bold text-xs group-hover:translate-x-0.5 transition-transform">&gt;</span>
+                <Link href="/contact" className="inline-flex items-center gap-2.5 text-stone-700 hover:text-[#235327] transition-colors group">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#235327] shrink-0 group-hover:scale-125 group-hover:bg-[#C28328] transition-all" aria-hidden="true" />
                   <span>Privacy Policy</span>
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="inline-flex items-center gap-2 text-stone-700 hover:text-[#235327] transition-colors group">
-                  <span className="text-[#235327] font-bold text-xs group-hover:translate-x-0.5 transition-transform">&gt;</span>
+                <Link href="/contact" className="inline-flex items-center gap-2.5 text-stone-700 hover:text-[#235327] transition-colors group">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#235327] shrink-0 group-hover:scale-125 group-hover:bg-[#C28328] transition-all" aria-hidden="true" />
                   <span>Terms &amp; Conditions</span>
                 </Link>
               </li>

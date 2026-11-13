@@ -1,9 +1,13 @@
 'use client';
 
 import React from 'react';
+import { useSiteContent } from '../hooks/useSiteContent';
 
 export default function TrustBadgeStrip() {
-  const trustFeatures = [
+  const { getSection } = useSiteContent();
+  const trustData = getSection('home', 'trust_strip');
+
+  const defaultTrustFeatures = [
     {
       id: 'natural-ingredients',
       title: '100% Natural',
@@ -19,7 +23,6 @@ export default function TrustBadgeStrip() {
           strokeLinejoin="round"
           aria-hidden="true"
         >
-          {/* Botanical Leaf Silhouette matching the badge */}
           <path d="M19 4c-5-.5-10.5 2-13.5 5-3.5 3.5-4 8.5-2 11 2.5 2 7.5 1.5 11-2 3-3 5.5-8.5 5-13.5-.5-.5-.5-.5-.5-.5z" />
           <path d="M5.5 18.5c4-4 8.5-7 14-8.5" />
           <path d="M12 13c1.5 1.5 3 2.5 4.5 3" />
@@ -41,7 +44,6 @@ export default function TrustBadgeStrip() {
           strokeLinejoin="round"
           aria-hidden="true"
         >
-          {/* Mortar & Pestle Apothecary Bowl */}
           <path d="M4 11h16c0 4.8-2.6 8.5-8 8.5S4 15.8 4 11z" />
           <path d="M8.5 19.5h7" />
           <path d="M16.5 4.5 12 11" />
@@ -65,7 +67,6 @@ export default function TrustBadgeStrip() {
           strokeLinejoin="round"
           aria-hidden="true"
         >
-          {/* Pure Water Droplet with Two Twin Sprouted Leaves Inside */}
           <path d="M12 2.5C12 2.5 5.5 9.8 5.5 15A6.5 6.5 0 0 0 12 21.5a6.5 6.5 0 0 0 6.5-6.5c0-5.2-6.5-12.5-6.5-12.5z" />
           <path d="M12 18v-5" />
           <path d="M12 15.5c-1.8-1.5-3.8-.8-4.2.8 1.8 1.5 3.8.8 4.2-.8z" fill="currentColor" fillOpacity="0.25" />
@@ -88,7 +89,6 @@ export default function TrustBadgeStrip() {
           strokeLinejoin="round"
           aria-hidden="true"
         >
-          {/* Chamomile / Daisy 8-Petal Botanical Blossom */}
           <circle cx="12" cy="12" r="2.8" fill="currentColor" fillOpacity="0.2" />
           <path d="M12 3.5a1.8 1.8 0 0 1 1.8 1.8v1.6a1.8 1.8 0 0 1-3.6 0V5.3A1.8 1.8 0 0 1 12 3.5z" />
           <path d="M12 15.3a1.8 1.8 0 0 1 1.8 1.8v1.6a1.8 1.8 0 0 1-3.6 0v-1.6a1.8 1.8 0 0 1 1.8-1.8z" />
@@ -102,6 +102,17 @@ export default function TrustBadgeStrip() {
       ),
     },
   ];
+
+  const trustFeatures = (Array.isArray(trustData.points) && trustData.points.length > 0)
+    ? trustData.points.map((pt, idx) => ({
+        id: `trust-pt-${pt.id || idx}`,
+        title: pt.title || pt.text || '',
+        subtitle: pt.subtitle || pt.desc || '',
+        icon: defaultTrustFeatures[idx % defaultTrustFeatures.length]?.icon || (
+          <span className="text-xl">{pt.icon || '🌿'}</span>
+        ),
+      }))
+    : defaultTrustFeatures;
 
   return (
     <section 

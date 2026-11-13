@@ -63,7 +63,7 @@
       aria-hidden="true" 
     >
 
-    <div class="max-w-[1380px] mx-auto px-4 sm:px-8 lg:px-12 py-8 sm:py-12 relative z-10">
+    <div class="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12 py-8 sm:py-12 relative z-10">
       
       <!-- BREADCRUMBS -->
       <nav class="flex items-center gap-2 text-xs sm:text-sm text-stone-500 mb-6 font-sans">
@@ -257,9 +257,10 @@
         </article>
 
         <!-- =========================================================================
-            RIGHT COLUMN: SIDEBAR (35% width / 4 cols)
+            RIGHT COLUMN: SIDEBAR (35% width / 4 cols) - STICKY WIDGETS
             ========================================================================= -->
-        <aside class="lg:col-span-4 space-y-8 lg:pl-2">
+        <aside class="lg:col-span-4 lg:pl-2 xl:pl-4 self-start">
+          <div class="sticky top-24 sm:top-28 lg:top-32 space-y-7 sm:space-y-8 max-h-[calc(100vh-8rem)] overflow-y-auto no-scrollbar overscroll-contain pr-1">
           
           <!-- Widget 1: Search -->
           <form action="blog.html" method="GET" class="relative">
@@ -514,6 +515,7 @@
             </div>
           </div>
 
+          </div>
         </aside>
 
       </div>

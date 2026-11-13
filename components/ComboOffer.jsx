@@ -4,10 +4,13 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useCart } from '../context/CartContext';
+import { useSiteContent } from '../hooks/useSiteContent';
 
 export default function ComboOffer() {
   const router = useRouter();
   const { addToCart } = useCart();
+  const { getSection } = useSiteContent();
+  const comboData = getSection('home', 'combo');
   const [loading, setLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
@@ -156,23 +159,20 @@ export default function ComboOffer() {
               <div>
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FAF4E8] border border-[#EADBBD] text-[#8C6C38] text-[10px] sm:text-[11px] font-bold tracking-[0.18em] uppercase shadow-2xs">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#8C6C38]"></span>
-                  <span>SIGNATURE GIFT TRIO</span>
+                  <span>{comboData.eyebrow || 'SIGNATURE GIFT TRIO'}</span>
                 </div>
               </div>
 
               {/* Main Headline: The Botanical Combo Offer */}
               <div className="space-y-0.5">
                 <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[44px] xl:text-[48px] font-bold text-[#163D26] tracking-tight leading-[1.12]">
-                  The Botanical Combo
+                  {comboData.title || 'The Botanical Combo Offer'}
                 </h2>
-                <div className="font-serif italic text-3xl sm:text-4xl md:text-5xl lg:text-[44px] xl:text-[48px] font-normal text-[#C28328] leading-[1.12]">
-                  Offer
-                </div>
               </div>
 
               {/* Paragraph Description */}
               <p className="text-stone-600 text-xs sm:text-sm lg:text-[14px] leading-relaxed max-w-lg">
-                Complete Natural Care Set — Pure botanical formulations crafted for daily glow, softness, and care.
+                {comboData.subtitle || 'Complete Natural Care Set — Pure botanical formulations crafted for daily glow, softness, and care.'}
               </p>
 
               {/* Inside The Ritual - 3 Inspection Cards */}
@@ -413,7 +413,7 @@ export default function ComboOffer() {
                       }`}
                     >
                       <img
-                        src="/assets/botanical_combo_original_soaps_closed.png"
+                        src={comboData.image_closed || "/assets/botanical_combo_original_soaps_closed.png"}
                         alt="EarthGlaze Botanical Combo - Original Sealed Soaps & Lip Balm Packaging"
                         className="w-full h-full max-h-[92%] object-contain object-center drop-shadow-[0_12px_24px_rgba(22,61,38,0.14)]"
                       />
@@ -428,7 +428,7 @@ export default function ComboOffer() {
                       }`}
                     >
                       <img
-                        src="/assets/botanical_combo_original_soaps_open.png"
+                        src={comboData.image_open || "/assets/botanical_combo_original_soaps_open.png"}
                         alt="EarthGlaze Botanical Combo - Original Opened Artisan Soaps & Ruby Lip Balm"
                         className="w-full h-full max-h-[95%] object-contain object-center drop-shadow-[0_18px_32px_rgba(22,61,38,0.2)]"
                       />
