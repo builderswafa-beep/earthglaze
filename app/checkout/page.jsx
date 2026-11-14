@@ -15,30 +15,48 @@ export default function CheckoutPage() {
   const containerRef = useRef(null);
 
   const [shippingData, setShippingData] = useState({
-    name: 'Ayesha N.',
-    phone: '+91 98765 43210',
-    email: 'ayesha@example.com',
-    house_no: '402, Lotus Apt',
-    street: 'Deralakatte, University Road',
-    city: 'Mangalore',
+    name: '',
+    phone: '',
+    email: '',
+    house_no: '',
+    street: '',
+    city: '',
     state: 'Karnataka',
-    postal_code: '575018',
+    postal_code: '',
     country: 'India',
-    notes: 'Leave with security or call on arrival'
+    notes: ''
   });
 
-  const [paymentMethod, setPaymentMethod] = useState('cod'); // 'cod' (selected by default in reference) or 'razorpay'
+  const [paymentMethod, setPaymentMethod] = useState('cod'); // 'cod' or 'razorpay'
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
-  // Pre-fill user data if authenticated
+  // Pre-fill user data if authenticated with their real account data
   useEffect(() => {
     if (user) {
+      let savedAddr = null;
+      if (Array.isArray(user.addresses) && user.addresses.length > 0) {
+        savedAddr = user.addresses[0];
+      } else if (typeof window !== 'undefined' && user.email) {
+        const local = localStorage.getItem(`earthglaze_addresses_${user.email}`);
+        if (local) {
+          try {
+            const parsed = JSON.parse(local);
+            if (Array.isArray(parsed) && parsed.length > 0) savedAddr = parsed[0];
+          } catch (e) {}
+        }
+      }
+
       setShippingData(prev => ({
         ...prev,
         name: user.name || prev.name,
         email: user.email || prev.email,
         phone: user.phone || prev.phone,
+        house_no: savedAddr?.address_line ? savedAddr.address_line.split(',')[0] : prev.house_no,
+        street: savedAddr?.address_line ? savedAddr.address_line.split(',').slice(1).join(',').trim() : prev.street,
+        city: savedAddr?.city || prev.city,
+        state: savedAddr?.state || prev.state,
+        postal_code: savedAddr?.postal_code || prev.postal_code,
       }));
     }
   }, [user]);
@@ -404,7 +422,7 @@ export default function CheckoutPage() {
                         required 
                         value={shippingData.email}
                         onChange={handleChange}
-                        placeholder="ayesha@example.com" 
+                        placeholder="yourname@domain.com" 
                         className="w-full text-xs sm:text-sm px-4 py-3 bg-[#FAF7F2]/60 rounded-xl border border-[#D5C9B8] focus:outline-none focus:border-[#0D2D1C] focus:bg-white transition"
                       />
                     </div>
@@ -422,7 +440,7 @@ export default function CheckoutPage() {
                         required
                         value={shippingData.house_no}
                         onChange={handleChange}
-                        placeholder="402, Lotus Apt" 
+                        placeholder="Flat / House / Building" 
                         className="w-full text-xs sm:text-sm px-4 py-3 bg-[#FAF7F2]/60 rounded-xl border border-[#D5C9B8] focus:outline-none focus:border-[#0D2D1C] focus:bg-white transition"
                       />
                     </div>
@@ -436,7 +454,7 @@ export default function CheckoutPage() {
                         required
                         value={shippingData.street}
                         onChange={handleChange}
-                        placeholder="Deralakatte, University Road" 
+                        placeholder="Street, Landmark, Colony" 
                         className="w-full text-xs sm:text-sm px-4 py-3 bg-[#FAF7F2]/60 rounded-xl border border-[#D5C9B8] focus:outline-none focus:border-[#0D2D1C] focus:bg-white transition"
                       />
                     </div>

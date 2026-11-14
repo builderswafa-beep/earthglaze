@@ -28,7 +28,7 @@ function getStageIndex(status) {
 
 function TrackOrderContent() {
   const searchParams = useSearchParams();
-  const initialOrder = searchParams.get('order_number') || 'EG35273';
+  const initialOrder = searchParams.get('order_number') || '';
   const containerRef = useRef(null);
 
   const [orderNumber, setOrderNumber] = useState(initialOrder);
@@ -187,7 +187,7 @@ function TrackOrderContent() {
               type="text" 
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
-              placeholder="EG35273" 
+              placeholder="Enter Order ID (e.g. EG10234)" 
               required
               className="flex-1 text-sm font-semibold px-5 py-3.5 bg-white/95 rounded-full border border-[#D5C9B8] focus:outline-none focus:border-[#0D2D1C] uppercase tracking-wider text-[#0D2D1C] shadow-2xs placeholder:text-stone-400 text-center sm:text-left"
             />

@@ -89,9 +89,9 @@ export default function PaymentPage() {
         <h2 className="font-serif font-bold text-base text-[#1E3B2B] border-b border-stone-200 pb-3">Delivery Summary</h2>
 
         <div className="text-xs text-stone-600 space-y-1" id="delivery-address-slot">
-          <p className="font-bold text-stone-900" id="ship-name">Ayesha N.</p>
-          <p id="ship-phone">+91 98765 43210</p>
-          <p id="ship-address">Deralakatte, Mangalore, Karnataka 575018</p>
+          <p className="font-bold text-stone-900" id="ship-name">Valued Customer</p>
+          <p id="ship-phone">Contact confirmed at checkout</p>
+          <p id="ship-address">Shipping destination selected at checkout</p>
         </div>
 
         <div className="pt-4 border-t border-stone-200 space-y-2 text-xs">

@@ -37,14 +37,14 @@ function OrderConfirmationContent() {
           // Graceful fallback for mock preview if order number was typed directly
           setOrder({
             order_number: orderNumber,
-            customer_name: 'Ayesha N.',
-            customer_email: 'ayesha@example.com',
+            customer_name: 'Valued Customer',
+            customer_email: 'customer@earthglaze.in',
             payment_method: 'cod',
             subtotal: 649,
             total_amount: 649,
             shipping_fee: 0,
             shipping_address: {
-              address: '402, Lotus Apt, Deralakatte, University Road',
+              address: 'Standard Registered Address',
               city: 'Mangalore',
               state: 'Karnataka',
               postal_code: '575018',

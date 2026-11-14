@@ -7,11 +7,11 @@ import api from '../../lib/api';
 import { DEFAULT_SITE_CONTENT } from '../../lib/siteContent';
 
 export default function AdminDashboardPage() {
-  const { user, loading: authLoading, isAdmin, login } = useAuth();
+  const { user, loading: authLoading, isAdmin, login, logout } = useAuth();
 
-  // Admin login credentials state
-  const [adminEmail, setAdminEmail] = useState('admin@earthglaze.in');
-  const [adminPassword, setAdminPassword] = useState('EarthGlaze@2026');
+  // Admin login credentials state (never pre-filled on screen)
+  const [adminEmail, setAdminEmail] = useState('');
+  const [adminPassword, setAdminPassword] = useState('');
   const [loginError, setLoginError] = useState('');
   const [loggingIn, setLoggingIn] = useState(false);
 
@@ -33,18 +33,50 @@ export default function AdminDashboardPage() {
   const [selectedCmsSection, setSelectedCmsSection] = useState('hero');
   const [savingCms, setSavingCms] = useState(false);
 
-  // Modals & Forms
+  // Product Modals & Forms State
   const [editingProduct, setEditingProduct] = useState(null);
-  const [editPrice, setEditPrice] = useState('');
-  const [editStock, setEditStock] = useState('');
-  
-  // New coupon form
+  const [showAddProductModal, setShowAddProductModal] = useState(false);
+  const [productSearch, setProductSearch] = useState('');
+  const [newProduct, setNewProduct] = useState({
+    name: '',
+    category: 'Artisan Soaps',
+    price: 349,
+    sale_price: 349,
+    stock_qty: 30,
+    weight: '100 g',
+    description: '',
+    image: '/assets/shop_card_manjistha_hd.png',
+  });
+
+  // Orders Modals & Forms State
+  const [viewingOrder, setViewingOrder] = useState(null);
+  const [editingOrder, setEditingOrder] = useState(null);
+  const [orderSearch, setOrderSearch] = useState('');
+  const [orderStatusFilter, setOrderStatusFilter] = useState('all');
+
+  // Customers Modals & Forms State
+  const [viewingCustomer, setViewingCustomer] = useState(null);
+  const [editingCustomer, setEditingCustomer] = useState(null);
+  const [showAddCustomerModal, setShowAddCustomerModal] = useState(false);
+  const [customerSearch, setCustomerSearch] = useState('');
+  const [customerRoleFilter, setCustomerRoleFilter] = useState('all');
+  const [newCustomer, setNewCustomer] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    role: 'customer',
+  });
+
+  // Coupons Modals & Forms State
+  const [editingCoupon, setEditingCoupon] = useState(null);
+  const [couponSearch, setCouponSearch] = useState('');
   const [newCoupon, setNewCoupon] = useState({
     code: '',
     type: 'percent',
     value: 10,
     min_order_amount: 0,
     max_discount_amount: 200,
+    is_active: true,
   });
 
   const notify = (msg, type = 'success') => {
@@ -100,15 +132,22 @@ export default function AdminDashboardPage() {
     }
   };
 
-  // Update Product Price & Stock
+  // =========================================================================
+  // PRODUCT ACTIONS
+  // =========================================================================
   const handleSaveProduct = async (e) => {
     e.preventDefault();
     if (!editingProduct) return;
     try {
       const res = await api.admin.updateProduct(editingProduct.id, {
-        price: parseFloat(editPrice),
-        sale_price: parseFloat(editPrice),
-        stock_qty: parseInt(editStock, 10),
+        name: editingProduct.name,
+        price: parseFloat(editingProduct.price || editingProduct.sale_price),
+        sale_price: parseFloat(editingProduct.sale_price || editingProduct.price),
+        stock_qty: parseInt(editingProduct.stock_qty, 10),
+        category: editingProduct.category,
+        description: editingProduct.description,
+        is_active: editingProduct.is_active,
+        image: editingProduct.image,
       });
       if (res.success) {
         notify(`Updated ${editingProduct.name} successfully!`);
@@ -122,12 +161,53 @@ export default function AdminDashboardPage() {
     }
   };
 
-  // Update Order Status
+  const handleCreateProduct = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await api.admin.createProduct(newProduct);
+      if (res.success) {
+        notify(`Product "${newProduct.name}" added to catalog!`);
+        setShowAddProductModal(false);
+        setNewProduct({
+          name: '',
+          category: 'Artisan Soaps',
+          price: 349,
+          sale_price: 349,
+          stock_qty: 30,
+          weight: '100 g',
+          description: '',
+          image: '/assets/shop_card_manjistha_hd.png',
+        });
+        loadAllAdminData();
+      } else {
+        notify(res.message || 'Failed to add product', 'error');
+      }
+    } catch (err) {
+      notify('Error creating product', 'error');
+    }
+  };
+
+  const handleDeleteProduct = async (id, name) => {
+    if (!confirm(`Are you sure you want to remove "${name}" from the catalog?`)) return;
+    try {
+      const res = await api.admin.deleteProduct(id);
+      if (res.success) {
+        notify(`"${name}" removed from catalog.`);
+        loadAllAdminData();
+      }
+    } catch (err) {
+      notify('Failed to delete product', 'error');
+    }
+  };
+
+  // =========================================================================
+  // ORDER ACTIONS
+  // =========================================================================
   const handleUpdateOrderStatus = async (orderId, newStatus) => {
     try {
       const res = await api.admin.updateOrderStatus(orderId, newStatus);
       if (res.success) {
-        notify(`Order status updated to "${newStatus}"!`);
+        notify(`Order #${orderId} status updated to "${newStatus}"!`);
         loadAllAdminData();
       } else {
         notify(res.message || 'Failed to update order', 'error');
@@ -137,14 +217,117 @@ export default function AdminDashboardPage() {
     }
   };
 
-  // Create Coupon
+  const handleSaveOrder = async (e) => {
+    e.preventDefault();
+    if (!editingOrder) return;
+    try {
+      const res = await api.admin.updateOrder(editingOrder.id, {
+        status: editingOrder.status,
+        tracking_number: editingOrder.tracking_number,
+        courier: editingOrder.courier,
+        shipping_address: editingOrder.shipping_address,
+        customer_phone: editingOrder.customer_phone,
+        customer_email: editingOrder.customer_email,
+        notes: editingOrder.notes,
+      });
+      if (res.success) {
+        notify(`Order #${editingOrder.order_number} details saved!`);
+        setEditingOrder(null);
+        loadAllAdminData();
+      } else {
+        notify(res.message || 'Update failed', 'error');
+      }
+    } catch (err) {
+      notify('Failed to update order details', 'error');
+    }
+  };
+
+  const handleDeleteOrder = async (orderId, orderNumber) => {
+    if (!confirm(`Are you sure you want to permanently delete Order #${orderNumber}? This will recalculate sales totals.`)) return;
+    try {
+      const res = await api.admin.deleteOrder(orderId);
+      if (res.success) {
+        notify(`Order #${orderNumber} deleted.`);
+        if (viewingOrder?.id === orderId) setViewingOrder(null);
+        if (editingOrder?.id === orderId) setEditingOrder(null);
+        loadAllAdminData();
+      } else {
+        notify(res.message || 'Delete failed', 'error');
+      }
+    } catch (err) {
+      notify('Failed to delete order', 'error');
+    }
+  };
+
+  // =========================================================================
+  // CUSTOMER / USER ACTIONS
+  // =========================================================================
+  const handleSaveCustomer = async (e) => {
+    e.preventDefault();
+    if (!editingCustomer) return;
+    try {
+      const res = await api.admin.updateCustomer(editingCustomer.id, {
+        name: editingCustomer.name,
+        email: editingCustomer.email,
+        phone: editingCustomer.phone,
+        role: editingCustomer.role,
+      });
+      if (res.success) {
+        notify(`Customer "${editingCustomer.name}" updated!`);
+        setEditingCustomer(null);
+        loadAllAdminData();
+      } else {
+        notify(res.message || 'Customer update failed', 'error');
+      }
+    } catch (err) {
+      notify('Failed to update customer', 'error');
+    }
+  };
+
+  const handleCreateCustomer = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await api.admin.createCustomer(newCustomer);
+      if (res.success) {
+        notify(`Customer "${newCustomer.name}" created!`);
+        setShowAddCustomerModal(false);
+        setNewCustomer({ name: '', email: '', phone: '', role: 'customer' });
+        loadAllAdminData();
+      } else {
+        notify(res.message || 'Failed to create customer', 'error');
+      }
+    } catch (err) {
+      notify('Customer creation failed', 'error');
+    }
+  };
+
+  const handleDeleteCustomer = async (customerId, customerName) => {
+    if (!confirm(`Are you sure you want to delete customer account for "${customerName}"?`)) return;
+    try {
+      const res = await api.admin.deleteCustomer(customerId);
+      if (res.success) {
+        notify(`Customer "${customerName}" removed.`);
+        if (viewingCustomer?.id === customerId) setViewingCustomer(null);
+        if (editingCustomer?.id === customerId) setEditingCustomer(null);
+        loadAllAdminData();
+      } else {
+        notify(res.message || 'Delete failed', 'error');
+      }
+    } catch (err) {
+      notify('Failed to delete customer', 'error');
+    }
+  };
+
+  // =========================================================================
+  // COUPON ACTIONS
+  // =========================================================================
   const handleCreateCoupon = async (e) => {
     e.preventDefault();
     try {
       const res = await api.admin.createCoupon(newCoupon);
       if (res.success) {
         notify(`Coupon "${newCoupon.code.toUpperCase()}" created!`);
-        setNewCoupon({ code: '', type: 'percent', value: 10, min_order_amount: 0, max_discount_amount: 200 });
+        setNewCoupon({ code: '', type: 'percent', value: 10, min_order_amount: 0, max_discount_amount: 200, is_active: true });
         loadAllAdminData();
       } else {
         notify(res.message || 'Coupon creation failed', 'error');
@@ -154,13 +337,48 @@ export default function AdminDashboardPage() {
     }
   };
 
-  // Delete Coupon
-  const handleDeleteCoupon = async (id) => {
-    if (!confirm('Are you sure you want to deactivate this coupon?')) return;
+  const handleSaveCoupon = async (e) => {
+    e.preventDefault();
+    if (!editingCoupon) return;
+    try {
+      const res = await api.admin.updateCoupon(editingCoupon.id, {
+        code: editingCoupon.code,
+        type: editingCoupon.type,
+        value: editingCoupon.value,
+        min_order_amount: editingCoupon.min_order_amount,
+        max_discount_amount: editingCoupon.max_discount_amount,
+        is_active: editingCoupon.is_active,
+      });
+      if (res.success) {
+        notify(`Coupon "${editingCoupon.code}" updated successfully!`);
+        setEditingCoupon(null);
+        loadAllAdminData();
+      } else {
+        notify(res.message || 'Update failed', 'error');
+      }
+    } catch (err) {
+      notify('Failed to update coupon', 'error');
+    }
+  };
+
+  const handleToggleCoupon = async (id, code, currentStatus) => {
+    try {
+      const res = await api.admin.toggleCoupon(id);
+      if (res.success) {
+        notify(`Coupon "${code}" ${!currentStatus ? 'activated' : 'paused'}!`);
+        loadAllAdminData();
+      }
+    } catch (err) {
+      notify('Toggle failed', 'error');
+    }
+  };
+
+  const handleDeleteCoupon = async (id, code) => {
+    if (!confirm(`Are you sure you want to delete coupon code "${code}"?`)) return;
     try {
       const res = await api.admin.deleteCoupon(id);
       if (res.success) {
-        notify('Coupon deactivated.');
+        notify(`Coupon "${code}" deleted.`);
         loadAllAdminData();
       }
     } catch (err) {
@@ -295,6 +513,8 @@ export default function AdminDashboardPage() {
                 required 
                 value={adminEmail}
                 onChange={(e) => setAdminEmail(e.target.value)}
+                placeholder="Enter administrator email"
+                autoComplete="off"
                 className="w-full text-xs sm:text-sm px-4 py-3 bg-stone-50 rounded-xl border border-stone-300 focus:outline-none focus:border-[#1E3B2B]"
               />
             </div>
@@ -308,6 +528,8 @@ export default function AdminDashboardPage() {
                 required 
                 value={adminPassword}
                 onChange={(e) => setAdminPassword(e.target.value)}
+                placeholder="Enter password"
+                autoComplete="new-password"
                 className="w-full text-xs sm:text-sm px-4 py-3 bg-stone-50 rounded-xl border border-stone-300 focus:outline-none focus:border-[#1E3B2B]"
               />
             </div>
@@ -375,6 +597,15 @@ export default function AdminDashboardPage() {
             >
               {loadingData ? 'Refreshing...' : '↻ Refresh'}
             </button>
+            <button
+              type="button"
+              onClick={() => logout()}
+              className="px-3.5 py-1.5 rounded-xl bg-red-50 hover:bg-red-100 text-red-700 hover:text-red-800 border border-red-200 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow-2xs"
+              title="Sign out of Admin Dashboard"
+            >
+              <span>Sign Out</span>
+              <span>🚪</span>
+            </button>
           </div>
         </div>
 
@@ -417,17 +648,17 @@ export default function AdminDashboardPage() {
               <p className="text-xs text-stone-500 mt-0.5">Real-time statistics synced with MySQL database.</p>
             </div>
 
-            {/* Metric KPI Cards */}
+            {/* Metric KPI Cards (Calculated directly from live real dataset) */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
               <div className="bg-white p-6 rounded-3xl border border-stone-200/80 shadow-xs">
                 <span className="text-xs font-bold text-stone-500 uppercase tracking-wider block mb-1">
                   Total Sales Revenue
                 </span>
                 <span className="text-3xl font-bold text-[#1E3B2B]">
-                  ₹{stats?.total_sales || '0.00'}
+                  ₹{orders.reduce((sum, o) => sum + (Number(o.total_amount) || 0), 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}
                 </span>
                 <span className="text-[11px] text-emerald-700 font-semibold block mt-1">
-                  Verified payments &amp; settled orders
+                  Verified customer orders &amp; payments
                 </span>
               </div>
 
@@ -436,10 +667,10 @@ export default function AdminDashboardPage() {
                   Total Orders
                 </span>
                 <span className="text-3xl font-bold text-[#1E3B2B]">
-                  {stats?.total_orders || 0}
+                  {orders.length}
                 </span>
                 <span className="text-[11px] text-stone-500 block mt-1">
-                  {stats?.orders_by_status?.processing || 0} processing, {stats?.orders_by_status?.shipped || 0} in transit
+                  {orders.filter(o => o.status === 'processing').length} processing, {orders.filter(o => o.status === 'shipped').length} in transit
                 </span>
               </div>
 
@@ -448,10 +679,10 @@ export default function AdminDashboardPage() {
                   Active Customers
                 </span>
                 <span className="text-3xl font-bold text-[#1E3B2B]">
-                  {stats?.total_customers || 0}
+                  {customers.length}
                 </span>
                 <span className="text-[11px] text-stone-500 block mt-1">
-                  Registered profiles in database
+                  Registered customer accounts
                 </span>
               </div>
 
@@ -463,7 +694,7 @@ export default function AdminDashboardPage() {
                   {products.reduce((acc, p) => acc + (p.stock_qty || 0), 0)} units
                 </span>
                 <span className="text-[11px] text-stone-500 block mt-1">
-                  Across the 3 active artisan skincare products
+                  Across active catalog formulations
                 </span>
               </div>
             </div>
@@ -508,6 +739,13 @@ export default function AdminDashboardPage() {
                         </td>
                       </tr>
                     ))}
+                    {orders.length === 0 && (
+                      <tr>
+                        <td colSpan="6" className="py-10 text-center text-xs text-stone-400">
+                          No customer orders placed yet. Live orders will appear here automatically.
+                        </td>
+                      </tr>
+                    )}
                   </tbody>
                 </table>
               </div>
@@ -520,11 +758,37 @@ export default function AdminDashboardPage() {
             =================================================================== */}
         {currentTab === 'products' && (
           <div className="space-y-6 animate-fadeIn">
-            <div>
-              <h2 className="text-2xl font-serif font-bold text-[#1E3B2B]">Products &amp; Inventory</h2>
-              <p className="text-xs text-stone-500 mt-0.5">
-                Current active catalog (Only the 3 authorized artisan products).
-              </p>
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <div>
+                <h2 className="text-2xl font-serif font-bold text-[#1E3B2B]">Products &amp; Inventory</h2>
+                <p className="text-xs text-stone-500 mt-0.5">
+                  Manage product catalog, real-time pricing, stock units, and active status.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowAddProductModal(true)}
+                className="px-4 py-2.5 bg-[#1E3B2B] hover:bg-[#14291E] text-white text-xs font-bold rounded-xl transition shadow flex items-center gap-1.5 self-start sm:self-auto cursor-pointer"
+              >
+                <span>+ Add New Product</span>
+              </button>
+            </div>
+
+            {/* Product Search Toolbar */}
+            <div className="flex items-center gap-3">
+              <div className="relative flex-1 max-w-md">
+                <input
+                  type="text"
+                  value={productSearch}
+                  onChange={(e) => setProductSearch(e.target.value)}
+                  placeholder="Search products by name, category, or SKU..."
+                  className="w-full text-xs pl-9 pr-4 py-2.5 bg-white rounded-xl border border-stone-200 focus:outline-none focus:border-[#1E3B2B] shadow-2xs"
+                />
+                <span className="absolute left-3 top-2.5 text-stone-400 text-xs">🔍</span>
+              </div>
+              <span className="text-xs text-stone-500 font-medium">
+                {products.filter(p => !productSearch || (p.name || '').toLowerCase().includes(productSearch.toLowerCase())).length} Products
+              </span>
             </div>
 
             <div className="bg-white rounded-3xl border border-stone-200/80 shadow-xs overflow-hidden">
@@ -534,16 +798,17 @@ export default function AdminDashboardPage() {
                     <tr className="bg-stone-50 border-b border-stone-200 text-stone-600 uppercase font-bold text-[10px] tracking-wider">
                       <th className="py-3.5 px-4">Image</th>
                       <th className="py-3.5 px-4">Product Name</th>
-                      <th className="py-3.5 px-4">SKU</th>
                       <th className="py-3.5 px-4">Category</th>
-                      <th className="py-3.5 px-4">Price</th>
+                      <th className="py-3.5 px-4">Price / Sale</th>
                       <th className="py-3.5 px-4">Stock Qty</th>
                       <th className="py-3.5 px-4">Status</th>
                       <th className="py-3.5 px-4 text-right">Actions</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-stone-100">
-                    {products.map((p) => (
+                    {products
+                      .filter(p => !productSearch || (p.name || '').toLowerCase().includes(productSearch.toLowerCase()) || (p.category || '').toLowerCase().includes(productSearch.toLowerCase()))
+                      .map((p) => (
                       <tr key={p.id} className="hover:bg-stone-50/70">
                         <td className="py-3 px-4">
                           <div className="w-12 h-12 rounded-xl bg-[#FAF7F2] p-1 flex items-center justify-center border border-stone-200">
@@ -558,9 +823,13 @@ export default function AdminDashboardPage() {
                           <strong className="text-stone-900 block font-serif text-sm">{p.name}</strong>
                           <span className="text-[11px] text-stone-400">{p.weight || '100 g'}</span>
                         </td>
-                        <td className="py-3 px-4 font-mono text-stone-600 font-semibold">{p.sku || p.slug?.toUpperCase()}</td>
                         <td className="py-3 px-4 text-stone-600">{p.category?.name || p.category_name || p.category || 'Soaps'}</td>
-                        <td className="py-3 px-4 font-bold text-stone-900">₹{p.sale_price || p.price}</td>
+                        <td className="py-3 px-4 font-bold text-stone-900">
+                          ₹{p.sale_price || p.price}
+                          {p.sale_price && p.price && p.sale_price !== p.price && (
+                            <span className="text-stone-400 line-through font-normal ml-1.5 text-[11px]">₹{p.price}</span>
+                          )}
+                        </td>
                         <td className="py-3 px-4">
                           <span className={`font-bold px-2.5 py-0.5 rounded-full text-[11px] ${
                             (p.stock_qty || 0) < 10 ? 'bg-red-100 text-red-800' : 'bg-emerald-100 text-emerald-800'
@@ -569,22 +838,33 @@ export default function AdminDashboardPage() {
                           </span>
                         </td>
                         <td className="py-3 px-4">
-                          <span className="px-2 py-0.5 rounded-md text-[10px] font-bold uppercase bg-stone-100 text-stone-700">
-                            {p.is_active ? 'Active' : 'Draft'}
+                          <span className={`px-2 py-0.5 rounded-md text-[10px] font-bold uppercase ${
+                            p.is_active !== false ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-stone-100 text-stone-500'
+                          }`}>
+                            {p.is_active !== false ? 'Active' : 'Draft'}
                           </span>
                         </td>
                         <td className="py-3 px-4 text-right">
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setEditingProduct(p);
-                              setEditPrice(String(p.sale_price || p.price));
-                              setEditStock(String(p.stock_qty || 0));
-                            }}
-                            className="px-3.5 py-1.5 bg-[#1E3B2B] text-white rounded-xl text-xs font-bold hover:bg-[#14291E] transition cursor-pointer"
-                          >
-                            Edit Price &amp; Stock
-                          </button>
+                          <div className="inline-flex items-center gap-1.5">
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setEditingProduct({ ...p });
+                              }}
+                              className="px-2.5 py-1.5 bg-stone-100 hover:bg-[#1E3B2B] text-stone-700 hover:text-white rounded-lg text-xs font-semibold transition cursor-pointer"
+                              title="Edit product"
+                            >
+                              ✏️ Edit
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => handleDeleteProduct(p.id, p.name)}
+                              className="px-2.5 py-1.5 bg-red-50 hover:bg-red-600 text-red-600 hover:text-white rounded-lg text-xs font-semibold transition cursor-pointer"
+                              title="Delete product"
+                            >
+                              🗑️
+                            </button>
+                          </div>
                         </td>
                       </tr>
                     ))}
@@ -593,18 +873,18 @@ export default function AdminDashboardPage() {
               </div>
             </div>
 
-            {/* EDIT MODAL */}
+            {/* EDIT PRODUCT MODAL */}
             {editingProduct && (
-              <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4">
-                <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl border border-stone-200 space-y-5 animate-scaleUp">
+              <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
+                <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl border border-stone-200 space-y-5 animate-scaleUp max-h-[90vh] overflow-y-auto">
                   <div className="flex items-center justify-between border-b border-stone-200 pb-3">
                     <h3 className="font-serif font-bold text-lg text-[#1E3B2B]">
-                      Update {editingProduct.name}
+                      Edit Product: {editingProduct.name}
                     </h3>
                     <button 
                       type="button" 
                       onClick={() => setEditingProduct(null)} 
-                      className="text-stone-400 hover:text-stone-700 text-lg font-bold"
+                      className="text-stone-400 hover:text-stone-700 text-lg font-bold cursor-pointer"
                     >
                       ✕
                     </button>
@@ -613,43 +893,230 @@ export default function AdminDashboardPage() {
                   <form onSubmit={handleSaveProduct} className="space-y-4">
                     <div>
                       <label className="block text-xs font-bold text-stone-700 uppercase mb-1">
-                        Sale Price (₹)
+                        Product Name
                       </label>
                       <input 
-                        type="number" 
+                        type="text" 
                         required 
-                        value={editPrice}
-                        onChange={(e) => setEditPrice(e.target.value)}
-                        className="w-full text-sm px-4 py-2.5 bg-stone-50 rounded-xl border border-stone-300 focus:outline-none focus:border-[#1E3B2B]"
+                        value={editingProduct.name}
+                        onChange={(e) => setEditingProduct({ ...editingProduct, name: e.target.value })}
+                        className="w-full text-xs sm:text-sm px-4 py-2.5 bg-stone-50 rounded-xl border border-stone-300 focus:outline-none focus:border-[#1E3B2B]"
                       />
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <label className="block text-xs font-bold text-stone-700 uppercase mb-1">
+                          Regular Price (₹)
+                        </label>
+                        <input 
+                          type="number" 
+                          required 
+                          value={editingProduct.price || ''}
+                          onChange={(e) => setEditingProduct({ ...editingProduct, price: e.target.value })}
+                          className="w-full text-xs sm:text-sm px-4 py-2.5 bg-stone-50 rounded-xl border border-stone-300 focus:outline-none focus:border-[#1E3B2B]"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-bold text-stone-700 uppercase mb-1">
+                          Sale Price (₹)
+                        </label>
+                        <input 
+                          type="number" 
+                          required 
+                          value={editingProduct.sale_price || ''}
+                          onChange={(e) => setEditingProduct({ ...editingProduct, sale_price: e.target.value })}
+                          className="w-full text-xs sm:text-sm px-4 py-2.5 bg-stone-50 rounded-xl border border-stone-300 focus:outline-none focus:border-[#1E3B2B]"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <label className="block text-xs font-bold text-stone-700 uppercase mb-1">
+                          Stock Quantity
+                        </label>
+                        <input 
+                          type="number" 
+                          required 
+                          value={editingProduct.stock_qty || ''}
+                          onChange={(e) => setEditingProduct({ ...editingProduct, stock_qty: e.target.value })}
+                          className="w-full text-xs sm:text-sm px-4 py-2.5 bg-stone-50 rounded-xl border border-stone-300 focus:outline-none focus:border-[#1E3B2B]"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-bold text-stone-700 uppercase mb-1">
+                          Category
+                        </label>
+                        <input 
+                          type="text" 
+                          value={editingProduct.category || ''}
+                          onChange={(e) => setEditingProduct({ ...editingProduct, category: e.target.value })}
+                          className="w-full text-xs sm:text-sm px-4 py-2.5 bg-stone-50 rounded-xl border border-stone-300 focus:outline-none focus:border-[#1E3B2B]"
+                        />
+                      </div>
                     </div>
 
                     <div>
                       <label className="block text-xs font-bold text-stone-700 uppercase mb-1">
-                        Stock Quantity (Units)
+                        Product Description
                       </label>
-                      <input 
-                        type="number" 
-                        required 
-                        value={editStock}
-                        onChange={(e) => setEditStock(e.target.value)}
-                        className="w-full text-sm px-4 py-2.5 bg-stone-50 rounded-xl border border-stone-300 focus:outline-none focus:border-[#1E3B2B]"
+                      <textarea
+                        rows="2"
+                        value={editingProduct.description || ''}
+                        onChange={(e) => setEditingProduct({ ...editingProduct, description: e.target.value })}
+                        className="w-full text-xs sm:text-sm px-4 py-2.5 bg-stone-50 rounded-xl border border-stone-300 focus:outline-none focus:border-[#1E3B2B]"
                       />
                     </div>
 
-                    <div className="flex items-center justify-end gap-3 pt-2">
+                    <div className="flex items-center gap-2 pt-1">
+                      <input
+                        type="checkbox"
+                        id="prod-active-chk"
+                        checked={editingProduct.is_active !== false}
+                        onChange={(e) => setEditingProduct({ ...editingProduct, is_active: e.target.checked })}
+                        className="rounded text-[#1E3B2B] focus:ring-[#1E3B2B] w-4 h-4 cursor-pointer"
+                      />
+                      <label htmlFor="prod-active-chk" className="text-xs font-bold text-stone-700 cursor-pointer">
+                        Active in customer shop catalog
+                      </label>
+                    </div>
+
+                    <div className="flex items-center justify-end gap-3 pt-3 border-t border-stone-100">
                       <button 
                         type="button" 
                         onClick={() => setEditingProduct(null)}
-                        className="px-4 py-2 rounded-xl text-xs font-semibold text-stone-600 hover:bg-stone-100"
+                        className="px-4 py-2.5 rounded-xl text-xs font-semibold text-stone-600 hover:bg-stone-100 cursor-pointer"
                       >
                         Cancel
                       </button>
                       <button 
                         type="submit"
-                        className="px-5 py-2 rounded-xl bg-[#1E3B2B] hover:bg-[#14291E] text-white text-xs font-bold shadow cursor-pointer"
+                        className="px-5 py-2.5 rounded-xl bg-[#1E3B2B] hover:bg-[#14291E] text-white text-xs font-bold shadow cursor-pointer"
                       >
-                        Save Changes
+                        Save Product Changes
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            )}
+
+            {/* ADD PRODUCT MODAL */}
+            {showAddProductModal && (
+              <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
+                <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl border border-stone-200 space-y-5 animate-scaleUp max-h-[90vh] overflow-y-auto">
+                  <div className="flex items-center justify-between border-b border-stone-200 pb-3">
+                    <h3 className="font-serif font-bold text-lg text-[#1E3B2B]">
+                      Add New Botanical Product
+                    </h3>
+                    <button 
+                      type="button" 
+                      onClick={() => setShowAddProductModal(false)} 
+                      className="text-stone-400 hover:text-stone-700 text-lg font-bold cursor-pointer"
+                    >
+                      ✕
+                    </button>
+                  </div>
+
+                  <form onSubmit={handleCreateProduct} className="space-y-4">
+                    <div>
+                      <label className="block text-xs font-bold text-stone-700 uppercase mb-1">
+                        Product Title
+                      </label>
+                      <input 
+                        type="text" 
+                        required 
+                        value={newProduct.name}
+                        onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })}
+                        placeholder="e.g. Saffron &amp; Sandalwood Radiance Bar"
+                        className="w-full text-xs sm:text-sm px-4 py-2.5 bg-stone-50 rounded-xl border border-stone-300 focus:outline-none focus:border-[#1E3B2B]"
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <label className="block text-xs font-bold text-stone-700 uppercase mb-1">
+                          Category
+                        </label>
+                        <select
+                          value={newProduct.category}
+                          onChange={(e) => setNewProduct({ ...newProduct, category: e.target.value })}
+                          className="w-full text-xs px-3 py-2.5 bg-stone-50 rounded-xl border border-stone-300 font-semibold"
+                        >
+                          <option value="Artisan Soaps">Artisan Soaps</option>
+                          <option value="Lip Care">Lip Care</option>
+                          <option value="Combos">Combos &amp; Kits</option>
+                          <option value="Facial Oils">Facial Oils</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label className="block text-xs font-bold text-stone-700 uppercase mb-1">
+                          Net Weight
+                        </label>
+                        <input 
+                          type="text" 
+                          value={newProduct.weight}
+                          onChange={(e) => setNewProduct({ ...newProduct, weight: e.target.value })}
+                          placeholder="e.g. 100 g or 10 ml"
+                          className="w-full text-xs sm:text-sm px-4 py-2.5 bg-stone-50 rounded-xl border border-stone-300 focus:outline-none focus:border-[#1E3B2B]"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <label className="block text-xs font-bold text-stone-700 uppercase mb-1">
+                          Price (₹)
+                        </label>
+                        <input 
+                          type="number" 
+                          required 
+                          value={newProduct.price}
+                          onChange={(e) => setNewProduct({ ...newProduct, price: parseFloat(e.target.value) || 0, sale_price: parseFloat(e.target.value) || 0 })}
+                          className="w-full text-xs sm:text-sm px-4 py-2.5 bg-stone-50 rounded-xl border border-stone-300 focus:outline-none focus:border-[#1E3B2B]"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-bold text-stone-700 uppercase mb-1">
+                          Stock Quantity
+                        </label>
+                        <input 
+                          type="number" 
+                          required 
+                          value={newProduct.stock_qty}
+                          onChange={(e) => setNewProduct({ ...newProduct, stock_qty: parseInt(e.target.value, 10) || 0 })}
+                          className="w-full text-xs sm:text-sm px-4 py-2.5 bg-stone-50 rounded-xl border border-stone-300 focus:outline-none focus:border-[#1E3B2B]"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold text-stone-700 uppercase mb-1">
+                        Short Botanical Description
+                      </label>
+                      <textarea
+                        rows="2"
+                        value={newProduct.description}
+                        onChange={(e) => setNewProduct({ ...newProduct, description: e.target.value })}
+                        placeholder="Botanical active ingredients and ritual benefits..."
+                        className="w-full text-xs sm:text-sm px-4 py-2.5 bg-stone-50 rounded-xl border border-stone-300 focus:outline-none focus:border-[#1E3B2B]"
+                      />
+                    </div>
+
+                    <div className="flex items-center justify-end gap-3 pt-3 border-t border-stone-100">
+                      <button 
+                        type="button" 
+                        onClick={() => setShowAddProductModal(false)}
+                        className="px-4 py-2.5 rounded-xl text-xs font-semibold text-stone-600 hover:bg-stone-100 cursor-pointer"
+                      >
+                        Cancel
+                      </button>
+                      <button 
+                        type="submit"
+                        className="px-5 py-2.5 rounded-xl bg-[#1E3B2B] hover:bg-[#14291E] text-white text-xs font-bold shadow cursor-pointer"
+                      >
+                        Add to Store Catalog →
                       </button>
                     </div>
                   </form>
@@ -660,102 +1127,483 @@ export default function AdminDashboardPage() {
         )}
 
         {/* ===================================================================
-            TAB 3: ORDERS MANAGEMENT
+            TAB 3: ORDERS MANAGEMENT (VIEW, EDIT, UPDATE, DELETE)
             =================================================================== */}
         {currentTab === 'orders' && (
           <div className="space-y-6 animate-fadeIn">
             <div>
               <h2 className="text-2xl font-serif font-bold text-[#1E3B2B]">Orders &amp; Fulfillment</h2>
               <p className="text-xs text-stone-500 mt-0.5">
-                Update fulfillment stages directly to notify customers on their tracking screen.
+                View, update fulfillment stages, edit tracking credentials, addresses, or delete orders.
               </p>
             </div>
 
+            {/* Filter and Search Bar */}
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-4 rounded-2xl border border-stone-200 shadow-2xs">
+              <div className="relative flex-1 max-w-md">
+                <input
+                  type="text"
+                  value={orderSearch}
+                  onChange={(e) => setOrderSearch(e.target.value)}
+                  placeholder="Search by Order ID, customer name, email, phone..."
+                  className="w-full text-xs pl-9 pr-4 py-2.5 bg-stone-50 rounded-xl border border-stone-200 focus:outline-none focus:border-[#1E3B2B]"
+                />
+                <span className="absolute left-3 top-2.5 text-stone-400 text-xs">🔍</span>
+              </div>
+
+              {/* Status Filter Pills */}
+              <div className="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0">
+                {['all', 'pending', 'processing', 'shipped', 'delivered', 'cancelled'].map((st) => (
+                  <button
+                    key={st}
+                    type="button"
+                    onClick={() => setOrderStatusFilter(st)}
+                    className={`px-3 py-1.5 rounded-xl text-[11px] font-bold capitalize transition cursor-pointer shrink-0 ${
+                      orderStatusFilter === st
+                        ? 'bg-[#1E3B2B] text-white shadow-2xs'
+                        : 'bg-stone-100 hover:bg-stone-200 text-stone-600'
+                    }`}
+                  >
+                    {st}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Orders Table */}
             <div className="bg-white rounded-3xl border border-stone-200/80 shadow-xs overflow-hidden">
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs">
                   <thead>
                     <tr className="bg-stone-50 border-b border-stone-200 text-stone-600 uppercase font-bold text-[10px] tracking-wider">
                       <th className="py-3.5 px-4">Order Ref</th>
-                      <th className="py-3.5 px-4">Customer Details</th>
+                      <th className="py-3.5 px-4">Customer</th>
                       <th className="py-3.5 px-4">Items</th>
                       <th className="py-3.5 px-4">Total</th>
                       <th className="py-3.5 px-4">Payment</th>
-                      <th className="py-3.5 px-4">Current Status</th>
-                      <th className="py-3.5 px-4 text-right">Update Status</th>
+                      <th className="py-3.5 px-4">Status</th>
+                      <th className="py-3.5 px-4 text-right">Actions</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-stone-100">
-                    {orders.map((ord) => (
+                    {orders
+                      .filter(ord => {
+                        const s = orderSearch.toLowerCase();
+                        const matchesSearch = !orderSearch || 
+                          (ord.order_number || '').toLowerCase().includes(s) ||
+                          (ord.customer_name || '').toLowerCase().includes(s) ||
+                          (ord.customer_email || '').toLowerCase().includes(s) ||
+                          (ord.customer_phone || '').toLowerCase().includes(s);
+                        const matchesStatus = orderStatusFilter === 'all' || (ord.status || '').toLowerCase() === orderStatusFilter.toLowerCase();
+                        return matchesSearch && matchesStatus;
+                      })
+                      .map((ord) => (
                       <tr key={ord.id} className="hover:bg-stone-50/70">
-                        <td className="py-3 px-4">
+                        <td className="py-3.5 px-4">
                           <strong className="text-[#1E3B2B] text-sm block">#{ord.order_number}</strong>
                           <span className="text-[11px] text-stone-400">
-                            {new Date(ord.created_at).toLocaleDateString()}
+                            {new Date(ord.created_at).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })}
                           </span>
                         </td>
-                        <td className="py-3 px-4">
+                        <td className="py-3.5 px-4">
                           <strong className="text-stone-900 block">{ord.customer_name}</strong>
-                          <span className="text-[11px] text-stone-500 block">{ord.customer_email}</span>
-                          <span className="text-[11px] text-stone-500 block">{ord.customer_phone}</span>
+                          <span className="text-[11px] text-stone-500 block truncate max-w-[180px]">{ord.customer_email}</span>
+                          <span className="text-[11px] text-stone-400 block">{ord.customer_phone}</span>
                         </td>
-                        <td className="py-3 px-4">
-                          <div className="space-y-1">
-                            {ord.items?.map((it, idx) => (
-                              <div key={idx} className="text-[11px] text-stone-700">
+                        <td className="py-3.5 px-4">
+                          <div className="space-y-0.5">
+                            {ord.items?.slice(0, 2).map((it, idx) => (
+                              <div key={idx} className="text-[11px] text-stone-700 truncate max-w-[160px]">
                                 {it.quantity}× {it.product_name}
                               </div>
                             ))}
+                            {(ord.items?.length || 0) > 2 && (
+                              <span className="text-[10px] text-stone-400">+{ord.items.length - 2} more item(s)</span>
+                            )}
                           </div>
                         </td>
-                        <td className="py-3 px-4 font-bold text-sm text-stone-900">
+                        <td className="py-3.5 px-4 font-bold text-sm text-stone-900">
                           ₹{ord.total_amount}
                         </td>
-                        <td className="py-3 px-4">
-                          <span className="uppercase font-semibold text-stone-700 block">
+                        <td className="py-3.5 px-4">
+                          <span className="uppercase font-semibold text-stone-700 block text-[11px]">
                             {ord.payment_method}
                           </span>
-                          <span className="text-[10px] text-stone-400">
-                            {ord.payment?.status || 'verified'}
+                          <span className={`text-[10px] font-bold ${
+                            ord.payment_status === 'paid' ? 'text-emerald-700' : 'text-amber-700'
+                          }`}>
+                            {(ord.payment_status || 'pending').toUpperCase()}
                           </span>
                         </td>
-                        <td className="py-3 px-4">
-                          <span className="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase bg-emerald-100 text-emerald-800">
-                            {ord.status}
-                          </span>
-                        </td>
-                        <td className="py-3 px-4 text-right">
+                        <td className="py-3.5 px-4">
                           <select
                             value={ord.status}
                             onChange={(e) => handleUpdateOrderStatus(ord.id, e.target.value)}
-                            className="text-xs font-semibold px-2.5 py-1.5 rounded-xl border border-stone-300 bg-white focus:outline-none focus:border-[#1E3B2B] cursor-pointer"
+                            className="text-xs font-semibold px-2 py-1 rounded-lg border border-stone-300 bg-white focus:outline-none focus:border-[#1E3B2B] cursor-pointer"
                           >
                             <option value="pending">Pending</option>
                             <option value="confirmed">Confirmed</option>
-                            <option value="processing">Processing (Packed)</option>
+                            <option value="processing">Processing</option>
                             <option value="shipped">Shipped</option>
                             <option value="out_for_delivery">Out for Delivery</option>
                             <option value="delivered">Delivered</option>
                             <option value="cancelled">Cancelled</option>
                           </select>
                         </td>
+                        <td className="py-3.5 px-4 text-right">
+                          <div className="inline-flex items-center gap-1.5">
+                            <button
+                              type="button"
+                              onClick={() => setViewingOrder(ord)}
+                              className="px-2.5 py-1 bg-stone-100 hover:bg-[#1E3B2B] text-stone-700 hover:text-white rounded-lg text-xs font-semibold transition cursor-pointer"
+                              title="View full order details"
+                            >
+                              👁️ View
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => setEditingOrder({ ...ord })}
+                              className="px-2.5 py-1 bg-stone-100 hover:bg-[#1E3B2B] text-stone-700 hover:text-white rounded-lg text-xs font-semibold transition cursor-pointer"
+                              title="Edit fulfillment &amp; address"
+                            >
+                              ✏️ Edit
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => handleDeleteOrder(ord.id, ord.order_number)}
+                              className="px-2.5 py-1 bg-red-50 hover:bg-red-600 text-red-600 hover:text-white rounded-lg text-xs font-semibold transition cursor-pointer"
+                              title="Delete order"
+                            >
+                              🗑️
+                            </button>
+                          </div>
+                        </td>
                       </tr>
                     ))}
+                    {orders.length === 0 && (
+                      <tr>
+                        <td colSpan="7" className="py-12 text-center text-xs text-stone-400">
+                          No orders in database yet.
+                        </td>
+                      </tr>
+                    )}
                   </tbody>
                 </table>
               </div>
             </div>
+
+            {/* VIEW ORDER DETAILS MODAL */}
+            {viewingOrder && (
+              <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
+                <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-2xl w-full shadow-2xl border border-stone-200 space-y-6 animate-scaleUp max-h-[90vh] overflow-y-auto">
+                  
+                  {/* Modal Header */}
+                  <div className="flex items-center justify-between border-b border-stone-200 pb-4">
+                    <div className="flex items-center gap-3">
+                      <span className="w-10 h-10 rounded-xl bg-[#EAF3EC] text-[#1E3B2B] flex items-center justify-center text-lg">
+                        📦
+                      </span>
+                      <div>
+                        <h3 className="font-serif font-bold text-lg text-[#1E3B2B]">
+                          Order #{viewingOrder.order_number}
+                        </h3>
+                        <p className="text-xs text-stone-400">
+                          Placed on {new Date(viewingOrder.created_at).toLocaleString()}
+                        </p>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setViewingOrder(null)}
+                      className="text-stone-400 hover:text-stone-700 text-lg font-bold cursor-pointer"
+                    >
+                      ✕
+                    </button>
+                  </div>
+
+                  {/* Customer & Delivery Card */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-2xl bg-stone-50 border border-stone-200 text-xs">
+                    <div>
+                      <span className="font-bold text-stone-500 uppercase tracking-wider block mb-1">
+                        Customer Info
+                      </span>
+                      <strong className="text-stone-900 block font-serif text-sm">{viewingOrder.customer_name}</strong>
+                      <span className="text-stone-600 block">{viewingOrder.customer_email}</span>
+                      <span className="text-stone-600 block">{viewingOrder.customer_phone}</span>
+                    </div>
+                    <div>
+                      <span className="font-bold text-stone-500 uppercase tracking-wider block mb-1">
+                        Delivery Address
+                      </span>
+                      <p className="text-stone-700 leading-relaxed">
+                        {typeof viewingOrder.shipping_address === 'string'
+                          ? viewingOrder.shipping_address
+                          : `${viewingOrder.shipping_address?.address || ''}, ${viewingOrder.shipping_address?.city || ''}, ${viewingOrder.shipping_address?.state || ''} - ${viewingOrder.shipping_address?.postal_code || ''}`}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Tracking & Courier Status */}
+                  <div className="p-4 rounded-2xl bg-emerald-50/70 border border-emerald-200 flex flex-wrap items-center justify-between gap-3 text-xs">
+                    <div>
+                      <span className="font-bold text-emerald-900 block">
+                        Fulfillment: <span className="uppercase">{viewingOrder.status}</span>
+                      </span>
+                      <span className="text-emerald-700">
+                        Courier: {viewingOrder.courier || 'EarthGlaze Express'} • AWB: {viewingOrder.tracking_number || viewingOrder.order_number}
+                      </span>
+                    </div>
+                    <Link
+                      href={`/track-order?order_number=${viewingOrder.order_number}`}
+                      target="_blank"
+                      className="px-3.5 py-1.5 rounded-xl bg-[#1E3B2B] text-white font-bold hover:bg-[#14291E] transition text-xs"
+                    >
+                      Customer Tracking Page ↗
+                    </Link>
+                  </div>
+
+                  {/* Items Table */}
+                  <div className="space-y-2">
+                    <span className="font-serif font-bold text-sm text-stone-900 block">Ordered Items</span>
+                    <div className="border border-stone-200 rounded-xl overflow-hidden">
+                      <table className="w-full text-left text-xs">
+                        <thead className="bg-stone-50 border-b border-stone-200 text-stone-600 font-bold uppercase text-[10px]">
+                          <tr>
+                            <th className="py-2.5 px-3">Item</th>
+                            <th className="py-2.5 px-3">Qty</th>
+                            <th className="py-2.5 px-3">Price</th>
+                            <th className="py-2.5 px-3 text-right">Subtotal</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-stone-100">
+                          {viewingOrder.items?.map((it, idx) => (
+                            <tr key={idx}>
+                              <td className="py-2.5 px-3 font-semibold text-stone-900">{it.product_name}</td>
+                              <td className="py-2.5 px-3 text-stone-600">{it.quantity}</td>
+                              <td className="py-2.5 px-3 text-stone-600">₹{it.unit_price}</td>
+                              <td className="py-2.5 px-3 text-right font-bold text-stone-900">₹{it.subtotal || it.quantity * it.unit_price}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  {/* Financial Breakdown */}
+                  <div className="pt-2 border-t border-stone-200 space-y-1.5 text-xs">
+                    <div className="flex justify-between text-stone-600">
+                      <span>Subtotal</span>
+                      <span className="font-semibold text-stone-900">₹{viewingOrder.subtotal || viewingOrder.total_amount}</span>
+                    </div>
+                    <div className="flex justify-between text-stone-600">
+                      <span>Discount</span>
+                      <span className="text-emerald-700">-₹{viewingOrder.discount || 0}</span>
+                    </div>
+                    <div className="flex justify-between text-stone-600">
+                      <span>Shipping</span>
+                      <span className="text-emerald-700">FREE</span>
+                    </div>
+                    <div className="flex justify-between text-sm font-bold text-[#1E3B2B] pt-2 border-t border-stone-100">
+                      <span>Grand Total ({viewingOrder.payment_method?.toUpperCase()})</span>
+                      <span>₹{viewingOrder.total_amount}</span>
+                    </div>
+                  </div>
+
+                  <div className="flex justify-end gap-2 pt-2">
+                    <button
+                      type="button"
+                      onClick={() => setViewingOrder(null)}
+                      className="px-5 py-2.5 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-bold cursor-pointer"
+                    >
+                      Close
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* EDIT ORDER DETAILS MODAL */}
+            {editingOrder && (
+              <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
+                <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl border border-stone-200 space-y-5 animate-scaleUp max-h-[90vh] overflow-y-auto">
+                  <div className="flex items-center justify-between border-b border-stone-200 pb-3">
+                    <h3 className="font-serif font-bold text-lg text-[#1E3B2B]">
+                      Update Order #{editingOrder.order_number}
+                    </h3>
+                    <button
+                      type="button"
+                      onClick={() => setEditingOrder(null)}
+                      className="text-stone-400 hover:text-stone-700 text-lg font-bold cursor-pointer"
+                    >
+                      ✕
+                    </button>
+                  </div>
+
+                  <form onSubmit={handleSaveOrder} className="space-y-4 text-xs">
+                    <div>
+                      <label className="block font-bold text-stone-700 uppercase mb-1">
+                        Fulfillment Stage Status
+                      </label>
+                      <select
+                        value={editingOrder.status}
+                        onChange={(e) => setEditingOrder({ ...editingOrder, status: e.target.value })}
+                        className="w-full px-3 py-2.5 bg-stone-50 rounded-xl border border-stone-300 font-semibold focus:outline-none focus:border-[#1E3B2B]"
+                      >
+                        <option value="pending">Pending Confirmation</option>
+                        <option value="confirmed">Order Confirmed</option>
+                        <option value="processing">Processing &amp; Packed in Apothecary</option>
+                        <option value="shipped">Handed to Courier Partner (Shipped)</option>
+                        <option value="out_for_delivery">Out for Delivery to Customer</option>
+                        <option value="delivered">Delivered Successfully</option>
+                        <option value="cancelled">Cancelled / Returned</option>
+                      </select>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <label className="block font-bold text-stone-700 uppercase mb-1">
+                          Courier Partner
+                        </label>
+                        <input
+                          type="text"
+                          value={editingOrder.courier || ''}
+                          onChange={(e) => setEditingOrder({ ...editingOrder, courier: e.target.value })}
+                          placeholder="e.g. BlueDart / Delhivery / DTDC"
+                          className="w-full px-3 py-2 bg-stone-50 rounded-xl border border-stone-300 focus:outline-none focus:border-[#1E3B2B]"
+                        />
+                      </div>
+                      <div>
+                        <label className="block font-bold text-stone-700 uppercase mb-1">
+                          Tracking AWB #
+                        </label>
+                        <input
+                          type="text"
+                          value={editingOrder.tracking_number || ''}
+                          onChange={(e) => setEditingOrder({ ...editingOrder, tracking_number: e.target.value })}
+                          placeholder="e.g. BLU9821045"
+                          className="w-full px-3 py-2 bg-stone-50 rounded-xl border border-stone-300 font-mono focus:outline-none focus:border-[#1E3B2B]"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block font-bold text-stone-700 uppercase mb-1">
+                        Customer Delivery Address
+                      </label>
+                      <textarea
+                        rows="2"
+                        value={typeof editingOrder.shipping_address === 'string' ? editingOrder.shipping_address : JSON.stringify(editingOrder.shipping_address)}
+                        onChange={(e) => setEditingOrder({ ...editingOrder, shipping_address: e.target.value })}
+                        className="w-full px-3 py-2 bg-stone-50 rounded-xl border border-stone-300 focus:outline-none focus:border-[#1E3B2B]"
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <label className="block font-bold text-stone-700 uppercase mb-1">
+                          Customer Phone
+                        </label>
+                        <input
+                          type="tel"
+                          value={editingOrder.customer_phone || ''}
+                          onChange={(e) => setEditingOrder({ ...editingOrder, customer_phone: e.target.value })}
+                          className="w-full px-3 py-2 bg-stone-50 rounded-xl border border-stone-300 focus:outline-none focus:border-[#1E3B2B]"
+                        />
+                      </div>
+                      <div>
+                        <label className="block font-bold text-stone-700 uppercase mb-1">
+                          Customer Email
+                        </label>
+                        <input
+                          type="email"
+                          value={editingOrder.customer_email || ''}
+                          onChange={(e) => setEditingOrder({ ...editingOrder, customer_email: e.target.value })}
+                          className="w-full px-3 py-2 bg-stone-50 rounded-xl border border-stone-300 focus:outline-none focus:border-[#1E3B2B]"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block font-bold text-stone-700 uppercase mb-1">
+                        Internal Notes / Dispatch Remarks
+                      </label>
+                      <input
+                        type="text"
+                        value={editingOrder.notes || ''}
+                        onChange={(e) => setEditingOrder({ ...editingOrder, notes: e.target.value })}
+                        placeholder="e.g. Fragile glass jar included, eco-padded box."
+                        className="w-full px-3 py-2 bg-stone-50 rounded-xl border border-stone-300 focus:outline-none focus:border-[#1E3B2B]"
+                      />
+                    </div>
+
+                    <div className="flex items-center justify-end gap-3 pt-3 border-t border-stone-100">
+                      <button
+                        type="button"
+                        onClick={() => setEditingOrder(null)}
+                        className="px-4 py-2 text-stone-600 hover:bg-stone-100 rounded-xl cursor-pointer"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        type="submit"
+                        className="px-5 py-2.5 bg-[#1E3B2B] hover:bg-[#14291E] text-white font-bold rounded-xl shadow cursor-pointer"
+                      >
+                        Save Order Updates
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            )}
           </div>
         )}
 
         {/* ===================================================================
-            TAB 4: CUSTOMERS
+            TAB 4: CUSTOMERS & USERS (VIEW, EDIT, ADD, DELETE)
             =================================================================== */}
         {currentTab === 'customers' && (
           <div className="space-y-6 animate-fadeIn">
-            <div>
-              <h2 className="text-2xl font-serif font-bold text-[#1E3B2B]">Registered Customers</h2>
-              <p className="text-xs text-stone-500 mt-0.5">Customer profiles saved in MySQL.</p>
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <div>
+                <h2 className="text-2xl font-serif font-bold text-[#1E3B2B]">Registered Users &amp; Customers</h2>
+                <p className="text-xs text-stone-500 mt-0.5">
+                  View customer activity, order volume, edit contact details, roles, or delete users.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowAddCustomerModal(true)}
+                className="px-4 py-2.5 bg-[#1E3B2B] hover:bg-[#14291E] text-white text-xs font-bold rounded-xl transition shadow flex items-center gap-1.5 self-start sm:self-auto cursor-pointer"
+              >
+                <span>+ Add New User</span>
+              </button>
+            </div>
+
+            {/* Filter and Search Bar */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-4 rounded-2xl border border-stone-200 shadow-2xs">
+              <div className="relative flex-1 max-w-md">
+                <input
+                  type="text"
+                  value={customerSearch}
+                  onChange={(e) => setCustomerSearch(e.target.value)}
+                  placeholder="Search users by name, email address, or phone..."
+                  className="w-full text-xs pl-9 pr-4 py-2 bg-stone-50 rounded-xl border border-stone-200 focus:outline-none focus:border-[#1E3B2B]"
+                />
+                <span className="absolute left-3 top-2 text-stone-400 text-xs">🔍</span>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <span className="text-xs text-stone-500 font-medium">Filter Role:</span>
+                <select
+                  value={customerRoleFilter}
+                  onChange={(e) => setCustomerRoleFilter(e.target.value)}
+                  className="text-xs px-3 py-1.5 bg-stone-50 rounded-xl border border-stone-300 font-semibold cursor-pointer"
+                >
+                  <option value="all">All Roles</option>
+                  <option value="customer">Customer</option>
+                  <option value="admin">Administrator</option>
+                </select>
+              </div>
             </div>
 
             <div className="bg-white rounded-3xl border border-stone-200/80 shadow-xs overflow-hidden">
@@ -767,46 +1615,385 @@ export default function AdminDashboardPage() {
                       <th className="py-3.5 px-4">Email Address</th>
                       <th className="py-3.5 px-4">Phone</th>
                       <th className="py-3.5 px-4">Role</th>
+                      <th className="py-3.5 px-4">Orders Placed</th>
                       <th className="py-3.5 px-4">Joined Date</th>
-                      <th className="py-3.5 px-4">Total Orders</th>
+                      <th className="py-3.5 px-4 text-right">Actions</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-stone-100">
-                    {customers.map((c) => (
+                    {customers
+                      .filter(c => {
+                        const s = customerSearch.toLowerCase();
+                        const matchesSearch = !customerSearch ||
+                          (c.name || '').toLowerCase().includes(s) ||
+                          (c.email || '').toLowerCase().includes(s) ||
+                          (c.phone || '').toLowerCase().includes(s);
+                        const matchesRole = customerRoleFilter === 'all' || (c.role || 'customer') === customerRoleFilter;
+                        return matchesSearch && matchesRole;
+                      })
+                      .map((c) => (
                       <tr key={c.id} className="hover:bg-stone-50/70">
-                        <td className="py-3 px-4 font-bold text-stone-900">{c.name}</td>
-                        <td className="py-3 px-4 text-stone-600">{c.email}</td>
+                        <td className="py-3 px-4">
+                          <div className="flex items-center gap-2.5">
+                            <span className="w-8 h-8 rounded-full bg-[#1E3B2B] text-white flex items-center justify-center font-serif font-bold text-xs">
+                              {c.name?.charAt(0) || 'U'}
+                            </span>
+                            <strong className="text-stone-900 font-semibold">{c.name}</strong>
+                          </div>
+                        </td>
+                        <td className="py-3 px-4 text-stone-600 font-medium">{c.email}</td>
                         <td className="py-3 px-4 text-stone-600">{c.phone || '—'}</td>
                         <td className="py-3 px-4">
-                          <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase ${
-                            c.role === 'admin' ? 'bg-amber-100 text-amber-900' : 'bg-stone-100 text-stone-700'
+                          <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase ${
+                            c.role === 'admin' ? 'bg-amber-100 text-amber-900 border border-amber-300' : 'bg-emerald-50 text-emerald-800 border border-emerald-200'
                           }`}>
-                            {c.role}
+                            {c.role || 'customer'}
                           </span>
                         </td>
-                        <td className="py-3 px-4 text-stone-500">
-                          {new Date(c.created_at).toLocaleDateString()}
-                        </td>
                         <td className="py-3 px-4 font-bold text-stone-900">
-                          {c.orders_count ?? c.orders?.length ?? 1}
+                          {orders.filter(o => (o.customer_email || '').toLowerCase() === (c.email || '').toLowerCase()).length || c.orders_count || 0} Orders
+                        </td>
+                        <td className="py-3 px-4 text-stone-500">
+                          {c.created_at ? new Date(c.created_at).toLocaleDateString() : 'Active'}
+                        </td>
+                        <td className="py-3 px-4 text-right">
+                          <div className="inline-flex items-center gap-1.5">
+                            <button
+                              type="button"
+                              onClick={() => setViewingCustomer(c)}
+                              className="px-2.5 py-1 bg-stone-100 hover:bg-[#1E3B2B] text-stone-700 hover:text-white rounded-lg text-xs font-semibold transition cursor-pointer"
+                              title="View user details &amp; order history"
+                            >
+                              👁️ View
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => setEditingCustomer({ ...c })}
+                              className="px-2.5 py-1 bg-stone-100 hover:bg-[#1E3B2B] text-stone-700 hover:text-white rounded-lg text-xs font-semibold transition cursor-pointer"
+                              title="Edit user info"
+                            >
+                              ✏️ Edit
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => handleDeleteCustomer(c.id, c.name)}
+                              className="px-2.5 py-1 bg-red-50 hover:bg-red-600 text-red-600 hover:text-white rounded-lg text-xs font-semibold transition cursor-pointer"
+                              title="Delete user"
+                            >
+                              🗑️
+                            </button>
+                          </div>
                         </td>
                       </tr>
                     ))}
+                    {customers.length === 0 && (
+                      <tr>
+                        <td colSpan="7" className="py-12 text-center text-xs text-stone-400">
+                          No registered customers found.
+                        </td>
+                      </tr>
+                    )}
                   </tbody>
                 </table>
               </div>
             </div>
+
+            {/* VIEW CUSTOMER MODAL */}
+            {viewingCustomer && (
+              <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
+                <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-xl w-full shadow-2xl border border-stone-200 space-y-5 animate-scaleUp max-h-[90vh] overflow-y-auto">
+                  <div className="flex items-center justify-between border-b border-stone-200 pb-3">
+                    <div className="flex items-center gap-3">
+                      <span className="w-10 h-10 rounded-full bg-[#1E3B2B] text-white flex items-center justify-center font-serif font-bold text-lg">
+                        {viewingCustomer.name?.charAt(0) || 'U'}
+                      </span>
+                      <div>
+                        <h3 className="font-serif font-bold text-lg text-[#1E3B2B]">
+                          {viewingCustomer.name}
+                        </h3>
+                        <span className="text-xs text-stone-400">{viewingCustomer.email}</span>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setViewingCustomer(null)}
+                      className="text-stone-400 hover:text-stone-700 text-lg font-bold cursor-pointer"
+                    >
+                      ✕
+                    </button>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-3 p-4 rounded-2xl bg-stone-50 border border-stone-200 text-xs">
+                    <div>
+                      <span className="text-stone-400 font-bold uppercase block text-[10px]">Phone</span>
+                      <span className="text-stone-900 font-semibold">{viewingCustomer.phone || 'Not provided'}</span>
+                    </div>
+                    <div>
+                      <span className="text-stone-400 font-bold uppercase block text-[10px]">Role</span>
+                      <span className="text-stone-900 font-semibold capitalize">{viewingCustomer.role || 'Customer'}</span>
+                    </div>
+                    <div>
+                      <span className="text-stone-400 font-bold uppercase block text-[10px]">Member Since</span>
+                      <span className="text-stone-900 font-semibold">{viewingCustomer.created_at ? new Date(viewingCustomer.created_at).toLocaleDateString() : 'Recent'}</span>
+                    </div>
+                    <div>
+                      <span className="text-stone-400 font-bold uppercase block text-[10px]">Total Orders Placed</span>
+                      <span className="text-[#1E3B2B] font-bold text-sm">
+                        {orders.filter(o => (o.customer_email || '').toLowerCase() === (viewingCustomer.email || '').toLowerCase()).length} Orders
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Customer Orders History List */}
+                  <div className="space-y-2">
+                    <span className="font-serif font-bold text-xs uppercase tracking-wider text-stone-700 block">
+                      Order History for this Customer
+                    </span>
+                    <div className="border border-stone-200 rounded-xl overflow-hidden">
+                      {orders.filter(o => (o.customer_email || '').toLowerCase() === (viewingCustomer.email || '').toLowerCase()).length === 0 ? (
+                        <div className="py-6 text-center text-xs text-stone-400">
+                          This customer has placed 0 orders so far.
+                        </div>
+                      ) : (
+                        <table className="w-full text-left text-xs">
+                          <thead className="bg-stone-50 border-b border-stone-200 text-stone-600 font-bold text-[10px] uppercase">
+                            <tr>
+                              <th className="py-2 px-3">Order ID</th>
+                              <th className="py-2 px-3">Date</th>
+                              <th className="py-2 px-3">Total</th>
+                              <th className="py-2 px-3">Status</th>
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y divide-stone-100">
+                            {orders
+                              .filter(o => (o.customer_email || '').toLowerCase() === (viewingCustomer.email || '').toLowerCase())
+                              .map((ord) => (
+                              <tr key={ord.id}>
+                                <td className="py-2.5 px-3 font-bold text-[#1E3B2B]">#{ord.order_number}</td>
+                                <td className="py-2.5 px-3 text-stone-500">{new Date(ord.created_at).toLocaleDateString()}</td>
+                                <td className="py-2.5 px-3 font-bold text-stone-900">₹{ord.total_amount}</td>
+                                <td className="py-2.5 px-3">
+                                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-emerald-100 text-emerald-800">
+                                    {ord.status}
+                                  </span>
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="flex justify-end gap-2 pt-2">
+                    <button
+                      type="button"
+                      onClick={() => setViewingCustomer(null)}
+                      className="px-5 py-2.5 bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold text-xs rounded-xl cursor-pointer"
+                    >
+                      Close
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* EDIT CUSTOMER MODAL */}
+            {editingCustomer && (
+              <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
+                <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl border border-stone-200 space-y-5 animate-scaleUp">
+                  <div className="flex items-center justify-between border-b border-stone-200 pb-3">
+                    <h3 className="font-serif font-bold text-lg text-[#1E3B2B]">
+                      Edit Customer Profile
+                    </h3>
+                    <button
+                      type="button"
+                      onClick={() => setEditingCustomer(null)}
+                      className="text-stone-400 hover:text-stone-700 text-lg font-bold cursor-pointer"
+                    >
+                      ✕
+                    </button>
+                  </div>
+
+                  <form onSubmit={handleSaveCustomer} className="space-y-4 text-xs">
+                    <div>
+                      <label className="block font-bold text-stone-700 uppercase mb-1">
+                        Full Name
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        value={editingCustomer.name}
+                        onChange={(e) => setEditingCustomer({ ...editingCustomer, name: e.target.value })}
+                        className="w-full px-3.5 py-2.5 bg-stone-50 rounded-xl border border-stone-300 focus:outline-none focus:border-[#1E3B2B]"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block font-bold text-stone-700 uppercase mb-1">
+                        Email Address
+                      </label>
+                      <input
+                        type="email"
+                        required
+                        value={editingCustomer.email}
+                        onChange={(e) => setEditingCustomer({ ...editingCustomer, email: e.target.value })}
+                        className="w-full px-3.5 py-2.5 bg-stone-50 rounded-xl border border-stone-300 focus:outline-none focus:border-[#1E3B2B]"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block font-bold text-stone-700 uppercase mb-1">
+                        Phone Number
+                      </label>
+                      <input
+                        type="tel"
+                        value={editingCustomer.phone || ''}
+                        onChange={(e) => setEditingCustomer({ ...editingCustomer, phone: e.target.value })}
+                        placeholder="+91 98765 43210"
+                        className="w-full px-3.5 py-2.5 bg-stone-50 rounded-xl border border-stone-300 focus:outline-none focus:border-[#1E3B2B]"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block font-bold text-stone-700 uppercase mb-1">
+                        System Role
+                      </label>
+                      <select
+                        value={editingCustomer.role || 'customer'}
+                        onChange={(e) => setEditingCustomer({ ...editingCustomer, role: e.target.value })}
+                        className="w-full px-3.5 py-2.5 bg-stone-50 rounded-xl border border-stone-300 font-semibold focus:outline-none focus:border-[#1E3B2B]"
+                      >
+                        <option value="customer">Customer (Storefront Member)</option>
+                        <option value="admin">Administrator (Full Dashboard Access)</option>
+                      </select>
+                    </div>
+
+                    <div className="flex items-center justify-end gap-3 pt-3 border-t border-stone-100">
+                      <button
+                        type="button"
+                        onClick={() => setEditingCustomer(null)}
+                        className="px-4 py-2 text-stone-600 hover:bg-stone-100 rounded-xl cursor-pointer"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        type="submit"
+                        className="px-5 py-2.5 bg-[#1E3B2B] hover:bg-[#14291E] text-white font-bold rounded-xl shadow cursor-pointer"
+                      >
+                        Save Customer Info
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            )}
+
+            {/* ADD CUSTOMER MODAL */}
+            {showAddCustomerModal && (
+              <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
+                <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl border border-stone-200 space-y-5 animate-scaleUp">
+                  <div className="flex items-center justify-between border-b border-stone-200 pb-3">
+                    <h3 className="font-serif font-bold text-lg text-[#1E3B2B]">
+                      Add New Customer Account
+                    </h3>
+                    <button
+                      type="button"
+                      onClick={() => setShowAddCustomerModal(false)}
+                      className="text-stone-400 hover:text-stone-700 text-lg font-bold cursor-pointer"
+                    >
+                      ✕
+                    </button>
+                  </div>
+
+                  <form onSubmit={handleCreateCustomer} className="space-y-4 text-xs">
+                    <div>
+                      <label className="block font-bold text-stone-700 uppercase mb-1">
+                        Customer Full Name
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        value={newCustomer.name}
+                        onChange={(e) => setNewCustomer({ ...newCustomer, name: e.target.value })}
+                        placeholder="e.g. Meera Nair"
+                        className="w-full px-3.5 py-2.5 bg-stone-50 rounded-xl border border-stone-300 focus:outline-none focus:border-[#1E3B2B]"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block font-bold text-stone-700 uppercase mb-1">
+                        Email Address
+                      </label>
+                      <input
+                        type="email"
+                        required
+                        value={newCustomer.email}
+                        onChange={(e) => setNewCustomer({ ...newCustomer, email: e.target.value })}
+                        placeholder="e.g. meera@example.com"
+                        className="w-full px-3.5 py-2.5 bg-stone-50 rounded-xl border border-stone-300 focus:outline-none focus:border-[#1E3B2B]"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block font-bold text-stone-700 uppercase mb-1">
+                        Mobile Phone Number
+                      </label>
+                      <input
+                        type="tel"
+                        value={newCustomer.phone}
+                        onChange={(e) => setNewCustomer({ ...newCustomer, phone: e.target.value })}
+                        placeholder="+91 98765 43210"
+                        className="w-full px-3.5 py-2.5 bg-stone-50 rounded-xl border border-stone-300 focus:outline-none focus:border-[#1E3B2B]"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block font-bold text-stone-700 uppercase mb-1">
+                        Role
+                      </label>
+                      <select
+                        value={newCustomer.role}
+                        onChange={(e) => setNewCustomer({ ...newCustomer, role: e.target.value })}
+                        className="w-full px-3.5 py-2.5 bg-stone-50 rounded-xl border border-stone-300 font-semibold focus:outline-none focus:border-[#1E3B2B]"
+                      >
+                        <option value="customer">Customer (Storefront Member)</option>
+                        <option value="admin">Administrator (Admin Portal)</option>
+                      </select>
+                    </div>
+
+                    <div className="flex items-center justify-end gap-3 pt-3 border-t border-stone-100">
+                      <button
+                        type="button"
+                        onClick={() => setShowAddCustomerModal(false)}
+                        className="px-4 py-2 text-stone-600 hover:bg-stone-100 rounded-xl cursor-pointer"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        type="submit"
+                        className="px-5 py-2.5 bg-[#1E3B2B] hover:bg-[#14291E] text-white font-bold rounded-xl shadow cursor-pointer"
+                      >
+                        Create Customer Account →
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            )}
           </div>
         )}
 
         {/* ===================================================================
-            TAB 5: COUPONS & DISCOUNTS
+            TAB 5: COUPONS & DISCOUNTS (CREATE, EDIT, TOGGLE, DELETE)
             =================================================================== */}
         {currentTab === 'coupons' && (
           <div className="space-y-8 animate-fadeIn">
             <div>
-              <h2 className="text-2xl font-serif font-bold text-[#1E3B2B]">Discount Coupons</h2>
-              <p className="text-xs text-stone-500 mt-0.5">Create and manage marketing promo codes.</p>
+              <h2 className="text-2xl font-serif font-bold text-[#1E3B2B]">Discount Coupons &amp; Promos</h2>
+              <p className="text-xs text-stone-500 mt-0.5">
+                Create new marketing promo codes, update discount values, toggle active/paused status, or delete codes.
+              </p>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
@@ -827,15 +2014,15 @@ export default function AdminDashboardPage() {
                       required 
                       value={newCoupon.code}
                       onChange={(e) => setNewCoupon({ ...newCoupon, code: e.target.value.toUpperCase() })}
-                      placeholder="e.g. GLOW20" 
-                      className="w-full text-xs sm:text-sm px-4 py-2.5 bg-stone-50 rounded-xl border border-stone-300 uppercase font-bold"
+                      placeholder="e.g. GLOW25" 
+                      className="w-full text-xs sm:text-sm px-4 py-2.5 bg-stone-50 rounded-xl border border-stone-300 uppercase font-bold focus:outline-none focus:border-[#1E3B2B]"
                     />
                   </div>
 
                   <div className="grid grid-cols-2 gap-3">
                     <div>
                       <label className="block text-xs font-bold text-stone-700 uppercase mb-1">
-                        Type
+                        Discount Type
                       </label>
                       <select 
                         value={newCoupon.type}
@@ -849,28 +2036,41 @@ export default function AdminDashboardPage() {
 
                     <div>
                       <label className="block text-xs font-bold text-stone-700 uppercase mb-1">
-                        Value
+                        Discount Value
                       </label>
                       <input 
                         type="number" 
                         required 
                         value={newCoupon.value}
-                        onChange={(e) => setNewCoupon({ ...newCoupon, value: parseFloat(e.target.value) })}
+                        onChange={(e) => setNewCoupon({ ...newCoupon, value: parseFloat(e.target.value) || 0 })}
                         className="w-full text-xs px-3 py-2.5 bg-stone-50 rounded-xl border border-stone-300 font-bold"
                       />
                     </div>
                   </div>
 
-                  <div>
-                    <label className="block text-xs font-bold text-stone-700 uppercase mb-1">
-                      Minimum Order Amount (₹)
-                    </label>
-                    <input 
-                      type="number" 
-                      value={newCoupon.min_order_amount}
-                      onChange={(e) => setNewCoupon({ ...newCoupon, min_order_amount: parseFloat(e.target.value) })}
-                      className="w-full text-xs px-3 py-2.5 bg-stone-50 rounded-xl border border-stone-300"
-                    />
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-xs font-bold text-stone-700 uppercase mb-1">
+                        Min Order (₹)
+                      </label>
+                      <input 
+                        type="number" 
+                        value={newCoupon.min_order_amount}
+                        onChange={(e) => setNewCoupon({ ...newCoupon, min_order_amount: parseFloat(e.target.value) || 0 })}
+                        className="w-full text-xs px-3 py-2.5 bg-stone-50 rounded-xl border border-stone-300"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-bold text-stone-700 uppercase mb-1">
+                        Max Cap (₹)
+                      </label>
+                      <input 
+                        type="number" 
+                        value={newCoupon.max_discount_amount}
+                        onChange={(e) => setNewCoupon({ ...newCoupon, max_discount_amount: parseFloat(e.target.value) || 0 })}
+                        className="w-full text-xs px-3 py-2.5 bg-stone-50 rounded-xl border border-stone-300"
+                      />
+                    </div>
                   </div>
 
                   <button
@@ -884,8 +2084,18 @@ export default function AdminDashboardPage() {
 
               {/* List: Existing Coupons */}
               <div className="lg:col-span-7 bg-white rounded-3xl border border-stone-200/80 shadow-xs overflow-hidden">
-                <div className="p-4 sm:p-6 border-b border-stone-100">
-                  <h3 className="font-serif font-bold text-lg text-[#1E3B2B]">Active Coupons</h3>
+                <div className="p-4 sm:p-6 border-b border-stone-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <h3 className="font-serif font-bold text-lg text-[#1E3B2B]">Active Store Coupons</h3>
+                  <div className="relative max-w-xs">
+                    <input
+                      type="text"
+                      value={couponSearch}
+                      onChange={(e) => setCouponSearch(e.target.value)}
+                      placeholder="Filter coupons..."
+                      className="w-full text-xs pl-8 pr-3 py-1.5 bg-stone-50 rounded-xl border border-stone-200 focus:outline-none focus:border-[#1E3B2B]"
+                    />
+                    <span className="absolute left-2.5 top-1.5 text-stone-400 text-xs">🔍</span>
+                  </div>
                 </div>
 
                 <div className="overflow-x-auto">
@@ -896,11 +2106,13 @@ export default function AdminDashboardPage() {
                         <th className="py-3 px-4">Discount</th>
                         <th className="py-3 px-4">Min Order</th>
                         <th className="py-3 px-4">Status</th>
-                        <th className="py-3 px-4 text-right">Action</th>
+                        <th className="py-3 px-4 text-right">Actions</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-stone-100">
-                      {coupons.map((cp) => (
+                      {coupons
+                        .filter(cp => !couponSearch || (cp.code || '').toLowerCase().includes(couponSearch.toLowerCase()))
+                        .map((cp) => (
                         <tr key={cp.id} className="hover:bg-stone-50/70">
                           <td className="py-3 px-4 font-bold text-stone-900 font-mono tracking-wider">
                             🏷️ {cp.code}
@@ -910,18 +2122,38 @@ export default function AdminDashboardPage() {
                           </td>
                           <td className="py-3 px-4 text-stone-600">₹{cp.min_order_amount || 0}</td>
                           <td className="py-3 px-4">
-                            <span className="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-emerald-100 text-emerald-800">
-                              Active
-                            </span>
-                          </td>
-                          <td className="py-3 px-4 text-right">
                             <button
                               type="button"
-                              onClick={() => handleDeleteCoupon(cp.id)}
-                              className="text-xs text-red-600 hover:text-red-800 font-semibold cursor-pointer"
+                              onClick={() => handleToggleCoupon(cp.id, cp.code, cp.is_active !== false)}
+                              className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase transition cursor-pointer ${
+                                cp.is_active !== false 
+                                  ? 'bg-emerald-100 text-emerald-800 hover:bg-emerald-200' 
+                                  : 'bg-stone-200 text-stone-600 hover:bg-stone-300'
+                              }`}
+                              title="Click to toggle active status"
                             >
-                              Delete
+                              {cp.is_active !== false ? '✓ Active' : '⏸ Paused'}
                             </button>
+                          </td>
+                          <td className="py-3 px-4 text-right">
+                            <div className="inline-flex items-center gap-2">
+                              <button
+                                type="button"
+                                onClick={() => setEditingCoupon({ ...cp })}
+                                className="px-2.5 py-1 bg-stone-100 hover:bg-[#1E3B2B] text-stone-700 hover:text-white rounded-lg text-xs font-semibold transition cursor-pointer"
+                                title="Edit coupon"
+                              >
+                                ✏️ Edit
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => handleDeleteCoupon(cp.id, cp.code)}
+                                className="px-2.5 py-1 bg-red-50 hover:bg-red-600 text-red-600 hover:text-white rounded-lg text-xs font-semibold transition cursor-pointer"
+                                title="Delete coupon"
+                              >
+                                🗑️
+                              </button>
+                            </div>
                           </td>
                         </tr>
                       ))}
@@ -931,6 +2163,123 @@ export default function AdminDashboardPage() {
               </div>
 
             </div>
+
+            {/* EDIT COUPON MODAL */}
+            {editingCoupon && (
+              <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
+                <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl border border-stone-200 space-y-5 animate-scaleUp">
+                  <div className="flex items-center justify-between border-b border-stone-200 pb-3">
+                    <h3 className="font-serif font-bold text-lg text-[#1E3B2B]">
+                      Edit Coupon Code: {editingCoupon.code}
+                    </h3>
+                    <button
+                      type="button"
+                      onClick={() => setEditingCoupon(null)}
+                      className="text-stone-400 hover:text-stone-700 text-lg font-bold cursor-pointer"
+                    >
+                      ✕
+                    </button>
+                  </div>
+
+                  <form onSubmit={handleSaveCoupon} className="space-y-4 text-xs">
+                    <div>
+                      <label className="block font-bold text-stone-700 uppercase mb-1">
+                        Promo Code
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        value={editingCoupon.code}
+                        onChange={(e) => setEditingCoupon({ ...editingCoupon, code: e.target.value.toUpperCase() })}
+                        className="w-full px-3.5 py-2.5 bg-stone-50 rounded-xl border border-stone-300 uppercase font-mono font-bold focus:outline-none focus:border-[#1E3B2B]"
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <label className="block font-bold text-stone-700 uppercase mb-1">
+                          Type
+                        </label>
+                        <select
+                          value={editingCoupon.type}
+                          onChange={(e) => setEditingCoupon({ ...editingCoupon, type: e.target.value })}
+                          className="w-full px-3 py-2 bg-stone-50 rounded-xl border border-stone-300 font-semibold"
+                        >
+                          <option value="percent">Percentage (%)</option>
+                          <option value="fixed">Fixed Flat (₹)</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label className="block font-bold text-stone-700 uppercase mb-1">
+                          Value
+                        </label>
+                        <input
+                          type="number"
+                          required
+                          value={editingCoupon.value}
+                          onChange={(e) => setEditingCoupon({ ...editingCoupon, value: parseFloat(e.target.value) || 0 })}
+                          className="w-full px-3 py-2 bg-stone-50 rounded-xl border border-stone-300 font-bold"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <label className="block font-bold text-stone-700 uppercase mb-1">
+                          Min Order (₹)
+                        </label>
+                        <input
+                          type="number"
+                          value={editingCoupon.min_order_amount || 0}
+                          onChange={(e) => setEditingCoupon({ ...editingCoupon, min_order_amount: parseFloat(e.target.value) || 0 })}
+                          className="w-full px-3 py-2 bg-stone-50 rounded-xl border border-stone-300"
+                        />
+                      </div>
+                      <div>
+                        <label className="block font-bold text-stone-700 uppercase mb-1">
+                          Max Cap (₹)
+                        </label>
+                        <input
+                          type="number"
+                          value={editingCoupon.max_discount_amount || 200}
+                          onChange={(e) => setEditingCoupon({ ...editingCoupon, max_discount_amount: parseFloat(e.target.value) || 0 })}
+                          className="w-full px-3 py-2 bg-stone-50 rounded-xl border border-stone-300"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-2 pt-1">
+                      <input
+                        type="checkbox"
+                        id="coupon-active-chk"
+                        checked={editingCoupon.is_active !== false}
+                        onChange={(e) => setEditingCoupon({ ...editingCoupon, is_active: e.target.checked })}
+                        className="rounded text-[#1E3B2B] focus:ring-[#1E3B2B] w-4 h-4 cursor-pointer"
+                      />
+                      <label htmlFor="coupon-active-chk" className="text-xs font-bold text-stone-700 cursor-pointer">
+                        Coupon is active for customers at checkout
+                      </label>
+                    </div>
+
+                    <div className="flex items-center justify-end gap-3 pt-3 border-t border-stone-100">
+                      <button
+                        type="button"
+                        onClick={() => setEditingCoupon(null)}
+                        className="px-4 py-2 text-stone-600 hover:bg-stone-100 rounded-xl cursor-pointer"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        type="submit"
+                        className="px-5 py-2.5 bg-[#1E3B2B] hover:bg-[#14291E] text-white font-bold rounded-xl shadow cursor-pointer"
+                      >
+                        Save Coupon Updates
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            )}
           </div>
         )}
 

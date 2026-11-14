@@ -60,48 +60,28 @@ export function AuthProvider({ children }) {
         return { success: true, user: res.user };
       }
 
-      // Resilient fallback for admin
-      const cleanEmail = (email || '').trim().toLowerCase();
-      if (cleanEmail === 'admin@earthglaze.in' || cleanEmail.includes('admin')) {
-        const adminUser = {
-          id: 1,
-          name: 'EarthGlaze Admin',
-          email: 'admin@earthglaze.in',
-          role: 'admin',
-        };
-        localStorage.setItem('earthglaze_token', 'mock_admin_token_2026');
-        localStorage.setItem('earthglaze_user', JSON.stringify(adminUser));
-        setUser(adminUser);
-        return { success: true, user: adminUser };
-      }
-
-      return { success: false, message: res?.message || 'Login failed.' };
+      // Fallback response handling
+      return { success: false, message: res?.message || 'Invalid email or password.' };
     } catch (err) {
-      const cleanEmail = (email || '').trim().toLowerCase();
-      if (cleanEmail === 'admin@earthglaze.in' || cleanEmail.includes('admin')) {
-        const adminUser = {
-          id: 1,
-          name: 'EarthGlaze Admin',
-          email: 'admin@earthglaze.in',
-          role: 'admin',
-        };
-        localStorage.setItem('earthglaze_token', 'mock_admin_token_2026');
-        localStorage.setItem('earthglaze_user', JSON.stringify(adminUser));
-        setUser(adminUser);
-        return { success: true, user: adminUser };
-      }
-      return { success: false, message: 'Unable to communicate with server. Please try again.' };
+      return { success: false, message: 'Authentication error. Please try again.' };
     }
   };
 
   const register = async (name, email, password, phone = '') => {
-    const res = await api.auth.register({ name, email, password, phone });
-    if (res.success && res.token) {
-      localStorage.setItem('earthglaze_token', res.token);
-      setUser(res.user);
-      return { success: true, user: res.user };
+    try {
+      const res = await api.auth.register({ name, email, password, phone });
+      if (res.success && res.token) {
+        localStorage.setItem('earthglaze_token', res.token);
+        if (res.user) {
+          localStorage.setItem('earthglaze_user', JSON.stringify(res.user));
+          setUser(res.user);
+        }
+        return { success: true, user: res.user };
+      }
+      return { success: false, message: res.message || 'Registration failed.', errors: res.errors };
+    } catch (err) {
+      return { success: false, message: 'Unable to complete registration. Please try again.' };
     }
-    return { success: false, message: res.message || 'Registration failed.', errors: res.errors };
   };
 
   const logout = async () => {
@@ -110,7 +90,10 @@ export function AuthProvider({ children }) {
     } catch (e) {
       // ignore
     }
-    localStorage.removeItem('earthglaze_token');
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('earthglaze_token');
+      localStorage.removeItem('earthglaze_user');
+    }
     setUser(null);
   };
 

@@ -1,15 +1,62 @@
 import { NextResponse } from 'next/server';
 
-const CUSTOMERS = [
-  { id: 1, name: 'Ayesha N.', email: 'ayesha@example.com', phone: '+91 98765 43210', orders_count: 3, total_spent: 1047, created_at: '2026-10-14' },
-  { id: 2, name: 'Priya Sharma', email: 'priya.s@example.com', phone: '+91 98451 23456', orders_count: 5, total_spent: 2490, created_at: '2026-09-20' },
-  { id: 3, name: 'Kavita Menon', email: 'kavita.m@example.com', phone: '+91 94471 98765', orders_count: 2, total_spent: 898, created_at: '2026-11-02' },
-  { id: 4, name: 'Rahul Varma', email: 'rahul.v@example.com', phone: '+91 97455 11223', orders_count: 1, total_spent: 799, created_at: '2026-11-10' },
-];
+const CUSTOMERS = [];
 
 export async function GET() {
   return NextResponse.json({
     success: true,
     customers: CUSTOMERS,
   });
+}
+
+export async function POST(request) {
+  try {
+    const body = await request.json().catch(() => ({}));
+    const newCust = {
+      id: Date.now(),
+      name: body.name || 'New Customer',
+      email: (body.email || '').trim().toLowerCase(),
+      phone: body.phone || '',
+      role: body.role || 'customer',
+      orders_count: 0,
+      total_spent: 0,
+      created_at: new Date().toISOString().split('T')[0],
+    };
+    CUSTOMERS.unshift(newCust);
+    return NextResponse.json({ success: true, customer: newCust });
+  } catch (e) {
+    return NextResponse.json({ success: false, message: 'Creation failed' }, { status: 400 });
+  }
+}
+
+export async function PUT(request) {
+  try {
+    const body = await request.json().catch(() => ({}));
+    const { id, name, email, phone, role } = body;
+    const idx = CUSTOMERS.findIndex(c => String(c.id) === String(id));
+    if (idx > -1) {
+      if (name) CUSTOMERS[idx].name = name;
+      if (email) CUSTOMERS[idx].email = email;
+      if (phone !== undefined) CUSTOMERS[idx].phone = phone;
+      if (role) CUSTOMERS[idx].role = role;
+      return NextResponse.json({ success: true, customer: CUSTOMERS[idx] });
+    }
+    return NextResponse.json({ success: true, message: 'Customer updated' });
+  } catch (e) {
+    return NextResponse.json({ success: false, message: 'Update failed' }, { status: 400 });
+  }
+}
+
+export async function DELETE(request) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get('id');
+    const idx = CUSTOMERS.findIndex(c => String(c.id) === String(id));
+    if (idx > -1) {
+      CUSTOMERS.splice(idx, 1);
+    }
+    return NextResponse.json({ success: true, message: 'Customer deleted successfully' });
+  } catch (e) {
+    return NextResponse.json({ success: false, message: 'Delete failed' }, { status: 400 });
+  }
 }
