@@ -2,11 +2,20 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useSiteContent } from '../hooks/useSiteContent';
 
-const ROTATING_WORDS = ['Artisanal.', 'Natural.', 'Pure.', 'Radiant.', 'Personal.'];
+const DEFAULT_ROTATING_WORDS = ['Artisanal.', 'Natural.', 'Pure.', 'Radiant.', 'Personal.'];
 const HERO_COUNT = 4;
 
 export default function HeroSection() {
+  const router = useRouter();
+  const { getSection } = useSiteContent();
+  const heroData = getSection('home', 'hero');
+  const rotatingWords = Array.isArray(heroData?.rotating_words) && heroData.rotating_words.length > 0 
+    ? heroData.rotating_words 
+    : DEFAULT_ROTATING_WORDS;
+
   const [activeIndex, setActiveIndex] = useState(1);
   const [wordIndex, setWordIndex] = useState(0);
   const [windowWidth, setWindowWidth] = useState(1200);
@@ -15,10 +24,10 @@ export default function HeroSection() {
   // Dynamic rotating words timer
   useEffect(() => {
     const wordTimer = setInterval(() => {
-      setWordIndex(prev => (prev + 1) % ROTATING_WORDS.length);
+      setWordIndex(prev => (prev + 1) % rotatingWords.length);
     }, 2600);
     return () => clearInterval(wordTimer);
-  }, []);
+  }, [rotatingWords.length]);
 
   // Track window resize
   useEffect(() => {
@@ -121,7 +130,7 @@ export default function HeroSection() {
       {/* Seamlessly Blended Luxury Botanical Apothecary Stage Backdrop */}
       <div className="hero-stage-backdrop-wrap absolute inset-0 w-full h-full pointer-events-none select-none overflow-hidden z-0" aria-hidden="true">
         <img 
-          src="/assets/hero_apothecary_stage_backdrop.jpg" 
+          src={heroData.bg_image || "/assets/hero_apothecary_stage_backdrop.jpg"} 
           alt="EarthGlaze Luxury Botanical Apothecary Stage" 
           className="w-full h-full object-cover object-bottom pointer-events-none" 
         />
@@ -132,7 +141,7 @@ export default function HeroSection() {
       {/* Flanking Left Prop: Crystal Clear Glass Herbal Elixir Bottle (Separate Transparent PNG) */}
       <div className="absolute left-1 sm:left-6 md:left-8 lg:left-12 xl:left-16 bottom-1 sm:bottom-3 md:bottom-4 z-10 pointer-events-none select-none">
         <img 
-          src="/assets/hero_bottle_prop_transparent.png" 
+          src={heroData.bottle_image || "/assets/hero_bottle_prop_transparent.png"} 
           alt="Pure Botanical Herbal Elixir Oil Bottle" 
           className="w-14 sm:w-28 md:w-36 lg:w-44 xl:w-48 h-auto object-contain drop-shadow-[0_10px_20px_rgba(202,138,4,0.22)]"
         />
@@ -141,7 +150,7 @@ export default function HeroSection() {
       {/* Flanking Right Prop: Artisanal Speckled Stone Mortar & Pestle (Separate Transparent PNG) */}
       <div className="absolute right-1 sm:right-6 md:right-8 lg:right-12 xl:right-16 bottom-1 sm:bottom-3 md:bottom-4 z-10 pointer-events-none select-none">
         <img 
-          src="/assets/hero_mortar_prop_transparent.png" 
+          src={heroData.mortar_image || "/assets/hero_mortar_prop_transparent.png"} 
           alt="Artisanal Handcrafted Stone Mortar and Pestle" 
           className="w-16 sm:w-32 md:w-44 lg:w-56 xl:w-60 h-auto object-contain drop-shadow-[0_10px_20px_rgba(0,0,0,0.14)]"
         />
@@ -156,7 +165,7 @@ export default function HeroSection() {
         <div className="animate-entrance-eyebrow flex items-center justify-center gap-3.5 mb-2 sm:mb-3">
           <span className="eyebrow-divider" aria-hidden="true"></span>
           <span className="text-[11px] sm:text-xs font-semibold tracking-[0.22em] text-[#3e5444] uppercase">
-            Natural Skincare
+            {heroData.eyebrow || 'Natural Skincare'}
           </span>
           <span className="eyebrow-divider" aria-hidden="true"></span>
         </div>
@@ -164,11 +173,11 @@ export default function HeroSection() {
         {/* 2. Main Headline with DYNAMIC CHANGING TEXT ("Personal.") & Botanical Underline */}
         <div className="animate-entrance-headline max-w-4xl mx-auto mb-2 sm:mb-3">
           <h1 className="font-serif text-3xl sm:text-5xl md:text-6xl font-bold text-[#1E3B2B] tracking-tight leading-[1.12]">
-            Skincare That Feels
+            {heroData.title || heroData.title_prefix || 'Skincare That Feels'}
             <span className="block mt-0.5 sm:mt-1">
               <span className="dynamic-text-wrapper cursor-pointer" title="Hover to pause rotation">
                 {/* Dynamic rotating word */}
-                <span id="dynamic-rotating-word" className="dynamic-word word-active">{ROTATING_WORDS[wordIndex]}</span>
+                <span id="dynamic-rotating-word" className="dynamic-word word-active">{rotatingWords[wordIndex % rotatingWords.length]}</span>
                 {/* Exact Botanical Curved Leaf Underline SVG */}
                 <svg className="leaf-underline-svg" viewBox="0 0 240 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                   <path d="M 12 18 C 65 30 175 30 228 14 C 180 23 80 23 12 18 Z" fill="#5A8834"/>
@@ -181,7 +190,7 @@ export default function HeroSection() {
         {/* 3. Sub-description Paragraph */}
         <div className="animate-entrance-subtext max-w-xl mx-auto mb-4 sm:mb-5">
           <p className="text-sm sm:text-base text-[#404F44] leading-relaxed font-normal">
-            Nature-powered skincare crafted with pure ingredients for healthy, glowing skin — made just for you.
+            {heroData.subtitle || 'Nature-powered skincare crafted with pure ingredients for healthy, glowing skin — made just for you.'}
           </p>
         </div>
 
@@ -189,27 +198,27 @@ export default function HeroSection() {
         <div className="animate-entrance-cta flex items-center justify-center gap-3.5 sm:gap-4 mb-3 sm:mb-4">
           
           {/* Primary CTA Button */}
-          <button 
+          <Link
+            href={heroData.cta_primary_link || '/shop'}
             id="explore-range-btn" 
-            type="button" 
             className="btn-primary-explore px-6 sm:px-7 py-2.5 sm:py-3 rounded-full font-semibold text-xs sm:text-sm tracking-wide flex items-center gap-2 group cursor-pointer"
           >
-            <span>Explore Our Range</span>
+            <span>{heroData.cta_primary_label || 'Explore Our Range'}</span>
             <span className="btn-arrow inline-block text-base font-bold">&rarr;</span>
-          </button>
+          </Link>
 
           {/* Secondary CTA Button */}
-          <button 
+          <Link
+            href={heroData.cta_secondary_link || '/story'}
             id="our-story-btn" 
-            type="button" 
             className="btn-secondary-story px-6 sm:px-7 py-2.5 sm:py-3 rounded-full font-semibold text-xs sm:text-sm tracking-wide flex items-center gap-2 cursor-pointer"
           >
             {/* Play icon inside circle */}
             <svg className="play-icon w-3.5 h-3.5 text-[#235327]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <polygon points="5 3 19 12 5 21 5 3"></polygon>
             </svg>
-            <span>Our Story</span>
-          </button>
+            <span>{heroData.cta_secondary_label || 'Our Story'}</span>
+          </Link>
 
         </div>
 

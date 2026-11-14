@@ -420,17 +420,48 @@ export default function AdminDashboardPage() {
       const updated = { ...prev };
       const sec = updated[pageKey]?.[sectionKey] || {};
       const points = Array.isArray(sec.points) ? [...sec.points] : [];
-      points.push({
-        id: Date.now(),
-        title: 'New Feature or Highlight',
-        desc: 'Describe this botanical highlight or benefit here.',
-        icon: '🌿',
-        text: 'Handcrafted botanical formulation benefit',
-      });
+      
+      if (sectionKey === 'reviews') {
+        points.push({
+          id: Date.now(),
+          name: 'Verified Customer',
+          rating: 5,
+          product: 'Artisanal Care',
+          comment: 'Wonderful experience with pure botanical formulation.',
+          icon: '⭐',
+        });
+      } else if (sectionKey === 'faq' || sectionKey === 'questions') {
+        points.push({
+          id: Date.now(),
+          title: 'Frequently asked question?',
+          desc: 'Detailed transparent response for customer care.',
+        });
+      } else {
+        points.push({
+          id: Date.now(),
+          title: 'New Botanical Highlight',
+          desc: 'Describe this botanical highlight or benefit here.',
+          icon: '🌿',
+          text: 'Handcrafted botanical formulation benefit',
+        });
+      }
+      
       updated[pageKey][sectionKey] = { ...sec, points };
       return updated;
     });
-    notify('Added new point. Remember to click Save Changes below.');
+    notify('Added new item. Click "Save Changes" to publish to live store.');
+  };
+
+  // CMS: Handle Direct File Upload for Any Image Field
+  const handleImageFileUpload = (pageKey, sectionKey, fieldKey, file) => {
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const dataUrl = e.target.result;
+      handleUpdateCmsField(pageKey, sectionKey, fieldKey, dataUrl);
+      notify(`Loaded new image for ${fieldKey.replace(/_/g, ' ')}! Click Save Changes.`);
+    };
+    reader.readAsDataURL(file);
   };
 
   // CMS: Delete point from section
@@ -2346,7 +2377,9 @@ export default function AdminDashboardPage() {
                 { id: 'story', label: '📖 Our Story Page', path: '/story' },
                 { id: 'shop', label: '🛍️ Shop Catalog', path: '/shop' },
                 { id: 'contact', label: '💬 Contact Page', path: '/contact' },
-                { id: 'faq', label: '❓ FAQ & Rituals', path: '/#faq' },
+                { id: 'faq', label: '❓ FAQ Page', path: '/faq' },
+                { id: 'footer', label: '🦶 Footer & Global', path: '/' },
+                { id: 'navbar', label: '📢 Header & Announcement', path: '/' },
               ].map((pg) => (
                 <button
                   key={pg.id}
@@ -2397,60 +2430,106 @@ export default function AdminDashboardPage() {
             {(() => {
               const currentSectionData = siteContent[selectedCmsPage]?.[selectedCmsSection] || {};
               const points = Array.isArray(currentSectionData.points) ? currentSectionData.points : [];
+              const isReviewsSection = selectedCmsSection === 'reviews';
+              const isFaqSection = selectedCmsSection === 'faq' || selectedCmsSection === 'questions';
+
+              // Detect all image fields present in current section
+              const imageKeys = Object.keys(currentSectionData).filter(
+                (k) => k.includes('image') || k.includes('img') || k === 'logo' || k === 'banner_image'
+              );
 
               return (
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                   
-                  {/* Left Column (8 cols): Headings, Copy, Points & CTAs */}
+                  {/* Left Column (8 cols): Headings, Copy, Pricing, Points & CTAs */}
                   <div className="lg:col-span-8 bg-white rounded-3xl p-6 sm:p-8 border border-stone-200/80 shadow-xs space-y-6">
                     
                     <div className="border-b border-stone-100 pb-4 flex items-center justify-between">
                       <div>
-                        <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full">
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-full">
                           Editing {selectedCmsPage} • {selectedCmsSection.replace(/_/g, ' ')}
                         </span>
-                        <h3 className="font-serif font-bold text-xl text-[#1E3B2B] mt-1 capitalize">
-                          {selectedCmsSection.replace(/_/g, ' ')} Content &amp; Points
+                        <h3 className="font-serif font-bold text-xl text-[#1E3B2B] mt-1.5 capitalize">
+                          {selectedCmsSection.replace(/_/g, ' ')} Content &amp; Details
                         </h3>
                       </div>
+                      <span className="text-xs text-stone-400 font-mono">
+                        Page: /{selectedCmsPage === 'home' ? '' : selectedCmsPage}
+                      </span>
                     </div>
 
                     {/* Section Eyebrow / Tagline */}
-                    {'eyebrow' in currentSectionData && (
+                    {('eyebrow' in currentSectionData || 'badge_text' in currentSectionData) && (
                       <div>
                         <label className="block text-xs font-bold text-stone-700 uppercase mb-1">
                           Section Eyebrow / Tagline
                         </label>
                         <input
                           type="text"
-                          value={currentSectionData.eyebrow || ''}
-                          onChange={(e) => handleUpdateCmsField(selectedCmsPage, selectedCmsSection, 'eyebrow', e.target.value)}
+                          value={currentSectionData.eyebrow || currentSectionData.badge_text || ''}
+                          onChange={(e) => {
+                            const k = 'eyebrow' in currentSectionData ? 'eyebrow' : 'badge_text';
+                            handleUpdateCmsField(selectedCmsPage, selectedCmsSection, k, e.target.value);
+                          }}
                           className="w-full text-xs sm:text-sm px-4 py-2.5 bg-stone-50 rounded-xl border border-stone-300 focus:outline-none focus:border-[#1E3B2B]"
-                          placeholder="e.g. About Us / Botanical Rituals"
+                          placeholder="e.g. Natural Skincare / Pure Botanical Formulation"
                         />
                       </div>
                     )}
 
-                    {/* Main Title */}
-                    {'title' in currentSectionData && (
+                    {/* Main Title / Prefix */}
+                    {('title' in currentSectionData || 'title_prefix' in currentSectionData) && (
                       <div>
                         <label className="block text-xs font-bold text-stone-700 uppercase mb-1">
                           Main Heading / Title
                         </label>
                         <input
                           type="text"
-                          value={currentSectionData.title || ''}
-                          onChange={(e) => handleUpdateCmsField(selectedCmsPage, selectedCmsSection, 'title', e.target.value)}
+                          value={currentSectionData.title || currentSectionData.title_prefix || ''}
+                          onChange={(e) => {
+                            const k = 'title' in currentSectionData ? 'title' : 'title_prefix';
+                            handleUpdateCmsField(selectedCmsPage, selectedCmsSection, k, e.target.value);
+                          }}
                           className="w-full text-xs sm:text-sm px-4 py-2.5 bg-stone-50 rounded-xl border border-stone-300 font-serif font-bold text-[#1E3B2B] focus:outline-none focus:border-[#1E3B2B]"
                         />
                       </div>
                     )}
 
-                    {/* Subtitle */}
+                    {/* Dynamic Rotating Words (for Hero Section) */}
+                    {'rotating_words' in currentSectionData && (
+                      <div className="p-4 bg-emerald-50/60 rounded-2xl border border-emerald-200/80 space-y-2">
+                        <label className="block text-xs font-bold text-emerald-900 uppercase">
+                          Rotating Headline Words (Separated by comma)
+                        </label>
+                        <input
+                          type="text"
+                          value={
+                            Array.isArray(currentSectionData.rotating_words)
+                              ? currentSectionData.rotating_words.join(', ')
+                              : currentSectionData.rotating_words || ''
+                          }
+                          onChange={(e) => {
+                            const words = e.target.value.split(',').map((w) => w.trim()).filter(Boolean);
+                            handleUpdateCmsField(selectedCmsPage, selectedCmsSection, 'rotating_words', words);
+                          }}
+                          placeholder="Artisanal., Natural., Pure., Radiant., Personal."
+                          className="w-full text-xs sm:text-sm px-3.5 py-2 bg-white rounded-xl border border-emerald-300 focus:outline-none focus:border-[#1E3B2B]"
+                        />
+                        <div className="flex flex-wrap gap-1.5 pt-1">
+                          {(Array.isArray(currentSectionData.rotating_words) ? currentSectionData.rotating_words : []).map((w, idx) => (
+                            <span key={idx} className="px-2.5 py-0.5 rounded-full bg-white border border-emerald-200 text-xs font-bold text-emerald-800">
+                              {w}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Subtitle / Tagline */}
                     {'subtitle' in currentSectionData && (
                       <div>
                         <label className="block text-xs font-bold text-stone-700 uppercase mb-1">
-                          Subtitle
+                          Subtitle / Supporting Copy
                         </label>
                         <textarea
                           rows={2}
@@ -2461,7 +2540,7 @@ export default function AdminDashboardPage() {
                       </div>
                     )}
 
-                    {/* Long Description / Paragraph */}
+                    {/* Long Description Paragraph */}
                     {'description' in currentSectionData && (
                       <div>
                         <label className="block text-xs font-bold text-stone-700 uppercase mb-1">
@@ -2476,7 +2555,51 @@ export default function AdminDashboardPage() {
                       </div>
                     )}
 
-                    {/* Formulation Promise / Special Note */}
+                    {/* Announcement Text (for Navbar) */}
+                    {'text' in currentSectionData && selectedCmsPage === 'navbar' && (
+                      <div>
+                        <label className="block text-xs font-bold text-stone-700 uppercase mb-1">
+                          Header Announcement Bar Text
+                        </label>
+                        <input
+                          type="text"
+                          value={currentSectionData.text || ''}
+                          onChange={(e) => handleUpdateCmsField(selectedCmsPage, selectedCmsSection, 'text', e.target.value)}
+                          className="w-full text-xs sm:text-sm px-4 py-2.5 bg-stone-50 rounded-xl border border-stone-300 focus:outline-none focus:border-[#1E3B2B]"
+                        />
+                      </div>
+                    )}
+
+                    {/* Brand Tagline & Copyright (for Footer) */}
+                    {'tagline' in currentSectionData && (
+                      <div>
+                        <label className="block text-xs font-bold text-stone-700 uppercase mb-1">
+                          Brand Tagline
+                        </label>
+                        <input
+                          type="text"
+                          value={currentSectionData.tagline || ''}
+                          onChange={(e) => handleUpdateCmsField(selectedCmsPage, selectedCmsSection, 'tagline', e.target.value)}
+                          className="w-full text-xs sm:text-sm px-4 py-2.5 bg-stone-50 rounded-xl border border-stone-300"
+                        />
+                      </div>
+                    )}
+
+                    {'copyright' in currentSectionData && (
+                      <div>
+                        <label className="block text-xs font-bold text-stone-700 uppercase mb-1">
+                          Copyright Text
+                        </label>
+                        <input
+                          type="text"
+                          value={currentSectionData.copyright || ''}
+                          onChange={(e) => handleUpdateCmsField(selectedCmsPage, selectedCmsSection, 'copyright', e.target.value)}
+                          className="w-full text-xs sm:text-sm px-4 py-2.5 bg-stone-50 rounded-xl border border-stone-300"
+                        />
+                      </div>
+                    )}
+
+                    {/* Formulation Promise Note */}
                     {'promise' in currentSectionData && (
                       <div>
                         <label className="block text-xs font-bold text-stone-700 uppercase mb-1">
@@ -2491,170 +2614,472 @@ export default function AdminDashboardPage() {
                       </div>
                     )}
 
-                    {/* Primary & Secondary CTA Buttons */}
-                    {('cta_primary_label' in currentSectionData || 'cta_secondary_label' in currentSectionData) && (
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 bg-stone-50 rounded-2xl border border-stone-200">
-                        <div>
-                          <label className="block text-xs font-bold text-stone-700 uppercase mb-1">
-                            Primary CTA Button Text
-                          </label>
-                          <input
-                            type="text"
-                            value={currentSectionData.cta_primary_label || ''}
-                            onChange={(e) => handleUpdateCmsField(selectedCmsPage, selectedCmsSection, 'cta_primary_label', e.target.value)}
-                            className="w-full text-xs px-3 py-2 bg-white rounded-xl border border-stone-300 font-semibold"
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-xs font-bold text-stone-700 uppercase mb-1">
-                            Primary CTA Target Link
-                          </label>
-                          <input
-                            type="text"
-                            value={currentSectionData.cta_primary_link || ''}
-                            onChange={(e) => handleUpdateCmsField(selectedCmsPage, selectedCmsSection, 'cta_primary_link', e.target.value)}
-                            className="w-full text-xs px-3 py-2 bg-white rounded-xl border border-stone-300"
-                          />
+                    {/* Pricing, Discounts, and Ratings (for Combo, Newly Launched, Shop) */}
+                    {('price' in currentSectionData || 'original_price' in currentSectionData || 'discount_label' in currentSectionData || 'rating' in currentSectionData) && (
+                      <div className="p-4 bg-amber-50/50 rounded-2xl border border-amber-200/70 space-y-3">
+                        <span className="block text-xs font-bold text-amber-900 uppercase">
+                          Pricing, Discounts &amp; Customer Ratings
+                        </span>
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                          {'price' in currentSectionData && (
+                            <div>
+                              <label className="block text-[11px] font-bold text-stone-600 mb-1">Offer Price (₹)</label>
+                              <input
+                                type="number"
+                                value={currentSectionData.price || 0}
+                                onChange={(e) => handleUpdateCmsField(selectedCmsPage, selectedCmsSection, 'price', Number(e.target.value))}
+                                className="w-full text-xs px-3 py-2 bg-white rounded-xl border border-stone-300 font-bold"
+                              />
+                            </div>
+                          )}
+                          {'original_price' in currentSectionData && (
+                            <div>
+                              <label className="block text-[11px] font-bold text-stone-600 mb-1">MRP / Old Price (₹)</label>
+                              <input
+                                type="number"
+                                value={currentSectionData.original_price || 0}
+                                onChange={(e) => handleUpdateCmsField(selectedCmsPage, selectedCmsSection, 'original_price', Number(e.target.value))}
+                                className="w-full text-xs px-3 py-2 bg-white rounded-xl border border-stone-300"
+                              />
+                            </div>
+                          )}
+                          {'discount_label' in currentSectionData && (
+                            <div>
+                              <label className="block text-[11px] font-bold text-stone-600 mb-1">Discount Tag</label>
+                              <input
+                                type="text"
+                                value={currentSectionData.discount_label || ''}
+                                onChange={(e) => handleUpdateCmsField(selectedCmsPage, selectedCmsSection, 'discount_label', e.target.value)}
+                                className="w-full text-xs px-3 py-2 bg-white rounded-xl border border-stone-300"
+                                placeholder="15% OFF"
+                              />
+                            </div>
+                          )}
+                          {'rating' in currentSectionData && (
+                            <div>
+                              <label className="block text-[11px] font-bold text-stone-600 mb-1">Customer Rating</label>
+                              <input
+                                type="text"
+                                value={currentSectionData.rating || ''}
+                                onChange={(e) => handleUpdateCmsField(selectedCmsPage, selectedCmsSection, 'rating', e.target.value)}
+                                className="w-full text-xs px-3 py-2 bg-white rounded-xl border border-stone-300"
+                                placeholder="★ 4.9 (334 reviews)"
+                              />
+                            </div>
+                          )}
                         </div>
                       </div>
                     )}
 
-                    {/* DYNAMIC POINTS / HIGHLIGHTS SECTION */}
-                    <div className="pt-4 border-t border-stone-100 space-y-4">
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <h4 className="font-serif font-bold text-base text-[#1E3B2B]">
-                            Section Highlights &amp; Bullet Points
-                          </h4>
-                          <p className="text-xs text-stone-500">
-                            Add, edit, or remove specific bullet points, benefits, and feature tags.
-                          </p>
+                    {/* Contact Information & Hours (for Contact Page & Footer) */}
+                    {('phone' in currentSectionData || 'email' in currentSectionData || 'address' in currentSectionData || 'timings' in currentSectionData) && (
+                      <div className="p-4 bg-stone-50 rounded-2xl border border-stone-200 space-y-3">
+                        <span className="block text-xs font-bold text-stone-700 uppercase">
+                          Contact Details &amp; Location
+                        </span>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                          {'phone' in currentSectionData && (
+                            <div>
+                              <label className="block text-[11px] font-bold text-stone-600 mb-1">Support Phone</label>
+                              <input
+                                type="text"
+                                value={currentSectionData.phone || ''}
+                                onChange={(e) => handleUpdateCmsField(selectedCmsPage, selectedCmsSection, 'phone', e.target.value)}
+                                className="w-full text-xs px-3 py-2 bg-white rounded-xl border border-stone-300"
+                              />
+                            </div>
+                          )}
+                          {'email' in currentSectionData && (
+                            <div>
+                              <label className="block text-[11px] font-bold text-stone-600 mb-1">Support Email</label>
+                              <input
+                                type="email"
+                                value={currentSectionData.email || ''}
+                                onChange={(e) => handleUpdateCmsField(selectedCmsPage, selectedCmsSection, 'email', e.target.value)}
+                                className="w-full text-xs px-3 py-2 bg-white rounded-xl border border-stone-300"
+                              />
+                            </div>
+                          )}
+                          {'address' in currentSectionData && (
+                            <div className="sm:col-span-2">
+                              <label className="block text-[11px] font-bold text-stone-600 mb-1">Studio Address</label>
+                              <input
+                                type="text"
+                                value={currentSectionData.address || ''}
+                                onChange={(e) => handleUpdateCmsField(selectedCmsPage, selectedCmsSection, 'address', e.target.value)}
+                                className="w-full text-xs px-3 py-2 bg-white rounded-xl border border-stone-300"
+                              />
+                            </div>
+                          )}
+                          {'timings' in currentSectionData && (
+                            <div className="sm:col-span-2">
+                              <label className="block text-[11px] font-bold text-stone-600 mb-1">Working Hours</label>
+                              <input
+                                type="text"
+                                value={currentSectionData.timings || ''}
+                                onChange={(e) => handleUpdateCmsField(selectedCmsPage, selectedCmsSection, 'timings', e.target.value)}
+                                className="w-full text-xs px-3 py-2 bg-white rounded-xl border border-stone-300"
+                              />
+                            </div>
+                          )}
                         </div>
-                        <button
-                          type="button"
-                          onClick={() => handleAddCmsPoint(selectedCmsPage, selectedCmsSection)}
-                          className="px-3.5 py-1.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 text-xs font-bold border border-emerald-300 transition flex items-center gap-1 cursor-pointer"
-                        >
-                          <span>+ Add Point</span>
-                        </button>
                       </div>
+                    )}
 
-                      {points.length === 0 ? (
-                        <div className="p-6 text-center text-xs text-stone-400 bg-stone-50 rounded-2xl border border-dashed border-stone-200">
-                          No bullet points for this section yet. Click "+ Add Point" above to create one.
-                        </div>
-                      ) : (
-                        <div className="space-y-3">
-                          {points.map((pt, pIdx) => (
-                            <div 
-                              key={pt.id || pIdx} 
-                              className="p-4 rounded-2xl bg-[#FAF7F2] border border-[#E8DEC8] space-y-3 transition hover:shadow-xs"
-                            >
-                              <div className="flex items-center justify-between gap-3">
-                                <div className="flex items-center gap-2 flex-1">
-                                  <input
-                                    type="text"
-                                    value={pt.icon || '🌿'}
-                                    onChange={(e) => handleUpdateCmsPoint(selectedCmsPage, selectedCmsSection, pIdx, 'icon', e.target.value)}
-                                    className="w-10 h-10 text-center text-lg bg-white rounded-xl border border-stone-300 shrink-0"
-                                    title="Icon / Emoji"
-                                  />
-                                  <input
-                                    type="text"
-                                    value={pt.title || pt.text || ''}
-                                    onChange={(e) => {
-                                      handleUpdateCmsPoint(selectedCmsPage, selectedCmsSection, pIdx, 'title', e.target.value);
-                                      handleUpdateCmsPoint(selectedCmsPage, selectedCmsSection, pIdx, 'text', e.target.value);
-                                    }}
-                                    placeholder="Point Headline / Benefit"
-                                    className="w-full text-xs sm:text-sm font-bold px-3 py-2 bg-white rounded-xl border border-stone-300"
-                                  />
-                                </div>
-                                <button
-                                  type="button"
-                                  onClick={() => handleDeleteCmsPoint(selectedCmsPage, selectedCmsSection, pIdx)}
-                                  className="text-stone-400 hover:text-red-600 p-1.5 rounded-lg hover:bg-red-50 transition cursor-pointer"
-                                  title="Delete this point"
-                                >
-                                  🗑️
-                                </button>
-                              </div>
-
-                              {(pt.desc || pt.subtitle !== undefined) && (
-                                <textarea
-                                  rows={2}
-                                  value={pt.desc || pt.subtitle || ''}
-                                  onChange={(e) => {
-                                    handleUpdateCmsPoint(selectedCmsPage, selectedCmsSection, pIdx, 'desc', e.target.value);
-                                    handleUpdateCmsPoint(selectedCmsPage, selectedCmsSection, pIdx, 'subtitle', e.target.value);
-                                  }}
-                                  placeholder="Detailed explanation or supporting description..."
-                                  className="w-full text-xs px-3 py-2 bg-white rounded-xl border border-stone-300"
-                                />
-                              )}
+                    {/* Social Media Links (for Footer) */}
+                    {('instagram' in currentSectionData || 'facebook' in currentSectionData || 'youtube' in currentSectionData || 'pinterest' in currentSectionData) && (
+                      <div className="p-4 bg-stone-50 rounded-2xl border border-stone-200 space-y-3">
+                        <span className="block text-xs font-bold text-stone-700 uppercase">
+                          Social Media Profiles
+                        </span>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                          {['instagram', 'facebook', 'youtube', 'pinterest'].map((soc) => (
+                            <div key={soc}>
+                              <label className="block text-[11px] font-bold text-stone-600 mb-1 capitalize">{soc} URL</label>
+                              <input
+                                type="text"
+                                value={currentSectionData[soc] || ''}
+                                onChange={(e) => handleUpdateCmsField(selectedCmsPage, selectedCmsSection, soc, e.target.value)}
+                                className="w-full text-xs px-3 py-2 bg-white rounded-xl border border-stone-300"
+                              />
                             </div>
                           ))}
                         </div>
-                      )}
-                    </div>
+                      </div>
+                    )}
+
+                    {/* Primary & Secondary CTA Buttons */}
+                    {('cta_primary_label' in currentSectionData || 'cta_secondary_label' in currentSectionData || 'link' in currentSectionData) && (
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 bg-stone-50 rounded-2xl border border-stone-200">
+                        {'cta_primary_label' in currentSectionData && (
+                          <div>
+                            <label className="block text-xs font-bold text-stone-700 uppercase mb-1">
+                              Primary CTA Button Text
+                            </label>
+                            <input
+                              type="text"
+                              value={currentSectionData.cta_primary_label || ''}
+                              onChange={(e) => handleUpdateCmsField(selectedCmsPage, selectedCmsSection, 'cta_primary_label', e.target.value)}
+                              className="w-full text-xs px-3 py-2 bg-white rounded-xl border border-stone-300 font-semibold"
+                            />
+                          </div>
+                        )}
+                        {'cta_primary_link' in currentSectionData && (
+                          <div>
+                            <label className="block text-xs font-bold text-stone-700 uppercase mb-1">
+                              Primary CTA Link
+                            </label>
+                            <input
+                              type="text"
+                              value={currentSectionData.cta_primary_link || ''}
+                              onChange={(e) => handleUpdateCmsField(selectedCmsPage, selectedCmsSection, 'cta_primary_link', e.target.value)}
+                              className="w-full text-xs px-3 py-2 bg-white rounded-xl border border-stone-300"
+                            />
+                          </div>
+                        )}
+                        {'cta_secondary_label' in currentSectionData && (
+                          <div>
+                            <label className="block text-xs font-bold text-stone-700 uppercase mb-1">
+                              Secondary CTA Button Text
+                            </label>
+                            <input
+                              type="text"
+                              value={currentSectionData.cta_secondary_label || ''}
+                              onChange={(e) => handleUpdateCmsField(selectedCmsPage, selectedCmsSection, 'cta_secondary_label', e.target.value)}
+                              className="w-full text-xs px-3 py-2 bg-white rounded-xl border border-stone-300 font-semibold"
+                            />
+                          </div>
+                        )}
+                        {'cta_secondary_link' in currentSectionData && (
+                          <div>
+                            <label className="block text-xs font-bold text-stone-700 uppercase mb-1">
+                              Secondary CTA Link
+                            </label>
+                            <input
+                              type="text"
+                              value={currentSectionData.cta_secondary_link || ''}
+                              onChange={(e) => handleUpdateCmsField(selectedCmsPage, selectedCmsSection, 'cta_secondary_link', e.target.value)}
+                              className="w-full text-xs px-3 py-2 bg-white rounded-xl border border-stone-300"
+                            />
+                          </div>
+                        )}
+                        {'link' in currentSectionData && !('cta_primary_link' in currentSectionData) && (
+                          <div className="sm:col-span-2">
+                            <label className="block text-xs font-bold text-stone-700 uppercase mb-1">
+                              Target Link URL
+                            </label>
+                            <input
+                              type="text"
+                              value={currentSectionData.link || ''}
+                              onChange={(e) => handleUpdateCmsField(selectedCmsPage, selectedCmsSection, 'link', e.target.value)}
+                              className="w-full text-xs px-3 py-2 bg-white rounded-xl border border-stone-300"
+                            />
+                          </div>
+                        )}
+                      </div>
+                    )}
+
+                    {/* DYNAMIC POINTS / HIGHLIGHTS / REVIEWS / FAQ ITEMS */}
+                    {('points' in currentSectionData || isReviewsSection || isFaqSection) && (
+                      <div className="pt-4 border-t border-stone-100 space-y-4">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <h4 className="font-serif font-bold text-base text-[#1E3B2B]">
+                              {isReviewsSection ? 'Customer Reviews & Testimonials' : isFaqSection ? 'FAQ Questions & Answers' : 'Section Highlights & Bullet Points'}
+                            </h4>
+                            <p className="text-xs text-stone-500">
+                              {isReviewsSection
+                                ? 'Add, edit, or remove customer feedback cards and star ratings.'
+                                : isFaqSection
+                                ? 'Add, edit, or remove questions and transparent answers.'
+                                : 'Add, edit, or remove specific bullet points, benefits, and feature tags.'}
+                            </p>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => handleAddCmsPoint(selectedCmsPage, selectedCmsSection)}
+                            className="px-3.5 py-1.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 text-xs font-bold border border-emerald-300 transition flex items-center gap-1 cursor-pointer"
+                          >
+                            <span>+ Add {isReviewsSection ? 'Review' : isFaqSection ? 'FAQ' : 'Point'}</span>
+                          </button>
+                        </div>
+
+                        {points.length === 0 ? (
+                          <div className="p-6 text-center text-xs text-stone-400 bg-stone-50 rounded-2xl border border-dashed border-stone-200">
+                            No items in this section yet. Click "+ Add" above to create one.
+                          </div>
+                        ) : (
+                          <div className="space-y-3">
+                            {points.map((pt, pIdx) => (
+                              <div 
+                                key={pt.id || pIdx} 
+                                className="p-4 rounded-2xl bg-[#FAF7F2] border border-[#E8DEC8] space-y-3 transition hover:shadow-xs"
+                              >
+                                {isReviewsSection ? (
+                                  /* Testimonials Item Editor */
+                                  <div className="space-y-2.5">
+                                    <div className="flex items-center justify-between gap-3">
+                                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 flex-1">
+                                        <input
+                                          type="text"
+                                          value={pt.name || pt.title || ''}
+                                          onChange={(e) => handleUpdateCmsPoint(selectedCmsPage, selectedCmsSection, pIdx, 'name', e.target.value)}
+                                          placeholder="Customer Name (e.g. Ayesha N.)"
+                                          className="text-xs font-bold px-3 py-2 bg-white rounded-xl border border-stone-300"
+                                        />
+                                        <input
+                                          type="text"
+                                          value={pt.product || ''}
+                                          onChange={(e) => handleUpdateCmsPoint(selectedCmsPage, selectedCmsSection, pIdx, 'product', e.target.value)}
+                                          placeholder="Product Tag (e.g. Goat Milk Soap)"
+                                          className="text-xs px-3 py-2 bg-white rounded-xl border border-stone-300"
+                                        />
+                                        <div className="flex items-center gap-1 bg-white px-2.5 py-1 rounded-xl border border-stone-300">
+                                          <span className="text-amber-500 text-xs">⭐</span>
+                                          <select
+                                            value={pt.rating || 5}
+                                            onChange={(e) => handleUpdateCmsPoint(selectedCmsPage, selectedCmsSection, pIdx, 'rating', Number(e.target.value))}
+                                            className="text-xs bg-transparent focus:outline-none w-full cursor-pointer"
+                                          >
+                                            <option value={5}>5 Stars (Excellent)</option>
+                                            <option value={4}>4 Stars (Very Good)</option>
+                                            <option value={3}>3 Stars (Good)</option>
+                                          </select>
+                                        </div>
+                                      </div>
+                                      <button
+                                        type="button"
+                                        onClick={() => handleDeleteCmsPoint(selectedCmsPage, selectedCmsSection, pIdx)}
+                                        className="text-stone-400 hover:text-red-600 p-1.5 rounded-lg hover:bg-red-50 transition cursor-pointer"
+                                        title="Delete this review"
+                                      >
+                                        🗑️
+                                      </button>
+                                    </div>
+                                    <textarea
+                                      rows={2}
+                                      value={pt.comment || pt.desc || pt.text || ''}
+                                      onChange={(e) => {
+                                        handleUpdateCmsPoint(selectedCmsPage, selectedCmsSection, pIdx, 'comment', e.target.value);
+                                        handleUpdateCmsPoint(selectedCmsPage, selectedCmsSection, pIdx, 'desc', e.target.value);
+                                      }}
+                                      placeholder="Customer review comment..."
+                                      className="w-full text-xs px-3 py-2 bg-white rounded-xl border border-stone-300"
+                                    />
+                                  </div>
+                                ) : isFaqSection ? (
+                                  /* FAQ Item Editor */
+                                  <div className="space-y-2.5">
+                                    <div className="flex items-center justify-between gap-3">
+                                      <input
+                                        type="text"
+                                        value={pt.title || pt.q || pt.question || ''}
+                                        onChange={(e) => {
+                                          handleUpdateCmsPoint(selectedCmsPage, selectedCmsSection, pIdx, 'title', e.target.value);
+                                          handleUpdateCmsPoint(selectedCmsPage, selectedCmsSection, pIdx, 'question', e.target.value);
+                                        }}
+                                        placeholder="Question headline..."
+                                        className="w-full text-xs sm:text-sm font-bold px-3 py-2 bg-white rounded-xl border border-stone-300"
+                                      />
+                                      <button
+                                        type="button"
+                                        onClick={() => handleDeleteCmsPoint(selectedCmsPage, selectedCmsSection, pIdx)}
+                                        className="text-stone-400 hover:text-red-600 p-1.5 rounded-lg hover:bg-red-50 transition cursor-pointer"
+                                        title="Delete this question"
+                                      >
+                                        🗑️
+                                      </button>
+                                    </div>
+                                    <textarea
+                                      rows={3}
+                                      value={pt.desc || pt.a || pt.answer || ''}
+                                      onChange={(e) => {
+                                        handleUpdateCmsPoint(selectedCmsPage, selectedCmsSection, pIdx, 'desc', e.target.value);
+                                        handleUpdateCmsPoint(selectedCmsPage, selectedCmsSection, pIdx, 'answer', e.target.value);
+                                      }}
+                                      placeholder="Detailed transparent answer..."
+                                      className="w-full text-xs px-3 py-2 bg-white rounded-xl border border-stone-300"
+                                    />
+                                  </div>
+                                ) : (
+                                  /* Standard Bullet Point / Feature Item Editor */
+                                  <div className="space-y-2">
+                                    <div className="flex items-center justify-between gap-3">
+                                      <div className="flex items-center gap-2 flex-1">
+                                        <input
+                                          type="text"
+                                          value={pt.icon || '🌿'}
+                                          onChange={(e) => handleUpdateCmsPoint(selectedCmsPage, selectedCmsSection, pIdx, 'icon', e.target.value)}
+                                          className="w-10 h-10 text-center text-lg bg-white rounded-xl border border-stone-300 shrink-0"
+                                          title="Icon / Emoji"
+                                        />
+                                        <input
+                                          type="text"
+                                          value={pt.title || pt.text || ''}
+                                          onChange={(e) => {
+                                            handleUpdateCmsPoint(selectedCmsPage, selectedCmsSection, pIdx, 'title', e.target.value);
+                                            handleUpdateCmsPoint(selectedCmsPage, selectedCmsSection, pIdx, 'text', e.target.value);
+                                          }}
+                                          placeholder="Point Headline / Benefit"
+                                          className="w-full text-xs sm:text-sm font-bold px-3 py-2 bg-white rounded-xl border border-stone-300"
+                                        />
+                                      </div>
+                                      <button
+                                        type="button"
+                                        onClick={() => handleDeleteCmsPoint(selectedCmsPage, selectedCmsSection, pIdx)}
+                                        className="text-stone-400 hover:text-red-600 p-1.5 rounded-lg hover:bg-red-50 transition cursor-pointer"
+                                        title="Delete this point"
+                                      >
+                                        🗑️
+                                      </button>
+                                    </div>
+
+                                    {(pt.desc !== undefined || pt.subtitle !== undefined) && (
+                                      <textarea
+                                        rows={2}
+                                        value={pt.desc || pt.subtitle || ''}
+                                        onChange={(e) => {
+                                          handleUpdateCmsPoint(selectedCmsPage, selectedCmsSection, pIdx, 'desc', e.target.value);
+                                          handleUpdateCmsPoint(selectedCmsPage, selectedCmsSection, pIdx, 'subtitle', e.target.value);
+                                        }}
+                                        placeholder="Detailed explanation or supporting description..."
+                                        className="w-full text-xs px-3 py-2 bg-white rounded-xl border border-stone-300"
+                                      />
+                                    )}
+                                  </div>
+                                )}
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    )}
 
                   </div>
 
                   {/* Right Column (4 cols): Media Assets & Live Image Previews */}
                   <div className="lg:col-span-4 space-y-6">
                     
-                    <div className="bg-white rounded-3xl p-6 border border-stone-200/80 shadow-xs space-y-4">
-                      <h4 className="font-serif font-bold text-base text-[#1E3B2B] border-b border-stone-100 pb-2">
-                        🖼️ Section Imagery &amp; Visuals
-                      </h4>
+                    <div className="bg-white rounded-3xl p-6 border border-stone-200/80 shadow-xs space-y-6">
+                      <div className="border-b border-stone-100 pb-3 flex items-center justify-between">
+                        <h4 className="font-serif font-bold text-base text-[#1E3B2B] flex items-center gap-1.5">
+                          <span>🖼️</span>
+                          <span>Section Imagery &amp; Visuals</span>
+                        </h4>
+                        <span className="text-[10px] text-stone-400 font-mono">
+                          {imageKeys.length} {imageKeys.length === 1 ? 'image' : 'images'}
+                        </span>
+                      </div>
 
-                      {/* Primary Image Input */}
-                      {('image' in currentSectionData || 'bg_image' in currentSectionData || 'banner_image' in currentSectionData) && (
-                        <div>
-                          <label className="block text-xs font-bold text-stone-700 uppercase mb-1">
-                            Primary Section Image URL
-                          </label>
-                          <input
-                            type="text"
-                            value={currentSectionData.image || currentSectionData.bg_image || currentSectionData.banner_image || ''}
-                            onChange={(e) => {
-                              const key = 'image' in currentSectionData ? 'image' : 'bg_image' in currentSectionData ? 'bg_image' : 'banner_image';
-                              handleUpdateCmsField(selectedCmsPage, selectedCmsSection, key, e.target.value);
-                            }}
-                            className="w-full text-xs px-3 py-2.5 bg-stone-50 rounded-xl border border-stone-300 font-mono text-[11px]"
-                            placeholder="/assets/about-img.png"
-                          />
-
-                          {/* Live Image Thumbnail Preview */}
-                          <div className="mt-3 p-3 bg-stone-50 rounded-2xl border border-stone-200 flex flex-col items-center justify-center min-h-[160px]">
-                            <img
-                              src={currentSectionData.image || currentSectionData.bg_image || currentSectionData.banner_image || '/assets/earthglaze-logo-hd.png'}
-                              alt="Live Image Preview"
-                              className="max-h-36 w-auto object-contain rounded-lg drop-shadow-sm"
-                              onError={(e) => {
-                                e.target.src = '/assets/earthglaze-logo-hd.png';
-                              }}
-                            />
-                            <span className="text-[10px] text-stone-400 mt-2 font-mono">
-                              Live Asset Preview
-                            </span>
-                          </div>
+                      {imageKeys.length === 0 ? (
+                        <div className="p-4 text-center text-xs text-stone-400 bg-stone-50 rounded-2xl border border-dashed border-stone-200">
+                          This section does not use custom image assets directly.
                         </div>
-                      )}
+                      ) : (
+                        imageKeys.map((imgKey) => {
+                          const currentImgVal = currentSectionData[imgKey] || '';
+                          const friendlyTitle =
+                            imgKey === 'bg_image' ? 'Background Backdrop Artwork' :
+                            imgKey === 'image' ? 'Primary Section Image' :
+                            imgKey === 'banner_image' ? 'Botanical Leaves Accent Banner' :
+                            imgKey === 'image_closed' ? 'Closed Packaging Image' :
+                            imgKey === 'image_open' ? 'Opened Packaging Image' :
+                            imgKey === 'mortar_image' ? 'Mortar Prop (Transparent PNG)' :
+                            imgKey === 'bottle_image' ? 'Bottle Prop (Transparent PNG)' :
+                            imgKey === 'logo' ? 'Brand Logo HD' :
+                            imgKey.replace(/_/g, ' ');
 
-                      {/* Secondary Image Input (e.g. Mortar or Open Box) */}
-                      {'mortar_image' in currentSectionData && (
-                        <div className="pt-3 border-t border-stone-100">
-                          <label className="block text-xs font-bold text-stone-700 uppercase mb-1">
-                            Secondary Prop Image (Mortar)
-                          </label>
-                          <input
-                            type="text"
-                            value={currentSectionData.mortar_image || ''}
-                            onChange={(e) => handleUpdateCmsField(selectedCmsPage, selectedCmsSection, 'mortar_image', e.target.value)}
-                            className="w-full text-xs px-3 py-2 bg-stone-50 rounded-xl border border-stone-300 font-mono text-[11px]"
-                          />
-                        </div>
+                          return (
+                            <div key={imgKey} className="p-4 rounded-2xl bg-stone-50 border border-stone-200 space-y-3">
+                              <div className="flex items-center justify-between">
+                                <label className="block text-xs font-bold text-stone-700 capitalize">
+                                  {friendlyTitle}
+                                </label>
+                                <span className="text-[10px] font-mono text-stone-400">{imgKey}</span>
+                              </div>
+
+                              <input
+                                type="text"
+                                value={currentImgVal}
+                                onChange={(e) => handleUpdateCmsField(selectedCmsPage, selectedCmsSection, imgKey, e.target.value)}
+                                className="w-full text-xs px-3 py-2 bg-white rounded-xl border border-stone-300 font-mono text-[11px]"
+                                placeholder="/assets/image_name.png"
+                              />
+
+                              {/* Local File Chooser */}
+                              <div className="flex items-center gap-2">
+                                <label className="flex-1 text-center py-1.5 px-3 rounded-lg border border-stone-300 hover:border-emerald-600 bg-white hover:bg-emerald-50 text-[11px] font-semibold text-stone-700 hover:text-emerald-800 transition cursor-pointer">
+                                  <span>📁 Choose File from Device</span>
+                                  <input
+                                    type="file"
+                                    accept="image/*"
+                                    className="hidden"
+                                    onChange={(e) => {
+                                      if (e.target.files && e.target.files[0]) {
+                                        handleImageFileUpload(selectedCmsPage, selectedCmsSection, imgKey, e.target.files[0]);
+                                      }
+                                    }}
+                                  />
+                                </label>
+                              </div>
+
+                              {/* Live Image Thumbnail Preview */}
+                              <div className="p-3 bg-white rounded-xl border border-stone-200 flex flex-col items-center justify-center min-h-[140px]">
+                                <img
+                                  src={currentImgVal || '/assets/earthglaze-logo-hd.png'}
+                                  alt={friendlyTitle}
+                                  className="max-h-32 w-auto object-contain rounded drop-shadow-sm"
+                                  onError={(e) => {
+                                    e.target.src = '/assets/earthglaze-logo-hd.png';
+                                  }}
+                                />
+                                <span className="text-[10px] text-stone-400 mt-2 font-mono">
+                                  Live Asset Preview
+                                </span>
+                              </div>
+                            </div>
+                          );
+                        })
                       )}
 
                       {/* Quick HD Asset Suggestions */}
@@ -2665,12 +3090,16 @@ export default function AdminDashboardPage() {
                         <div className="flex flex-wrap gap-1.5">
                           {[
                             { name: 'Podium', url: '/assets/about-img.png' },
+                            { name: 'Stage Backdrop', url: '/assets/hero_apothecary_stage_backdrop.jpg' },
                             { name: 'Mortar Prop', url: '/assets/hero_mortar_prop_transparent.png' },
                             { name: 'Elixir Prop', url: '/assets/hero_bottle_prop_transparent.png' },
                             { name: 'Seamless Arch', url: '/assets/about_hero_seamless_hd.png' },
+                            { name: 'Contact Banner', url: '/assets/contact_hero_seamless_hd.png' },
                             { name: 'Leaves Banner', url: '/assets/banner_newly_leaves.png' },
                             { name: 'Combo Closed', url: '/assets/botanical_combo_original_soaps_closed.png' },
                             { name: 'Combo Open', url: '/assets/botanical_combo_original_soaps_open.png' },
+                            { name: 'Balm Closed', url: '/assets/lip_balm_closed_box.png' },
+                            { name: 'Balm Open', url: '/assets/lipbalmopenbox.png' },
                             { name: 'Manjistha Soap', url: '/assets/favourites_manjistha_soap_hd.png' },
                             { name: 'Goat Milk Soap', url: '/assets/favourites_goat_milk_soap_hd.png' },
                           ].map((ast) => (
@@ -2678,9 +3107,12 @@ export default function AdminDashboardPage() {
                               key={ast.name}
                               type="button"
                               onClick={() => {
-                                const key = 'image' in currentSectionData ? 'image' : 'bg_image' in currentSectionData ? 'bg_image' : 'banner_image';
-                                handleUpdateCmsField(selectedCmsPage, selectedCmsSection, key, ast.url);
-                                notify(`Applied ${ast.name} image`);
+                                if (imageKeys.length > 0) {
+                                  handleUpdateCmsField(selectedCmsPage, selectedCmsSection, imageKeys[0], ast.url);
+                                  notify(`Applied ${ast.name} to ${imageKeys[0]}`);
+                                } else {
+                                  notify(`Select a section with an image to apply`, 'error');
+                                }
                               }}
                               className="px-2.5 py-1 text-[10px] font-semibold bg-stone-100 hover:bg-[#E3EBE4] hover:text-[#1E3B2B] rounded-lg transition text-stone-600 cursor-pointer"
                             >
@@ -2692,7 +3124,7 @@ export default function AdminDashboardPage() {
 
                     </div>
 
-                    {/* Save Changes Floating Action Helper */}
+                    {/* Save Changes Floating Action Card */}
                     <div className="bg-[#1E3B2B] text-white p-6 rounded-3xl shadow-lg space-y-3">
                       <h4 className="font-serif font-bold text-base text-amber-300">
                         Ready to Apply Updates?

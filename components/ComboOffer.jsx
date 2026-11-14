@@ -237,7 +237,7 @@ export default function ComboOffer() {
                         }`}
                         style={{ fontVariantNumeric: 'tabular-nums' }}
                       >
-                        ₹{displayPrice}
+                        ₹{comboData.price || displayPrice}
                       </span>
                       {isPriceAnimating && (
                         <span className="ml-1 text-xs font-bold text-[#1E6B35] animate-bounce">
@@ -246,14 +246,14 @@ export default function ComboOffer() {
                       )}
                     </div>
                     <span className="text-sm sm:text-base text-stone-400 line-through font-normal">
-                      ₹898
+                      ₹{comboData.original_price || 898}
                     </span>
                     <span
                       className={`inline-flex items-center px-2.5 py-0.5 rounded-full bg-[#E3EFE5] text-[#1E6B35] border border-[#CFE5D4] text-[11px] font-bold tracking-tight transition-all duration-500 ${
                         priceSettled ? 'opacity-100 scale-100 shadow-2xs' : 'opacity-80 scale-95'
                       }`}
                     >
-                      Save ₹99 (11% OFF)
+                      {comboData.discount_label || 'Save ₹99 (11% OFF)'}
                     </span>
                   </div>
                   <div className="text-[10.5px] sm:text-[11px] font-medium text-stone-500 tracking-tight flex items-center gap-1.5 flex-wrap">
@@ -272,12 +272,12 @@ export default function ComboOffer() {
                   onClick={handleBuyCombo}
                   disabled={loading}
                   className="btn-luxury-primary inline-flex items-center justify-center gap-2 py-3.5 px-6 sm:px-7 rounded-full text-white font-semibold text-xs sm:text-sm group cursor-pointer disabled:opacity-75 whitespace-nowrap shrink-0"
-                  aria-label="Buy Combo Now for ₹799"
+                  aria-label={`Buy Combo Now for ₹${comboData.price || 799}`}
                 >
                   <svg className="w-4 h-4 text-white/90 icon-hover-bag" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                   </svg>
-                  <span>{loading ? 'Adding Combo...' : 'Buy Combo Now'}</span>
+                  <span>{loading ? 'Adding Combo...' : (comboData.cta_primary_label || 'Buy Combo Now')}</span>
                   <span className="btn-arrow font-bold icon-hover-arrow">&rarr;</span>
                 </button>
               </div>

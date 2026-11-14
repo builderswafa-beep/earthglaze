@@ -3,8 +3,13 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import api from '../../lib/api';
+import { useSiteContent } from '../../hooks/useSiteContent';
 
 export default function ContactPage() {
+  const { getSection } = useSiteContent();
+  const heroData = getSection('contact', 'hero');
+  const infoData = getSection('contact', 'info');
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -44,7 +49,7 @@ export default function ContactPage() {
         {/* Full-bleed seamless background banner image */}
         <div className="absolute inset-0 w-full h-full pointer-events-none select-none overflow-hidden z-0 hidden sm:block">
           <img 
-            src="/assets/contact_hero_seamless_hd.png" 
+            src={heroData.bg_image || heroData.image || "/assets/contact_hero_seamless_hd.png"} 
             alt="EarthGlaze Natural Skincare - Botanical mortar with herbal leaves, handmade soap on sandstone, and golden oil bottle" 
             className="w-full h-full object-cover object-right"
             loading="eager"
@@ -118,16 +123,20 @@ export default function ContactPage() {
             {/* Main Heading */}
             <div className="space-y-1">
               <h1 className="text-4xl sm:text-5xl lg:text-[56px] xl:text-[62px] font-bold text-[#1E3B2B] tracking-tight leading-[1.08] font-serif">
-                Contact Us
-                <span className="block italic font-normal text-[#C28328] mt-1 sm:mt-1.5 font-serif">
-                  We're Here for You
-                </span>
+                {heroData.title || (
+                  <>
+                    Contact Us
+                    <span className="block italic font-normal text-[#C28328] mt-1 sm:mt-1.5 font-serif">
+                      We're Here for You
+                    </span>
+                  </>
+                )}
               </h1>
             </div>
 
             {/* Subtitle Copy */}
             <p className="text-base sm:text-lg text-[#4A5568] leading-relaxed max-w-lg font-sans">
-              Have a question about our products, orders or skincare? Get in touch with our team. We'd love to hear from you!
+              {heroData.subtitle || "Have a question about our products, orders or skincare? Get in touch with our team. We'd love to hear from you!"}
             </p>
 
             {/* Mobile-only responsive visual */}
@@ -174,10 +183,10 @@ export default function ContactPage() {
                     Have a query? Talk to our support team.
                   </p>
                   <a 
-                    href="tel:+919876543210" 
+                    href={`tel:${infoData.phone?.replace(/\s+/g, '') || '+919876543210'}`} 
                     className="inline-block mt-2 font-bold text-base sm:text-lg text-[#1E3B2B] hover:text-[#2E6B3E] transition-colors"
                   >
-                    +91 98765 43210
+                    {infoData.phone || '+91 98765 43210'}
                   </a>
                 </div>
               </div>
@@ -197,10 +206,10 @@ export default function ContactPage() {
                     Drop us an email anytime.
                   </p>
                   <a 
-                    href="mailto:care@earthglanze.in" 
+                    href={`mailto:${infoData.email || 'support@earthglaze.in'}`} 
                     className="inline-block mt-2 font-bold text-base sm:text-lg text-[#1E3B2B] hover:text-[#2E6B3E] transition-colors break-all"
                   >
-                    care@earthglanze.in
+                    {infoData.email || 'support@earthglaze.in'}
                   </a>
                 </div>
               </div>
@@ -218,8 +227,7 @@ export default function ContactPage() {
                     Our Location
                   </h3>
                   <p className="text-xs sm:text-sm text-[#5C6B5E] mt-1 leading-relaxed">
-                    EarthGlanze Natural Skincare,<br />
-                    <span className="font-medium text-[#1E3B2B]">Kasaragod, Kerala – 671xxx</span>
+                    {infoData.address || 'EarthGlaze Natural Skincare, Kasaragod, Kerala – 671123'}
                   </p>
                 </div>
               </div>
@@ -236,8 +244,7 @@ export default function ContactPage() {
                     Business Hours
                   </h3>
                   <div className="text-xs sm:text-sm text-[#5C6B5E] mt-1 space-y-0.5 leading-relaxed">
-                    <p><span className="font-medium text-[#1E3B2B]">Mon – Sat:</span> 9:00 AM – 6:00 PM</p>
-                    <p><span className="font-medium text-[#C28328]">Sunday:</span> Closed</p>
+                    <p className="font-medium text-[#1E3B2B]">{infoData.timings || 'Mon – Sat: 9:00 AM – 6:00 PM (Sunday Closed)'}</p>
                   </div>
                 </div>
               </div>

@@ -3,8 +3,12 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import api from '../lib/api';
+import { useSiteContent } from '../hooks/useSiteContent';
 
 export default function Footer() {
+  const { getSection } = useSiteContent();
+  const brand = getSection('footer', 'brand');
+  const socials = getSection('footer', 'socials');
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState(null);
 
@@ -58,7 +62,7 @@ export default function Footer() {
             <div>
               <Link href="/" className="inline-block group focus-visible:outline-none">
                 <img 
-                  src="/assets/earthglaze-logo-hd.png" 
+                  src={brand.logo || "/assets/earthglaze-logo-hd.png"} 
                   alt="EarthGlaze • Natural Skincare" 
                   className="h-14 sm:h-16 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.02]"
                 />
@@ -67,14 +71,14 @@ export default function Footer() {
 
             {/* Tagline */}
             <p className="text-stone-700 text-sm leading-relaxed max-w-xs font-normal">
-              Nature-powered skincare for healthier, glowing skin.
+              {brand.tagline || 'Nature-powered skincare for healthier, glowing skin.'}
             </p>
 
             {/* 4 Circular Social Icon Buttons */}
             <div className="flex items-center gap-3 pt-2">
               {/* Instagram */}
               <a 
-                href="https://instagram.com" 
+                href={socials.instagram || "https://instagram.com"} 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 aria-label="Instagram"
@@ -89,7 +93,7 @@ export default function Footer() {
 
               {/* Facebook */}
               <a 
-                href="https://facebook.com" 
+                href={socials.facebook || "https://facebook.com"} 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 aria-label="Facebook"
@@ -102,7 +106,7 @@ export default function Footer() {
 
               {/* YouTube */}
               <a 
-                href="https://youtube.com" 
+                href={socials.youtube || "https://youtube.com"} 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 aria-label="YouTube"
@@ -115,7 +119,7 @@ export default function Footer() {
 
               {/* Pinterest */}
               <a 
-                href="https://pinterest.com" 
+                href={socials.pinterest || "https://pinterest.com"} 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 aria-label="Pinterest"
@@ -334,7 +338,7 @@ export default function Footer() {
             ==================================================================== */}
         <div className="flex items-center justify-center gap-3 sm:gap-6 text-xs text-stone-500 font-medium py-3 text-center">
           <span className="w-8 sm:w-16 h-px bg-stone-300/80 rounded-full"></span>
-          <span>&copy; 2026 EarthGlaze. All Rights Reserved.</span>
+          <span>{brand.copyright || '© 2026 EarthGlaze. All Rights Reserved.'}</span>
           <span className="w-8 sm:w-16 h-px bg-stone-300/80 rounded-full"></span>
         </div>
 

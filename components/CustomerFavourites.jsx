@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import Link from 'next/link';
 import { useCart } from '../context/CartContext';
+import { useSiteContent } from '../hooks/useSiteContent';
 import styles from './CustomerFavourites.module.css';
 
 const FAVOURITES_PRODUCTS = [
@@ -308,6 +309,8 @@ export default function CustomerFavourites() {
   const [quickViewProduct, setQuickViewProduct] = useState(null);
 
   const { addToCart } = useCart();
+  const { getSection } = useSiteContent();
+  const favData = getSection('home', 'favourites');
 
   const visibleProducts = useMemo(() => {
     if (activeFilter === 'all') return FAVOURITES_PRODUCTS;
@@ -370,13 +373,15 @@ export default function CustomerFavourites() {
         <div className="text-center max-w-2xl mx-auto mb-4 sm:mb-5">
           <span className="inline-flex items-center gap-1.5 text-[11px] uppercase font-bold tracking-[0.22em] text-[#2E6B3E] mb-1">
             <span className="w-1.5 h-1.5 rounded-full bg-[#2E6B3E]" aria-hidden="true" />
-            Pure Botanical Formulation
+            {favData.eyebrow || 'Pure Botanical Formulation'}
           </span>
           <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-serif font-bold text-[#1E3B2B] tracking-tight leading-tight">
-            Customer <span className="italic font-normal text-[#8A6A32]">Favourites</span>
+            {favData.title || (
+              <>Customer <span className="italic font-normal text-[#8A6A32]">Favourites</span></>
+            )}
           </h2>
           <p className="mt-1 text-xs sm:text-[13.5px] text-[#556358] leading-relaxed font-sans">
-            Handcrafted in small batches with cold-pressed oils &amp; pure herbs — hover or tap a card to unbox.
+            {favData.subtitle || 'Handcrafted in small batches with cold-pressed oils & pure herbs — hover or tap a card to unbox.'}
           </p>
         </div>
 

@@ -1,8 +1,9 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
+import { useSiteContent } from '../hooks/useSiteContent';
 
-const REVIEWS = [
+const DEFAULT_REVIEWS = [
   {
     id: 1,
     name: 'Ayesha N.',
@@ -62,6 +63,12 @@ const REVIEWS = [
 ];
 
 export default function CustomerReviews() {
+  const { getSection } = useSiteContent();
+  const reviewsData = getSection('home', 'reviews');
+  const reviewsList = (Array.isArray(reviewsData?.points) && reviewsData.points.length > 0)
+    ? reviewsData.points
+    : DEFAULT_REVIEWS;
+
   const scrollContainerRef = useRef(null);
   const [isPaused, setIsPaused] = useState(false);
   const [activeIdx, setActiveIdx] = useState(0);
@@ -86,12 +93,12 @@ export default function CustomerReviews() {
       } else {
         container.scrollBy({ left: step, behavior: 'smooth' });
         const nextIdx = Math.round((container.scrollLeft + step) / step);
-        setActiveIdx(nextIdx % REVIEWS.length);
+        setActiveIdx(nextIdx % reviewsList.length);
       }
     }, 3400);
 
     return () => clearInterval(interval);
-  }, [isPaused]);
+  }, [isPaused, reviewsList.length]);
 
   // Sync active dot on manual scroll
   const handleScroll = () => {
@@ -101,7 +108,7 @@ export default function CustomerReviews() {
     const cardWidth = card ? card.offsetWidth : 340;
     const step = cardWidth + 20;
     const currentIndex = Math.round(container.scrollLeft / step);
-    setActiveIdx(Math.min(currentIndex, REVIEWS.length - 1));
+    setActiveIdx(Math.min(currentIndex, reviewsList.length - 1));
   };
 
   const scrollPrev = () => {
@@ -143,22 +150,30 @@ export default function CustomerReviews() {
 
       <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-8 lg:px-12 relative z-10">
         
-        {/* Section Header: Eyebrow & Title (EarthGlaze logo removed as requested) */}
+        {/* Section Header: Eyebrow & Title */}
         <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-12">
           
-          {/* Eyebrow: Centered with Flanking Dividers */}
+          {/* Eyebrow */}
           <div className="flex items-center justify-center gap-3.5 mb-2 sm:mb-2.5">
             <span className="eyebrow-divider" aria-hidden="true"></span>
             <span className="text-xs sm:text-sm font-semibold tracking-[0.25em] text-[#3e5444] uppercase font-sans">
-              Customer Reviews
+              {reviewsData.eyebrow || 'Customer Reviews'}
             </span>
             <span className="eyebrow-divider" aria-hidden="true"></span>
           </div>
 
           {/* Main Title with Amber Serif Italic Accent */}
           <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-bold text-[#1E3B2B] tracking-tight leading-[1.12]">
-            Loved by Our <span className="text-[#C28328] italic font-serif font-normal">Customers</span>
+            {reviewsData.title || (
+              <>Loved by Our <span className="text-[#C28328] italic font-serif font-normal">Customers</span></>
+            )}
           </h2>
+
+          {reviewsData.subtitle && (
+            <p className="mt-2 text-xs sm:text-sm text-stone-600 max-w-lg mx-auto">
+              {reviewsData.subtitle}
+            </p>
+          )}
 
         </div>
 
@@ -205,9 +220,9 @@ export default function CustomerReviews() {
               msOverflowStyle: 'none',
             }}
           >
-            {REVIEWS.map((review, idx) => (
+            {reviewsList.map((review, idx) => (
               <div 
-                key={review.id}
+                key={review.id || idx}
                 className={`review-card-item w-[290px] sm:w-[330px] lg:w-[350px] shrink-0 bg-white rounded-3xl p-5 sm:p-6 shadow-sm border transition-all duration-300 flex flex-col justify-between hover:shadow-lg hover:-translate-y-1.5 ${
                   review.featured 
                     ? 'border-2 border-amber-300/80 ring-2 ring-amber-100/60 shadow-md' 
@@ -216,16 +231,15 @@ export default function CustomerReviews() {
                 data-review-idx={idx}
               >
                 <div>
-                  {/* Clean Customer Header (Character Avatar Photo Removed as requested) */}
                   <div className="flex items-start justify-between gap-3 mb-3">
                     <div>
                       <h4 className="font-serif font-bold text-base sm:text-lg text-[#1E3B2B] leading-tight">
-                        {review.name}
+                        {review.name || review.title}
                       </h4>
                       
                       {/* 5 Golden Stars */}
                       <div className="flex items-center gap-0.5 mt-1.5 text-[#F5A623]">
-                        {[...Array(review.rating)].map((_, i) => (
+                        {[...Array(Number(review.rating) || 5)].map((_, i) => (
                           <svg key={i} className="w-3.5 h-3.5 fill-current" viewBox="0 0 20 20">
                             <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
                           </svg>
@@ -243,7 +257,7 @@ export default function CustomerReviews() {
 
                   {/* Review Text */}
                   <p className="text-xs sm:text-[13.5px] text-[#404F44] leading-relaxed font-normal font-sans pt-1">
-                    &ldquo;{review.comment}&rdquo;
+                    &ldquo;{review.comment || review.desc || review.text}&rdquo;
                   </p>
                 </div>
 
@@ -256,16 +270,16 @@ export default function CustomerReviews() {
                     Verified Customer
                   </span>
                   <span className="text-stone-400 font-medium">
-                    {review.product}
+                    {review.product || 'Artisanal Care'}
                   </span>
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Pagination Indicator Dots (All 7 Reviews) */}
+          {/* Pagination Indicator Dots */}
           <div className="flex items-center justify-center gap-2 mt-6 sm:mt-8">
-            {REVIEWS.map((_, i) => (
+            {reviewsList.map((_, i) => (
               <button 
                 key={i}
                 type="button" 

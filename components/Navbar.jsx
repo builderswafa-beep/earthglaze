@@ -5,10 +5,13 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
+import { useSiteContent } from '../hooks/useSiteContent';
 import AuthModal from './AuthModal';
 
 export default function Navbar() {
   const pathname = usePathname();
+  const { getSection } = useSiteContent();
+  const brand = getSection('footer', 'brand');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
@@ -54,7 +57,7 @@ export default function Navbar() {
           <Link href="/" className="flex items-center gap-2 shrink-0 group focus-visible:outline-none rounded-lg" aria-label="EarthGlaze Natural Skincare Home">
             <img 
               id="header-brand-logo"
-              src="/assets/earthglaze-logo-hd.png"
+              src={brand.logo || "/assets/earthglaze-logo-hd.png"}
               alt="EarthGlaze • Natural Skincare" 
               className={`w-auto max-w-[140px] sm:max-w-none object-contain transition-all duration-300 group-hover:scale-[1.02] ${
                 scrolled 

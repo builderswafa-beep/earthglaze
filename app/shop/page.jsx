@@ -3,6 +3,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 import { useCart } from '../../context/CartContext';
+import { useSiteContent } from '../../hooks/useSiteContent';
 import api from '../../lib/api';
 
 // Products matching reference image exactly with HD photography
@@ -53,6 +54,8 @@ const SHOP_PRODUCTS = [
 
 export default function ShopPage() {
   const { addToCart } = useCart();
+  const { getSection } = useSiteContent();
+  const shopData = getSection('shop', 'hero');
   const [dbProducts, setDbProducts] = useState(SHOP_PRODUCTS);
   const [activeTab, setActiveTab] = useState('All Products');
   const [selectedCategories, setSelectedCategories] = useState([]);
@@ -217,7 +220,7 @@ export default function ShopPage() {
         
         {/* Right Corner Foliage Accent */}
         <img 
-          src="/assets/banner_offer_top_leaves.png" 
+          src={shopData.banner_image || "/assets/banner_offer_top_leaves.png"} 
           alt="" 
           className="absolute top-0 right-0 w-48 sm:w-64 lg:w-80 pointer-events-none select-none opacity-90 z-0" 
           aria-hidden="true" 
@@ -238,13 +241,17 @@ export default function ShopPage() {
             <div className="lg:col-span-6 space-y-4">
               
               <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[56px] font-bold text-[#1E3B2B] leading-[1.15] tracking-tight">
-                Shop Our <br />
-                <span className="text-[#1E3B2B]">Natural </span>
-                <span className="text-[#C28328] italic font-serif font-normal">Skincare Range</span>
+                {shopData.title || (
+                  <>
+                    Shop Our <br />
+                    <span className="text-[#1E3B2B]">Natural </span>
+                    <span className="text-[#C28328] italic font-serif font-normal">Skincare Range</span>
+                  </>
+                )}
               </h1>
 
               <p className="text-sm sm:text-base md:text-lg text-[#5C6B5E] max-w-lg leading-relaxed font-sans pt-1">
-                Pure, plant-based essentials crafted for healthy, radiant skin.
+                {shopData.subtitle || 'Pure, plant-based essentials crafted for healthy, radiant skin.'}
               </p>
 
             </div>
