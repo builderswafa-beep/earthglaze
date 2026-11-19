@@ -5,9 +5,10 @@ const nextConfig = {
     unoptimized: true,
   },
   experimental: {
-    // Limit worker count to 1 to prevent EAGAIN process-spawn exhaustion in constrained environments
+    // Limit worker count to 1 and switch to in-process worker_threads
+    // instead of child_process.fork() to eliminate OS process spawn EAGAIN errors
     cpus: 1,
-    workerThreads: false,
+    workerThreads: true,
   },
 };
 
