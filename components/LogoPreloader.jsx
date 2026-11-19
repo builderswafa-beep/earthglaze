@@ -3,16 +3,44 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 export default function LogoPreloader() {
-  const [phase, setPhase] = useState('center'); // 'center' | 'flying' | 'done'
+  const [phase, setPhase] = useState(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        if (sessionStorage.getItem('eg_preloaded') === 'true') {
+          return 'done';
+        }
+      } catch (e) {}
+    }
+    return 'center';
+  });
   const [logoCoords, setLogoCoords] = useState(null);
   const [progress, setProgress] = useState(0);
   const [targetRect, setTargetRect] = useState(null);
   const preloaderLogoRef = useRef(null);
 
   useEffect(() => {
+    // If already preloaded in this session, don't run
+    try {
+      if (sessionStorage.getItem('eg_preloaded') === 'true') {
+        setPhase('done');
+        return;
+      }
+    } catch (e) {}
+
     // Prevent scrolling while preloader is active
     const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
+
+    // Absolute safety timeout: force completion after 1.8s max
+    const safetyTimer = setTimeout(() => {
+      document.body.style.overflow = originalOverflow || '';
+      const headerLogo = document.getElementById('header-brand-logo');
+      if (headerLogo) {
+        headerLogo.style.opacity = '1';
+      }
+      try { sessionStorage.setItem('eg_preloaded', 'true'); } catch (e) {}
+      setPhase('done');
+    }, 1800);
 
     // Measure initial center position
     const timer = setTimeout(() => {
@@ -25,11 +53,11 @@ export default function LogoPreloader() {
           height: rect.height,
         });
       }
-    }, 50);
+    }, 30);
 
-    // Smooth progress animation from 0 to 100
+    // Smooth fast progress animation from 0 to 100
     const startProgressTime = performance.now();
-    const progressDuration = 1100;
+    const progressDuration = 600;
 
     const updateProgress = (now) => {
       const elapsed = now - startProgressTime;
@@ -50,26 +78,23 @@ export default function LogoPreloader() {
               width: hRect.width,
               height: hRect.height,
             });
-
-            // Hide header logo temporarily while preloader logo flies into it
             headerLogo.style.opacity = '0';
           }
           // Initiate flight to header
           setPhase('flying');
-
-          // Restore page scroll as flight begins
           document.body.style.overflow = originalOverflow || '';
 
-          // Finish docking after flight duration (950ms)
+          // Finish docking after flight duration (500ms)
           setTimeout(() => {
             const headerLogo = document.getElementById('header-brand-logo');
             if (headerLogo) {
               headerLogo.style.opacity = '1';
               headerLogo.style.transition = 'opacity 0.2s ease-in';
             }
+            try { sessionStorage.setItem('eg_preloaded', 'true'); } catch (e) {}
             setPhase('done');
-          }, 950);
-        }, 150);
+          }, 500);
+        }, 80);
       }
     };
 
@@ -78,6 +103,7 @@ export default function LogoPreloader() {
     return () => {
       cancelAnimationFrame(animFrame);
       clearTimeout(timer);
+      clearTimeout(safetyTimer);
       document.body.style.overflow = originalOverflow || '';
     };
   }, []);
