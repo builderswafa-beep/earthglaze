@@ -1,0 +1,228 @@
+{
+  "version": 3,
+  "pages404": true,
+  "appType": "app",
+  "caseSensitive": false,
+  "basePath": "",
+  "redirects": [
+    {
+      "source": "/:path+/",
+      "destination": "/:path+",
+      "internal": true,
+      "priority": true,
+      "statusCode": 308,
+      "regex": "^(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))/$"
+    }
+  ],
+  "headers": [],
+  "onMatchHeaders": [],
+  "rewrites": {
+    "beforeFiles": [],
+    "afterFiles": [],
+    "fallback": []
+  },
+  "dynamicRoutes": [
+    {
+      "page": "/blog/[slug]",
+      "regex": "^/blog/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPslug": "nxtPslug"
+      },
+      "namedRegex": "^/blog/(?<nxtPslug>[^/]+?)(?:/)?$"
+    }
+  ],
+  "staticRoutes": [
+    {
+      "page": "/",
+      "regex": "^/(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/(?:/)?$"
+    },
+    {
+      "page": "/_global-error",
+      "regex": "^/_global\\-error(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_global\\-error(?:/)?$"
+    },
+    {
+      "page": "/_not-found",
+      "regex": "^/_not\\-found(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_not\\-found(?:/)?$"
+    },
+    {
+      "page": "/about",
+      "regex": "^/about(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/about(?:/)?$"
+    },
+    {
+      "page": "/account",
+      "regex": "^/account(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/account(?:/)?$"
+    },
+    {
+      "page": "/admin",
+      "regex": "^/admin(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin(?:/)?$"
+    },
+    {
+      "page": "/api/admin/content",
+      "regex": "^/api/admin/content(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/admin/content(?:/)?$"
+    },
+    {
+      "page": "/api/admin/coupons",
+      "regex": "^/api/admin/coupons(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/admin/coupons(?:/)?$"
+    },
+    {
+      "page": "/api/admin/customers",
+      "regex": "^/api/admin/customers(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/admin/customers(?:/)?$"
+    },
+    {
+      "page": "/api/admin/orders",
+      "regex": "^/api/admin/orders(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/admin/orders(?:/)?$"
+    },
+    {
+      "page": "/api/admin/products",
+      "regex": "^/api/admin/products(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/admin/products(?:/)?$"
+    },
+    {
+      "page": "/api/admin/stats",
+      "regex": "^/api/admin/stats(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/admin/stats(?:/)?$"
+    },
+    {
+      "page": "/api/auth/login",
+      "regex": "^/api/auth/login(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/auth/login(?:/)?$"
+    },
+    {
+      "page": "/api/auth/me",
+      "regex": "^/api/auth/me(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/auth/me(?:/)?$"
+    },
+    {
+      "page": "/api/auth/profile",
+      "regex": "^/api/auth/profile(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/auth/profile(?:/)?$"
+    },
+    {
+      "page": "/api/auth/register",
+      "regex": "^/api/auth/register(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/auth/register(?:/)?$"
+    },
+    {
+      "page": "/api/contact/submit",
+      "regex": "^/api/contact/submit(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/contact/submit(?:/)?$"
+    },
+    {
+      "page": "/api/products",
+      "regex": "^/api/products(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/products(?:/)?$"
+    },
+    {
+      "page": "/blog",
+      "regex": "^/blog(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/blog(?:/)?$"
+    },
+    {
+      "page": "/blog/a-natural-skincare-routine-with-earthglanze-essentials",
+      "regex": "^/blog/a\\-natural\\-skincare\\-routine\\-with\\-earthglanze\\-essentials(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/blog/a\\-natural\\-skincare\\-routine\\-with\\-earthglanze\\-essentials(?:/)?$"
+    },
+    {
+      "page": "/cart",
+      "regex": "^/cart(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/cart(?:/)?$"
+    },
+    {
+      "page": "/checkout",
+      "regex": "^/checkout(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/checkout(?:/)?$"
+    },
+    {
+      "page": "/contact",
+      "regex": "^/contact(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/contact(?:/)?$"
+    },
+    {
+      "page": "/order-confirmation",
+      "regex": "^/order\\-confirmation(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/order\\-confirmation(?:/)?$"
+    },
+    {
+      "page": "/payment",
+      "regex": "^/payment(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/payment(?:/)?$"
+    },
+    {
+      "page": "/product",
+      "regex": "^/product(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/product(?:/)?$"
+    },
+    {
+      "page": "/shop",
+      "regex": "^/shop(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/shop(?:/)?$"
+    },
+    {
+      "page": "/story",
+      "regex": "^/story(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/story(?:/)?$"
+    },
+    {
+      "page": "/track-order",
+      "regex": "^/track\\-order(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/track\\-order(?:/)?$"
+    }
+  ],
+  "dataRoutes": [],
+  "rsc": {
+    "header": "rsc",
+    "varyHeader": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+    "prefetchHeader": "next-router-prefetch",
+    "didPostponeHeader": "x-nextjs-postponed",
+    "contentTypeHeader": "text/x-component",
+    "suffix": ".rsc",
+    "prefetchSegmentHeader": "next-router-segment-prefetch",
+    "prefetchSegmentSuffix": ".segment.rsc",
+    "prefetchSegmentDirSuffix": ".segments",
+    "clientParamParsing": false,
+    "dynamicRSCPrerender": false
+  },
+  "rewriteHeaders": {
+    "pathHeader": "x-nextjs-rewritten-path",
+    "queryHeader": "x-nextjs-rewritten-query"
+  }
+}

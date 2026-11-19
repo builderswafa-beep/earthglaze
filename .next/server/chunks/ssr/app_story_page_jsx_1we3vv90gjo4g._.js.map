@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../../app/story/page.jsx"],"sourcesContent":["'use client';\r\n\r\nimport AboutPage from '../about/page';\r\n\r\nexport default function StoryPage() {\r\n  return <AboutPage />;\r\n}\r\n"],"names":["StoryPage"],"mappings":"wDAEA,EAAA,EAAA,CAAA,CAAA,wBAEe,SAASA,EACtB,MAAO,CAAA,EAAA,EAAA,GAAA,EAAC,EAAA,OAAS,CAAA,CAAA,EACnB"}

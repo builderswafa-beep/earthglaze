@@ -1,5 +1,7 @@
 # Next.js
-.next/
+.next/cache/
+.next/dev/
+.next/diagnostics/
 out/
 build/
 dist/

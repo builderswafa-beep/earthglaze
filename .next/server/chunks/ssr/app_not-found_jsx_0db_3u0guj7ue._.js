@@ -1,0 +1,3 @@
+module.exports=[2728,a=>{"use strict";let b=(0,a.i(11857).registerClientReference)(function(){throw Error("Attempted to call the default export of [project]/app/not-found.jsx from the server, but it's on the client. It's not possible to invoke a client function from the server, it can only be rendered as a Component or passed to props of a Client Component.")},"[project]/app/not-found.jsx","default");a.s(["default",0,b])},38806,a=>{"use strict";var b=a.i(2728);a.n(b)},23268,function(a){a.n(a.i(38806))}];
+
+//# sourceMappingURL=app_not-found_jsx_0db_3u0guj7ue._.js.map

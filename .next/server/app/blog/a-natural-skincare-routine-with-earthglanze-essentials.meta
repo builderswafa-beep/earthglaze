@@ -1,0 +1,39 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/blog/layout,_N_T_/blog/a-natural-skincare-routine-with-earthglanze-essentials/layout,_N_T_/blog/a-natural-skincare-routine-with-earthglanze-essentials/page,_N_T_/blog/a-natural-skincare-routine-with-earthglanze-essentials"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/blog/a-natural-skincare-routine-with-earthglanze-essentials/__PAGE__"
+  ],
+  "prefetchHints": {
+    "hints": 64,
+    "slots": {
+      "children": {
+        "hints": 96,
+        "slots": {
+          "children": {
+            "hints": 96,
+            "slots": {
+              "children": {
+                "hints": 160,
+                "slots": null
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "routeCache": {
+    "key": "/route-cache/APP_PAGE/62f87a1c58fd7b8e59d358a3590793cf8c3241c3c9930bed319aa215f13fd243/$/blog/a-natural-skincare-routine-with-earthglanze-essentials",
+    "owner": {
+      "kind": "APP_PAGE",
+      "sourceRoute": "/blog/a-natural-skincare-routine-with-earthglanze-essentials/page"
+    },
+    "isFallback": false
+  }
+}

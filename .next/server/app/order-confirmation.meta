@@ -1,0 +1,34 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/order-confirmation/layout,_N_T_/order-confirmation/page,_N_T_/order-confirmation"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/order-confirmation/__PAGE__"
+  ],
+  "prefetchHints": {
+    "hints": 64,
+    "slots": {
+      "children": {
+        "hints": 96,
+        "slots": {
+          "children": {
+            "hints": 160,
+            "slots": null
+          }
+        }
+      }
+    }
+  },
+  "routeCache": {
+    "key": "/route-cache/APP_PAGE/9c22cfb3634dd447c46b81253387d566150b9a8274bace2af82af2df81c8c423/$/order-confirmation",
+    "owner": {
+      "kind": "APP_PAGE",
+      "sourceRoute": "/order-confirmation/page"
+    },
+    "isFallback": false
+  }
+}
