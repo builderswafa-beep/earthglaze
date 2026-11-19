@@ -60,6 +60,17 @@ console.log('[EarthGlaze Server] Preparing Next.js production app...');
 app.prepare()
   .then(() => {
     const server = http.createServer((req, res) => {
+      const host = (req.headers['x-forwarded-host'] || req.headers.host || '').toLowerCase().split(':')[0];
+      // Automatically redirect non-www earthglazebeauty.com to www.earthglazebeauty.com
+      if (host === 'earthglazebeauty.com') {
+        const targetUrl = `https://www.earthglazebeauty.com${req.url || '/'}`;
+        res.writeHead(301, {
+          Location: targetUrl,
+          'Content-Type': 'text/plain',
+        });
+        return res.end(`Redirecting to ${targetUrl}`);
+      }
+
       handle(req, res);
     });
 
