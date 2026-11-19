@@ -93,7 +93,8 @@ export default function CheckoutPage() {
         duration: 0.7,
         stagger: 0.12,
         ease: 'power2.out',
-        delay: 0.1
+        delay: 0.1,
+        clearProps: 'transform'
       });
 
       // Stepper checkmark scale-bounce
@@ -229,21 +230,21 @@ export default function CheckoutPage() {
   };
 
   return (
-    <div ref={containerRef} className="w-full min-h-screen bg-[#FAF7F2] text-[#0D2D1C] font-sans relative overflow-x-hidden pb-16">
+    <div ref={containerRef} className="w-full min-h-screen bg-[#FAF7F2] text-[#0D2D1C] font-sans relative pb-16">
       
-      {/* Decorative Corner Foliage */}
-      <img
-        src="/assets/banner_offer_top_leaves.png"
-        alt=""
-        className="absolute -top-6 -right-6 w-44 sm:w-60 pointer-events-none select-none opacity-80 z-0"
-        aria-hidden="true"
-      />
-      <img
-        src="/assets/banner_offer_top_leaves.png"
-        alt=""
-        className="absolute bottom-0 left-0 w-40 sm:w-56 pointer-events-none select-none opacity-50 z-0 scale-x-[-1] scale-y-[-1]"
-        aria-hidden="true"
-      />
+      {/* Decorative Corner Foliage Container (Clipped to prevent horizontal scroll without breaking sticky) */}
+      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0" aria-hidden="true">
+        <img
+          src="/assets/banner_offer_top_leaves.png"
+          alt=""
+          className="absolute -top-6 -right-6 w-44 sm:w-60 opacity-80"
+        />
+        <img
+          src="/assets/banner_offer_top_leaves.png"
+          alt=""
+          className="absolute bottom-0 left-0 w-40 sm:w-56 opacity-50 scale-x-[-1] scale-y-[-1]"
+        />
+      </div>
 
       <div className="relative z-10 max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-10 pt-6 sm:pt-8">
         
@@ -358,7 +359,7 @@ export default function CheckoutPage() {
         {/* =========================================================================
             TWO COLUMN LAYOUT: FORM (LEFT 8 COLS) + ORDER SUMMARY (RIGHT 4 COLS)
             ========================================================================= */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
           
           {/* ================= LEFT COLUMN: DELIVERY & PAYMENT ================= */}
           <div className="lg:col-span-8 space-y-6">
@@ -650,9 +651,9 @@ export default function CheckoutPage() {
           </div>
 
           {/* ================= RIGHT COLUMN: ORDER SUMMARY ================= */}
-          <div className="lg:col-span-4 sticky top-24">
-            
-            <div className="checkout-summary-card bg-white/95 backdrop-blur-xs rounded-[28px] border border-[#EAE3D2] p-6 sm:p-7 shadow-sm relative overflow-hidden space-y-5">
+          <div className="lg:col-span-4">
+            <div className="lg:sticky lg:top-24 z-20">
+              <div className="checkout-summary-card bg-white/95 backdrop-blur-xs rounded-[28px] border border-[#EAE3D2] p-6 sm:p-7 shadow-sm relative overflow-hidden space-y-5">
               
               {/* Corner Decorative Botanical Leaf */}
               <img
@@ -784,6 +785,8 @@ export default function CheckoutPage() {
             </div>
 
           </div>
+
+        </div>
 
         </div>
 

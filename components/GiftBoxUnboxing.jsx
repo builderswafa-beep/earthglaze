@@ -9,6 +9,7 @@ export default function GiftBoxUnboxing({
   items = [],
   activeOrderNum = 'EG54586',
   onComplete,
+  children,
 }) {
   const containerRef = useRef(null);
   const stage1WrapperRef = useRef(null);
@@ -441,7 +442,7 @@ export default function GiftBoxUnboxing({
   return (
     <div
       ref={containerRef}
-      className="relative w-full max-w-4xl mx-auto flex flex-col items-center justify-center select-none pt-2 sm:pt-4 pb-2"
+      className="relative w-full max-w-[1240px] mx-auto flex flex-col items-center justify-center select-none pt-2 sm:pt-4 pb-2"
     >
       {/* =====================================================================
           1. FIRST ANIMATION: CLEAN ATTRACTIVE GREEN SUCCESS CIRCLE & TICK
@@ -558,166 +559,177 @@ export default function GiftBoxUnboxing({
       </div>
 
       {/* =====================================================================
-          3. NEW LUXURY EARTHGLAZE OPEN GIFT BOX STAGE
-          - Uses the newly provided official EarthGlaze gift box image exactly
-          - Preserves all colors, logo, leaves, icons and 3D proportions
-          - Products start neatly INSIDE the open box cavity
-          - Products smoothly float out one by one with realistic contact shadows
-          - Staggered, aligned showcase formation with zero overlapping
+          3. TWO-COLUMN LAYOUT:
+             LEFT (lg:col-span-5): 3D LUXURY OPEN GIFT BOX + ACTION BUTTONS
+             RIGHT (lg:col-span-7): ORDER SUMMARY & DETAILS CARD
           ===================================================================== */}
-      <div
-        ref={boxStageRef}
-        className="relative z-20 w-full max-w-[270px] sm:max-w-[320px] aspect-[662/649] mx-auto mt-4 sm:mt-5 opacity-0"
-      >
-        {/* Soft Ambient Contact Studio Shadow beneath Box */}
-        <div
-          className="absolute -bottom-5 left-1/2 -translate-x-1/2 w-[88%] h-10 rounded-[100%] pointer-events-none"
-          style={{
-            background: 'radial-gradient(ellipse at center, rgba(16, 51, 33, 0.42) 0%, rgba(30, 20, 10, 0.18) 50%, transparent 75%)',
-            filter: 'blur(14px)',
-          }}
-        />
+      <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start mt-6 sm:mt-8">
+        
+        {/* LEFT COLUMN: 3D LUXURY OPEN GIFT BOX + ACTION BUTTONS */}
+        <div className="lg:col-span-5 flex flex-col items-center justify-center">
+          
+          {/* 3D LUXURY EARTHGLAZE OPEN GIFT BOX STAGE */}
+          <div
+            ref={boxStageRef}
+            className="relative z-20 w-full max-w-[270px] sm:max-w-[320px] aspect-[662/649] mx-auto opacity-0"
+          >
+            {/* Soft Ambient Contact Studio Shadow beneath Box */}
+            <div
+              className="absolute -bottom-5 left-1/2 -translate-x-1/2 w-[88%] h-10 rounded-[100%] pointer-events-none"
+              style={{
+                background: 'radial-gradient(ellipse at center, rgba(16, 51, 33, 0.42) 0%, rgba(30, 20, 10, 0.18) 50%, transparent 75%)',
+                filter: 'blur(14px)',
+              }}
+            />
 
-        {/* Layer 1: Base Open Box (Lid upright + Champagne Interior Cavity + Box Base) */}
-        <img
-          src="/assets/earthglaze_luxury_box_crop.png"
-          alt="EarthGlaze Luxury Gift Box"
-          className="absolute inset-0 w-full h-full object-contain pointer-events-none select-none z-10 drop-shadow-md"
-        />
+            {/* Layer 1: Base Open Box (Lid upright + Champagne Interior Cavity + Box Base) */}
+            <img
+              src="/assets/earthglaze_luxury_box_crop.png"
+              alt="EarthGlaze Luxury Gift Box"
+              className="absolute inset-0 w-full h-full object-contain pointer-events-none select-none z-10 drop-shadow-md"
+            />
 
-        {/* Layer 2: Products Layer (Starts inside cavity, floats out one-by-one) */}
-        <div className="absolute inset-0 pointer-events-none">
-          {displayProducts.map((prod, idx) => {
-            const count = displayProducts.length;
+            {/* Layer 2: Products Layer (Starts inside cavity, floats out one-by-one) */}
+            <div className="absolute inset-0 pointer-events-none">
+              {displayProducts.map((prod, idx) => {
+                const count = displayProducts.length;
 
-            // Inside-box starting coordinates (percentage of 662x649 box)
-            let startLeft = '38%';
-            let startTop = '34%';
-            let startWidth = '27%';
-            let startRot = 0;
+                // Inside-box starting coordinates (percentage of 662x649 box)
+                let startLeft = '38%';
+                let startTop = '34%';
+                let startWidth = '27%';
+                let startRot = 0;
 
-            if (count === 3) {
-              if (idx === 0) {
-                startLeft = '14%';
-                startTop = '41%';
-                startWidth = '23%';
-                startRot = -3;
-              } else if (idx === 1) {
-                startLeft = '38.5%';
-                startTop = '37%';
-                startWidth = '23%';
-                startRot = 0;
-              } else if (idx === 2) {
-                startLeft = '63%';
-                startTop = '41%';
-                startWidth = '21%';
-                startRot = 3;
-              }
-            } else if (count === 2) {
-              if (idx === 0) {
-                startLeft = '20%';
-                startTop = '39%';
-                startWidth = '25%';
-                startRot = -2;
-              } else if (idx === 1) {
-                startLeft = '55%';
-                startTop = '39%';
-                startWidth = '25%';
-                startRot = 2;
-              }
-            } else if (count === 1) {
-              startLeft = '37%';
-              startTop = '39%';
-              startWidth = '26%';
-              startRot = 0;
-            }
+                if (count === 3) {
+                  if (idx === 0) {
+                    startLeft = '14%';
+                    startTop = '41%';
+                    startWidth = '23%';
+                    startRot = -3;
+                  } else if (idx === 1) {
+                    startLeft = '38.5%';
+                    startTop = '37%';
+                    startWidth = '23%';
+                    startRot = 0;
+                  } else if (idx === 2) {
+                    startLeft = '63%';
+                    startTop = '41%';
+                    startWidth = '21%';
+                    startRot = 3;
+                  }
+                } else if (count === 2) {
+                  if (idx === 0) {
+                    startLeft = '20%';
+                    startTop = '39%';
+                    startWidth = '25%';
+                    startRot = -2;
+                  } else if (idx === 1) {
+                    startLeft = '55%';
+                    startTop = '39%';
+                    startWidth = '25%';
+                    startRot = 2;
+                  }
+                } else if (count === 1) {
+                  startLeft = '37%';
+                  startTop = '39%';
+                  startWidth = '26%';
+                  startRot = 0;
+                }
 
-            return (
-              <div
-                key={prod.id || idx}
-                className="floating-product-unit absolute flex flex-col items-center pointer-events-none"
-                style={{
-                  left: startLeft,
-                  top: startTop,
-                  width: startWidth,
-                  transform: `rotate(${startRot}deg)`,
-                  zIndex: 20 + idx, // initially inside cavity, behind front wall (z-30)
-                }}
-              >
-                {/* Packshot Image Container */}
-                <div className="relative w-full aspect-square flex items-center justify-center">
-                  <img
-                    src={prod.image}
-                    alt={prod.name}
-                    className="max-h-full max-w-full object-contain select-none drop-shadow-[0_8px_16px_rgba(10,30,15,0.35)]"
-                  />
-                </div>
+                return (
+                  <div
+                    key={prod.id || idx}
+                    className="floating-product-unit absolute flex flex-col items-center pointer-events-none"
+                    style={{
+                      left: startLeft,
+                      top: startTop,
+                      width: startWidth,
+                      transform: `rotate(${startRot}deg)`,
+                      zIndex: 20 + idx, // initially inside cavity, behind front wall (z-30)
+                    }}
+                  >
+                    {/* Packshot Image Container */}
+                    <div className="relative w-full aspect-square flex items-center justify-center">
+                      <img
+                        src={prod.image}
+                        alt={prod.name}
+                        className="max-h-full max-w-full object-contain select-none drop-shadow-[0_8px_16px_rgba(10,30,15,0.35)]"
+                      />
+                    </div>
 
-                {/* Realistic Oval Contact Drop Shadow beneath settled product */}
-                <div
-                  className="product-shadow w-[85%] h-3 rounded-[100%] pointer-events-none mt-1 opacity-0"
-                  style={{
-                    background: 'radial-gradient(ellipse at center, rgba(16, 51, 33, 0.45) 0%, rgba(30, 20, 10, 0.2) 50%, transparent 75%)',
-                    filter: 'blur(4px)',
-                  }}
-                />
+                    {/* Realistic Oval Contact Drop Shadow beneath settled product */}
+                    <div
+                      className="product-shadow w-[85%] h-3 rounded-[100%] pointer-events-none mt-1 opacity-0"
+                      style={{
+                        background: 'radial-gradient(ellipse at center, rgba(16, 51, 33, 0.45) 0%, rgba(30, 20, 10, 0.2) 50%, transparent 75%)',
+                        filter: 'blur(4px)',
+                      }}
+                    />
 
-                {/* Elegant Frosted Formulation Pill Tag */}
-                <div className="product-tag mt-1 px-1.5 sm:px-2 py-0.5 rounded-full bg-[#103321]/95 backdrop-blur-md border border-[#D4AF37]/70 shadow-md flex items-center gap-1 whitespace-nowrap opacity-0">
-                  <span className="font-sans font-bold text-[8.5px] sm:text-[9.5px] text-[#FAF7F2] truncate max-w-[68px] sm:max-w-[92px]">
-                    {prod.qty}× {prod.name}
-                  </span>
-                  <span className="text-[8.5px] sm:text-[9.5px] font-bold text-[#FDE047] shrink-0">
-                    • ₹{prod.price}
-                  </span>
-                </div>
-              </div>
-            );
-          })}
+                    {/* Elegant Frosted Formulation Pill Tag */}
+                    <div className="product-tag mt-1 px-1.5 sm:px-2 py-0.5 rounded-full bg-[#103321]/95 backdrop-blur-md border border-[#D4AF37]/70 shadow-md flex items-center gap-1 whitespace-nowrap opacity-0">
+                      <span className="font-sans font-bold text-[8.5px] sm:text-[9.5px] text-[#FAF7F2] truncate max-w-[68px] sm:max-w-[92px]">
+                        {prod.qty}× {prod.name}
+                      </span>
+                      <span className="text-[8.5px] sm:text-[9.5px] font-bold text-[#FDE047] shrink-0">
+                        • ₹{prod.price}
+                      </span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Layer 3: Foreground Box Front Lip & Right Side Wall */}
+            {/* Occludes the bottom of products while they are inside the box! */}
+            <img
+              src="/assets/earthglaze_luxury_box_front_crop.png"
+              alt="EarthGlaze Box Front Lip"
+              className="absolute inset-0 w-full h-full object-contain pointer-events-none select-none z-30"
+            />
+          </div>
+
+          {/* ACTION BUTTONS: TRACK YOUR ORDER & CONTINUE SHOPPING */}
+          <div
+            ref={actionButtonsRef}
+            className="mt-6 sm:mt-7 flex flex-wrap items-center justify-center gap-3 w-full max-w-sm sm:max-w-md z-30 px-2 opacity-0"
+          >
+            <Link
+              href={`/track-order?order_number=${activeOrderNum}`}
+              className="flex-1 min-w-[160px] px-5 py-3 bg-[#103321] hover:bg-[#173F2B] text-[#FAF7F2] font-bold text-xs sm:text-sm rounded-full transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2 group active:scale-95 cursor-pointer border border-[#173F2B]"
+            >
+              <svg className="w-4 h-4 text-[#86EFAC]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="1" y="3" width="15" height="13" />
+                <polygon points="16 8 20 8 23 11 23 16 16 16 16 8" />
+                <circle cx="5.5" cy="18.5" r="2.5" />
+                <circle cx="18.5" cy="18.5" r="2.5" />
+              </svg>
+              <span>Track Your Order</span>
+              <span className="transition-transform duration-300 group-hover:translate-x-1 font-sans">→</span>
+            </Link>
+
+            <Link
+              href="/shop"
+              className="flex-1 min-w-[150px] px-5 py-3 bg-[#FAF7F2] hover:bg-white text-[#103321] font-semibold text-xs sm:text-sm rounded-full transition-all duration-200 border border-[#D6CEBF] shadow-xs hover:shadow-md flex items-center justify-center gap-2 active:scale-95 cursor-pointer"
+            >
+              <svg className="w-4 h-4 text-[#15803D]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="9" cy="21" r="1" />
+                <circle cx="20" cy="21" r="1" />
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+              </svg>
+              <span>Continue Shopping</span>
+            </Link>
+          </div>
+
         </div>
 
-        {/* Layer 3: Foreground Box Front Lip & Right Side Wall */}
-        {/* Occludes the bottom of products while they are inside the box! */}
-        <img
-          src="/assets/earthglaze_luxury_box_front_crop.png"
-          alt="EarthGlaze Box Front Lip"
-          className="absolute inset-0 w-full h-full object-contain pointer-events-none select-none z-30"
-        />
-      </div>
+        {/* RIGHT COLUMN: LUXURY ORDER DETAILS CARD (passed as children) */}
+        {children && (
+          <div className="lg:col-span-7 flex flex-col justify-start w-full">
+            {children}
+          </div>
+        )}
 
-      {/* =====================================================================
-          4. ACTION BUTTONS: TRACK YOUR ORDER & CONTINUE SHOPPING
-          Deep forest-green CTA (#103321) & refined ivory secondary button
-          ===================================================================== */}
-      <div
-        ref={actionButtonsRef}
-        className="mt-6 sm:mt-8 flex flex-wrap items-center justify-center gap-3 sm:gap-4 w-full max-w-md z-30 px-4 opacity-0"
-      >
-        <Link
-          href={`/track-order?order_number=${activeOrderNum}`}
-          className="flex-1 min-w-[180px] px-6 py-3.5 bg-[#103321] hover:bg-[#173F2B] text-[#FAF7F2] font-bold text-xs sm:text-sm rounded-full transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2 group active:scale-95 cursor-pointer border border-[#173F2B]"
-        >
-          <svg className="w-4 h-4 text-[#86EFAC]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <rect x="1" y="3" width="15" height="13" />
-            <polygon points="16 8 20 8 23 11 23 16 16 16 16 8" />
-            <circle cx="5.5" cy="18.5" r="2.5" />
-            <circle cx="18.5" cy="18.5" r="2.5" />
-          </svg>
-          <span>Track Your Order</span>
-          <span className="transition-transform duration-300 group-hover:translate-x-1 font-sans">→</span>
-        </Link>
-
-        <Link
-          href="/shop"
-          className="flex-1 min-w-[170px] px-6 py-3.5 bg-[#FAF7F2] hover:bg-white text-[#103321] font-semibold text-xs sm:text-sm rounded-full transition-all duration-200 border border-[#D6CEBF] shadow-xs hover:shadow-md flex items-center justify-center gap-2 active:scale-95 cursor-pointer"
-        >
-          <svg className="w-4 h-4 text-[#15803D]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="9" cy="21" r="1" />
-            <circle cx="20" cy="21" r="1" />
-            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
-          </svg>
-          <span>Continue Shopping</span>
-        </Link>
       </div>
 
     </div>

@@ -82,15 +82,20 @@ function OrderConfirmationContent() {
     };
   }, [orderNumber]);
 
-  // Animate the bottom details card smoothly once unboxing approaches completion
+  // Animate the details card smoothly once unboxing approaches completion
   const handleUnboxingComplete = () => {
     if (summaryCardRef.current) {
-      gsap.to(summaryCardRef.current, {
-        y: 0,
-        opacity: 1,
-        duration: 0.65,
-        ease: 'power3.out',
-      });
+      gsap.fromTo(
+        summaryCardRef.current,
+        { y: 20, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.7,
+          ease: 'power3.out',
+          clearProps: 'transform',
+        }
+      );
     }
   };
 
@@ -174,17 +179,13 @@ function OrderConfirmationContent() {
       {/* =====================================================================
           MAIN ORDER CONFIRMATION CONTENT
           ===================================================================== */}
-      <main className="relative z-10 max-w-[980px] mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-6 flex-1 w-full">
+      <main className="relative z-10 max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-6 flex-1 w-full">
         
         {/* ===================================================================
-            REAL 3D HERO UNBOXING EXPERIENCE
-            1. First: Animated green success checkmark with 8 rays & pulse
-            2. Header reveals & checkmark translates upward
-            3. Genuine 3D Gift Box arrives closed
-            4. Box lid physically rotates backward on its hinge
-            5. Purchased products emerge from inside, clear front wall & arrange
-            6. Subtle breathing floating motion
-            7. Action CTAs
+            REAL 3D HERO UNBOXING EXPERIENCE & TWO-COLUMN ORDER CONFIRMATION
+            - Header & Success Checkmark centered on top
+            - Left Column: 3D Animated Luxury Gift Box + Action Buttons
+            - Right Column: Luxury Order Summary & Details Card
             =================================================================== */}
         {!loading && order ? (
           <GiftBoxUnboxing
@@ -193,131 +194,123 @@ function OrderConfirmationContent() {
             activeOrderNum={activeOrderNum}
             order={order}
             onComplete={handleUnboxingComplete}
-          />
+          >
+            {/* LUXURY ORDER DETAILS CARD (Warm Cream Palette) */}
+            <div
+              ref={summaryCardRef}
+              className="w-full bg-white/95 backdrop-blur-md rounded-[28px] border border-[#E7E2D9] p-5 sm:p-6 lg:p-7 shadow-[0_20px_50px_rgba(40,30,10,0.06)] text-[#1C1917] opacity-0"
+            >
+              <div className="grid grid-cols-1 sm:grid-cols-12 gap-5 items-start">
+                
+                {/* Left Column of Card: Elevated Order Summary Sub-Card (5 cols) */}
+                <div className="sm:col-span-5 bg-[#FAF7F2] rounded-2xl border border-[#EBE4D8] p-4 sm:p-5 shadow-xs space-y-3">
+                  <div className="flex items-center justify-between pb-2 border-b border-[#E7E2D9]">
+                    <h2 className="font-sans font-bold text-sm sm:text-base text-[#103321]">Order Summary</h2>
+                    <span className="text-[10px] sm:text-[11px] font-semibold text-[#15803D] bg-[#E8F5E9] px-2 py-0.5 rounded-full border border-[#C8E6C9]">
+                      {order?.items?.length || 1} item{(order?.items?.length || 1) !== 1 ? 's' : ''}
+                    </span>
+                  </div>
+
+                  {/* Items List */}
+                  <div className="space-y-2.5 max-h-52 overflow-y-auto pr-1">
+                    {order?.items?.map((item, idx) => (
+                      <div key={idx} className="flex items-center gap-3">
+                        <div className="w-11 h-11 rounded-xl bg-white border border-[#E7E2D9] p-1 flex items-center justify-center shrink-0 shadow-xs">
+                          <img
+                            src={getProductImage(item)}
+                            alt={item.product_name}
+                            className="max-h-full max-w-full object-contain"
+                          />
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <p className="font-sans font-bold text-xs text-[#1C1917] truncate">
+                            {item.quantity}× {item.product_name}
+                          </p>
+                          <span className="text-[11px] font-bold text-[#103321]">
+                            ₹{item.total_price || item.unit_price * item.quantity}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Quick Subtotal / Total Paid */}
+                  <div className="pt-2 border-t border-[#E7E2D9] flex justify-between items-baseline text-xs">
+                    <span className="text-stone-600 font-medium">Total Paid</span>
+                    <span className="font-sans font-bold text-base text-[#103321]">
+                      ₹{order?.total_amount}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Right Column of Card: Payment Method, Delivery Address & Estimated Delivery (7 cols) */}
+                <div ref={metaCardsContainerRef} className="sm:col-span-7 space-y-3.5 pl-0 sm:pl-2">
+                  
+                  {/* Payment Method */}
+                  <div className="flex items-start gap-3 p-3 rounded-xl bg-[#FAF7F2]/70 border border-[#EBE4D8]/70">
+                    <div className="w-8 h-8 rounded-full bg-[#E8F5E9] text-[#15803D] flex items-center justify-center shrink-0 border border-[#C8E6C9] shadow-xs">
+                      <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <rect x="2" y="5" width="20" height="14" rx="2" />
+                        <line x1="2" y1="10" x2="22" y2="10" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-xs sm:text-[13px] text-[#103321]">
+                        Payment Method
+                      </h3>
+                      <p className="text-xs text-stone-600 font-medium mt-0.5">
+                        {order?.payment_method === 'cod' ? 'Cash on Delivery (COD)' : 'Online Payment (Razorpay)'}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Estimated Delivery */}
+                  <div className="flex items-start gap-3 p-3 rounded-xl bg-[#FAF7F2]/70 border border-[#EBE4D8]/70">
+                    <div className="w-8 h-8 rounded-full bg-[#FEF3C7] text-[#B45309] flex items-center justify-center shrink-0 border border-[#FDE68A] shadow-xs">
+                      <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-xs sm:text-[13px] text-[#103321]">
+                        Estimated Delivery
+                      </h3>
+                      <p className="text-xs text-stone-600 font-medium mt-0.5">
+                        Within 2–3 Business Days
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Delivery Address */}
+                  <div className="flex items-start gap-3 p-3 rounded-xl bg-[#FAF7F2]/70 border border-[#EBE4D8]/70">
+                    <div className="w-8 h-8 rounded-full bg-[#E8F5E9] text-[#15803D] flex items-center justify-center shrink-0 border border-[#C8E6C9] shadow-xs">
+                      <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <circle cx="12" cy="12" r="9" />
+                        <circle cx="12" cy="12" r="3" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-xs sm:text-[13px] text-[#103321]">
+                        Delivery Address
+                      </h3>
+                      <p className="text-xs text-stone-600 font-medium mt-0.5 leading-relaxed">
+                        <span className="font-semibold text-[#1C1917]">{order?.customer_name || 'Ayesha N.'}</span><br />
+                        {order?.shipping_address?.address ? `${order.shipping_address.address}, ` : ''}{order?.shipping_address?.city || 'Mangalore'}, {order?.shipping_address?.state || 'Karnataka'} – {order?.shipping_address?.postal_code || '575018'}
+                      </p>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+          </GiftBoxUnboxing>
         ) : (
           <div className="w-full h-80 flex flex-col items-center justify-center space-y-3">
             <div className="w-10 h-10 rounded-full border-2 border-[#103321] border-t-transparent animate-spin" />
             <p className="text-xs font-sans text-[#103321] font-semibold tracking-wide">Preparing your botanical ritual...</p>
           </div>
         )}
-
-        {/* ===================================================================
-            LUXURY ORDER DETAILS CARD (Warm Cream Palette)
-            Rendered in Natural White (#FFFFFF) with Deep Green Headings
-            =================================================================== */}
-        <div
-          ref={summaryCardRef}
-          className="mt-8 sm:mt-10 max-w-3xl mx-auto bg-white/95 backdrop-blur-md rounded-[28px] border border-[#E7E2D9] p-5 sm:p-7 shadow-[0_20px_50px_rgba(40,30,10,0.06)] text-[#1C1917] opacity-0"
-        >
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
-            
-            {/* Left Column: Elevated Order Summary Sub-Card (5 cols) */}
-            <div className="md:col-span-5 bg-[#FAF7F2] rounded-2xl border border-[#EBE4D8] p-4 sm:p-5 shadow-xs space-y-3">
-              <div className="flex items-center justify-between pb-2 border-b border-[#E7E2D9]">
-                <h2 className="font-sans font-bold text-base text-[#103321]">Order Summary</h2>
-                <span className="text-[11px] font-semibold text-[#15803D] bg-[#E8F5E9] px-2 py-0.5 rounded-full border border-[#C8E6C9]">
-                  {order?.items?.length || 1} item{(order?.items?.length || 1) !== 1 ? 's' : ''}
-                </span>
-              </div>
-
-              {/* Items List */}
-              <div className="space-y-2.5 max-h-48 overflow-y-auto pr-1">
-                {order?.items?.map((item, idx) => (
-                  <div key={idx} className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-xl bg-white border border-[#E7E2D9] p-1 flex items-center justify-center shrink-0 shadow-xs">
-                      <img
-                        src={getProductImage(item)}
-                        alt={item.product_name}
-                        className="max-h-full max-w-full object-contain"
-                      />
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      <p className="font-sans font-bold text-xs text-[#1C1917] truncate">
-                        {item.quantity}× {item.product_name}
-                      </p>
-                      <span className="text-[11px] font-bold text-[#103321]">
-                        ₹{item.total_price || item.unit_price * item.quantity}
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Quick Subtotal / Total Paid */}
-              <div className="pt-2 border-t border-[#E7E2D9] flex justify-between items-baseline text-xs">
-                <span className="text-stone-600 font-medium">Total Paid</span>
-                <span className="font-sans font-bold text-base text-[#103321]">
-                  ₹{order?.total_amount}
-                </span>
-              </div>
-            </div>
-
-            {/* Right Column: Payment Method, Delivery Address & Estimated Delivery (7 cols) */}
-            <div ref={metaCardsContainerRef} className="md:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-5 items-start pl-0 sm:pl-3">
-              
-              {/* Sub-column 1: Payment Method + Estimated Delivery */}
-              <div className="space-y-4">
-                {/* Payment Method */}
-                <div className="flex items-start gap-3">
-                  <div className="w-9 h-9 rounded-full bg-[#E8F5E9] text-[#15803D] flex items-center justify-center shrink-0 border border-[#C8E6C9] shadow-xs">
-                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <rect x="2" y="5" width="20" height="14" rx="2" />
-                      <line x1="2" y1="10" x2="22" y2="10" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-xs sm:text-[13px] text-[#103321]">
-                      Payment Method
-                    </h3>
-                    <p className="text-xs text-stone-600 font-medium mt-0.5">
-                      {order?.payment_method === 'cod' ? 'Cash on Delivery (COD)' : 'Online Payment (Razorpay)'}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Estimated Delivery */}
-                <div className="flex items-start gap-3">
-                  <div className="w-9 h-9 rounded-full bg-[#FEF3C7] text-[#B45309] flex items-center justify-center shrink-0 border border-[#FDE68A] shadow-xs">
-                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-xs sm:text-[13px] text-[#103321]">
-                      Estimated Delivery
-                    </h3>
-                    <p className="text-xs text-stone-600 font-medium mt-0.5">
-                      Within 2–3 Business Days
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Sub-column 2: Delivery Address */}
-              <div className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <div className="w-9 h-9 rounded-full bg-[#E8F5E9] text-[#15803D] flex items-center justify-center shrink-0 border border-[#C8E6C9] shadow-xs">
-                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <circle cx="12" cy="12" r="9" />
-                      <circle cx="12" cy="12" r="3" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-xs sm:text-[13px] text-[#103321]">
-                      Delivery Address
-                    </h3>
-                    <p className="text-xs text-stone-600 font-medium mt-0.5 leading-relaxed">
-                      <span className="font-semibold text-[#1C1917]">{order?.customer_name || 'Ayesha N.'}</span><br />
-                      {order?.shipping_address?.address ? `${order.shipping_address.address}, ` : ''}{order?.shipping_address?.city || 'Mangalore'}, {order?.shipping_address?.state || 'Karnataka'} – {order?.shipping_address?.postal_code || '575018'}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-
-          </div>
-        </div>
 
       </main>
     </div>
