@@ -56,3 +56,6 @@ track_order_desktop.png
 track_order_mobile.png
 typography_*.png
 *.log
+
+deploy-production.zip
+earthglaze-build.zip

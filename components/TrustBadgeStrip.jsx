@@ -14,7 +14,7 @@ export default function TrustBadgeStrip() {
       subtitle: 'Ingredients',
       icon: (
         <svg 
-          className="w-5 h-5 sm:w-6 sm:h-6 text-[#163D26] transition-all duration-300 group-hover/badge:scale-115 group-hover/badge:-rotate-6 group-hover/badge:text-[#0E2C1B]" 
+          className="w-4 h-4 xs:w-4.5 xs:h-4.5 sm:w-5 sm:h-5 md:w-6 md:h-6 text-[#163D26] transition-all duration-300 group-hover/badge:scale-115 group-hover/badge:-rotate-6 group-hover/badge:text-[#0E2C1B]" 
           viewBox="0 0 24 24" 
           fill="none" 
           stroke="currentColor" 
@@ -35,7 +35,7 @@ export default function TrustBadgeStrip() {
       subtitle: 'with Care',
       icon: (
         <svg 
-          className="w-5 h-5 sm:w-6 sm:h-6 text-[#163D26] transition-all duration-300 group-hover/badge:scale-115 group-hover/badge:rotate-6 group-hover/badge:text-[#0E2C1B]" 
+          className="w-4 h-4 xs:w-4.5 xs:h-4.5 sm:w-5 sm:h-5 md:w-6 md:h-6 text-[#163D26] transition-all duration-300 group-hover/badge:scale-115 group-hover/badge:rotate-6 group-hover/badge:text-[#0E2C1B]" 
           viewBox="0 0 24 24" 
           fill="none" 
           stroke="currentColor" 
@@ -58,7 +58,7 @@ export default function TrustBadgeStrip() {
       subtitle: 'Formulations',
       icon: (
         <svg 
-          className="w-5 h-5 sm:w-6 sm:h-6 text-[#163D26] transition-all duration-300 group-hover/badge:scale-115 group-hover/badge:-rotate-6 group-hover/badge:text-[#0E2C1B]" 
+          className="w-4 h-4 xs:w-4.5 xs:h-4.5 sm:w-5 sm:h-5 md:w-6 md:h-6 text-[#163D26] transition-all duration-300 group-hover/badge:scale-115 group-hover/badge:-rotate-6 group-hover/badge:text-[#0E2C1B]" 
           viewBox="0 0 24 24" 
           fill="none" 
           stroke="currentColor" 
@@ -80,7 +80,7 @@ export default function TrustBadgeStrip() {
       subtitle: 'Products',
       icon: (
         <svg 
-          className="w-5 h-5 sm:w-6 sm:h-6 text-[#163D26] transition-all duration-500 group-hover/badge:scale-115 group-hover/badge:rotate-90 group-hover/badge:text-[#0E2C1B]" 
+          className="w-4 h-4 xs:w-4.5 xs:h-4.5 sm:w-5 sm:h-5 md:w-6 md:h-6 text-[#163D26] transition-all duration-500 group-hover/badge:scale-115 group-hover/badge:rotate-90 group-hover/badge:text-[#0E2C1B]" 
           viewBox="0 0 24 24" 
           fill="none" 
           stroke="currentColor" 
@@ -133,8 +133,8 @@ export default function TrustBadgeStrip() {
             </svg>
           </div>
 
-          {/* Left Decorative Fresh Botanical Leaves */}
-          <div className="absolute -left-2 sm:-left-3 top-1/2 -translate-y-1/2 pointer-events-none select-none z-10 w-14 sm:w-20 md:w-24 opacity-85 transition-transform duration-500 group-hover:scale-105 group-hover:rotate-1">
+          {/* Left Decorative Fresh Botanical Leaves - Hidden on mobile/tablet to avoid overlapping text/icons */}
+          <div className="hidden lg:block absolute -left-2 sm:-left-3 top-1/2 -translate-y-1/2 pointer-events-none select-none z-10 w-14 sm:w-20 md:w-24 opacity-85 transition-transform duration-500 group-hover:scale-105 group-hover:rotate-1">
             <svg viewBox="0 0 100 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto drop-shadow-xs">
               <path d="M0 40 C 25 35, 45 15, 60 0 C 50 20, 45 35, 30 42 C 20 46, 10 44, 0 40 Z" fill="#4B8B3B" />
               <path d="M0 45 C 30 45, 55 55, 75 42 C 55 58, 40 65, 20 60 C 10 58, 0 52, 0 45 Z" fill="#3D7330" />
@@ -143,8 +143,8 @@ export default function TrustBadgeStrip() {
             </svg>
           </div>
 
-          {/* Right Decorative Fresh Botanical Leaves */}
-          <div className="absolute -right-2 sm:-right-3 top-1/2 -translate-y-1/2 pointer-events-none select-none z-10 w-14 sm:w-20 md:w-24 opacity-85 transition-transform duration-500 group-hover:scale-105 group-hover:-rotate-1">
+          {/* Right Decorative Fresh Botanical Leaves - Hidden on mobile/tablet to avoid overlapping text/icons */}
+          <div className="hidden lg:block absolute -right-2 sm:-right-3 top-1/2 -translate-y-1/2 pointer-events-none select-none z-10 w-14 sm:w-20 md:w-24 opacity-85 transition-transform duration-500 group-hover:scale-105 group-hover:-rotate-1">
             <svg viewBox="0 0 100 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto drop-shadow-xs transform scale-x-[-1]">
               <path d="M0 40 C 25 35, 45 15, 60 0 C 50 20, 45 35, 30 42 C 20 46, 10 44, 0 40 Z" fill="#4B8B3B" />
               <path d="M0 45 C 30 45, 55 55, 75 42 C 55 58, 40 65, 20 60 C 10 58, 0 52, 0 45 Z" fill="#3D7330" />
@@ -153,34 +153,34 @@ export default function TrustBadgeStrip() {
             </svg>
           </div>
 
-          {/* 4 Interactive Badges in Horizontal Row */}
-          <div className="relative z-20 py-3.5 sm:py-4 md:py-5 px-3 sm:px-8 md:px-16 flex flex-wrap md:flex-nowrap items-center justify-between gap-y-3.5 gap-x-2">
+          {/* 4 Interactive Badges - 2x2 Grid on Mobile/Tablet, Seamless Ribbon on Desktop */}
+          <div className="relative z-20 py-3 sm:py-3.5 md:py-4 lg:py-5 px-3 sm:px-5 md:px-8 lg:px-16 grid grid-cols-2 lg:flex lg:flex-nowrap items-center justify-between gap-x-2.5 sm:gap-x-4 lg:gap-x-2 gap-y-3 sm:gap-y-3.5">
             {trustFeatures.map((item, idx) => (
               <React.Fragment key={item.id}>
                 {/* Badge Item with Staggered Entrance & Interactive Hover */}
                 <div 
-                  className={`group/badge flex-1 min-w-[125px] sm:min-w-[160px] md:min-w-0 flex items-center justify-center gap-2 sm:gap-3.5 px-1.5 sm:px-3 py-1.5 rounded-2xl sm:rounded-full hover:bg-white/80 transition-all duration-300 cursor-default stagger-${idx + 1}`}
+                  className={`group/badge min-w-0 w-full lg:w-auto lg:flex-1 flex items-center justify-start lg:justify-center gap-2 sm:gap-3 px-1 sm:px-2.5 py-1 sm:py-1.5 rounded-xl sm:rounded-2xl lg:rounded-full hover:bg-white/70 transition-all duration-300 cursor-default stagger-${idx + 1}`}
                 >
                   {/* Round Green Border Icon Container */}
-                  <div className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-full border-[1.8px] border-[#163D26] bg-white flex items-center justify-center shrink-0 shadow-2xs transition-all duration-300 group-hover/badge:border-[#C28328] group-hover/badge:scale-108 group-hover/badge:shadow-[0_4px_16px_rgba(22,61,38,0.22)]">
+                  <div className="w-8 h-8 xs:w-9 xs:h-9 sm:w-10 sm:h-10 md:w-11 md:h-11 lg:w-12 lg:h-12 rounded-full border-[1.5px] sm:border-[1.8px] border-[#163D26] bg-white flex items-center justify-center shrink-0 shadow-2xs transition-all duration-300 group-hover/badge:border-[#C28328] group-hover/badge:scale-108 group-hover/badge:shadow-[0_4px_16px_rgba(22,61,38,0.22)]">
                     {item.icon}
                   </div>
 
                   {/* Two-Line Bold Botanical Text */}
-                  <div className="text-left leading-tight">
-                    <div className="font-bold text-[12px] sm:text-[13px] md:text-[14px] text-[#163D26] tracking-tight group-hover/badge:text-[#0D2617] transition-colors whitespace-nowrap">
+                  <div className="text-left leading-tight min-w-0 flex-1">
+                    <div className="font-bold text-[11px] xs:text-[12px] sm:text-[13px] md:text-[14px] text-[#163D26] tracking-tight group-hover/badge:text-[#0D2617] transition-colors truncate lg:whitespace-nowrap">
                       {item.title}
                     </div>
-                    <div className="font-semibold text-[11px] sm:text-[12px] md:text-[13px] text-[#1F4930] tracking-tight group-hover/badge:text-[#0D2617] transition-colors whitespace-nowrap">
+                    <div className="font-medium text-[9.5px] xs:text-[10px] sm:text-[11px] md:text-[12px] lg:text-[13px] text-[#1F4930] tracking-tight group-hover/badge:text-[#0D2617] transition-colors line-clamp-1 sm:line-clamp-2 lg:line-clamp-none lg:whitespace-nowrap leading-snug">
                       {item.subtitle}
                     </div>
                   </div>
                 </div>
 
-                {/* Vertical Divider Line between items (hidden on small wraps or last item) */}
+                {/* Vertical Divider Line between items on large screens */}
                 {idx < trustFeatures.length - 1 && (
                   <div 
-                    className="hidden md:block w-[1px] h-8 bg-[#CBDED0] shrink-0" 
+                    className="hidden lg:block w-[1px] h-8 bg-[#CBDED0] shrink-0" 
                     aria-hidden="true" 
                   />
                 )}

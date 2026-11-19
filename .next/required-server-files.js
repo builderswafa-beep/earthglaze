@@ -338,7 +338,20 @@ self.__SERVER_FILES_MANIFEST={
     "turbopack": {
       "root": "D:\\earthglaze"
     },
-    "distDirRoot": ".next"
+    "distDirRoot": ".next",
+    "_originalRedirects": [
+      {
+        "source": "/:path*",
+        "has": [
+          {
+            "type": "host",
+            "value": "earthglazebeauty.com"
+          }
+        ],
+        "destination": "https://www.earthglazebeauty.com/:path*",
+        "permanent": true
+      }
+    ]
   },
   "appDir": "D:\\earthglaze",
   "relativeAppDir": "",

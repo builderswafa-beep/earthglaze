@@ -5,13 +5,14 @@ type AppRoutes = never
 type AppRouteHandlerRoutes = "/api/admin/content" | "/api/admin/coupons" | "/api/admin/customers" | "/api/admin/orders" | "/api/admin/products" | "/api/admin/stats" | "/api/auth/login" | "/api/auth/me" | "/api/auth/profile" | "/api/auth/register" | "/api/contact/submit" | "/api/products"
 type PageRoutes = never
 type LayoutRoutes = "/"
-type RedirectRoutes = never
+type RedirectRoutes = "/[[...path]]"
 type RewriteRoutes = never
 type Routes = AppRoutes | PageRoutes | LayoutRoutes | RedirectRoutes | RewriteRoutes | AppRouteHandlerRoutes
 
 
 interface ParamMap {
   "/": {}
+  "/[[...path]]": { "path"?: string[]; }
   "/api/admin/content": {}
   "/api/admin/coupons": {}
   "/api/admin/customers": {}
